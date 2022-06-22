@@ -1,6 +1,6 @@
 package com.example.demo.test;
 
-import com.example.demo.Service;
+import com.example.demo.annotation.Service;
 import com.example.demo.annotation.AutoWired;
 
 @Service
