@@ -24,7 +24,9 @@ public class TomcatServer {
      */
     public void startServer() throws LifecycleException {
         tomcat = new Tomcat();
-        tomcat.setPort(6699);
+        int port = 8080;
+        tomcat.setPort(port);
+        System.out.println("start port : " + port);
         tomcat.start();
         //初始化容器
         Context context = new StandardContext();
