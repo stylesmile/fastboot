@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.frame;
 
 import java.io.IOException;
 import java.net.JarURLConnection;

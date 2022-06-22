@@ -1,9 +1,8 @@
-package com.example.demo;
+package com.example.demo.tool;
 
 import com.example.demo.annotation.AutoWired;
 import com.example.demo.annotation.Bean;
 import com.example.demo.annotation.Controller;
-import com.example.demo.annotation.Service;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.frame;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;

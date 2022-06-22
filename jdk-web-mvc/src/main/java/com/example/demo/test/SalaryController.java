@@ -21,7 +21,6 @@ public class SalaryController {
      *
      * @param name       员工名称
      * @param experience 工龄
-     *                   http://localhost:6699/getSalary?experience=5
      */
     @RequestMapping("/getSalary")
     public Integer getSalary(@RequestParam("name") String name, @RequestParam("experience") String experience) {
@@ -29,9 +28,10 @@ public class SalaryController {
         System.out.println("获取到的参数 => name=" + name + ",experience=" + experience);
         return salaryService.calSalary(Integer.parseInt(experience));
     }
-
-    @RequestMapping("/hello")
-    public Integer getSalary2() {
-        return 1;
+    @RequestMapping("/2")
+    public Integer getSalary2(@RequestParam("name") String name, @RequestParam("experience") String experience) {
+        System.out.println("salaryService => " + salaryService);
+        System.out.println("获取到的参数 => name=" + name + ",experience=" + experience);
+        return salaryService.calSalary(Integer.parseInt(experience));
     }
 }
