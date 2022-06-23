@@ -21,7 +21,7 @@ public class SalaryController {
      *
      * @param name       员工名称
      * @param experience 工龄
-     *                   http://localhost:6699/getSalary?experience=5
+     *                   http://localhost:8080/getSalary?experience=5
      */
     @RequestMapping("/getSalary")
     public Integer getSalary(@RequestParam("name") String name, @RequestParam("experience") String experience) {

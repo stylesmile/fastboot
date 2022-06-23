@@ -1,12 +1,12 @@
-package com.example.demo.frame;
+package com.example.demo.util;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -33,8 +33,10 @@ public class ClassScanner {
                 //通过jar包的路径，获取jar包下所有的类
                 classList.addAll(getClassesFromJar(jarFilePath, path));
             } else {
-
                 //非jar包类型
+                Set<Class<?>>  classSet = ClassUtil.getClasses(packageName);
+                System.out.println(classSet);
+                classList.addAll(classSet);
             }
         }
         return classList;
