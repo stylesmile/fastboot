@@ -44,7 +44,9 @@ public class App {
         System.out.println("start server  port :" + port);
         List<Class<?>> classList = null;
         try {
-            httpServer = HttpsServer.create(new InetSocketAddress("localhost", port), 0);
+//            httpServer = HttpsServer.create(new InetSocketAddress("localhost", port), 0);
+//            httpServer = HttpServer.create(new InetSocketAddress("localhost", port), 0);
+            httpServer = HttpServer.create(new InetSocketAddress(port), 0);
             String package1 = applicationClass.getPackage().getName();
             //扫描所有的类，
             classList = ClassScanner.scanClasses(package1);

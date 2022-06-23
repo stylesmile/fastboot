@@ -12,7 +12,8 @@ import java.util.List;
 public class MyHttpHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        httpExchange.getRequestURI();
+        String url = httpExchange.getRequestURI().toString();
+        System.out.println(url);
         //获取所有Controller和内部定义的接口方法列表
         List<MappingHandler> mappingHandlerList = HandlerManager.getMappingHandlerList();
         //找到当前请求Url对应的Controller接口处理方法
