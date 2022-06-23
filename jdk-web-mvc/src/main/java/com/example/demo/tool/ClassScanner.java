@@ -32,6 +32,7 @@ public class ClassScanner {
                 //通过jar包的路径，获取jar包下所有的类
                 classList.addAll(getClassesFromJar(jarFilePath, path));
             } else {
+                //classList.addAll(ClassUtils.getClassByPackage("com.example.demo"));
                 //非jar包类型
             }
         }

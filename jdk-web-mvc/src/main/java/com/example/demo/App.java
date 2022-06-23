@@ -42,7 +42,8 @@ public class App {
         List<Class<?>> classList = null;
         try {
             httpServer = HttpsServer.create(new InetSocketAddress("localhost", 8080), 0);
-            classList = ClassScanner.scanClasses(applicationClass.getPackage().getName());
+//            classList = ClassScanner.scanClasses(applicationClass.getPackage().getName());
+            classList = ClassScanner.scanClasses("com.example.demo");
             BeanFactory.initBean(classList);
 
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
