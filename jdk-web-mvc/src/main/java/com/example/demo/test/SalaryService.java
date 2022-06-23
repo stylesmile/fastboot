@@ -9,11 +9,11 @@ public class SalaryService {
     private SalaryHelper salaryHelper;
 
     /**
-     * 计算工资
+     * 计算
      *
-     * @param experience 工龄
+     * @param count 数字
      */
-    public Integer calSalary(Integer experience) {
-        return salaryHelper.calSalary(experience);
+    public Integer calSalary(Integer count) {
+        return salaryHelper.calSalary(count);
     }
 }

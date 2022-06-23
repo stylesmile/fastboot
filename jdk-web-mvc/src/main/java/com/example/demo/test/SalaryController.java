@@ -17,19 +17,18 @@ public class SalaryController {
     private SalaryService salaryService;
 
     /**
-     * 查询工资
+     * 计算
      *
-     * @param name       员工名称
-     * @param experience 工龄
+     * @param count 数量
      */
-    @RequestMapping("/getSalary")
-    public Integer getSalary(@RequestParam("name") String name, @RequestParam("experience") String experience) {
+    @RequestMapping("/test")
+    public Integer getSalary(@RequestParam("count") String count) {
         System.out.println("salaryService => " + salaryService);
-        System.out.println("获取到的参数 => name=" + name + ",experience=" + experience);
-        return salaryService.calSalary(Integer.parseInt(experience));
+        System.out.println("获取到的参数 => ,count=" + count);
+        return salaryService.calSalary(Integer.parseInt(count));
     }
     @RequestMapping("/hello")
-    public Integer getSalary2(@RequestParam("name") String name, @RequestParam("experience") String experience) {
+    public Integer hello(@RequestParam("name") String name, @RequestParam("experience") String experience) {
         return 1;
     }
 }

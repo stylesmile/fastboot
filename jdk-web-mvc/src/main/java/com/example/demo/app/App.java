@@ -1,6 +1,7 @@
 package com.example.demo.app;
 
 import com.example.demo.Application;
+import com.example.demo.handle.HandlerManager;
 import com.example.demo.tool.BeanFactory;
 import com.example.demo.tool.ClassScanner;
 import com.sun.net.httpserver.HttpContext;
@@ -39,14 +40,17 @@ public class App {
 
     public static void start(Class<Application> applicationClass, String[] args) {
         long startTime = System.currentTimeMillis();
-        System.out.println("start server : Sun.net.HttpServer");
+        int port = 8080;
+        System.out.println("start server  port :" + port);
         List<Class<?>> classList = null;
         try {
-            httpServer = HttpsServer.create(new InetSocketAddress("localhost", 8080), 0);
-//            classList = ClassScanner.scanClasses(applicationClass.getPackage().getName());
+            httpServer = HttpsServer.create(new InetSocketAddress("localhost", port), 0);
             String package1 = applicationClass.getPackage().getName();
             classList = ClassScanner.scanClasses(package1);
             BeanFactory.initBean(classList);
+            //创建Bean工厂,扫描Class，创建被注解标注的类
+            //扫描所有的类，找到所有Controller，建立Controller中每个方法和Url的映射关系
+            HandlerManager.resolveMappingHandler(classList);
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }

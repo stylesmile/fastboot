@@ -8,11 +8,11 @@ import com.example.demo.annotation.Bean;
 @Bean
 public class SalaryHelper {
     /**
-     * 计算工资
+     * 计算
      *
-     * @param experience 工龄
+     * @param count 工龄
      */
-    public Integer calSalary(Integer experience) {
-        return experience * 5000;
+    public Integer calSalary(Integer count) {
+        return count * 5000;
     }
 }
