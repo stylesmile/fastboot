@@ -1,5 +1,7 @@
 package com.example.demo.http;
 
+import com.example.demo.tool.Utils;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -15,9 +17,11 @@ public class HttpHeaderCollection implements Iterable<HttpHeader> {
     }
 
     public String get(String name) {
-        for (int i = 0; i < count; i++)
-            if (headers[i].getName().equalsIgnoreCase(name))
+        for (int i = 0; i < count; i++) {
+            if (headers[i].getName().equalsIgnoreCase(name)) {
                 return headers[i].getValue();
+            }
+        }
         return null;
     }
 
@@ -58,11 +62,14 @@ public class HttpHeaderCollection implements Iterable<HttpHeader> {
 
     public void remove(String name) {
         int j = 0;
-        for (int i = 0; i < count; i++)
-            if (!headers[i].getName().equalsIgnoreCase(name))
+        for (int i = 0; i < count; i++) {
+            if (!headers[i].getName().equalsIgnoreCase(name)) {
                 headers[j++] = headers[i];
-        while (count > j)
+            }
+        }
+        while (count > j) {
             headers[--count] = null;
+        }
     }
 
     public Map<String, String> getParams(String name) {
