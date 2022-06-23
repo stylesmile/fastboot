@@ -28,10 +28,8 @@ public class SalaryController {
         System.out.println("获取到的参数 => name=" + name + ",experience=" + experience);
         return salaryService.calSalary(Integer.parseInt(experience));
     }
-    @RequestMapping("/2")
+    @RequestMapping("/hello")
     public Integer getSalary2(@RequestParam("name") String name, @RequestParam("experience") String experience) {
-        System.out.println("salaryService => " + salaryService);
-        System.out.println("获取到的参数 => name=" + name + ",experience=" + experience);
-        return salaryService.calSalary(Integer.parseInt(experience));
+        return 1;
     }
 }

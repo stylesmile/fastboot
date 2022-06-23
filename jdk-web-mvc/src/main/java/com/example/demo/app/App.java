@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.app;
 
+import com.example.demo.Application;
 import com.example.demo.tool.BeanFactory;
 import com.example.demo.tool.ClassScanner;
 import com.sun.net.httpserver.HttpContext;
@@ -45,7 +46,6 @@ public class App {
 //            classList = ClassScanner.scanClasses(applicationClass.getPackage().getName());
             classList = ClassScanner.scanClasses("com.example.demo");
             BeanFactory.initBean(classList);
-
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }

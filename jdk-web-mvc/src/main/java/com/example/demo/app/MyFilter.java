@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.app;
 
 import com.sun.net.httpserver.Filter;
 import com.sun.net.httpserver.HttpExchange;
