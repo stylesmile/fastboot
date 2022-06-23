@@ -46,10 +46,11 @@ public class App {
         try {
             httpServer = HttpsServer.create(new InetSocketAddress("localhost", port), 0);
             String package1 = applicationClass.getPackage().getName();
+            //扫描所有的类，
             classList = ClassScanner.scanClasses(package1);
-            BeanFactory.initBean(classList);
             //创建Bean工厂,扫描Class，创建被注解标注的类
-            //扫描所有的类，找到所有Controller，建立Controller中每个方法和Url的映射关系
+            BeanFactory.initBean(classList);
+            //找到所有Controller，建立Controller中每个方法和Url的映射关系
             HandlerManager.resolveMappingHandler(classList);
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
