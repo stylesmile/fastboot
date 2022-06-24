@@ -51,7 +51,11 @@ public class HandlerManager {
                 if (parameter.isAnnotationPresent(RequestParam.class)) {
                     String value = parameter.getDeclaredAnnotation(RequestParam.class).value();
                     paramNameList.add(value);
+                }else {
+                    String value = parameter.getName();
+                    paramNameList.add(value);
                 }
+
             }
             //参数集合转换为数组
             String[] params = paramNameList.toArray(new String[paramNameList.size()]);

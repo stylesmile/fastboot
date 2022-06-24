@@ -29,7 +29,7 @@ public class App {
     private static void start() throws IOException {
         long startTime = System.currentTimeMillis();
         System.out.println("start server : Sun.net.HttpServer");
-        httpServer = HttpsServer.create(new InetSocketAddress("localhost", 8080), 0);
+        httpServer = HttpsServer.create(new InetSocketAddress("localhost", 80), 0);
         HttpContext httpContext = httpServer.createContext("/", new MyHttpHandler());
         httpContext.getFilters().add(new MyFilter());
         httpServer.setExecutor(executor);

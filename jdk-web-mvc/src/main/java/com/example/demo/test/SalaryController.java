@@ -27,8 +27,23 @@ public class SalaryController {
         System.out.println("获取到的参数 => ,count=" + count);
         return salaryService.calSalary(Integer.parseInt(count));
     }
+
+    /**
+     * hello
+     * http://localhost:8080/hello
+     */
     @RequestMapping("/hello")
     public Integer hello(@RequestParam("name") String name, @RequestParam("experience") String experience) {
         return 1;
+    }
+
+    /**
+     * hello
+     * http://localhost:8080/hello2?name=1&pwd=2
+     * http://localhost:80/hello2?name=1&pwd=2
+     */
+    @RequestMapping("/hello2")
+    public Integer hello2(@RequestParam("name") Integer name, @RequestParam("pwd") String pwd, String pwd2) {
+        return name * 100;
     }
 }
