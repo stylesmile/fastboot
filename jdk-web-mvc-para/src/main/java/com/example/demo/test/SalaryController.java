@@ -37,25 +37,24 @@ public class SalaryController {
 //        return 1;
 //    }
 //
-//    /**
-//     * hello
-//     * http://localhost:8080/hello2?name=1&pwd=2
-//     * http://localhost:80/hello2?name=1&pwd=2
-//     */
-//    @RequestMapping("/hello2")
-////    public Integer hello2(@RequestParam("name") Integer name, @RequestParam("pwd") String pwd, String pwd2) {
-//    public Integer hello2(@RequestParam("name") Integer name, @RequestParam("pwd") String pwd) {
-//        return name * 100;
-//    }
-
     /**
-     *
-     * http://localhost:8080/hello3?name=1&id=2
-     * http://localhost:8080/hello3?user="{"id":1,"name":2}"
-     * http://localhost:8080/hello3?user="{'id':1,'name':'2'}"
+     * hello
+     * http://localhost:8080/hello2?name=1&pwd=2
+     * http://localhost:80/hello2?name=1&pwd=2
      */
-    @RequestMapping("/hello3")
-    public Integer hello2(@RequestParam("user") User user) {
-        return user.getId() * 100;
+    @RequestMapping("/hello2")
+    public Integer hello2(@RequestParam("name") Integer name, @RequestParam("pwd") String pwd) {
+        return name * 100;
     }
+
+//    /**
+//     *
+//     * http://localhost:8080/hello3?name=1&id=2
+//     * http://localhost:8080/hello3?user="{"id":1,"name":2}"
+//     * http://localhost:8080/hello3?user="{'id':1,'name':'2'}"
+//     */
+//    @RequestMapping("/hello3")
+//    public Integer hello2(@RequestParam("user") User user) {
+//        return user.getId() * 100;
+//    }
 }
