@@ -8,14 +8,19 @@ import com.sun.net.httpserver.HttpServer;
 
 public class HBServer {
 
-    public static void main( String[] args ){
+    public static void main(String[] args) {
         HttpServer httpServer;
         try {
-            httpServer = HttpServer.create(new InetSocketAddress(16621), 0);
-            httpServer.createContext("/op", new OpHandler());
+            long time1 = System.currentTimeMillis();
+            httpServer = HttpServer.create(new InetSocketAddress(9090), 0);
+            httpServer.createContext("/opt", new OpHandler());
             // 放到线程池里执行
             httpServer.setExecutor(Executors.newCachedThreadPool());
             httpServer.start();
-        } catch (IOException e) { e.printStackTrace(); }
+            long time2 = System.currentTimeMillis();
+            System.out.println("started in " + (time2 - time1) + "ms");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

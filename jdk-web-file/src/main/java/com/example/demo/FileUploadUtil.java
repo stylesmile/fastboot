@@ -46,6 +46,9 @@ public class FileUploadUtil {
                     isStart = false;
                     if (info != null && info.fileName != null) {
                         file = new File("E://temp/" + info.fileName);
+                        if (!file.getParentFile().exists()) {
+                            file.createNewFile();
+                        }
                         if (!file.exists()) {
                             file.createNewFile();
                         }
