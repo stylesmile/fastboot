@@ -73,7 +73,7 @@ public class MappingHandler {
         parseGetParameters(httpExchange, parameterMap);
         //解析post参数
         parsePostParameters(httpExchange, parameterMap);
-        httpExchange.setAttribute("parameters", parameterMap);
+//        httpExchange.setAttribute("parameters", parameterMap);
         Object[] parameters = new Object[args.length];
         List<Object> parameters2 = new CopyOnWriteArrayList<>();
 //        for (int i = 0; i < args.length; ) {
@@ -82,13 +82,14 @@ public class MappingHandler {
 //            i++;
 //        }
         for (int i = 0; i < args2.length; i++) {
+
             String parameterType = args2[i].getParameterizedType().getTypeName();
             if (parameterType.equals("com.sun.net.httpserver.HttpExchange")) {
                 parameters2.add(httpExchange);
-            } else {
-                Object o = parameterMap.get(args2[i]);
-                buildParameters(parameters2, parameterType, o);
+                continue;
             }
+            Object o = parameterMap.get(args2[i].getName());
+            buildParameters(parameters2, parameterType, o);
         }
         //从缓存中取出Controller，启动时就已经创建Controller实例了
         Object ctl = BeanFactory.getBean(controller);
@@ -98,12 +99,13 @@ public class MappingHandler {
         Object[] strArray = (Object[]) parameters2.toArray();
         Object response = method.invoke(ctl, strArray);
         //将响应结果写到外面
-        outputStream.write(response.toString().getBytes(StandardCharsets.UTF_8));
+//        outputStream.write(response.toString().getBytes(StandardCharsets.UTF_8));
+        outputStream.write(Integer.parseInt(response.toString()));
         return true;
     }
 
     private void buildParameters(List<Object> parameters2, String parameterType, Object o) {
-        if(o != null){
+        if (o != null) {
             switch (parameterType) {
                 case "java.lang.Boolean":
                     parameters2.add(Boolean.valueOf(o.toString()));

@@ -69,13 +69,13 @@ public class MappingHandler {
             InvocationTargetException, IOException {
         //获取请求路径
         String url = httpExchange.getRequestURI().getPath();
-        InputStream inputStream = httpExchange.getRequestBody();
+//        InputStream inputStream = httpExchange.getRequestBody();
         //String requestBody = Utils.readLine(inputStream);
         //System.out.println("requestBody: " + requestBody);
-        byte[] bytes = inputStream.readAllBytes();
-        for (Byte b : bytes) {
-            System.out.print(b);
-        }
+//        byte[] bytes = inputStream.readAllBytes();
+//        for (Byte b : bytes) {
+//            System.out.print(b);
+//        }
         OutputStream outputStream = httpExchange.getResponseBody();
         //不是当前的Controller处理，直接返回
         if (!url.equals(uri)) {
@@ -100,8 +100,9 @@ public class MappingHandler {
         //从缓存中取出Controller，启动时就已经创建Controller实例了
         Object ctl = BeanFactory.getBean(controller);
         //调用对应的接口方法，并获取响应结果
-//        Object response = method.invoke(ctl);
-        Object response = method.invoke(ctl, parameters);
+        Object response = method.invoke(ctl);
+//        Object response = method.invoke(ctl, parameters);
+        //将响应结果写到外面
         //将响应结果写到外面
         outputStream.write(response.toString().getBytes(StandardCharsets.UTF_8));
         return true;

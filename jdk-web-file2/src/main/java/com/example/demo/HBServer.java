@@ -12,8 +12,8 @@ public class HBServer {
         HttpServer httpServer;
         try {
             long time1 = System.currentTimeMillis();
-            httpServer = HttpServer.create(new InetSocketAddress(8080), 0);
-            httpServer.createContext("/", new OpHandler());
+            httpServer = HttpServer.create(new InetSocketAddress(9090), 0);
+            httpServer.createContext("/opt", new OpHandler());
             // 放到线程池里执行
             httpServer.setExecutor(Executors.newCachedThreadPool());
             httpServer.start();

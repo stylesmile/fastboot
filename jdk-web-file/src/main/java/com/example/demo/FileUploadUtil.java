@@ -13,8 +13,6 @@ public class FileUploadUtil {
     private FileUploadUtil() {
     }
 
-    ;
-
     public static class RequestFileItem {
         public String fileName;
         public String boundary;
@@ -30,13 +28,14 @@ public class FileUploadUtil {
     private static RequestFileItem info;
 
     public static void fileUpload(HttpExchange he) {
+        OutputStream os = null;
         try {
             InputStream is = he.getRequestBody();
             BufferedInputStream bis = new BufferedInputStream(is);
             byte[] buffer = new byte[1024];//前三行一定小于1024个byte
             int length = 0;
             File file;
-            OutputStream os = null;
+
             boolean isStart = true;
             while ((length = bis.read(buffer)) != -1) {
                 //判断是不是文件的分隔符,不是的话,读到临时文件中
@@ -45,7 +44,7 @@ public class FileUploadUtil {
                     int startReadIndex = getFileReadIndex(buffer);
                     isStart = false;
                     if (info != null && info.fileName != null) {
-                        file = new File("E://temp/" + info.fileName);
+                        file = new File("c://temp//" + info.fileName);
                         if (!file.getParentFile().exists()) {
                             file.createNewFile();
                         }
@@ -54,13 +53,13 @@ public class FileUploadUtil {
                         }
                         os = new FileOutputStream(file);
                         byte[] realData = cartByte(buffer, startReadIndex, buffer.length - startReadIndex);
-                        if (new String(realData).contains("-")) {
-                            //文件非常小,第一个1024字节就包含了文件
-                            realData = cartByte(realData, 0, getIndexOf(realData, "-".getBytes()) - "\r\n-".getBytes().length);
-                            os.write(realData);
-                            os.close();
-                            break;
-                        }
+//                        if (new String(realData).contains("-")) {
+//                            //文件非常小,第一个1024字节就包含了文件
+//                            realData = cartByte(realData, 0, getIndexOf(realData, "-".getBytes()) - "\r\n-".getBytes().length);
+//                            os.write(realData);
+//                            os.close();
+//                            break;
+//                        }
                         os.write(buffer, startReadIndex, buffer.length - startReadIndex);
                         continue;
                     }
@@ -81,6 +80,13 @@ public class FileUploadUtil {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        finally {
+            try {
+                os.close();
+            }catch (Exception e){
+
+            }
         }
     }
 

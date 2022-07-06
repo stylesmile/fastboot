@@ -34,6 +34,7 @@ public class SalaryController {
      */
     @RequestMapping("/hello")
     public Integer hello(@RequestParam("name") String name, @RequestParam("experience") String experience) {
+
         return 1;
     }
 
@@ -43,7 +44,7 @@ public class SalaryController {
      * http://localhost:80/hello2?name=1&pwd=2
      */
     @RequestMapping("/hello2")
-    public Integer hello2(@RequestParam("name") Integer name, @RequestParam("pwd") String pwd, String pwd2) {
+    public Integer hello2(@RequestParam("name") Integer name, @RequestParam("pwd") String pwd) {
         return name * 100;
     }
 }
