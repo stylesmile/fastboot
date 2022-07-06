@@ -55,10 +55,10 @@ public class MappingHandler {
         InputStream inputStream = httpExchange.getRequestBody();
         //String requestBody = Utils.readLine(inputStream);
         //System.out.println("requestBody: " + requestBody);
-        byte[] bytes = inputStream.readAllBytes();
-        for (Byte b : bytes) {
-            System.out.print(b);
-        }
+//        byte[] bytes = inputStream.readAllBytes();
+//        for (Byte b : bytes) {
+//            System.out.print(b);
+//        }
         OutputStream outputStream = httpExchange.getResponseBody();
         //不是当前的Controller处理，直接返回
         if (!url.equals(uri)) {
