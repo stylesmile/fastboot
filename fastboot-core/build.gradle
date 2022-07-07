@@ -42,18 +42,21 @@ task sourcesJar(type: Jar) {
 artifacts {
     archives javadocJar, sourcesJar
 }
-signing {
-    sign configurations.archives
-}
+//signing {
+//    sign configurations.archives
+//}
+//signing {
+//    sign publishing.publications.mavenJava
+//}
 
 uploadArchives {
     repositories {
         mavenDeployer {
             repository(url: 'https://s01.oss.sonatype.org/content/repositories/snapshots/') {
-                authentication(
-                        userName: 'Stylesmile',
-                        password: '3986694@qAb94@q'
-                )
+//                authentication(
+//                        userName: 'Stylesmile',
+//                        password: '123456'
+//                )
             }
 //            snapshotRepository(url: 'https://packages.aliyun.com/maven/repository/2078992-snapshot-58GD2s/') {
 //                authentication(
