@@ -12,6 +12,7 @@ import java.lang.annotation.*;
 public @interface RequestParam {
     /**
      * 指定请求参数的key
+     * @return String
      */
     String value();
 }

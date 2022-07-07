@@ -11,6 +11,7 @@ import java.lang.annotation.*;
 public @interface RequestMapping {
     /**
      * Url
+     * @return String
      */
     String value();
 }

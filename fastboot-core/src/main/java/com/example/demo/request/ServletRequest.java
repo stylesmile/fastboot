@@ -63,7 +63,11 @@ public interface ServletRequest {
 
 //    RequestDispatcher getRequestDispatcher(String var1);
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     * @param var1 参数
+     * @return String
+     */
     String getRealPath(String var1);
 
     int getRemotePort();

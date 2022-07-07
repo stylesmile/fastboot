@@ -141,7 +141,10 @@ public class FileUploadUtil {
     /**
      * 获取byte[]指定起始位置的数组
      *
-     * @param source
+     * @param source     源
+     * @param beginIndex 开始
+     * @param endIndex   结束
+     * @return byte
      */
     public static byte[] cartByte(byte[] source, int beginIndex, int endIndex) {
         if (source == null || source.length <= 0 || endIndex - beginIndex <= 0) {

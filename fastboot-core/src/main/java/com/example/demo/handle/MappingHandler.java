@@ -45,9 +45,13 @@ public class MappingHandler {
     }
 
     /**
-     * 处理方法
-     *
+     *  处理方法
+     * @param httpExchange httpExchange
      * @return 是否处理了
+     * @throws IllegalAccessException 异常
+     * @throws InstantiationException 异常
+     * @throws InvocationTargetException 异常
+     * @throws IOException 异常
      */
     public boolean handle(HttpExchange httpExchange) throws IllegalAccessException, InstantiationException,
             InvocationTargetException, IOException {

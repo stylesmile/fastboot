@@ -5,8 +5,7 @@ import java.net.URL;
 import java.util.Enumeration;
 
 /**
- * @author lingkang
- * @date 2021/12/3
+ * @author Stylesmile
  */
 public class ClassUtils {
 	// getClassName("top.lingkang.demohibernate.entity")

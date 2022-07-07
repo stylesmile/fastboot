@@ -22,6 +22,8 @@ public class BeanFactory {
 
     /**
      * 获取一个Bean
+     * @param cls 类
+     * @return Object
      */
     public static Object getBean(Class<?> cls) {
         return classToBean.get(cls);
@@ -29,8 +31,9 @@ public class BeanFactory {
 
     /**
      * 初始化Bean的方法
-     *
-     * @param classList 所有类列表
+     * @param classList  所有类列表
+     * @throws InstantiationException 异常
+     * @throws IllegalAccessException 异常
      */
     public static void initBean(List<Class<?>> classList) throws InstantiationException, IllegalAccessException {
         ArrayList<Class<?>> toCreate = new ArrayList<>(classList);
