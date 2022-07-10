@@ -11,7 +11,8 @@
     <description>java web project for Fast Boot</description>
     <properties>
         <java.version>1.8</java.version>
-        <fastboot.version>0.1.0-SNAPSHOT</fastboot.version>
+<!--        <fastboot.version>0.1.1</fastboot.version>-->
+        <fastboot.version>0.1.1-snapshots</fastboot.version>
     </properties>
     <modules>
         <!--        <module>fastboot-parent</module>-->
@@ -48,7 +49,6 @@
         <developerConnection>scm:git:ssh://git@github.com:stylesmile/fastboot.git</developerConnection>
         <url>https://github.com/stylesmile/fastboot</url>
     </scm>
-
     <profiles>
         <profile>
             <!--注意,此id必须与setting.xml中指定的一致,不要自作聪明改它名字-->
@@ -60,19 +60,19 @@
                 <!--发布到中央SNAPSHOT仓库插件-->
                 <plugins>
                     <!-- GPG -->
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.maven.plugins</groupId>-->
-<!--                        <artifactId>maven-gpg-plugin</artifactId>-->
-<!--                        <version>1.5</version>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                <phase>verify</phase>-->
-<!--                                <goals>-->
-<!--                                    <goal>sign</goal>-->
-<!--                                </goals>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                    </plugin>-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
 
 
                     <!-- Source -->
@@ -104,21 +104,20 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
-<!--                                <configuration>-->
-<!--                                    <additionalparam>-Xdoclint:none</additionalparam>-->
-<!--                                </configuration>-->
+                                <configuration>
+                                    <additionalparam>-Xdoclint:none</additionalparam>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
-
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.8</version>
+                        <version>1.6.7</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>oss</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
@@ -130,8 +129,8 @@
                     <!--注意,此id必须与setting.xml中指定的一致-->
                     <id>ossrh</id>
                     <name>snapshots</name>
-<!--                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>-->
-                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+<!--                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
 
                 </snapshotRepository>
                 <repository>

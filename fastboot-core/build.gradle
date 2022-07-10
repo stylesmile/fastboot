@@ -75,8 +75,8 @@ uploadArchives {
                 url 'https://github.com/stylesmile/fastboot/'
 
                 scm {
-                    connection 'scm:svn:https://github.com/stylesmile/fastboot//'
-                    developerConnection 'scm:svn:https://github.com/stylesmile/fastboot//'
+                    connection 'scm:git:https://github.com/stylesmile/fastboot/'
+                    developerConnection 'scm:git:https://github.com/stylesmile/fastboot.git'
                     url 'https://github.com/stylesmile/fastboot/'
                 }
 

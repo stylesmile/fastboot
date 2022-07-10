@@ -10,7 +10,7 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.stylesimle</groupId>
+	<groupId>io.github.stylesmile</groupId>
 	<artifactId>fastboot-core</artifactId>
 	<version>${fastboot.version}</version>
 	<name>fastboot-core</name>
