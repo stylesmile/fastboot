@@ -4,16 +4,46 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>${fastboot.version}</version>
+    <version>0.1.4</version>
     <name>fastboot-parent</name>
     <packaging>pom</packaging>
-
-    <description>java web project for Fast Boot</description>
     <properties>
         <java.version>1.8</java.version>
-<!--        <fastboot.version>0.1.1-snapshots</fastboot.version>-->
-        <fastboot.version>0.1.1</fastboot.version>
+        <!--        <fastboot.version>0.1.1-snapshots</fastboot.version>-->
+        <fastboot.version>0.1.4</fastboot.version>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.stylesimle</groupId>
+                <artifactId>fastboot-core</artifactId>
+                <version>0.1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.5.9</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>2.0.8</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>2.0.8</version>
+        </dependency>
+    </dependencies>
+    <description>java web project for Fast Boot</description>
     <modules>
         <!--        <module>fastboot-parent</module>-->
         <module>fastboot-core</module>
@@ -59,6 +89,7 @@
             <build>
                 <!--发布到中央SNAPSHOT仓库插件-->
                 <plugins>
+
                     <!-- GPG -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -143,14 +174,12 @@
         </profile>
 
     </profiles>
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
-        </dependency>
-    </dependencies>
     <repositories>
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo2.maven.org/maven2/</url>
+        </repository>
         <repository>
             <id>ali</id>
             <url>https://maven.aliyun.com/repository/public</url>
@@ -162,18 +191,19 @@
             <url>https://maven.aliyun.com/repository/public</url>
         </pluginRepository>
     </pluginRepositories>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.stylesimle</groupId>
-                <artifactId>fastboot-core</artifactId>
-                <version>${fastboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>3.5.9</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <compilerArgument>-parameters</compilerArgument>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

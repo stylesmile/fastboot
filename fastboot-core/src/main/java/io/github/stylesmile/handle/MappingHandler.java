@@ -1,5 +1,7 @@
 package io.github.stylesmile.handle;
 
+import com.alibaba.fastjson2.JSON;
+import com.sun.net.httpserver.Headers;
 import io.github.stylesmile.tool.BeanFactory;
 import com.sun.net.httpserver.HttpExchange;
 
@@ -9,6 +11,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.net.URI;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -44,26 +47,19 @@ public class MappingHandler {
     }
 
     /**
-     *  处理方法
+     * 处理方法
+     *
      * @param httpExchange httpExchange
      * @return 是否处理了
-     * @throws IllegalAccessException 异常
-     * @throws InstantiationException 异常
+     * @throws IllegalAccessException    异常
+     * @throws InstantiationException    异常
      * @throws InvocationTargetException 异常
-     * @throws IOException 异常
+     * @throws IOException               异常
      */
     public boolean handle(HttpExchange httpExchange) throws IllegalAccessException, InstantiationException,
             InvocationTargetException, IOException {
         //获取请求路径
         String url = httpExchange.getRequestURI().getPath();
-        InputStream inputStream = httpExchange.getRequestBody();
-        //String requestBody = Utils.readLine(inputStream);
-        //System.out.println("requestBody: " + requestBody);
-//        byte[] bytes = inputStream.readAllBytes();
-//        for (Byte b : bytes) {
-//            System.out.print(b);
-//        }
-        OutputStream outputStream = httpExchange.getResponseBody();
         //不是当前的Controller处理，直接返回
         if (!url.equals(uri)) {
             return false;
@@ -97,13 +93,26 @@ public class MappingHandler {
         //从缓存中取出Controller，启动时就已经创建Controller实例了
         Object ctl = BeanFactory.getBean(controller);
         //调用对应的接口方法，并获取响应结果
-//        Object response = method.invoke(ctl);
-//        Object response = method.invoke(ctl, parameters);
         Object[] strArray = (Object[]) parameters2.toArray();
         Object response = method.invoke(ctl, strArray);
+        String responseString;
+        if (response instanceof String) {
+            responseString = response.toString();
+        } else if (response instanceof Integer) {
+            responseString = response.toString();
+        } else {
+            responseString = JSON.toJSONString(response);
+        }
+        OutputStream outputStream = httpExchange.getResponseBody();
+        Headers headers = httpExchange.getResponseHeaders();
+        headers.set("Content-Type", "application/json; charset=utf-8");
+        headers.set("Access-Control-Allow-Origin", "*");
+        headers.set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+        headers.set("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept");
+
+        httpExchange.sendResponseHeaders(200, responseString.length());
         //将响应结果写到外面
-//        outputStream.write(response.toString().getBytes(StandardCharsets.UTF_8));
-        outputStream.write(Integer.parseInt(response.toString()));
+        outputStream.write(responseString.getBytes(StandardCharsets.UTF_8));
         return true;
     }
 

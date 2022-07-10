@@ -4,21 +4,31 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.3</version>
     <name>fastboot-example</name>
     <description>Demo project for Fast Boot</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
     <modules>
-<!--        <module>fastboot-core</module>-->
+        <!--        <module>fastboot-core</module>-->
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>org.stylesimle</groupId>
             <artifactId>fastboot-core</artifactId>
-            <version>0.1.1</version>
+            <version>0.1.3</version>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>maven1</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+        <repository>
+            <id>maven2</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
 </project>

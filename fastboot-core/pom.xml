@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>io.github.stylesmile</groupId>
 		<artifactId>fastboot-parent</artifactId>
-		<version>${fastboot.version}</version>
+		<version>0.1.4</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -19,20 +19,5 @@
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
-	<build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<compilerArgument>-parameters</compilerArgument>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

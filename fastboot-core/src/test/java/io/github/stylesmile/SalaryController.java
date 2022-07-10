@@ -34,11 +34,10 @@ public class SalaryController {
      * hello
      * http://localhost:8080/hello
      */
-//    @RequestMapping("/hello")
-//    public Integer hello(@RequestParam("name") String name, @RequestParam("experience") String experience) {
-//        return 1;
-//    }
-//
+    @RequestMapping("/hello")
+    public String hello() {
+        return "hello world";
+    }
 
     /**
      * hello
