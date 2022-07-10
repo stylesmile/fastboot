@@ -6,8 +6,6 @@ import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.app.App;
 
 /**
- * 测试入口类
- *
  * @author stylesmile
  */
 @Controller
