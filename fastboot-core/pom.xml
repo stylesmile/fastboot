@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<parent>
-		<groupId>org.stylesmile</groupId>
+		<groupId>io.github.stylesmile</groupId>
 		<artifactId>fastboot-parent</artifactId>
 		<version>${fastboot.version}</version>
 		<relativePath>../pom.xml</relativePath>
@@ -12,7 +12,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.stylesimle</groupId>
 	<artifactId>fastboot-core</artifactId>
-	<version>0.0.1</version>
+	<version>${fastboot.version}</version>
 	<name>fastboot-core</name>
 	<packaging>jar</packaging>
 	<description>Demo project for Spring Boot</description>
