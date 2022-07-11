@@ -21,7 +21,7 @@
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
                 <artifactId>fastboot-parent</artifactId>
-                <version>0.1.7-M1</version>
+                <version>0.1.7-M2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -31,14 +31,13 @@
         <dependency>
             <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-core</artifactId>
-            <version>0.1.7-M1</version>
         </dependency>
     </dependencies>
     <repositories>
-        <!--        <repository>-->
-        <!--            <id>ali</id>-->
-        <!--            <url>https://maven.aliyun.com/repository/public/</url>-->
-        <!--        </repository>-->
+<!--        <repository>-->
+<!--            <id>ali</id>-->
+<!--            <url>https://maven.aliyun.com/repository/public/</url>-->
+<!--        </repository>-->
         <repository>
             <id>maven1</id>
             <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>

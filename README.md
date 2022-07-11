@@ -16,7 +16,7 @@
         <parent>
             <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-parent</artifactId>
-            <version>0.1.6</version>
+            <version>0.1.7-M2</version>
         </parent>
 ```
 ```maven
@@ -42,5 +42,12 @@ public class Application {
         return "hello fastboot";
     }
 }
+```
+####发布最新版后，其他各个镜像仓库可能没有马上更新，可以用maven中央仓库原仓库下载
+```maven
+        <repository>
+            <id>maven1</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
 ```
 

@@ -10,16 +10,6 @@ repositories {
     maven {url "https://repo2.maven.org/maven2/"}
     mavenCentral()
 }
-//jar {
-////    from {
-////        //添加依懒到打包文件
-////        //configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-////        configurations.runtime.collect{zipTree(it)}
-////    }
-//    manifest {
-//        attributes 'Main-Class': 'com.demo.Application'
-//    }
-//}
 
 jar {
     //详细信息参考 https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
@@ -40,33 +30,18 @@ jar {
 }
 
 
-//jar {
-//    String someString = ''
-//    //通过configurations.runtime拿到所有的运行时的依赖jar包，然后.each遍历他，通过it.name获取到每个的jar包的name，赋值
-//    //遍历项目的所有依赖的jar包赋值给变量
-//    configurations.runtime.each {someString = someString + " lib\\"+it.name}someString
-//    manifest {
-//        attributes 'Main-Class': 'com.demo.Application'
-//        attributes 'Class-Path': 'com.demo'
-//    }
-//}
-////建立函数copyJar 用于把依赖的jar复制到对应的目录下
-//task copyJar(type:Copy){
-//    from configurations.runtime
-//    into ('build/libs/lib')
-//
-//}
-////函数release即是我们打包的时候的执行的函数，dependsOn[build,copyJar]这里会让执行relese函数的时候先执行build（系统自带的函数） 和copyJar
-//task release(type: Copy,dependsOn: [build,copyJar]) {
-//    //    from  'conf'
-//    //   into ('build/libs/eachend/conf')
-//}
 dependencies {
-    implementation 'io.github.stylesmile:fastboot-core:0.1.4'
+//    implementation "io.github.stylesmile:fastboot-parent:0.1.7-M1"
+    implementation 'io.github.stylesmile:fastboot-core:0.1.7-M1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
+//dependencyManagement {
+//    imports {
+//        mavenBom "io.github.stylesmile:fastboot-parent:0.1.7-M1"
+//    }
+//}
 test {
     useJUnitPlatform()
 }
