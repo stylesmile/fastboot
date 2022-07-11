@@ -25,6 +25,49 @@
             <artifactId>fastboot-core</artifactId>
         </dependency>
 ```
+```gradle
+plugins {
+    id 'java'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+repositories {
+    maven {url "https://s01.oss.sonatype.org/content/repositories/releases/"}
+    maven {url "https://repo2.maven.org/maven2/"}
+    mavenCentral()
+}
+jar {
+    //详细信息参考 https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
+    archivesBaseName = 'fastboot-demo'//基本的文件名
+    archiveVersion = '0.0.1' //版本
+    manifest { //配置jar文件的manifest
+        attributes(
+                "Manifest-Version": 1.0,
+                'Main-Class': 'com.example.Application' //指定main方法所在的文件
+        )
+    }
+    //打包依赖包
+    from {
+        (configurations.runtimeClasspath).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+dependencies {
+    implementation 'io.github.stylesmile:fastboot-core'
+}
+dependencyManagement {
+    imports {
+        mavenBom 'io.github.stylesmile:fastboot-parent:0.1.7-M2'
+    }
+}
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+```
 ```java
 
 import io.github.stylesmile.annotation.Controller;
