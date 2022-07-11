@@ -4,20 +4,20 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>0.1.7</version>
+    <version>0.1.8-m1</version>
     <name>fastboot-parent</name>
     <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
         <!--        <fastboot.version>0.1.1-snapshots</fastboot.version>-->
-        <fastboot.version>0.1.7</fastboot.version>
+        <fastboot.version>0.1.8-m1</fastboot.version>
     </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
                 <artifactId>fastboot-core</artifactId>
-                <version>0.1.7</version>
+                <version>0.1.8-m1</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis</groupId>
@@ -41,6 +41,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
     <description>java web project for Fast Boot</description>
