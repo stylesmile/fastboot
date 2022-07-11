@@ -1,9 +1,9 @@
 package io.github.stylesmile.handle;
 
-import cn.hutool.json.JSONUtil;
 import com.sun.net.httpserver.Headers;
 import io.github.stylesmile.tool.BeanFactory;
 import com.sun.net.httpserver.HttpExchange;
+import io.github.stylesmile.tool.JsonGsonUtil;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -101,7 +101,7 @@ public class MappingHandler {
         } else if (response instanceof Integer) {
             responseString = response.toString();
         } else {
-            responseString = JSONUtil.toJsonStr(response);
+            responseString = JsonGsonUtil.BeanToJson(response);
         }
         OutputStream outputStream = httpExchange.getResponseBody();
         Headers headers = httpExchange.getResponseHeaders();
