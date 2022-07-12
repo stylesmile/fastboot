@@ -19,30 +19,17 @@ import java.util.concurrent.TimeUnit;
 
 public class App {
     private static HttpServer httpServer = null;
-    private static ExecutorService executor = new ThreadPoolExecutor(10, 20,
+    private static ExecutorService executor = new ThreadPoolExecutor(5, 20,
             60L, TimeUnit.SECONDS,
             new ArrayBlockingQueue(10));
-
-    public static void main(String[] args) throws Throwable {
-        start();
-    }
-
-    private static void start() throws IOException {
-        long startTime = System.currentTimeMillis();
-        System.out.println("start server : Sun.net.HttpServer");
-        httpServer = HttpsServer.create(new InetSocketAddress("localhost", 80), 0);
-        HttpContext httpContext = httpServer.createContext("/", new MyHttpHandler());
-        httpContext.getFilters().add(new MyFilter());
-        httpServer.setExecutor(executor);
-        httpServer.start();
-        long endTime = System.currentTimeMillis();
-        System.out.println("started in : " + (endTime - startTime) + "ms");
-    }
 
     public static void start(Class applicationClass, String[] args) {
         long startTime = System.currentTimeMillis();
         Integer port = 8080;
-        String portString = PropertyUtil.props.getProperty("server.port");
+        PropertyUtil.loadProps("application.properties");
+//        PropertyUtil.loadProps("classpath:application.properties");
+//        String portString = PropertyUtil.props.getProperty("server.port","8080");
+        String portString = PropertyUtil.props.getProperty("server.port","8080");
         if (StringUtil.isNotEmpty(portString)) {
             port = Integer.valueOf(portString);
         }
