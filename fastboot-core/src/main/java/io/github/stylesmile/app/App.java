@@ -6,6 +6,8 @@ import io.github.stylesmile.tool.ClassScanner;
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpsServer;
+import io.github.stylesmile.tool.PropertyUtil;
+import io.github.stylesmile.tool.StringUtil;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -37,9 +39,13 @@ public class App {
         System.out.println("started in : " + (endTime - startTime) + "ms");
     }
 
-    public  static void start(Class applicationClass, String[] args) {
+    public static void start(Class applicationClass, String[] args) {
         long startTime = System.currentTimeMillis();
-        int port = 8080;
+        Integer port = 8080;
+        String portString = PropertyUtil.props.getProperty("server.port");
+        if (StringUtil.isNotEmpty(portString)) {
+            port = Integer.valueOf(portString);
+        }
         System.out.println("start server  port :" + port);
         List<Class<?>> classList = null;
         try {
