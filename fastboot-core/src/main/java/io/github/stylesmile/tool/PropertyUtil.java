@@ -24,7 +24,7 @@ public class PropertyUtil {
                 clazz = PropertyUtil.class;
             }
             //<!--第一种，通过类加载器进行获取properties文件流-->
-            in = PropertyUtil.class.getClassLoader().getResourceAsStream(path);
+            in = clazz.getClassLoader().getResourceAsStream(path);
 //			in = PropertyUtil.class.getClassLoader().getResourceAsStream("application.properties");
             //<!--第二种，通过类进行获取properties文件流-->
 
