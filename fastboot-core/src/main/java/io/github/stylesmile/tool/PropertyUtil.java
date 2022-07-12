@@ -15,17 +15,20 @@ public class PropertyUtil {
     //	static{
 //		loadProps();
 //	}
-    synchronized static public void loadProps(String path) {
+    synchronized static public void loadProps(Class clazz, String path) {
 //		logger.info("开始加载properties文件内容.......");
         props = new Properties();
         InputStream in = null;
         try {
+            if (clazz == null) {
+                clazz = PropertyUtil.class;
+            }
             //<!--第一种，通过类加载器进行获取properties文件流-->
-//			in = PropertyUtil.class.getClassLoader().getResourceAsStream("jdbc.properties");
             in = PropertyUtil.class.getClassLoader().getResourceAsStream(path);
 //			in = PropertyUtil.class.getClassLoader().getResourceAsStream("application.properties");
             //<!--第二种，通过类进行获取properties文件流-->
-            //in = PropertyUtil.class.getResourceAsStream("/jdbc.properties");
+
+//            in = clazz.getResourceAsStream("/application.properties");
             props.load(in);
             System.out.println(props.getProperty("server.port"));
         } catch (FileNotFoundException e) {
@@ -47,14 +50,14 @@ public class PropertyUtil {
 
     public static String getProperty(String key) {
         if (null == props) {
-            loadProps(null);
+            loadProps(null, null);
         }
         return props.getProperty(key);
     }
 
     public static String getProperty(String key, String defaultValue) {
         if (null == props) {
-            loadProps(null);
+            loadProps(null, null);
         }
         return props.getProperty(key, defaultValue);
     }

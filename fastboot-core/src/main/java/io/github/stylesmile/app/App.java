@@ -26,10 +26,10 @@ public class App {
     public static void start(Class applicationClass, String[] args) {
         long startTime = System.currentTimeMillis();
         Integer port = 8080;
-        PropertyUtil.loadProps("application.properties");
+        PropertyUtil.loadProps(applicationClass, "application.properties");
 //        PropertyUtil.loadProps("classpath:application.properties");
 //        String portString = PropertyUtil.props.getProperty("server.port","8080");
-        String portString = PropertyUtil.props.getProperty("server.port","8080");
+        String portString = PropertyUtil.props.getProperty("server.port", "8080");
         if (StringUtil.isNotEmpty(portString)) {
             port = Integer.valueOf(portString);
         }
