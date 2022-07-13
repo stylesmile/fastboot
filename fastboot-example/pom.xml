@@ -48,9 +48,81 @@
         </repository>
     </repositories>
 
+<!--    <build2>-->
+<!--        <finalName>${project.artifactId}</finalName>-->
+
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--                <includes>-->
+<!--                    <include>*.properties</include>-->
+<!--                    <include>**/*.properties</include>-->
+<!--                    <include>**/*.xml</include>-->
+<!--                    <include>**/*.tld</include>-->
+<!--                </includes>-->
+<!--                <filtering>false</filtering>-->
+<!--            </resource>-->
+<!--            <resource>-->
+<!--                <directory>${basedir}/src/main/resources</directory>-->
+<!--                <includes>-->
+<!--                    <include>application.properties</include>-->
+<!--&lt;!&ndash;                    <include>spring/*</include>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <include>mybatis/**</include>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <include>ehcache.xml</include>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <include>jdbc.properties</include>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <include>log4j.properties</include>&ndash;&gt;-->
+<!--                </includes>-->
+<!--            </resource>-->
+<!--        </resources>-->
+<!--        <plugins>-->
+<!--            &lt;!&ndash; 配置编译插件 &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <version>3.8.1</version>-->
+<!--                <configuration>-->
+<!--                    <compilerArgument>-parameters</compilerArgument>-->
+<!--                    <source>1.8</source>-->
+<!--                    <target>1.8</target>-->
+<!--                    <encoding>UTF-8</encoding>-->
+<!--                </configuration>-->
+
+<!--            </plugin>-->
+
+<!--            &lt;!&ndash; 配置打包插件（设置主类，并打包成胖包） &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-assembly-plugin</artifactId>-->
+<!--                <version>3.3.0</version>-->
+<!--                <configuration>-->
+<!--                    <finalName>${project.artifactId}</finalName>-->
+<!--                    <appendAssemblyId>false</appendAssemblyId>-->
+<!--                    <descriptorRefs>-->
+<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
+<!--                    </descriptorRefs>-->
+<!--                    <archive>-->
+<!--                        &lt;!&ndash; 此处，要改成自己的程序入口（即 main 函数类） &ndash;&gt;-->
+<!--                        <manifest>-->
+<!--                            <mainClass>com.example.Application</mainClass>-->
+<!--                        </manifest>-->
+<!--                    </archive>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>make-assembly</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>single</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build2>-->
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
+
             <!-- 配置编译插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -78,7 +150,7 @@
                     <archive>
                         <!-- 此处，要改成自己的程序入口（即 main 函数类） -->
                         <manifest>
-                            <mainClass>com.example.Application</mainClass>
+                            <mainClass>com.demo.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -88,6 +160,19 @@
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.noear</groupId>
+                <artifactId>solon-maven-plugin</artifactId>
+                <version>1.9.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>repackage</goal>
                         </goals>
                     </execution>
                 </executions>

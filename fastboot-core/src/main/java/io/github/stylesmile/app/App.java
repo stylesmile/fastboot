@@ -8,7 +8,8 @@ import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpsServer;
 import io.github.stylesmile.tool.PropertyUtil;
 import io.github.stylesmile.tool.StringUtil;
-import io.github.stylesmile.tool.resource.ResourceUtil;
+//import io.github.stylesmile.tool.resource.PropertiesUtils;
+//import io.github.stylesmile.tool.resource.ResourceUtil;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -29,10 +30,11 @@ public class App {
         long startTime = System.currentTimeMillis();
         Integer port = 8080;
         PropertyUtil.loadProps(applicationClass, "application.properties");
+//        PropertiesUtils.loadConfProperties();
 //        PropertyUtil.loadProps("classpath:application.properties");
 //        String portString = PropertyUtil.props.getProperty("server.port","8080");
         String portString = PropertyUtil.props.getProperty("server.port", "8080");
-        URL url = ResourceUtil.getResource("application.properties");
+//        URL url = ResourceUtil.getResource("application.properties");
         if (StringUtil.isNotEmpty(portString)) {
             port = Integer.valueOf(portString);
         }

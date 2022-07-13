@@ -1,8 +1,6 @@
 package io.github.stylesmile.tool;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -24,7 +22,26 @@ public class PropertyUtil {
                 clazz = PropertyUtil.class;
             }
             //<!--第一种，通过类加载器进行获取properties文件流-->
-            in = clazz.getClassLoader().getResourceAsStream(path);
+            String path2 = clazz.getProtectionDomain().getCodeSource().getLocation().getPath();
+            String path3 = clazz.getProtectionDomain().getCodeSource().getLocation().getFile();
+            String path4 = java.net.URLDecoder.decode(path, "UTF-8");
+            String path5 = System.getProperty("java.class.path");
+            String path6 = System.getProperty("user.dir");
+            String path7 = System.getProperty("basedir");
+
+//            in = clazz.getResource("/").getPath()+path
+//            in = clazz.getClassLoader().getResourceAsStream(path);
+//            in = clazz.getClassLoader().getResourceAsStream(path);
+//            File file = new File(path3 + path);
+            System.out.println("path3:" + path3);
+            if (path3.contains("/target/classes")) {
+                in = new FileInputStream(path3 + path);
+            } else {
+                in = clazz.getClassLoader().getResourceAsStream(path);
+            }
+
+//            in = clazz.getClassLoader().getResourceAsStream(path3 + path);
+//            in = clazz.getClassLoader().getResourceAsStream(path3 + path4);
 //			in = PropertyUtil.class.getClassLoader().getResourceAsStream("application.properties");
             //<!--第二种，通过类进行获取properties文件流-->
 
