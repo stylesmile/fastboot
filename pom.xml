@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>${fastboot.version}</version>
+    <version>0.2.0</version>
     <name>fastboot-parent</name>
     <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
-        <fastboot.version>0.1.9</fastboot.version>
+        <fastboot.version>0.2.0</fastboot.version>
     </properties>
     <dependencyManagement>
         <dependencies>
