@@ -10,9 +10,6 @@ public class PropertyUtil {
     //	private static final Logger logger = LoggerFactory.getLogger(PropertyUtil.class);
     public static Properties props;
 
-    //	static{
-//		loadProps();
-//	}
     synchronized static public void loadProps(Class clazz, String path) {
 //		logger.info("开始加载properties文件内容.......");
         props = new Properties();
@@ -22,29 +19,13 @@ public class PropertyUtil {
                 clazz = PropertyUtil.class;
             }
             //<!--第一种，通过类加载器进行获取properties文件流-->
-            String path2 = clazz.getProtectionDomain().getCodeSource().getLocation().getPath();
-            String path3 = clazz.getProtectionDomain().getCodeSource().getLocation().getFile();
-            String path4 = java.net.URLDecoder.decode(path, "UTF-8");
-            String path5 = System.getProperty("java.class.path");
-            String path6 = System.getProperty("user.dir");
-            String path7 = System.getProperty("basedir");
-
-//            in = clazz.getResource("/").getPath()+path
-//            in = clazz.getClassLoader().getResourceAsStream(path);
-//            in = clazz.getClassLoader().getResourceAsStream(path);
-//            File file = new File(path3 + path);
-            System.out.println("path3:" + path3);
-            if (path3.contains("/target/classes")) {
-                in = new FileInputStream(path3 + path);
+            String propertiesPath = clazz.getProtectionDomain().getCodeSource().getLocation().getFile();
+            if (propertiesPath.contains("/target/classes")) {
+                in = new FileInputStream(propertiesPath + path);
             } else {
                 in = clazz.getClassLoader().getResourceAsStream(path);
             }
-
-//            in = clazz.getClassLoader().getResourceAsStream(path3 + path);
-//            in = clazz.getClassLoader().getResourceAsStream(path3 + path4);
-//			in = PropertyUtil.class.getClassLoader().getResourceAsStream("application.properties");
             //<!--第二种，通过类进行获取properties文件流-->
-
 //            in = clazz.getResourceAsStream("/application.properties");
             props.load(in);
             System.out.println(props.getProperty("server.port"));
