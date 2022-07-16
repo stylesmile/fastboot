@@ -33,7 +33,7 @@ dependencies {
 }
 dependencyManagement {
     imports {
-        mavenBom 'io.github.stylesmile:fastboot-parent:0.1.8-m1'
+        mavenBom 'io.github.stylesmile:fastboot-parent:0.2.1-snapshots'
     }
 }
 tasks.named('test') {
