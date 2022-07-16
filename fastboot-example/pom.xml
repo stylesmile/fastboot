@@ -7,7 +7,7 @@
     <groupId>org.example</groupId>
     <artifactId>fastboot-example</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>fastboot-web-example</name>
+    <name>fastboot-example</name>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
