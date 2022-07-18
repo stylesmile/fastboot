@@ -1,4 +1,4 @@
-package io.github.stylesmile.annotation;
+package io.github.stylesmile.ioc;
 
 import java.lang.annotation.*;
 

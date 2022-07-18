@@ -3,6 +3,7 @@ package io.github.stylesmile.plugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.ServiceLoader;
 import java.util.Set;
@@ -42,7 +43,7 @@ public class PlugsManager implements Plugin {
     }
 
     @Override
-    public void start() {
+    public void start() throws IOException {
         for (Plugin plugAdapter : obj) {
             plugAdapter.start();
         }

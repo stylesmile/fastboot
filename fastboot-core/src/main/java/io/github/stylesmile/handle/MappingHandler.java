@@ -1,7 +1,7 @@
 package io.github.stylesmile.handle;
 
 import com.sun.net.httpserver.Headers;
-import io.github.stylesmile.tool.BeanFactory;
+import io.github.stylesmile.ioc.BeanFactory;
 import com.sun.net.httpserver.HttpExchange;
 import io.github.stylesmile.tool.JsonGsonUtil;
 

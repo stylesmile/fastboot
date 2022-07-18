@@ -2,6 +2,7 @@ package io.github.stylesmile.handle;
 
 import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
+import io.github.stylesmile.annotation.Service;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -26,6 +27,9 @@ public class HandlerManager {
         for (Class<?> cls : classList) {
             //判断是否使用了Controller注解
             if (cls.isAnnotationPresent(Controller.class)) {
+                parseHandlerFromController(cls);
+            }
+            if (cls.isAnnotationPresent(Service.class)) {
                 parseHandlerFromController(cls);
             }
         }

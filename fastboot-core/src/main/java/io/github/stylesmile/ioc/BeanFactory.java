@@ -1,10 +1,10 @@
-package io.github.stylesmile.tool;
+package io.github.stylesmile.ioc;
 
 import io.github.stylesmile.annotation.AutoWired;
-import io.github.stylesmile.annotation.Bean;
 import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.Service;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,7 @@ public class BeanFactory {
 
     /**
      * 获取一个Bean
+     *
      * @param cls 类
      * @return Object
      */
@@ -31,7 +32,8 @@ public class BeanFactory {
 
     /**
      * 初始化Bean的方法
-     * @param classList  所有类列表
+     *
+     * @param classList 所有类列表
      * @throws InstantiationException 异常
      * @throws IllegalAccessException 异常
      */
@@ -47,7 +49,7 @@ public class BeanFactory {
             }
             //陷入循环依赖的死循环，抛出异常
             if (toCreate.size() == remainSize) {
-                throw new RuntimeException("cycle dependency!");
+                //throw new RuntimeException("cycle dependency!");
             }
         }
     }
@@ -66,7 +68,7 @@ public class BeanFactory {
         //创建Bean，处理对象中的属性，查看是否需要依赖注入
         Object bean = cls.newInstance();
         for (Field field : cls.getDeclaredFields()) {
-            if (field.isAnnotationPresent(AutoWired.class)) {
+            if (field.isAnnotationPresent(AutoWired.class) || field.isAnnotationPresent(Resource.class)) {
                 //获取属性的类型
                 Class<?> fieldType = field.getType();
                 //从工厂里面获取，获取不到，先返回

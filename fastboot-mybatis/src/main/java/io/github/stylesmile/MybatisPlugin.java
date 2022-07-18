@@ -35,7 +35,6 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- *
  * 参考文献 https://blog.csdn.net/qq_42413011/article/details/118640420
  *
  * @author hxm
@@ -45,6 +44,7 @@ public class MybatisPlugin implements Plugin {
     private static final Logger log = LoggerFactory.getLogger(MybatisPlugin.class);
 
     SqlSession session;
+
     @Override
     public void start() throws IOException {
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
@@ -92,8 +92,6 @@ public class MybatisPlugin implements Plugin {
 
     /**
      * 初始化配置
-     *
-     * @param configuration
      */
     private void initConfiguration(MybatisConfiguration configuration) {
         //开启驼峰大小写转换
@@ -104,12 +102,14 @@ public class MybatisPlugin implements Plugin {
 
     /**
      * 初始化数据源
-     *
-     * @return
      */
     private DataSource initDataSource() {
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl("jdbc:mysql://192.168.101.150:3306/cms?allowPublicKeyRetrieval=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8&useUnicode=true");
+//        dataSource.setJdbcUrl("jdbc:mysql://192.168.101.150:3306/cms?allowPublicKeyRetrieval=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8&useUnicode=true");
+//        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//        dataSource.setUsername("root");
+//        dataSource.setPassword("123456");
+        dataSource.setJdbcUrl("");
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUsername("root");
         dataSource.setPassword("123456");
@@ -121,6 +121,7 @@ public class MybatisPlugin implements Plugin {
         dataSource.setConnectionTestQuery("SELECT 1");
         return dataSource;
     }
+
     /**
      * 初始化拦截器
      *
@@ -140,6 +141,7 @@ public class MybatisPlugin implements Plugin {
 
     /**
      * 解析mapper.xml文件
+     *
      * @param configuration
      * @param classPath
      * @throws IOException
@@ -154,7 +156,7 @@ public class MybatisPlugin implements Plugin {
                 File file = new File(path);
                 File[] files = file.listFiles();
                 for (File f : files) {
-                    try(FileInputStream in = new FileInputStream(f)){
+                    try (FileInputStream in = new FileInputStream(f)) {
                         XMLMapperBuilder xmlMapperBuilder = new XMLMapperBuilder(in, configuration, f.getPath(), configuration.getSqlFragments());
                         xmlMapperBuilder.parse();
                     }

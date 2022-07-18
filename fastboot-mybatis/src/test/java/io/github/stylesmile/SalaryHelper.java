@@ -1,6 +1,6 @@
 package io.github.stylesmile;
 
-import io.github.stylesmile.annotation.Bean;
+import io.github.stylesmile.ioc.Bean;
 
 /**
  * 工资计算类

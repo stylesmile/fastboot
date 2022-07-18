@@ -2,11 +2,10 @@ package io.github.stylesmile.app;
 
 import io.github.stylesmile.handle.HandlerManager;
 import io.github.stylesmile.plugin.PlugsManager;
-import io.github.stylesmile.tool.BeanFactory;
+import io.github.stylesmile.ioc.BeanFactory;
 import io.github.stylesmile.tool.ClassScanner;
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpServer;
-import com.sun.net.httpserver.HttpsServer;
 import io.github.stylesmile.tool.PropertyUtil;
 import io.github.stylesmile.tool.StringUtil;
 //import io.github.stylesmile.tool.resource.PropertiesUtils;
@@ -14,7 +13,6 @@ import io.github.stylesmile.tool.StringUtil;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.URL;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
