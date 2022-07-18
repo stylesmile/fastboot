@@ -24,6 +24,11 @@
                 <version>3.5.9</version>
             </dependency>
             <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>3.5.2</version>
+            </dependency>
+            <dependency>
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>2.9.0</version>
@@ -32,6 +37,21 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.24</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>2.17.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>2.17.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.36</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -45,8 +65,8 @@
     </dependencies>
     <description>java web project for Fast Boot</description>
     <modules>
-        <!--        <module>fastboot-parent</module>-->
         <module>fastboot-core</module>
+        <module>fastboot-mybatis</module>
     </modules>
     <!--项目信息...-->
     <url>https://github.com/stylesmile/fastboot</url>

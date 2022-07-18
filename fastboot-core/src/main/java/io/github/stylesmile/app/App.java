@@ -1,6 +1,7 @@
 package io.github.stylesmile.app;
 
 import io.github.stylesmile.handle.HandlerManager;
+import io.github.stylesmile.plugin.PlugsManager;
 import io.github.stylesmile.tool.BeanFactory;
 import io.github.stylesmile.tool.ClassScanner;
 import com.sun.net.httpserver.HttpContext;
@@ -22,6 +23,9 @@ import java.util.concurrent.TimeUnit;
 
 public class App {
     private static HttpServer httpServer = null;
+    private static final PlugsManager PLUGS_MANAGER = new PlugsManager();
+    public static List<Class<?>> classList = null;
+
     private static ExecutorService executor = new ThreadPoolExecutor(5, 20,
             60L, TimeUnit.SECONDS,
             new ArrayBlockingQueue(10));
@@ -39,7 +43,6 @@ public class App {
             port = Integer.valueOf(portString);
         }
         System.out.println("start server  port :" + port);
-        List<Class<?>> classList = null;
         try {
 //            httpServer = HttpsServer.create(new InetSocketAddress("localhost", port), 0);
 //            httpServer = HttpServer.create(new InetSocketAddress("localhost", port), 0);
@@ -51,6 +54,9 @@ public class App {
             BeanFactory.initBean(classList);
             //找到所有Controller，建立Controller中每个方法和Url的映射关系
             HandlerManager.resolveMappingHandler(classList);
+            PLUGS_MANAGER.start();
+            PLUGS_MANAGER.init();
+            PLUGS_MANAGER.end();
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
