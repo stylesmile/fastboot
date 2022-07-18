@@ -35,7 +35,7 @@ public class App {
 //        PropertiesUtils.loadConfProperties();
 //        PropertyUtil.loadProps("classpath:application.properties");
 //        String portString = PropertyUtil.props.getProperty("server.port","8080");
-        String portString = PropertyUtil.props.getProperty("server.port", "8080");
+        String portString = PropertyUtil.props.getProperty("server.port");
 //        URL url = ResourceUtil.getResource("application.properties");
         if (StringUtil.isNotEmpty(portString)) {
             port = Integer.valueOf(portString);
