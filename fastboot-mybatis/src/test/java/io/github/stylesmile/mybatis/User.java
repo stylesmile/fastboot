@@ -1,4 +1,4 @@
-package io.github.stylesmile;
+package io.github.stylesmile.mybatis;
 
 
 public class User {

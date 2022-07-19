@@ -1,4 +1,4 @@
-package io.github.stylesmile.bean;
+package io.github.stylesmile.mybatis.bean;
 
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import org.apache.ibatis.plugin.Interceptor;

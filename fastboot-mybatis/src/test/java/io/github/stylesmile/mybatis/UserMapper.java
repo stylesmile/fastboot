@@ -1,4 +1,4 @@
-package io.github.stylesmile;
+package io.github.stylesmile.mybatis;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;

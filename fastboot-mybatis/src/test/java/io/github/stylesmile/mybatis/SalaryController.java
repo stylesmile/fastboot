@@ -1,4 +1,4 @@
-package io.github.stylesmile;
+package io.github.stylesmile.mybatis;
 
 import com.sun.net.httpserver.HttpExchange;
 import io.github.stylesmile.annotation.AutoWired;

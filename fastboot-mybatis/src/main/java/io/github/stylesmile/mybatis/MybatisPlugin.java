@@ -1,4 +1,4 @@
-package io.github.stylesmile;
+package io.github.stylesmile.mybatis;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
@@ -27,7 +27,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.*;

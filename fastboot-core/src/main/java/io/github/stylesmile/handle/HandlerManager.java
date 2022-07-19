@@ -2,7 +2,6 @@ package io.github.stylesmile.handle;
 
 import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
-import io.github.stylesmile.annotation.Service;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;

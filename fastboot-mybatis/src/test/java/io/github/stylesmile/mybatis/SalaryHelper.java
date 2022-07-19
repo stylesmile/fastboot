@@ -1,4 +1,4 @@
-package io.github.stylesmile;
+package io.github.stylesmile.mybatis;
 
 import io.github.stylesmile.ioc.Bean;
 

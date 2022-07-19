@@ -11,7 +11,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.stylesmile</groupId>
-	<artifactId>fastboot-mybatis</artifactId>
+	<artifactId>fastboot-mybatis-example</artifactId>
 	<version>${fastboot.version}</version>
 	<name>fastboot-mybatis-example</name>
 	<packaging>jar</packaging>
@@ -49,6 +49,11 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.29</version>
 		</dependency>
 	</dependencies>
 </project>
