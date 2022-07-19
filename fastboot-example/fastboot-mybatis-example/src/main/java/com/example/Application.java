@@ -17,8 +17,6 @@ import java.util.List;
 
 @Controller
 public class Application {
-    public Application() {
-    }
 
     @Resource
     UserService userService;

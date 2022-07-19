@@ -29,9 +29,6 @@ public class HandlerManager {
             if (cls.isAnnotationPresent(Controller.class)) {
                 parseHandlerFromController(cls);
             }
-            if (cls.isAnnotationPresent(Service.class)) {
-                parseHandlerFromController(cls);
-            }
         }
     }
 

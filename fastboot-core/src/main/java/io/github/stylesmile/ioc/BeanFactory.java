@@ -39,7 +39,7 @@ public class BeanFactory {
      */
     public static void initBean(List<Class<?>> classList) throws InstantiationException, IllegalAccessException {
         ArrayList<Class<?>> toCreate = new ArrayList<>(classList);
-        while (toCreate.size() != 0) {
+        //while (toCreate.size() != 0) {
             int remainSize = toCreate.size();
             for (int i = 0; i < toCreate.size(); i++) {
                 //创建完，就要移除掉
@@ -49,9 +49,9 @@ public class BeanFactory {
             }
             //陷入循环依赖的死循环，抛出异常
             if (toCreate.size() == remainSize) {
-                //throw new RuntimeException("cycle dependency!");
+                throw new RuntimeException("cycle dependency!");
             }
-        }
+        //}
     }
 
     /**
