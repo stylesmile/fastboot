@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.mapper.UserMapper;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.mapping.Environment;

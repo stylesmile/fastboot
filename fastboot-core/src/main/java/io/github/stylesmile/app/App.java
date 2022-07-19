@@ -48,13 +48,15 @@ public class App {
             String package1 = applicationClass.getPackage().getName();
             //扫描所有的类，
             classList = ClassScanner.scanClasses(package1);
+            PLUGS_MANAGER.start();
+            PLUGS_MANAGER.init();
+            PLUGS_MANAGER.end();
             //创建Bean工厂,扫描Class，创建被注解标注的类
             BeanFactory.initBean(classList);
             //找到所有Controller，建立Controller中每个方法和Url的映射关系
             HandlerManager.resolveMappingHandler(classList);
-            PLUGS_MANAGER.start();
-            PLUGS_MANAGER.init();
-            PLUGS_MANAGER.end();
+
+
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }

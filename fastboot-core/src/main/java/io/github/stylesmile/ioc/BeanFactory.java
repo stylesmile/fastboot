@@ -34,7 +34,7 @@ public class BeanFactory {
      *
      * @param cls 注解名称
      */
-    public void addBeanClasses(Class<? extends Annotation> cls) {
+    public static void addBeanClasses(Class<? extends Annotation> cls) {
         beanClasses.add(cls);
     }
 
@@ -89,6 +89,7 @@ public class BeanFactory {
                 try {
                     bean = cls.newInstance();
                     classToBean.put(cls, bean);
+                    System.out.println();
                 } catch (InstantiationException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }

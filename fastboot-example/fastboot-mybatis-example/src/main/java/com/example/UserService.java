@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.mapper.UserMapper;
 import io.github.stylesmile.annotation.Service;
 
 import javax.annotation.Resource;

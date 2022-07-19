@@ -10,8 +10,10 @@ import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.zaxxer.hikari.HikariDataSource;
+import io.github.stylesmile.ioc.BeanFactory;
 import io.github.stylesmile.plugin.Plugin;
 import io.github.stylesmile.tool.PropertyUtil;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
 import org.apache.ibatis.logging.slf4j.Slf4jImpl;
 import org.apache.ibatis.mapping.Environment;
@@ -47,6 +49,11 @@ public class MybatisPlugin implements Plugin {
 
     @Override
     public void start() throws IOException {
+        BeanFactory.addBeanClasses(Mapper.class);
+    }
+
+    @Override
+    public void init() {
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         //这是mybatis-plus的配置对象，对mybatis的Configuration进行增强
         MybatisConfiguration configuration = new MybatisConfiguration();
@@ -57,7 +64,8 @@ public class MybatisPlugin implements Plugin {
         //配置日志实现
         configuration.setLogImpl(Slf4jImpl.class);
         //扫描mapper接口所在包
-        configuration.addMappers("com.lhstack.mybatis.mapper");
+        String packageName =PropertyUtil.getProperty("mybatis-plus.scanPackage");
+        configuration.addMappers(packageName);
         //构建mybatis-plus需要的globalconfig
         GlobalConfig globalConfig = new GlobalConfig();
         //此参数会自动生成实现baseMapper的基础方法映射
@@ -72,16 +80,15 @@ public class MybatisPlugin implements Plugin {
         Environment environment = new Environment("1", new JdbcTransactionFactory(), initDataSource());
         configuration.setEnvironment(environment);
 
-        this.registryMapperXml(configuration, "mapper");
+        try {
+            this.registryMapperXml(configuration, "mapper");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         //构建sqlSessionFactory
         SqlSessionFactory sqlSessionFactory = builder.build(configuration);
         //创建session
         this.session = sqlSessionFactory.openSession();
-
-    }
-
-    @Override
-    public void init() {
 
     }
 
