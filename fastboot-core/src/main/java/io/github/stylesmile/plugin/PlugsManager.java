@@ -20,6 +20,7 @@ public class PlugsManager implements Plugin {
     private Set<Plugin> obj = new HashSet<>();
 
     public PlugsManager() {
+        //通过spi加载所有插件
         ServiceLoader<Plugin> loadedParsers = ServiceLoader.load(Plugin.class);
         for (Plugin Plugin : loadedParsers) {
             obj.add(Plugin);

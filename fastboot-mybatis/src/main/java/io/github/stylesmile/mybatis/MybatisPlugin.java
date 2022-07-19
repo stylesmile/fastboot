@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.zaxxer.hikari.HikariDataSource;
 import io.github.stylesmile.plugin.Plugin;
+import io.github.stylesmile.tool.PropertyUtil;
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
 import org.apache.ibatis.logging.slf4j.Slf4jImpl;
 import org.apache.ibatis.mapping.Environment;
@@ -104,14 +105,10 @@ public class MybatisPlugin implements Plugin {
      */
     private DataSource initDataSource() {
         HikariDataSource dataSource = new HikariDataSource();
-//        dataSource.setJdbcUrl("jdbc:mysql://192.168.101.150:3306/cms?allowPublicKeyRetrieval=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8&useUnicode=true");
-//        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-//        dataSource.setUsername("root");
-//        dataSource.setPassword("123456");
-        dataSource.setJdbcUrl("");
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUsername("root");
-        dataSource.setPassword("123456");
+        dataSource.setJdbcUrl(PropertyUtil.getProperty("fast.db.url"));
+        dataSource.setDriverClassName(PropertyUtil.getProperty("fast.db.driverClassName"));
+        dataSource.setUsername(PropertyUtil.getProperty("fast.db.username"));
+        dataSource.setPassword(PropertyUtil.getProperty("fast.db.password"));
         dataSource.setIdleTimeout(60000);
         dataSource.setAutoCommit(true);
         dataSource.setMaximumPoolSize(5);

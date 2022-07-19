@@ -8,6 +8,7 @@ package com.example;
 import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.app.App;
+import io.github.stylesmile.ioc.Value;
 import io.github.stylesmile.tool.PropertyUtil;
 
 import javax.annotation.Resource;
@@ -18,6 +19,9 @@ public class FastbootMybatisApplication {
 
     @Resource
     UserService userService;
+
+    @Value(value = "fast.name")
+    private String name;
 
     public static void main(String[] args) {
         App.start(FastbootMybatisApplication.class, args);
@@ -40,6 +44,11 @@ public class FastbootMybatisApplication {
 
     @RequestMapping("/3")
     public List<User> hello3() {
+        return userService.query();
+    }
+
+    @RequestMapping("/4")
+    public List<User> hello4() {
         return userService.query();
     }
 }

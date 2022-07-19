@@ -48,24 +48,8 @@ public class HandlerManager {
             ArrayList<String> paramNameList = new ArrayList<>();
             List<Parameter> args2 = new ArrayList<>();
             Parameter[] parameters = method.getParameters();
-//            for (Parameter parameter : parameters) {
-//                HashMap<String, String> map = new HashMap<>(16);
-//                if (parameter.isAnnotationPresent(RequestParam.class)) {
-//                    String value = parameter.getDeclaredAnnotation(RequestParam.class).value();
-//                    String parameterType = parameter.getParameterizedType().getTypeName();
-//                    String value2value = parameter.getName();
-//
-//                    paramNameList.add(value);
-//                    map.put(value, parameterType);
-//                    args2.add(parameter);
-//                } else {
-////                    String value = parameter.getName();
-////                    paramNameList.add(value);
-//                }
-//            }
             //参数集合转换为数组
             String[] params = paramNameList.toArray(new String[paramNameList.size()]);
-
             //参数收集完毕，构建一个MappingHandler
             MappingHandler mappingHandler = new MappingHandler(uri, method, cls, params, parameters);
             //保存到列表里
