@@ -8,6 +8,6 @@ import java.lang.annotation.*;
 @Documented
 //作用于类上
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Target({ElementType.METHOD, ElementType.TYPE})
 public @interface Bean {
 }
