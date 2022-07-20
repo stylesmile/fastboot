@@ -10,8 +10,9 @@
 
 ####  
 
-快速开始
+####快速开始
 
+#####maven依赖
 ```maven
         <parent>
             <groupId>io.github.stylesmile</groupId>
@@ -25,6 +26,8 @@
             <artifactId>fastboot-core</artifactId>
         </dependency>
 ```
+#####如果你管理依赖用的gradle
+参考下面的配置
 ```gradle
 plugins {
     id 'java'
