@@ -37,6 +37,6 @@ public class TestController {
 
     @RequestMapping("/4")
     public List<User> hello4() {
-        return userService.query();
+        return userService.query2();
     }
 }

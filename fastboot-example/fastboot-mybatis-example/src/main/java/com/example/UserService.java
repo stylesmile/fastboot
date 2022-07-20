@@ -20,4 +20,9 @@ public class UserService {
         System.out.println(list);
         return  list;
     }
+    public List query2() {
+        List list =  userMapper.queryUser();
+        System.out.println(list);
+        return  list;
+    }
 }
