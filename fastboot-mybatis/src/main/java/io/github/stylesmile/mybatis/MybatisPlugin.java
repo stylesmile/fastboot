@@ -3,18 +3,17 @@ package io.github.stylesmile.mybatis;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
-import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
-import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.zaxxer.hikari.HikariDataSource;
+import io.github.stylesmile.ioc.BeanContainer;
 import io.github.stylesmile.ioc.BeanFactory;
 import io.github.stylesmile.plugin.Plugin;
 import io.github.stylesmile.tool.PropertyUtil;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
+import org.apache.ibatis.io.ResolverUtil;
 import org.apache.ibatis.logging.slf4j.Slf4jImpl;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.plugin.Interceptor;
@@ -48,7 +47,7 @@ public class MybatisPlugin implements Plugin {
     SqlSession session;
 
     @Override
-    public void start() throws IOException {
+    public void start() {
         BeanFactory.addBeanClasses(Mapper.class);
     }
 
@@ -60,18 +59,22 @@ public class MybatisPlugin implements Plugin {
         //这是初始化配置，后面会添加这部分代码
         initConfiguration(configuration);
         //这是初始化连接器，如mybatis-plus的分页插件
-        configuration.addInterceptor(initInterceptor());
+//        configuration.addInterceptor(initInterceptor());
         //配置日志实现
         configuration.setLogImpl(Slf4jImpl.class);
         //扫描mapper接口所在包
-        String packageName =PropertyUtil.getProperty("mybatis-plus.scanPackage");
-        configuration.addMappers(packageName);
+        String packageName = PropertyUtil.getProperty("mybatis-plus.scanPackage");
+        Set<Class> classSet = getMapperClass(packageName);
+        classSet.forEach(cls -> {
+            configuration.addMapper(cls);
+        });
+//        configuration.addMappers(packageName);
         //构建mybatis-plus需要的globalconfig
         GlobalConfig globalConfig = new GlobalConfig();
         //此参数会自动生成实现baseMapper的基础方法映射
         globalConfig.setSqlInjector(new DefaultSqlInjector());
         //设置id生成器
-        globalConfig.setIdentifierGenerator(new DefaultIdentifierGenerator());
+//        globalConfig.setIdentifierGenerator(new DefaultIdentifierGenerator());
         //设置超类mapper
         globalConfig.setSuperMapperClass(BaseMapper.class);
         //给configuration注入GlobalConfig里面的配置
@@ -89,7 +92,11 @@ public class MybatisPlugin implements Plugin {
         SqlSessionFactory sqlSessionFactory = builder.build(configuration);
         //创建session
         this.session = sqlSessionFactory.openSession();
-
+        classSet.forEach(cls -> {
+            Object bean = session.getMapper(cls);
+            //注入bean容器
+            BeanContainer.setInstance(cls, bean);
+        });
     }
 
     @Override
@@ -130,17 +137,17 @@ public class MybatisPlugin implements Plugin {
      *
      * @return
      */
-    private Interceptor initInterceptor() {
-        //创建mybatis-plus插件对象
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        //构建分页插件
-        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
-        paginationInnerInterceptor.setDbType(DbType.MYSQL);
-        paginationInnerInterceptor.setOverflow(true);
-        paginationInnerInterceptor.setMaxLimit(500L);
-        interceptor.addInnerInterceptor(paginationInnerInterceptor);
-        return interceptor;
-    }
+//    private Interceptor initInterceptor() {
+//        //创建mybatis-plus插件对象
+//        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+//        //构建分页插件
+//        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
+//        paginationInnerInterceptor.setDbType(DbType.MYSQL);
+//        paginationInnerInterceptor.setOverflow(true);
+//        paginationInnerInterceptor.setMaxLimit(500L);
+//        interceptor.addInnerInterceptor(paginationInnerInterceptor);
+//        return interceptor;
+//    }
 
     /**
      * 解析mapper.xml文件
@@ -180,5 +187,20 @@ public class MybatisPlugin implements Plugin {
                 }
             }
         }
+    }
+
+    public Set<Class> getMapperClass(String packageName) {
+        Set<Class> classSet = new HashSet<>();
+        ResolverUtil<Class<?>> resolverUtil = new ResolverUtil();
+        resolverUtil.find(new ResolverUtil.IsA(Object.class), packageName);
+        Set<Class<? extends Class<?>>> mapperSet = resolverUtil.getClasses();
+        Iterator var5 = mapperSet.iterator();
+
+        while (var5.hasNext()) {
+            Class<?> mapperClass = (Class) var5.next();
+            //this.addMapper(mapperClass);
+            classSet.add(mapperClass);
+        }
+        return classSet;
     }
 }

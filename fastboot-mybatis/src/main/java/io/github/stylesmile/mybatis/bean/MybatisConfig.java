@@ -1,6 +1,5 @@
 package io.github.stylesmile.mybatis.bean;
 
-import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -21,7 +20,7 @@ public class MybatisConfig {
 
     private Boolean mapUnderscoreToCamelCase = true;
 
-    private IdentifierGenerator identifierGenerator;
+//    private IdentifierGenerator identifierGenerator;
 
     public Boolean getMapUnderscoreToCamelCase() {
         return mapUnderscoreToCamelCase;
@@ -57,13 +56,13 @@ public class MybatisConfig {
         dataSources.put(dataSourceName, dataSource);
     }
 
-    public IdentifierGenerator getIdentifierGenerator() {
-        return identifierGenerator;
-    }
-
-    public void setIdentifierGenerator(IdentifierGenerator identifierGenerator) {
-        this.identifierGenerator = identifierGenerator;
-    }
+//    public IdentifierGenerator getIdentifierGenerator() {
+//        return identifierGenerator;
+//    }
+//
+//    public void setIdentifierGenerator(IdentifierGenerator identifierGenerator) {
+//        this.identifierGenerator = identifierGenerator;
+//    }
 
     public String getMapperLocations() {
         return mapperLocations;

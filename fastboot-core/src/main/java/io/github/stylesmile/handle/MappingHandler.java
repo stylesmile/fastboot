@@ -1,6 +1,7 @@
 package io.github.stylesmile.handle;
 
 import com.sun.net.httpserver.Headers;
+import io.github.stylesmile.ioc.BeanContainer;
 import io.github.stylesmile.ioc.BeanFactory;
 import com.sun.net.httpserver.HttpExchange;
 import io.github.stylesmile.tool.JsonGsonUtil;
@@ -91,7 +92,7 @@ public class MappingHandler {
             buildParameters(parameters2, parameterType, o);
         }
         //从缓存中取出Controller，启动时就已经创建Controller实例了
-        Object ctl = BeanFactory.getBean(controller);
+        Object ctl = BeanContainer.getSingleInstance(controller);
         //调用对应的接口方法，并获取响应结果
         Object[] strArray = (Object[]) parameters2.toArray();
         Object response = method.invoke(ctl, strArray);

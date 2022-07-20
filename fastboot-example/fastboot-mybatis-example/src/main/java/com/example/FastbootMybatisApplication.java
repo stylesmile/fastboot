@@ -14,41 +14,12 @@ import io.github.stylesmile.tool.PropertyUtil;
 import javax.annotation.Resource;
 import java.util.List;
 
-@Controller
+
 public class FastbootMybatisApplication {
 
-    @Resource
-    UserService userService;
-
-    @Value(value = "fast.name")
-    private String name;
 
     public static void main(String[] args) {
         App.start(FastbootMybatisApplication.class, args);
     }
 
-    @RequestMapping("/")
-    public String hello() {
-        return "hello fastboot";
-    }
-
-    @RequestMapping("/1")
-    public String hello1() {
-        return PropertyUtil.props.getProperty("fast.name");
-    }
-
-    @RequestMapping("/2")
-    public String hello2() {
-        return userService.get();
-    }
-
-    @RequestMapping("/3")
-    public List<User> hello3() {
-        return userService.query();
-    }
-
-    @RequestMapping("/4")
-    public List<User> hello4() {
-        return userService.query();
-    }
 }

@@ -9,6 +9,7 @@ import io.github.stylesmile.tool.StringUtil;
 import javax.annotation.Resource;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +23,12 @@ public class BeanFactory {
     /**
      * Bean容器
      */
-    private static final Map<Class<?>, Object> classToBean = new ConcurrentHashMap<>();
     private static final List<Class<? extends Annotation>> beanClasses = new CopyOnWriteArrayList<Class<? extends Annotation>>() {{
+        add(Controller.class);
+        add(Service.class);
+        add(Bean.class);
+    }};
+    private static final List<Class<? extends Annotation>> beanClassesBase = new CopyOnWriteArrayList<Class<? extends Annotation>>() {{
         add(Controller.class);
         add(Service.class);
         add(Bean.class);
@@ -38,15 +43,6 @@ public class BeanFactory {
         beanClasses.add(cls);
     }
 
-    /**
-     * 获取一个Bean
-     *
-     * @param cls 类
-     * @return Object
-     */
-    public static Object getBean(Class<?> cls) {
-        return classToBean.get(cls);
-    }
 
     /**
      * 初始化Bean的方法
@@ -63,7 +59,7 @@ public class BeanFactory {
         for (int i = 0; i < toCreate.size(); i++) {
             //创建完，就要移除掉
             if (finishCreate(toCreate.get(i))) {
-                toCreate.remove(i);
+                //toCreate.remove(i);
             }
         }
         //陷入循环依赖的死循环，抛出异常
@@ -86,13 +82,10 @@ public class BeanFactory {
             }
             if (hasBean) {
                 Object bean = null;
-                try {
-                    bean = cls.newInstance();
-                    classToBean.put(cls, bean);
-                    System.out.println();
-                } catch (InstantiationException | IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
+//                    bean = cls.getDeclaredConstructor().newInstance();
+                bean = BeanContainer.getSingleInstance(cls);
+                BeanContainer.setInstance(cls, bean);
+                System.out.println();
             }
         });
     }
@@ -100,9 +93,9 @@ public class BeanFactory {
     /**
      * 初始化Bean
      */
-    private static boolean finishCreate(Class<?> cls) throws IllegalAccessException, InstantiationException {
-        boolean hasBean = cls.isAnnotationPresent(Bean.class);
-        for (Class beanClass : beanClasses) {
+    private static boolean finishCreate(Class<?> cls) throws IllegalAccessException {
+        boolean hasBean = false;
+        for (Class beanClass : beanClassesBase) {
             boolean b = cls.isAnnotationPresent(beanClass);
             if (b) {
                 hasBean = true;
@@ -111,14 +104,15 @@ public class BeanFactory {
         }
         if (hasBean) {
             //创建Bean，处理对象中的属性，查看是否需要依赖注入
-            Object bean = cls.newInstance();
+            Object bean = null;
+            bean = BeanContainer.getSingleInstance(cls);
             Field[] fields = cls.getDeclaredFields();
             for (Field field : fields) {
                 if (field.isAnnotationPresent(AutoWired.class) || field.isAnnotationPresent(Resource.class)) {
                     //获取属性的类型
                     Class<?> fieldType = field.getType();
                     //从工厂里面获取，获取不到，先返回
-                    Object reliantBean = BeanFactory.getBean(fieldType);
+                    Object reliantBean = BeanContainer.getSingleInstance(fieldType);
                     if (reliantBean == null) {
                         continue;
                     }
@@ -136,7 +130,7 @@ public class BeanFactory {
                 }
             }
             //缓存实例到工厂中
-            classToBean.put(cls, bean);
+            BeanContainer.setInstance(cls, bean);
         }
         return true;
     }

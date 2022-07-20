@@ -60,9 +60,9 @@ public class MybatisInit {
             //此参数会自动生成实现baseMapper的基础方法映射
             globalConfig.setSqlInjector(new DefaultSqlInjector());
             //设置id生成器
-            if (mybatisConfig.getIdentifierGenerator() != null) {
-                globalConfig.setIdentifierGenerator(mybatisConfig.getIdentifierGenerator());
-            }
+//            if (mybatisConfig.getIdentifierGenerator() != null) {
+//                globalConfig.setIdentifierGenerator(mybatisConfig.getIdentifierGenerator());
+//            }
             //设置超类mapper
             globalConfig.setSuperMapperClass(BaseMapper.class);
             //给configuration注入GlobalConfig里面的配置
