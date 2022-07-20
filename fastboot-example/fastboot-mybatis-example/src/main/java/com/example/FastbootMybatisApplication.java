@@ -16,8 +16,6 @@ import java.util.List;
 
 
 public class FastbootMybatisApplication {
-
-
     public static void main(String[] args) {
         App.start(FastbootMybatisApplication.class, args);
     }
