@@ -11,7 +11,6 @@ import redis.clients.jedis.JedisPoolConfig;
 
 @Service
 public class RedisConfig {
-    private static final Logger log = LoggerFactory.getLogger(RedisConfig.class);
     @Bean
     public Jedis getJedisPoolConfig() {
         String host = PropertyUtil.getProperty("redis.host");

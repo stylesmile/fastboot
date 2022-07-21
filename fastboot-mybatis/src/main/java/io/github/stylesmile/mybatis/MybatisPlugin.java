@@ -42,8 +42,6 @@ import java.util.jar.JarFile;
  */
 public class MybatisPlugin implements Plugin {
 
-    private static final Logger log = LoggerFactory.getLogger(MybatisPlugin.class);
-
     SqlSession session;
 
     @Override

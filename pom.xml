@@ -15,6 +15,7 @@
         <module>fastboot-core</module>
         <module>fastboot-mybatis</module>
         <module>fastboot-redis</module>
+        <module>fastboot-mongodb</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -26,6 +27,16 @@
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
                 <artifactId>fastboot-mybatis</artifactId>
+                <version>${fastboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.stylesmile</groupId>
+                <artifactId>fastboot-redis</artifactId>
+                <version>0.4.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.stylesmile</groupId>
+                <artifactId>fastboot-mongodb</artifactId>
                 <version>${fastboot.version}</version>
             </dependency>
             <dependency>
@@ -68,6 +79,11 @@
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
                 <version>4.2.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-mongodb</artifactId>
+                <version>3.4.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
