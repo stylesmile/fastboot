@@ -12,12 +12,12 @@
 
 ####快速开始
 
-#####maven依赖
+#####maven依赖[example](fastboot-example/fastboot-web-example)
 ```maven
         <parent>
             <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-parent</artifactId>
-            <version>0.1.7-M2</version>
+            <version>0.4.0</version>
         </parent>
 ```
 ```maven
@@ -29,7 +29,11 @@
 #####如果你管理依赖用的gradle
 参考下面的配置 [example](fastboot-example/fastboot-web-example)
 ```gradle
-    implementation platform("io.github.stylesmile:fastboot-parent:0.2.1-snapshots")
+    plugins {
+        id 'java'
+        id 'java-platform'
+    }
+    implementation platform("io.github.stylesmile:fastboot-parent:0.4.0")
     implementation 'io.github.stylesmile:fastboot-core'
 ```
 ```java
