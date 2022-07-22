@@ -85,23 +85,6 @@ public class TestController {
     public List<User> list() {
         //只查询 id,name,age三个字段
         Bson resultFields = fields(include("_id", "name", "age"));
-
-        MongoCollection<User> collection = mongoDatabase.getCollection("user", User.class);
-        List<User> userList = new ArrayList<>();
-        MongoCursor<User> userMongoCursor = collection.find(Filters.lt("age", 1))
-                .projection(resultFields)
-                .sort(Sorts.descending("age")).iterator();
-        while (userMongoCursor.hasNext()) {
-
-            userList.add(userMongoCursor.next());
-        }
-        return userList;
-    }
-
-    @RequestMapping("/list2")
-    public List<User> list2() {
-        //只查询 id,name,age三个字段
-        Bson resultFields = fields(include("_id", "name", "age"));
         BasicDBObject query = new BasicDBObject();
         Bson idParam = new Document("$gte", 1);
         query.put("age", idParam);
@@ -117,11 +100,27 @@ public class TestController {
         List<User> userList = new ArrayList<>();
         documents.forEachRemaining(document -> {
             User data = new User();
-            Object id = document.get("_id");
-//            data.setId(document.get("_id").toString());
+            data.setId(document.get("_id").toString());
             data.setAge(document.getInteger("age"));
+            data.setName(document.getString("name"));
             userList.add(data);
         });
         return userList;
     }
+
+//    @RequestMapping("/list2")
+//    public List<User> list2() {
+//        //只查询 id,name,age三个字段
+//        Bson resultFields = fields(include("name", "age"));
+//
+//        MongoCollection<User> collection = mongoDatabase.getCollection("user", User.class);
+//        List<User> userList = new ArrayList<>();
+//        MongoCursor<User> userMongoCursor = collection.find(Filters.lt("age", 1))
+//                .projection(resultFields)
+//                .sort(Sorts.descending("age")).iterator();
+//        while (userMongoCursor.hasNext()) {
+//            userList.add(userMongoCursor.next());
+//        }
+//        return userList;
+//    }
 }

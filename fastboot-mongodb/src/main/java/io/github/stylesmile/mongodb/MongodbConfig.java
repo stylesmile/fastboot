@@ -20,7 +20,7 @@ public class MongodbConfig {
      * uri = mongodb://username:password@127.0.0.1:27016/dbname
      */
     public static MongoDatabase getMongoDatabase() {
-        String uri = uri = "mongodb://" + username + password + "@" + host + ":" + port + "/" + db;
+        String uri = "mongodb://" + username + ":" + password + "@" + host + ":" + port + "/" + db;
         MongoClient mongoClient = new MongoClient(new MongoClientURI(uri));
         MongoDatabase database = mongoClient.getDatabase(db);
         return database;
