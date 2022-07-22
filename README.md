@@ -10,7 +10,7 @@
 
 ####  
 
-####快速开始
+#### [快速开始详细文档](./doc/1.fastboot-start.md)
 
 #####maven依赖[example](fastboot-example/fastboot-web-example)
 ```maven
@@ -26,16 +26,8 @@
             <artifactId>fastboot-core</artifactId>
         </dependency>
 ```
-#####如果你管理依赖用的gradle
-参考下面的配置 [example](fastboot-example/fastboot-web-example)
-```gradle
-    plugins {
-        id 'java'
-        id 'java-platform'
-    }
-    implementation platform("io.github.stylesmile:fastboot-parent:0.4.0")
-    implementation 'io.github.stylesmile:fastboot-core'
-```
+#####如果你管理依赖用的gradle[参考gradle配置](doc/1.fastboot-start-gradle.md)
+
 ```java
 
 import io.github.stylesmile.annotation.Controller;
