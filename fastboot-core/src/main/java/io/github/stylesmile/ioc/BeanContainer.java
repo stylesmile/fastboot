@@ -2,6 +2,7 @@ package io.github.stylesmile.ioc;
 
 import io.github.stylesmile.annotation.AutoWired;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,7 +32,7 @@ public class BeanContainer {
     public static <T> T getSingleInstance(Class<T> cls) {
         try {
             //判断是否走单例
-            if (!cls.isAnnotationPresent(AutoWired.class)) {
+            if (!cls.isAnnotationPresent(AutoWired.class) || !cls.isAnnotationPresent(Resource.class)) {
                 return getInstance(cls);
             }
             Object obj = instances.get(cls);
@@ -56,23 +57,23 @@ public class BeanContainer {
 
         try {
             T obj = null;
-            obj = (T)instances.get(cls);
+            obj = (T) instances.get(cls);
             if (obj == null) {
                 obj = cls.newInstance();
             }
             //返回本类申明的字段包括非public,不包括父类
-            Field[] declaredFields = cls.getDeclaredFields();
-            for (Field f : declaredFields) {
-                //判断字段是否包含指定注解类型
-                if (f.isAnnotationPresent(AutoWired.class)) {
-                    //判断字段是否为私有
-                    if (!f.isAccessible()) {
-                        f.setAccessible(true);
-                    }
-                    //再次递归调用赋值
-                    f.set(obj, getInstance(f.getType()));
-                }
-            }
+//            Field[] declaredFields = cls.getDeclaredFields();
+//            for (Field f : declaredFields) {
+//                //判断字段是否包含指定注解类型
+//                if (f.isAnnotationPresent(AutoWired.class) || f.isAnnotationPresent(Resource.class)) {
+//                    //判断字段是否为私有
+//                    if (!f.isAccessible()) {
+//                        f.setAccessible(true);
+//                    }
+//                    //再次递归调用赋值
+//                    f.set(obj, getInstance(f.getType()));
+//                }
+//            }
             return obj;
         } catch (Exception e) {
             throw new RuntimeException(e);

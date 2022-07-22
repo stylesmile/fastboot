@@ -21,10 +21,12 @@ public class PlugsManager implements Plugin {
 
     public PlugsManager() {
         //通过spi加载所有插件
+//        ServiceLoader<Plugin> loadedParsers = ServiceLoader.loadInstalled(Plugin.class);
         ServiceLoader<Plugin> loadedParsers = ServiceLoader.load(Plugin.class);
-        for (Plugin Plugin : loadedParsers) {
-            obj.add(Plugin);
-            plugPackages.add(Plugin.getClass().getPackage().getName());
+        for (Plugin plugin : loadedParsers) {
+            obj.add(plugin);
+            System.out.println("初始化插件：" +plugin.getClass());
+            plugPackages.add(plugin.getClass().getPackage().getName());
         }
     }
 

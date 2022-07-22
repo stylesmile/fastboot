@@ -1,17 +1,21 @@
 plugins {
     id 'java'
+    //依赖管理插件
     id 'java-platform'
 }
 
-group 'org.example'
+group 'com.example'
 version '1.0-SNAPSHOT'
 
-repositories {
-    maven {url "https://s01.oss.sonatype.org/content/repositories/releases/"}
-    maven {url "https://repo2.maven.org/maven2/"}
-    mavenCentral()
+dependencies {
+    // 引入 BOM
+    implementation platform("io.github.stylesmile:fastboot-parent:0.5.0")
+    implementation 'io.github.stylesmile:fastboot-core'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
+// 打包配置 需要指定启动类 com.example.Application
 jar {
     // 详细信息参考 https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
     archivesBaseName = 'fastboot'//基本的文件名
@@ -30,14 +34,12 @@ jar {
     }
 }
 
-dependencies {
-    // 引入 BOM
-    implementation platform("io.github.stylesmile:fastboot-parent:0.2.1-snapshots")
-    implementation 'io.github.stylesmile:fastboot-core'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-}
 
+repositories {
+    maven {url "https://s01.oss.sonatype.org/content/repositories/releases/"}
+    maven {url "https://repo2.maven.org/maven2/"}
+    mavenCentral()
+}
 test {
     useJUnitPlatform()
 }

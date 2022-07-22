@@ -32,18 +32,12 @@ public class App {
         long startTime = System.currentTimeMillis();
         Integer port = 8080;
         PropertyUtil.loadProps(applicationClass, "application.properties");
-//        PropertiesUtils.loadConfProperties();
-//        PropertyUtil.loadProps("classpath:application.properties");
-//        String portString = PropertyUtil.props.getProperty("server.port","8080");
         String portString = PropertyUtil.props.getProperty("server.port");
-//        URL url = ResourceUtil.getResource("application.properties");
         if (StringUtil.isNotEmpty(portString)) {
             port = Integer.valueOf(portString);
         }
         System.out.println("start server  port :" + port);
         try {
-//            httpServer = HttpsServer.create(new InetSocketAddress("localhost", port), 0);
-//            httpServer = HttpServer.create(new InetSocketAddress("localhost", port), 0);
             httpServer = HttpServer.create(new InetSocketAddress(port), 0);
             String package1 = applicationClass.getPackage().getName();
             //扫描所有的类，

@@ -1,15 +1,22 @@
 plugins {
     id 'java'
+    //依赖管理插件
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 group 'org.example'
 version '1.0-SNAPSHOT'
-repositories {
-    maven {url "https://s01.oss.sonatype.org/content/repositories/releases/"}
-    maven {url "https://repo2.maven.org/maven2/"}
-    mavenCentral()
+//父工程依赖
+dependencyManagement {
+    imports {
+        mavenBom 'io.github.stylesmile:fastboot-parent:0.5.0'
+    }
 }
+// 依赖
+dependencies {
+    implementation 'io.github.stylesmile:fastboot-core'
+}
+// 打包配置 需要指定启动类
 jar {
     //详细信息参考 https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
     archivesBaseName = 'fastboot-demo'//基本的文件名
@@ -27,14 +34,10 @@ jar {
         }
     }
 }
-
-dependencies {
-    implementation 'io.github.stylesmile:fastboot-core'
-}
-dependencyManagement {
-    imports {
-        mavenBom 'io.github.stylesmile:fastboot-parent:0.2.1-snapshots'
-    }
+repositories {
+    maven {url "https://s01.oss.sonatype.org/content/repositories/releases/"}
+    maven {url "https://repo2.maven.org/maven2/"}
+    mavenCentral()
 }
 tasks.named('test') {
     useJUnitPlatform()

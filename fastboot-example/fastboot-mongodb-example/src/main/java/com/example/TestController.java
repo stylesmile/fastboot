@@ -1,88 +1,127 @@
 package com.example;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.querydsl.mongodb.morphia.MorphiaQuery;
-import com.sun.xml.internal.bind.v2.model.core.ID;
+import com.mongodb.client.model.*;
+import com.mongodb.client.result.UpdateResult;
+import io.github.stylesmile.annotation.AutoWired;
 import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
-import io.github.stylesmile.ioc.Value;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
+import org.bson.types.ObjectId;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.mongodb.client.model.Projections.fields;
 import static com.mongodb.client.model.Projections.include;
 
+/**
+ * mongodb 操作
+ * 官方文档地址
+ * https://www.mongodb.com/docs/drivers/java/sync/current/quick-start/
+ */
 @Controller
 public class TestController {
 
-    @Value(value = "mongodb.uri")
-    private String uri;
+    @AutoWired
+    MongoDatabase mongoDatabase;
 
-    @RequestMapping("/")
-    public String hello() {
-        return "hello fastboot";
-    }
-
-    private MongoClient mongoClient = null;
-//    private Morphia morphia = new Morphia();
-    private Datastore ds = null;
-
-    @RequestMapping("/0")
-    public List<User> hello0() {
-        mongoClient = new MongoClient(new MongoClientURI(uri));
-        Morphia morphia = new Morphia().map(User.class);
-        ds = morphia.createDatastore(mongoClient, "tasks");
-        QUser qUser = new QUser("user");
-
+    /**
+     * https://www.mongodb.com/docs/drivers/java/sync/current/usage-examples/insertOne/
+     */
+    @RequestMapping("/save")
+    public void save() {
         User user = new User();
         user.setName("1");
         user.setAge(18);
-        MorphiaQuery<User> query = new MorphiaQuery<User>(morphia, ds, qUser);
-        List<User> list = query
-                .where(qUser.name.eq("1"))
-                .fetch();
-        return list;
+        MongoCollection<Document> collection = mongoDatabase.getCollection("user");
+        try {
+            collection.insertOne(new Document()
+                    .append("_id", new ObjectId())
+                    .append("name", "Ski Bloopers")
+                    .append("age", 10));
+        } catch (MongoException me) {
+            System.err.println("Unable to insert due to an error: " + me);
+        }
     }
 
-    @RequestMapping("/2")
-    public List<User> hello1() {
-//        mongoClient = new MongoClient(uri);
-        mongoClient = new MongoClient(new MongoClientURI(uri));
-        MongoDatabase database = mongoClient.getDatabase("tasks");
+    /**
+     * https://www.mongodb.com/docs/drivers/java/sync/v4.6/usage-examples/updateOne/
+     */
+    @RequestMapping("/update")
+    public void update() {
+        MongoCollection<Document> collection = mongoDatabase.getCollection("user");
+        //查询条件
+        Document query = new Document().append("name", "zhangsan");
+        //需要修改的值
+        Bson updates = Updates.combine(
+                Updates.set("age", 99),
+//                Updates.addToSet("name", "Sports"),
+                Updates.currentTimestamp("lastUpdated"));
+        //是否
+        UpdateOptions options = new UpdateOptions().upsert(true);
+        try {
+            UpdateResult result = collection.updateOne(query, updates, options);
+            System.out.println("Modified document count: " + result.getModifiedCount());
+            System.out.println("Upserted id: " + result.getUpsertedId()); // only contains a value when an upsert is performed
+        } catch (MongoException me) {
+            System.err.println("Unable to update due to an error: " + me);
+        }
+    }
 
 
-        Bson resultFields = fields(include("_id","name","contents"));
+    /**
+     * https://www.mongodb.com/docs/drivers/java/sync/current/usage-examples/findOne/
+     *
+     * @return List
+     */
+    @RequestMapping("/list")
+    public List<User> list() {
+        //只查询 id,name,age三个字段
+        Bson resultFields = fields(include("_id", "name", "age"));
 
-        Long randomId =1L;
+        MongoCollection<User> collection = mongoDatabase.getCollection("user", User.class);
+        List<User> userList = new ArrayList<>();
+        MongoCursor<User> userMongoCursor = collection.find(Filters.lt("age", 1))
+                .projection(resultFields)
+                .sort(Sorts.descending("age")).iterator();
+        while (userMongoCursor.hasNext()) {
 
-        Bson idParam = new Document("$gte",randomId);
+            userList.add(userMongoCursor.next());
+        }
+        return userList;
+    }
+
+    @RequestMapping("/list2")
+    public List<User> list2() {
+        //只查询 id,name,age三个字段
+        Bson resultFields = fields(include("_id", "name", "age"));
         BasicDBObject query = new BasicDBObject();
+        Bson idParam = new Document("$gte", 1);
+        query.put("age", idParam);
 
-        //query.put("markerId", idParam);
-        MongoCollection<Document> simpleDataCollection = database.getCollection("user");
+        MongoCollection<Document> simpleDataCollection = mongoDatabase.getCollection("user");
         MongoCursor<Document> documents = simpleDataCollection.find(query)
-                .projection(resultFields).limit(100)
-//        .sort(Sorts.orderBy(sort))
+                .projection(resultFields)
+                //限制100条
+                .limit(100)
+                //排序
+//                .sort(Sorts.orderBy("age"))
                 .iterator();
         List<User> userList = new ArrayList<>();
         documents.forEachRemaining(document -> {
             User data = new User();
-//            data.setId(document.getInteger("_id"));
-            data.setName(document.getString("name"));
+            Object id = document.get("_id");
+//            data.setId(document.get("_id").toString());
+            data.setAge(document.getInteger("age"));
             userList.add(data);
         });
         return userList;
     }
-
 }

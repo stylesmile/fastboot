@@ -9,11 +9,8 @@ import io.github.stylesmile.tool.StringUtil;
 import javax.annotation.Resource;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -82,10 +79,8 @@ public class BeanFactory {
             }
             if (hasBean) {
                 Object bean = null;
-//                    bean = cls.getDeclaredConstructor().newInstance();
                 bean = BeanContainer.getSingleInstance(cls);
                 BeanContainer.setInstance(cls, bean);
-                System.out.println();
             }
         });
     }
@@ -108,7 +103,13 @@ public class BeanFactory {
             bean = BeanContainer.getSingleInstance(cls);
             Field[] fields = cls.getDeclaredFields();
             for (Field field : fields) {
-                if (field.isAnnotationPresent(AutoWired.class) || field.isAnnotationPresent(Resource.class)) {
+                if (field.getAnnotation(Value.class) != null) {
+                    field.setAccessible(true);
+                    Value value = field.getAnnotation(Value.class);
+                    field.set(bean, StringUtil.isNotEmpty(value.value()) ? PropertyUtil.getProperty(value.value()) : null);
+                    System.out.println("注入配置文件  " + bean.getClass() + " 加载配置属性" + value.value());
+                    System.out.println(value);
+                } else if (field.isAnnotationPresent(AutoWired.class) || field.isAnnotationPresent(Resource.class)) {
                     //获取属性的类型
                     Class<?> fieldType = field.getType();
                     //从工厂里面获取，获取不到，先返回
@@ -121,12 +122,6 @@ public class BeanFactory {
                     //反射将对象设置到属性上
                     field.set(bean, reliantBean);
                     System.out.println();
-                } else if (field.getAnnotation(Value.class) != null) {
-                    field.setAccessible(true);
-                    Value value = field.getAnnotation(Value.class);
-                    field.set(bean, StringUtil.isNotEmpty(value.value()) ? PropertyUtil.getProperty(value.value()) : null);
-                    System.out.println("注入配置文件  " + bean.getClass() + " 加载配置属性" + value.value());
-                    System.out.println(value);
                 }
             }
             //缓存实例到工厂中
