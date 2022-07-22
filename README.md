@@ -11,6 +11,8 @@
 ####  
 
 #### [快速开始详细文档](./doc/1.fastboot-start.md)
+#### [快速开始 mybatis](./doc/db/1.fastboot-mybatis.md)
+#### [快速开始 redis](./doc/db/2.fastboot-redis.md)
 
 #####maven依赖[example](fastboot-example/fastboot-web-example)
 ```maven
