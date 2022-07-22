@@ -35,13 +35,13 @@ public class TestController {
     }
 
     private MongoClient mongoClient = null;
-    private Morphia morphia = new Morphia();
+//    private Morphia morphia = new Morphia();
     private Datastore ds = null;
 
     @RequestMapping("/0")
     public List<User> hello0() {
         mongoClient = new MongoClient(new MongoClientURI(uri));
-        morphia = new Morphia().map(User.class);
+        Morphia morphia = new Morphia().map(User.class);
         ds = morphia.createDatastore(mongoClient, "tasks");
         QUser qUser = new QUser("user");
 
