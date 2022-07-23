@@ -9,7 +9,7 @@ version '1.0-SNAPSHOT'
 //父工程依赖
 dependencyManagement {
     imports {
-        mavenBom 'io.github.stylesmile:fastboot-parent:0.5.1'
+        mavenBom 'io.github.stylesmile:fastboot-parent:0.5.2'
     }
 }
 // 依赖

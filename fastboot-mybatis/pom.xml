@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>io.github.stylesmile</groupId>
 		<artifactId>fastboot-parent</artifactId>
-		<version>0.5.1</version>
+		<version>0.5.2</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -33,6 +33,10 @@
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 			<version>4.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 	</dependencies>
 </project>
