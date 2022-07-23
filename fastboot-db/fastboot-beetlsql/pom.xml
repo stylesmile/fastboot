@@ -4,26 +4,35 @@
 
 	<parent>
 		<groupId>io.github.stylesmile</groupId>
-		<artifactId>fastboot-parent</artifactId>
+		<artifactId>fastboot-db</artifactId>
 		<version>0.7.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.stylesmile</groupId>
-	<artifactId>fastboot-core</artifactId>
+	<artifactId>fastboot-beetlsql</artifactId>
 	<version>${fastboot.version}</version>
-	<name>fastboot-core</name>
+	<name>fastboot-beetlsql</name>
 	<packaging>jar</packaging>
-	<description>core for fastboot</description>
+	<description>beetlsql for fastboot</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
+			<groupId>io.github.stylesmile</groupId>
+			<artifactId>fastboot-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ibeetl</groupId>
+			<artifactId>beetlsql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>4.0.3</version>
 		</dependency>
 	</dependencies>
 </project>

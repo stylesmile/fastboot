@@ -38,7 +38,7 @@ import java.util.jar.JarFile;
 /**
  * 参考文献 https://blog.csdn.net/qq_42413011/article/details/118640420
  *
- * @author hxm
+ * @author Stylesmile
  */
 public class MybatisPlugin implements Plugin {
 

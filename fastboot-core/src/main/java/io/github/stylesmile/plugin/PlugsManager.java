@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * 插件管理器
  *
- * @author hxm
+ * @author Stylesmile
  */
 public class PlugsManager implements Plugin {
     private final Set<String> plugPackages = new HashSet<>();

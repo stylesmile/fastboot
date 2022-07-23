@@ -7,7 +7,7 @@ import io.github.stylesmile.plugin.Plugin;
 /**
  * 参考文献 https://blog.csdn.net/qq_42413011/article/details/118640420
  *
- * @author hxm
+ * @author Stylesmile
  */
 public class MongodbPlugin implements Plugin {
 

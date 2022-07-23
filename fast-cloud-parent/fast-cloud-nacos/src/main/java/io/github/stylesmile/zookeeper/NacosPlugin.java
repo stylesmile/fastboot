@@ -10,7 +10,7 @@
 ///**
 // * 参考文献 https://www.jianshu.com/p/2cd487f9560a
 // *
-// * @author hxm
+// * @author Stylesmile
 // */
 //public class NacosPlugin implements Plugin {
 //

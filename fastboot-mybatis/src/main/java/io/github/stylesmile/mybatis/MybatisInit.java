@@ -27,7 +27,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * @author hxm
+ * @author Stylesmile
  */
 public class MybatisInit {
 
