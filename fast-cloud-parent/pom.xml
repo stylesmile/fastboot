@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.github.stylesmile</groupId>
+	<artifactId>fast-cloud-parent</artifactId>
+	<version>0.1.0</version>
+	<name>fast-cloud-parent</name>
+	<packaging>pom</packaging>
+	<properties>
+		<java.version>1.8</java.version>
+		<fast-cloud.version>0.1.0</fast-cloud.version>
+	</properties>
+	<modules>
+		<module>fast-cloud-zookeeper</module>
+<!--		<module>fast-cloud-nacos</module>-->
+	</modules>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.github.stylesmile</groupId>
+				<artifactId>fast-cloud-nacos</artifactId>
+				<version>${fastboot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.stylesmile</groupId>
+				<artifactId>fastboot-parent</artifactId>
+				<version>0.6.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.zookeeper</groupId>
+				<artifactId>zookeeper</artifactId>
+				<version>3.8.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.nacos</groupId>
+				<artifactId>nacos-client</artifactId>
+				<version>2.1.0</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<description>cloud project for Fast Boot</description>
+
+	<!--项目信息...-->
+	<url>https://github.com/stylesmile/fastboot</url>
+
+	<!--开源协议...-->
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<!--开发者信息-->
+	<developers>
+		<developer>
+			<id>stylesmile</id>
+			<name>Stylesmile</name>
+			<email>3239866994@qq.com</email>
+			<roles>
+				<role>Project Manager</role>
+				<role>Architect</role>
+			</roles>
+			<timezone>+8</timezone>
+		</developer>
+	</developers>
+
+	<!--项目在github或其它托管平台的地址-->
+	<scm>
+		<connection>https://github.com/stylesmile/fastboot.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com:stylesmile/fastboot.git</developerConnection>
+		<url>https://github.com/stylesmile/fastboot</url>
+	</scm>
+	<profiles>
+		<profile>
+			<!--注意,此id必须与setting.xml中指定的一致,不要自作聪明改它名字-->
+			<id>ossrh</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<!--发布到中央SNAPSHOT仓库插件-->
+				<plugins>
+
+					<!-- GPG -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.5</version>
+						<executions>
+							<execution>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+
+					<!-- Source -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>3.0.1</version>
+						<configuration>
+							<attach>true</attach>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- Javadoc -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.10.3</version>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<configuration>
+									<additionalparam>-Xdoclint:none</additionalparam>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.7</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+
+			<distributionManagement>
+				<snapshotRepository>
+					<!--注意,此id必须与setting.xml中指定的一致-->
+					<uniqueVersion>false</uniqueVersion>
+					<id>ossrh</id>
+					<name>snapshots</name>
+					<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+				</snapshotRepository>
+				<repository>
+					<uniqueVersion>false</uniqueVersion>
+					<id>ossrh</id>
+					<name>releases</name>
+					<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+
+	</profiles>
+	<repositories>
+		<repository>
+			<id>sonatype-snapshots</id>
+			<name>snapshots</name>
+			<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>
+		<repository>
+			<id>sonatype-releases</id>
+			<name>snapshots</name>
+			<url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
+		</repository>
+		<repository>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>https://repo2.maven.org/maven2/</url>
+		</repository>
+		<repository>
+			<id>ali</id>
+			<url>https://maven.aliyun.com/repository/public</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>ali</id>
+			<url>https://maven.aliyun.com/repository/public</url>
+		</pluginRepository>
+	</pluginRepositories>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<compilerArgument>-parameters</compilerArgument>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.2</version>
+			</plugin>
+		</plugins>
+	</build>
+</project>
