@@ -1,15 +1,13 @@
 package io.github.stylesmile.app;
 
-import io.github.stylesmile.handle.HandlerManager;
-import io.github.stylesmile.plugin.PlugsManager;
-import io.github.stylesmile.ioc.BeanFactory;
-import io.github.stylesmile.tool.ClassScanner;
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpServer;
+import io.github.stylesmile.handle.HandlerManager;
+import io.github.stylesmile.ioc.BeanFactory;
+import io.github.stylesmile.plugin.PlugsManager;
+import io.github.stylesmile.tool.ClassScanner;
 import io.github.stylesmile.tool.PropertyUtil;
 import io.github.stylesmile.tool.StringUtil;
-//import io.github.stylesmile.tool.resource.PropertiesUtils;
-//import io.github.stylesmile.tool.resource.ResourceUtil;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -32,11 +30,11 @@ public class App {
         long startTime = System.currentTimeMillis();
         Integer port = 8080;
         PropertyUtil.loadProps(applicationClass, "application.properties");
-        String portString = PropertyUtil.props.getProperty("server.port");
+        String portString = PropertyUtil.getProperty("server.port");
         if (StringUtil.isNotEmpty(portString)) {
             port = Integer.valueOf(portString);
         }
-        System.out.println("start server  port :" + port);
+        System.out.println("start server  port : " + port);
         try {
             httpServer = HttpServer.create(new InetSocketAddress(port), 0);
             String package1 = applicationClass.getPackage().getName();

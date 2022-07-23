@@ -107,8 +107,6 @@ public class BeanFactory {
                     field.setAccessible(true);
                     Value value = field.getAnnotation(Value.class);
                     field.set(bean, StringUtil.isNotEmpty(value.value()) ? PropertyUtil.getProperty(value.value()) : null);
-                    System.out.println("注入配置文件  " + bean.getClass() + " 加载配置属性" + value.value());
-                    System.out.println(value);
                 } else if (field.isAnnotationPresent(AutoWired.class) || field.isAnnotationPresent(Resource.class)) {
                     //获取属性的类型
                     Class<?> fieldType = field.getType();

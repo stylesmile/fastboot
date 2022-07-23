@@ -1,7 +1,5 @@
 package io.github.stylesmile.plugin;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -14,18 +12,14 @@ import java.util.Set;
  * @author hxm
  */
 public class PlugsManager implements Plugin {
-    private static final Logger log = LoggerFactory.getLogger(PlugsManager.class);
-
-    private Set<String> plugPackages = new HashSet<>();
-    private Set<Plugin> obj = new HashSet<>();
+    private final Set<String> plugPackages = new HashSet<>();
+    private final Set<Plugin> obj = new HashSet<>();
 
     public PlugsManager() {
         //通过spi加载所有插件
-//        ServiceLoader<Plugin> loadedParsers = ServiceLoader.loadInstalled(Plugin.class);
         ServiceLoader<Plugin> loadedParsers = ServiceLoader.load(Plugin.class);
         for (Plugin plugin : loadedParsers) {
             obj.add(plugin);
-            System.out.println("初始化插件：" +plugin.getClass());
             plugPackages.add(plugin.getClass().getPackage().getName());
         }
     }
@@ -40,7 +34,7 @@ public class PlugsManager implements Plugin {
                 obj.add((Plugin) aClass.newInstance());
                 plugPackages.add(aClass.getPackage().getName());
             } catch (Exception e) {
-                log.error(e.getMessage());
+                e.printStackTrace();
             }
         }
     }

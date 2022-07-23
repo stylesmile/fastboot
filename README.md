@@ -19,7 +19,7 @@
         <parent>
             <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-parent</artifactId>
-            <version>0.4.0</version>
+            <version>0.6.0</version>
         </parent>
 ```
 ```maven

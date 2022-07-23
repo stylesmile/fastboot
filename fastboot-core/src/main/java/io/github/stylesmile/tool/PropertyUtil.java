@@ -25,10 +25,7 @@ public class PropertyUtil {
             } else {
                 in = clazz.getClassLoader().getResourceAsStream(path);
             }
-            //<!--第二种，通过类进行获取properties文件流-->
-//            in = clazz.getResourceAsStream("/application.properties");
             props.load(in);
-            System.out.println(props.getProperty("server.port"));
         } catch (FileNotFoundException e) {
             System.err.println(path + "文件未找到");
         } catch (IOException e) {
