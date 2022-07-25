@@ -6,7 +6,7 @@ import io.github.stylesmile.annotation.Service;
 import io.github.stylesmile.tool.PropertyUtil;
 import io.github.stylesmile.tool.StringUtil;
 
-import javax.annotation.Resource;
+import io.github.stylesmile.annotation.AutoWired;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -107,7 +107,7 @@ public class BeanFactory {
                     field.setAccessible(true);
                     Value value = field.getAnnotation(Value.class);
                     field.set(bean, StringUtil.isNotEmpty(value.value()) ? PropertyUtil.getProperty(value.value()) : null);
-                } else if (field.isAnnotationPresent(AutoWired.class) || field.isAnnotationPresent(Resource.class)) {
+                } else if (field.isAnnotationPresent(AutoWired.class)) {
                     //获取属性的类型
                     Class<?> fieldType = field.getType();
                     //从工厂里面获取，获取不到，先返回

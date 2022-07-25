@@ -1,4 +1,4 @@
-package io.github.stylesmile.zookeeper;
+package io.github.stylesmile.nacos;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import org.apache.zookeeper.CreateMode;

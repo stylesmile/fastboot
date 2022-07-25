@@ -1,6 +1,6 @@
 package com.example;
 
-import io.github.stylesmile.zookeeper.BaseZookeeper;
+import io.github.stylesmile.nacos.BaseZookeeper;
 import org.junit.Test;
 
 import java.util.List;

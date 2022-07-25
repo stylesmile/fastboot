@@ -11,7 +11,7 @@ import io.github.stylesmile.app.App;
 import io.github.stylesmile.ioc.Value;
 import io.github.stylesmile.tool.PropertyUtil;
 
-import javax.annotation.Resource;
+import io.github.stylesmile.annotation.AutoWired;
 import java.util.List;
 
 

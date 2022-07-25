@@ -7,7 +7,7 @@ import io.github.stylesmile.ioc.Value;
 import io.github.stylesmile.tool.PropertyUtil;
 import redis.clients.jedis.Jedis;
 
-import javax.annotation.Resource;
+import io.github.stylesmile.annotation.AutoWired;
 import java.util.List;
 
 @Controller

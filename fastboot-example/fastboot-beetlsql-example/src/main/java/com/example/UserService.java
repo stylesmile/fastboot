@@ -3,12 +3,12 @@ package com.example;
 import io.github.stylesmile.annotation.Service;
 import org.beetl.sql.core.SQLManager;
 
-import javax.annotation.Resource;
+import io.github.stylesmile.annotation.AutoWired;
 import java.util.List;
 
 @Service
 public class UserService {
-    @Resource
+    @AutoWired
     SQLManager sqlManager;
 
     public String get() {

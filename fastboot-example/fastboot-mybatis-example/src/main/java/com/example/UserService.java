@@ -3,13 +3,13 @@ package com.example;
 import com.example.mapper.UserMapper;
 import io.github.stylesmile.annotation.Service;
 
-import javax.annotation.Resource;
+import io.github.stylesmile.annotation.AutoWired;
 import java.util.HashMap;
 import java.util.List;
 
 @Service
 public class UserService {
-    @Resource
+    @AutoWired
     UserMapper userMapper;
     public String get() {
         return "hello service!";

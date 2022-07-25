@@ -2,8 +2,6 @@ package io.github.stylesmile.ioc;
 
 import io.github.stylesmile.annotation.AutoWired;
 
-import javax.annotation.Resource;
-import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -32,7 +30,7 @@ public class BeanContainer {
     public static <T> T getSingleInstance(Class<T> cls) {
         try {
             //判断是否走单例
-            if (!cls.isAnnotationPresent(AutoWired.class) || !cls.isAnnotationPresent(Resource.class)) {
+            if (!cls.isAnnotationPresent(AutoWired.class)) {
                 return getInstance(cls);
             }
             Object obj = instances.get(cls);

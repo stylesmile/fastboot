@@ -5,12 +5,12 @@ import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.ioc.Value;
 import io.github.stylesmile.tool.PropertyUtil;
 
-import javax.annotation.Resource;
+import io.github.stylesmile.annotation.AutoWired;
 import java.util.List;
 
 @Controller
 public class TestController {
-    @Resource
+    @AutoWired
     UserService userService;
 
     @Value(value = "fast.name")

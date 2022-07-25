@@ -12,20 +12,20 @@
 		<fast-cloud.version>0.1.0</fast-cloud.version>
 	</properties>
 	<modules>
-		<module>fast-cloud-zookeeper</module>
-<!--		<module>fast-cloud-nacos</module>-->
+<!--		<module>fast-cloud-zookeeper</module>-->
+		<module>fast-cloud-nacos</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>io.github.stylesmile</groupId>
 				<artifactId>fast-cloud-nacos</artifactId>
-				<version>${fastboot.version}</version>
+				<version>${fast-cloud.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.stylesmile</groupId>
 				<artifactId>fastboot-parent</artifactId>
-				<version>0.6.0</version>
+				<version>0.7.0</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
