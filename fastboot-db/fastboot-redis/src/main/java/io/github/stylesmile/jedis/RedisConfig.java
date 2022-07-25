@@ -1,4 +1,4 @@
-package io.github.stylesmile.jedis.bean;
+package io.github.stylesmile.jedis;
 
 import io.github.stylesmile.annotation.Service;
 import io.github.stylesmile.ioc.Bean;
@@ -9,10 +9,8 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-@Service
 public class RedisConfig {
-    @Bean
-    public Jedis getJedisPoolConfig() {
+    public static Jedis getJedisPoolConfig() {
         String host = PropertyUtil.getProperty("redis.host");
         String port = PropertyUtil.getProperty("redis.port");
         String db = PropertyUtil.getProperty("redis.db");

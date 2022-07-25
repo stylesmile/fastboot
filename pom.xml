@@ -4,18 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>0.7.0</version>
+    <version>0.7.1</version>
     <name>fastboot-parent</name>
     <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
-        <fastboot.version>0.7.0</fastboot.version>
+        <fastboot.version>0.7.1</fastboot.version>
     </properties>
     <modules>
         <module>fastboot-core</module>
         <module>fastboot-db</module>
         <module>fastboot-mybatis</module>
-        <module>fastboot-redis</module>
         <module>fastboot-mongodb</module>
         <module>fastboot-log</module>
     </modules>
