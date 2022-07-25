@@ -4,9 +4,9 @@
 
 	<parent>
 		<groupId>io.github.stylesmile</groupId>
-		<artifactId>fastboot-parent</artifactId>
+		<artifactId>fastboot-db</artifactId>
 		<version>0.7.1</version>
-		<relativePath>../../pom.xml</relativePath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
