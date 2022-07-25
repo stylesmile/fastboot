@@ -4,11 +4,7 @@ import io.github.stylesmile.annotation.AutoWired;
 import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.ioc.Value;
-import io.github.stylesmile.tool.PropertyUtil;
 import redis.clients.jedis.Jedis;
-
-import io.github.stylesmile.annotation.AutoWired;
-import java.util.List;
 
 @Controller
 public class TestController {
@@ -21,7 +17,8 @@ public class TestController {
 
     @RequestMapping("/")
     public String hello() {
-        return "hello fastboot";
+        jedis.set("test", "hello");
+        return jedis.get("test");
     }
 
     @RequestMapping("/1")
