@@ -20,9 +20,11 @@ public class TestController {
 
     @RequestMapping("/")
     public int hello2() throws NacosException {
-        // 指定配置的 DataID 和 Group
-        String dataId = "${dataId}";
-        String group = "${group}";
+        // 指定配置的 DataID 和 Group 只能用spring类型 有$会报错
+//        String dataId = "${dataId}";
+        String dataId = "dataId";
+//        String group = "${group}";
+        String group = "group";
         String content = "connectTimeoutInMills=5000";
         // 发布配置
         boolean publishConfig = configService.publishConfig(dataId, group, content);
