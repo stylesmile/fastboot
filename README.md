@@ -51,6 +51,10 @@ public class Application {
 ```maven
         <repository>
             <id>maven1</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>        
+        <repository>
+            <id>maven1</id>
             <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
         </repository>
 ```
