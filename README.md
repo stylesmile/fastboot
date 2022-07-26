@@ -16,10 +16,11 @@
 
 #####maven依赖[example](fastboot-example/fastboot-web-example)
 ```maven
-        	<parent>
+    <parent>
 		<groupId>io.github.stylesmile</groupId>
 		<artifactId>fastboot-parent</artifactId>
 		<version>0.7.1</version>
+	<parent>
 ```
 ```maven
         <dependency>
