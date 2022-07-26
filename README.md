@@ -47,7 +47,7 @@ public class Application {
     }
 }
 ```
-####发布最新版后，其他各个镜像仓库可能没有马上更新，可以用maven中央仓库原仓库下载
+####发布最新版后，其他各个镜像仓库可能过好几天才同步镜像，可以用maven官方仓库原仓库下载
 ```maven
         <repository>
             <id>maven1</id>
