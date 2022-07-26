@@ -12,7 +12,7 @@
     <modules>
         <module>fastboot-mybatis-example</module>
         <module>fastboot-web-example</module>
-        <module>fastboot-web-mybatis-example</module>
+        <module>fastboot-mybatis-example</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -23,7 +23,7 @@
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
                 <artifactId>fastboot-parent</artifactId>
-                <version>0.2.1-snapshots</version>
+                <version>0.7.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
