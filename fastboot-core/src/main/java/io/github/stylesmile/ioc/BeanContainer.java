@@ -7,9 +7,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Bean容器
+ *
+ * @author Stylesmile
  */
 public class BeanContainer {
+
     public static Map<Class<?>, Object> instances = new ConcurrentHashMap<>();
+    public static Map<BeanKey, Object> instancesHasName = new ConcurrentHashMap<>();
 
     /**
      * 添加一个Bean
@@ -19,6 +23,14 @@ public class BeanContainer {
      */
     public static void setInstance(Class cls, Object o) {
         instances.put(cls, o);
+    }
+
+    public static void setInstancesHasName(BeanKey beanKey, Object o) {
+        instancesHasName.put(beanKey, o);
+    }
+
+    public static Object getInstancesHasName(BeanKey beanKey) {
+        return instancesHasName.get(beanKey);
     }
 
     /**

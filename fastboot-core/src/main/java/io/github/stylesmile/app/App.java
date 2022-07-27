@@ -12,8 +12,7 @@ import io.github.stylesmile.tool.StringUtil;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -22,9 +21,16 @@ public class App {
     private static final PlugsManager PLUGS_MANAGER = new PlugsManager();
     public static List<Class<?>> classList = null;
 
-    private static ExecutorService executor = new ThreadPoolExecutor(5, 20,
-            60L, TimeUnit.SECONDS,
-            new ArrayBlockingQueue(10));
+    /**
+     * cpu count
+     */
+    private static int corePoolSize = Runtime.getRuntime().availableProcessors();
+
+    /**
+     * 创建线程池  调整队列数 拒绝服务
+     */
+    private static ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, corePoolSize + 1, 10L, TimeUnit.SECONDS,
+            new LinkedBlockingQueue<>(2000));
 
     public static void start(Class applicationClass, String[] args) {
         long startTime = System.currentTimeMillis();
@@ -47,8 +53,6 @@ public class App {
             BeanFactory.initBean(classList);
             //找到所有Controller，建立Controller中每个方法和Url的映射关系
             HandlerManager.resolveMappingHandler(classList);
-
-
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }

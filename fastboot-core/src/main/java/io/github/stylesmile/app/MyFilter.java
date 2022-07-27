@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
+/**
+ * @author Stylesmile
+ */
 public class MyFilter extends Filter {
     @Override
     public void doFilter(HttpExchange httpExchange, Chain chain) throws IOException {
@@ -22,7 +25,6 @@ public class MyFilter extends Filter {
 //        parseGetParameters(httpExchange, parameters);
 //        parsePostParameters(httpExchange, parameters);
         chain.doFilter(httpExchange);
-//        System.out.println(parameters);
     }
 
     /**

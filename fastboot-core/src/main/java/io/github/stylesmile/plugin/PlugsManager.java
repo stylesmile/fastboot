@@ -1,7 +1,6 @@
 package io.github.stylesmile.plugin;
 
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.ServiceLoader;
 import java.util.Set;
@@ -40,7 +39,7 @@ public class PlugsManager implements Plugin {
     }
 
     @Override
-    public void start() throws IOException {
+    public void start() {
         for (Plugin plugAdapter : obj) {
             plugAdapter.start();
         }

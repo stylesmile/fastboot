@@ -15,6 +15,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Bean工厂
+ * @author Stylesmile
  */
 public class BeanFactory {
     /**
@@ -59,7 +60,7 @@ public class BeanFactory {
                 //toCreate.remove(i);
             }
         }
-        //陷入循环依赖的死循环，抛出异常
+        // todo 陷入循环依赖的死循环，抛出异常
 //        if (toCreate.size() == remainSize) {
 //            toCreate.clear();
 ////                throw new RuntimeException("cycle dependency!");
@@ -69,7 +70,7 @@ public class BeanFactory {
 
     private static void putClassToBean(List<Class<?>> classList) {
         classList.forEach(cls -> {
-            boolean hasBean = cls.isAnnotationPresent(Bean.class);
+            boolean hasBean = false;
             for (Class beanClass : beanClasses) {
                 boolean b = cls.isAnnotationPresent(beanClass);
                 if (b) {

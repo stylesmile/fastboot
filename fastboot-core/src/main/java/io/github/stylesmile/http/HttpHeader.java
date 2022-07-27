@@ -1,5 +1,8 @@
 package io.github.stylesmile.http;
 
+/**
+ * @author Stylesmile
+ */
 public class HttpHeader {
     private final String name;
     private final String value;

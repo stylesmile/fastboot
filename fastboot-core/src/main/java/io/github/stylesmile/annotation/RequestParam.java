@@ -4,6 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * 请求参数注解
+ * @author Stylesmile
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

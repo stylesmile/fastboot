@@ -2,11 +2,14 @@ package io.github.stylesmile.plugin;
 
 import java.io.IOException;
 
+/**
+ * @author Stylesmile
+ */
 public interface Plugin {
     /**
      * 开始初始化
      */
-    void start() throws IOException;
+    void start();
 
     /**
      * 初始化

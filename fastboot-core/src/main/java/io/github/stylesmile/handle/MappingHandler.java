@@ -1,9 +1,10 @@
 package io.github.stylesmile.handle;
 
 import com.sun.net.httpserver.Headers;
-import io.github.stylesmile.ioc.BeanContainer;
-import io.github.stylesmile.ioc.BeanFactory;
 import com.sun.net.httpserver.HttpExchange;
+import io.github.stylesmile.ioc.BeanContainer;
+import io.github.stylesmile.ioc.BeanKey;
+import io.github.stylesmile.request.RequestMethod;
 import io.github.stylesmile.tool.JsonGsonUtil;
 
 import java.io.*;
@@ -18,6 +19,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 保存每个URL和Controller的映射
+ *
+ * @author Stylesmile
  */
 public class MappingHandler {
     /**
@@ -37,14 +40,17 @@ public class MappingHandler {
      */
     private final String[] args;
 
-    private final Parameter[] args2;
+    private final Parameter[] parameters;
 
-    public MappingHandler(String uri, Method method, Class<?> controller, String[] args, Parameter[] args2) {
+    private final RequestMethod requestMethod;
+
+    public MappingHandler(String uri, Method method, Class<?> controller, String[] args, Parameter[] parameters, RequestMethod requestMethod) {
         this.uri = uri;
         this.method = method;
         this.controller = controller;
         this.args = args;
-        this.args2 = args2;
+        this.parameters = parameters;
+        this.requestMethod = requestMethod;
     }
 
     /**
@@ -73,26 +79,23 @@ public class MappingHandler {
         parseGetParameters(httpExchange, parameterMap);
         //解析post参数
         parsePostParameters(httpExchange, parameterMap);
-//        httpExchange.setAttribute("parameters", parameterMap);
-        Object[] parameters = new Object[args.length];
         List<Object> parameters2 = new CopyOnWriteArrayList<>();
-//        for (int i = 0; i < args.length; ) {
-//            Object o = parameterMap.get(args[i]);
-//            parameters[i] = o;
-//            i++;
-//        }
-        for (int i = 0; i < args2.length; i++) {
+        for (int i = 0; i < parameters.length; i++) {
 
-            String parameterType = args2[i].getParameterizedType().getTypeName();
+            String parameterType = parameters[i].getParameterizedType().getTypeName();
             if (parameterType.equals("com.sun.net.httpserver.HttpExchange")) {
                 parameters2.add(httpExchange);
                 continue;
             }
-            Object o = parameterMap.get(args2[i].getName());
+            Object o = parameterMap.get(parameters[i].getName());
             buildParameters(parameters2, parameterType, o);
         }
         //从缓存中取出Controller，启动时就已经创建Controller实例了
-        Object ctl = BeanContainer.getSingleInstance(controller);
+        BeanKey beanKey = new BeanKey(controller, requestMethod.name());
+        Object ctl = BeanContainer.getInstancesHasName(beanKey);
+        if (ctl == null) {
+            ctl = BeanContainer.getSingleInstance(controller);
+        }
         //调用对应的接口方法，并获取响应结果
         Object[] strArray = (Object[]) parameters2.toArray();
         Object response = method.invoke(ctl, strArray);
