@@ -61,12 +61,8 @@ public class MybatisPlugin implements Plugin {
         //配置日志实现
         configuration.setLogImpl(Slf4jImpl.class);
         //扫描mapper接口所在包
-        Long mapperScanStartTime = System.currentTimeMillis();
         String packageName = PropertyUtil.getProperty("mybatis-plus.scanPackage");
         Set<Class> classSet = getMapperClass(packageName);
-        Long mapperScanEndTime = System.currentTimeMillis();
-        //System.out.println("mybatis scan time : " + (mapperScanEndTime - mapperScanStartTime) + "ms");
-
         classSet.forEach(cls -> {
             configuration.addMapper(cls);
         });
