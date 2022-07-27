@@ -1,20 +1,25 @@
-#### 介绍
+# 项目愿景
+java最佳云原生解决方案。
+# 个人愿景
+需要的是一个平台，在这个平台上面，不断沉淀自己，毕竟每天都在学习东西，接触新的技术点
 
-一个极速java web 框架
+有方向感，不迷茫，不浪费时间，有可行的学习计划
+在工作和学习过得中不断积累和提高学习效率
+可以总结和反思，过程可以不断的打磨出一个平台，一个产品或者一个精品
 
-#### 说明
+也是 quarkus 太重，配置graalvm环境就拦住了90%以上的人，所以就写了易用一个轻量级框架。
 
-0.1秒就可以启动项目
 
-####  
-
+### devOps架构
+基础 DevOps 技术体
+<img src="./doc/image/index/fastboot-devOps.png">
 #### [快速开始详细文档](./doc/1.fastboot-start.md)
 #### [快速开始 mybatis](./doc/db/1.fastboot-mybatis.md)
 #### [快速开始 redis](./doc/db/2.fastboot-redis.md)
 #### [快速开始 mongodb](./doc/db/3.fastboot-mongodb.md)
 #### [快速开始 beetlsql](./doc/db/4.fastboot-beetlsql.md)
 
-#####maven依赖[example](fastboot-example/fastboot-web-example)
+#####  快速开始 [example](fastboot-example/fastboot-web-example)
 ```maven
     <parent>
 		<groupId>io.github.stylesmile</groupId>
