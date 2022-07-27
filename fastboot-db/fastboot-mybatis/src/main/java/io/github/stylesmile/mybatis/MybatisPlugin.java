@@ -1,6 +1,5 @@
 package io.github.stylesmile.mybatis;
 
-import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
@@ -16,13 +15,10 @@ import org.apache.ibatis.builder.xml.XMLMapperBuilder;
 import org.apache.ibatis.io.ResolverUtil;
 import org.apache.ibatis.logging.slf4j.Slf4jImpl;
 import org.apache.ibatis.mapping.Environment;
-import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.io.File;
@@ -31,7 +27,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.JarURLConnection;
 import java.net.URL;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -51,6 +50,7 @@ public class MybatisPlugin implements Plugin {
 
     @Override
     public void init() {
+        Long startTime = System.currentTimeMillis();
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         //这是mybatis-plus的配置对象，对mybatis的Configuration进行增强
         MybatisConfiguration configuration = new MybatisConfiguration();
@@ -61,8 +61,12 @@ public class MybatisPlugin implements Plugin {
         //配置日志实现
         configuration.setLogImpl(Slf4jImpl.class);
         //扫描mapper接口所在包
+        Long mapperScanStartTime = System.currentTimeMillis();
         String packageName = PropertyUtil.getProperty("mybatis-plus.scanPackage");
         Set<Class> classSet = getMapperClass(packageName);
+        Long mapperScanEndTime = System.currentTimeMillis();
+        //System.out.println("mybatis scan time : " + (mapperScanEndTime - mapperScanStartTime) + "ms");
+
         classSet.forEach(cls -> {
             configuration.addMapper(cls);
         });
@@ -95,6 +99,8 @@ public class MybatisPlugin implements Plugin {
             //注入bean容器
             BeanContainer.setInstance(cls, bean);
         });
+        Long endTime = System.currentTimeMillis();
+        System.out.println("mybatis init time : " + (endTime - startTime) + "ms");
     }
 
     @Override
