@@ -10,11 +10,11 @@ java最佳云原生解决方案。
 * 也是 quarkus 太重，配置graalvm环境就拦住了90%以上的人，所以就写了易用一个轻量级框架。
 
 ## 支持说明
-为了可以更好的开源和支撑，以下为提供的技术支持，协助企业快速平台化和中台化
+为了可以更好的开源和支撑，以下为提供的技术支持，协助企业快速云原生化平台化和中台化
 
 * 企业DevOps技术平台搭建和落地指导
 * 企业自动化和持续集成体系支持
-* 企业中台化和平台化架构规划和设计指导
+* 企业云原生化中台化和平台化架构规划和设计指导
 * 企业过程技术答疑和技术指导
 * 如需技术支持，请关注公众号沟通：
 <img src="./doc/image/index/java_zhilu_gongzonghao.png">
@@ -28,6 +28,7 @@ java最佳云原生解决方案。
 #### [快速开始 redis](./doc/db/2.fastboot-redis.md)
 #### [快速开始 mongodb](./doc/db/3.fastboot-mongodb.md)
 #### [快速开始 beetlsql](./doc/db/4.fastboot-beetlsql.md)
+应用开发手册：[访问](./doc/应用开发手册/应用开发手册.md)
 
 #####  快速开始 [example](fastboot-example/fastboot-web-example)
 ```maven
@@ -75,4 +76,3 @@ public class Application {
         </repository>
 ```
 
-应用开发手册：[访问](./doc/应用开发手册/应用开发手册.md)
