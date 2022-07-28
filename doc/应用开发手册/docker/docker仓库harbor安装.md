@@ -69,14 +69,18 @@ https://github.com/goharbor/harbor/releases
 
 浏览器访问 http://192.172.0.16:9527 。用户名 admin，密码 Harbor12345
 
-创建项目（例如，test）未来会用到
+## 不使用HTTPS此步骤跳过
+1、HTTPS需要申请证书，附上一个免费申请证书的地址：https://freessl.cn/login
+证书下载后，上传到服务器data/cert/下，data/cert/这个路径是固定的，没有的需要先创建下文件夹（没有GUI界面可以拖的话，建议在Windows安装下ssh,使用scp命令）
+2、修改harbor.yml配置文件存放证书的路径
 
-为镜像打标签
+
+## 为镜像打标签
 docker tag [OPTIONS] IMAGE[:TAG] [REGISTRYHOST/][USERNAME/]NAME[:TAG]
 docker tag xyz:v1.0 192.172.0.16:9527/test/xyz:v1.0
 这里出现了 hostname:port ，也出现了你创建的项目。
 
-docker Cli 中登录 harbor
+## docker Cli 中登录 harbor
 推送前需要先登录。
 
 docker login 192.172.0.16:9527
