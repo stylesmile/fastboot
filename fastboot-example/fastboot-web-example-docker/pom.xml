@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>fastboot-web-example-docker</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>fastboot-web-example-docker</name>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.github.stylesmile</groupId>
+                <artifactId>fastboot-parent</artifactId>
+                <version>0.8.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.stylesmile</groupId>
+            <artifactId>fastboot-core</artifactId>
+        </dependency>
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>ali</id>
+            <url>https://maven.aliyun.com/repository/public/</url>
+        </repository>
+        <repository>
+            <id>maven1</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+        <repository>
+            <id>maven2</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- 配置编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <compilerArgument>-parameters</compilerArgument>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+
+            </plugin>
+
+            <!-- 配置打包插件（设置主类，并打包成胖包） -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <finalName>${project.artifactId}</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <!-- 此处，要改成自己的程序入口（即 main 函数类） -->
+                        <manifest>
+                            <mainClass>com.example.Application</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.2.1</version>
+                <!--                <version>1.8.0</version>-->
+                <configuration>
+                    <!-- 拉取所需的基础镜像 - 这里用于运行springboot项目 -->
+                    <from>
+                        <!--                        <image>openjdk:alpine</image>-->
+                        <!--                        <image>java:8-alpine</image>-->
+                        <image>java:8u172-jre-alpine</image>
+                    </from>
+                    <!-- 最后生成的镜像配置 -->
+                    <to>
+                        <!-- push docer-hub官方仓库。用户名/镜像名：版本号， -->
+                        <!--                        <image>fastboot/fastboot</image>-->
+                        <!-- 如果是私有容器镜像仓库，则使用容器的配置 前缀/命名空间/仓库名 -->
+                        <image>192.168.226.128:801/fastboot/fastboot</image>
+                        <!--<image>registry.cn-chengdu.aliyuncs.com/renbaojia/ctfo</image>-->
+                        <tags>
+                            <!--版本号-->
+                            <tag>1.1.0</tag>
+                        </tags>
+                        <auth>
+                            <!--在docker-hub或者阿里云上的账号和密码-->
+                            <username>admin</username>
+                            <password>Harbor12345</password>
+                        </auth>
+                    </to>
+                    <container>
+                        <!--项目的入口类 -->
+                        <mainClass>com.example.Application</mainClass>
+<!--                        <useCurrentTimestamp>true</useCurrentTimestamp>-->
+                        <ports>
+                            <!--指定镜像端口 , 这里没用 docfile的操作-->
+                            <port>8080</port>
+                        </ports>
+                    </container>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>com.google.cloud.tools</groupId>-->
+            <!--                <artifactId>jib-maven-plugin</artifactId>-->
+            <!--                <version>0.9.9</version>-->
+            <!--                <configuration>-->
+            <!--                    <container>-->
+            <!--                        <jvmFlags>-->
+            <!--                            <jvmFlag>-Xms64m</jvmFlag>-->
+            <!--                        </jvmFlags>-->
+            <!--                        <ports>-->
+            <!--                            <port>8080</port>-->
+            <!--                        </ports>-->
+            <!--                        <useCurrentTimestamp>true</useCurrentTimestamp>-->
+            <!--                    </container>-->
+            <!--                    <from>-->
+            <!--                        <image>java:8u172-jre-alpine</image>-->
+            <!--                    </from>-->
+            <!--                    <to>-->
+            <!--                        <image>fast:${maven.build.timestamp}</image>-->
+            <!--                    </to>-->
+            <!--                    <allowInsecureRegistries>true</allowInsecureRegistries>-->
+            <!--                    <extraDirectory>${project.basedir}/src/main/jib</extraDirectory>-->
+            <!--                </configuration>-->
+
+            <!--            </plugin>-->
+        </plugins>
+    </build>
+</project>
