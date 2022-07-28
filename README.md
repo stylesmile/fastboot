@@ -26,6 +26,10 @@ java最佳云原生解决方案。
 ### devOps架构
 基础 DevOps 技术体
 <img src="./doc/image/index/fastboot-devOps.png">
+### 整体架构支撑
+整体架构支撑是为了整体平台的流程，从管理、开发、测试、运维、生产几条线，
+实现整体平台的落地和管理
+<img src="./doc/image/index/tech_design.png">
 #### [快速开始详细文档](doc/1.fastboot-start.md)
 #### [快速开始 docker](doc/应用开发手册/docker/docker部署简单应用.md)
 #### [快速开始 graalvm本地镜像](doc/应用开发手册/graalvm/graalvm部署打包本地镜像.md)
