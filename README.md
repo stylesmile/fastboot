@@ -19,7 +19,7 @@ java最佳云原生解决方案。
 * 如需技术支持，请关注公众号加我微信沟通：
 <img src="./doc/image/index/java_zhilu_gongzonghao.png">
 
-### 云原生概率
+### 云原生概念
 #### [云原生是什么](doc/云原生/云原生是什么.md)
 #### [如何云原生](doc/云原生/如何云原生.md)
 
@@ -53,7 +53,7 @@ java最佳云原生解决方案。
             <artifactId>fastboot-core</artifactId>
         </dependency>
 ```
-#####如果你管理依赖用的gradle[参考gradle配置](doc/1.fastboot-start-gradle.md)
+##### 如果你管理依赖用的gradle[参考gradle配置](doc/1.fastboot-start-gradle.md)
 
 ```java
 
@@ -73,7 +73,7 @@ public class Application {
     }
 }
 ```
-####发布最新版后，其他各个镜像仓库可能过好几天才同步镜像，可以用maven官方仓库原仓库下载
+#### 发布最新版后，其他各个镜像仓库可能过好几天才同步镜像，可以用maven官方仓库原仓库下载
 ```maven
         <repository>
             <id>maven1</id>
