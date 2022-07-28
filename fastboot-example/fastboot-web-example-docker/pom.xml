@@ -99,8 +99,8 @@
                     <!-- 拉取所需的基础镜像 - 这里用于运行springboot项目 -->
                     <from>
                         <!--                        <image>openjdk:alpine</image>-->
-                        <!--                        <image>java:8-alpine</image>-->
-                        <image>java:8u172-jre-alpine</image>
+                        <image>java:8-alpine</image>
+                        <!--                        <image>java:8u172-jre-alpine</image>-->
                     </from>
                     <!-- 最后生成的镜像配置 -->
                     <to>
@@ -122,7 +122,7 @@
                     <container>
                         <!--项目的入口类 -->
                         <mainClass>com.example.Application</mainClass>
-<!--                        <useCurrentTimestamp>true</useCurrentTimestamp>-->
+                        <!--                        <useCurrentTimestamp>true</useCurrentTimestamp>-->
                         <ports>
                             <!--指定镜像端口 , 这里没用 docfile的操作-->
                             <port>8080</port>
