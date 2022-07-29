@@ -100,6 +100,11 @@
                     <from>
                         <!--                        <image>openjdk:alpine</image>-->
                         <image>java:8-alpine</image>
+<!--                        <image>192.168.226.129/library/java:8-alpine</image>-->
+
+                        <!--                        <image>rukiy/alpine-openjdk11</image>-->
+<!--                        <image>openjdk:8-jdk-alpine</image>-->
+
                         <!--                        <image>java:8u172-jre-alpine</image>-->
                     </from>
                     <!-- 最后生成的镜像配置 -->
@@ -107,9 +112,8 @@
                         <!-- push docer-hub官方仓库。用户名/镜像名：版本号， -->
                         <!--                        <image>fastboot/fastboot</image>-->
                         <!-- 如果是私有容器镜像仓库，则使用容器的配置 前缀/命名空间/仓库名 -->
-<!--                        <image>192.168.226.128:801/fastboot/fastboot</image>-->
+<!--                        <image>192.168.226.129/fastboot/fastboot</image>-->
                         <image>registry.cn-hangzhou.aliyuncs.com/chenye-repository/fastboot</image>
-
                         <auth>
                             <!--在docker-hub或者阿里云上的账号和密码-->
                             <username>admin</username>
@@ -133,6 +137,11 @@
                             <!--指定镜像端口 , 这里没用 docfile的操作-->
                             <port>8080</port>
                         </ports>
+                        <environment>
+                            <!--环境变量设置-->
+                            <!-- <spring.profiles.active>prod</spring.profiles.active> -->
+                            <TZ>Asia/Shanghai</TZ>
+                        </environment>
                     </container>
                 </configuration>
                 <!--绑定到maven lifecicle-->
