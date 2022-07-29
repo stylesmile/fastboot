@@ -107,19 +107,25 @@
                         <!-- push docer-hub官方仓库。用户名/镜像名：版本号， -->
                         <!--                        <image>fastboot/fastboot</image>-->
                         <!-- 如果是私有容器镜像仓库，则使用容器的配置 前缀/命名空间/仓库名 -->
-                        <image>192.168.226.128:801/fastboot/fastboot</image>
-                        <!--<image>registry.cn-chengdu.aliyuncs.com/renbaojia/ctfo</image>-->
-                        <tags>
-                            <!--版本号-->
-                            <tag>1.1.0</tag>
-                        </tags>
+<!--                        <image>192.168.226.128:801/fastboot/fastboot</image>-->
+                        <image>registry.cn-hangzhou.aliyuncs.com/chenye-repository/fastboot</image>
+
                         <auth>
                             <!--在docker-hub或者阿里云上的账号和密码-->
                             <username>admin</username>
                             <password>Harbor12345</password>
                         </auth>
+                        <tags>
+                            <!--版本号-->
+                            <tag>1.1.1</tag>
+                        </tags>
                     </to>
                     <container>
+                        <jvmFlags>
+                            <jvmFlag>-Xms32m</jvmFlag>
+<!--                            <jvmFlag>-Xmx4g</jvmFlag>-->
+<!--                            <jvmFlag>-Duser.timezone=Asia/Shanghai</jvmFlag>-->
+                        </jvmFlags>
                         <!--项目的入口类 -->
                         <mainClass>com.example.Application</mainClass>
                         <!--                        <useCurrentTimestamp>true</useCurrentTimestamp>-->
@@ -139,31 +145,6 @@
 <!--                    </execution>-->
 <!--                </executions>-->
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>com.google.cloud.tools</groupId>-->
-            <!--                <artifactId>jib-maven-plugin</artifactId>-->
-            <!--                <version>0.9.9</version>-->
-            <!--                <configuration>-->
-            <!--                    <container>-->
-            <!--                        <jvmFlags>-->
-            <!--                            <jvmFlag>-Xms64m</jvmFlag>-->
-            <!--                        </jvmFlags>-->
-            <!--                        <ports>-->
-            <!--                            <port>8080</port>-->
-            <!--                        </ports>-->
-            <!--                        <useCurrentTimestamp>true</useCurrentTimestamp>-->
-            <!--                    </container>-->
-            <!--                    <from>-->
-            <!--                        <image>java:8u172-jre-alpine</image>-->
-            <!--                    </from>-->
-            <!--                    <to>-->
-            <!--                        <image>fast:${maven.build.timestamp}</image>-->
-            <!--                    </to>-->
-            <!--                    <allowInsecureRegistries>true</allowInsecureRegistries>-->
-            <!--                    <extraDirectory>${project.basedir}/src/main/jib</extraDirectory>-->
-            <!--                </configuration>-->
-
-            <!--            </plugin>-->
         </plugins>
     </build>
 </project>
