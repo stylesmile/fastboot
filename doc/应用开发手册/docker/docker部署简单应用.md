@@ -40,3 +40,61 @@ docker run -p $PORT:$PORT --name $SERVER_NAME -e SPRING_PROFILES_ACTIVE="dev" --
 
 
 ```
+# maven docker 插件 [example](../../../fastboot-example/fastboot-web-example-docker)
+```docker
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.2.1</version>
+                <!--                <version>1.8.0</version>-->
+                <configuration>
+                    <!-- 拉取所需的基础镜像 - 这里用于运行springboot项目 -->
+                    <from>
+                        <!--                        <image>openjdk:alpine</image>-->
+                        <image>java:8-alpine</image>
+                        <!--                        <image>java:8u172-jre-alpine</image>-->
+                    </from>
+                    <!-- 最后生成的镜像配置 -->
+                    <to>
+                        <!-- push docer-hub官方仓库。用户名/镜像名：版本号， -->
+                        <!--                        <image>fastboot/fastboot</image>-->
+                        <!-- 如果是私有容器镜像仓库，则使用容器的配置 前缀/命名空间/仓库名 -->
+<!--                        <image>192.168.226.128:801/fastboot/fastboot</image>-->
+                        <image>registry.cn-hangzhou.aliyuncs.com/chenye-repository/fastboot</image>
+
+                        <auth>
+                            <!--在docker-hub或者阿里云上的账号和密码-->
+                            <username>admin</username>
+                            <password>Harbor12345</password>
+                        </auth>
+                        <tags>
+                            <!--版本号-->
+                            <tag>1.1.1</tag>
+                        </tags>
+                    </to>
+                    <container>
+                        <jvmFlags>
+                            <jvmFlag>-Xms32m</jvmFlag>
+<!--                            <jvmFlag>-Xmx4g</jvmFlag>-->
+<!--                            <jvmFlag>-Duser.timezone=Asia/Shanghai</jvmFlag>-->
+                        </jvmFlags>
+                        <!--项目的入口类 -->
+                        <mainClass>com.example.Application</mainClass>
+                        <!--                        <useCurrentTimestamp>true</useCurrentTimestamp>-->
+                        <ports>
+                            <!--指定镜像端口 , 这里没用 docfile的操作-->
+                            <port>8080</port>
+                        </ports>
+                    </container>
+                </configuration>
+                <!--绑定到maven lifecicle-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+            </plugin>
+```
