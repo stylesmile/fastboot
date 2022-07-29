@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>0.8.0</version>
+    <version>0.8.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -28,6 +28,10 @@
 		<dependency>
 			<groupId>io.github.stylesmile</groupId>
 			<artifactId>fastboot-beetlsql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.stylesmile</groupId>
+			<artifactId>fastboot-log</artifactId>
 		</dependency>
 		<!-- mysql 驱动 -->
 		<dependency>

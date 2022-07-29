@@ -28,6 +28,12 @@
 			<groupId>io.github.stylesmile</groupId>
 			<artifactId>fastboot-mongodb</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<scope>compile</scope>
+		</dependency>
 
 		<!-- log -->
 		<dependency>

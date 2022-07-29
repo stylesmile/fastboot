@@ -43,4 +43,25 @@
             <artifactId>fastboot-logback</artifactId>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>ali</id>
+            <url>https://maven.aliyun.com/repository/public/</url>
+        </repository>
+        <repository>
+            <id>maven2</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>maven1</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
 </project>
