@@ -16,6 +16,7 @@
         <module>fastboot-db</module>
         <module>fastboot-log</module>
         <module>fastboot-logback</module>
+        <module>fastboot-example</module>
     </modules>
     <dependencyManagement>
         <dependencies>
