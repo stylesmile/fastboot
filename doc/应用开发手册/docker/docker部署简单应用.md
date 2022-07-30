@@ -41,6 +41,7 @@ docker run -p $PORT:$PORT --name $SERVER_NAME -e SPRING_PROFILES_ACTIVE="dev" --
 
 ```
 # maven docker 插件 [example](../../../fastboot-example/fastboot-web-example-docker)
+https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin
 ```docker
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
