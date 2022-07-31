@@ -4,14 +4,14 @@
 
 ### rainbond安装 [官网地址](https://www.rainbond.com/docs/installation/install-with-dind)
 
-rainbond依赖docker，先安装docker
+#### rainbond依赖docker，先安装docker
 ```shell
 curl sh.rainbond.com/install_docker | bash
 ```
 
-docker安装rainbond单机版
+#### docker安装rainbond单机版
 
-设置环境变量必须
+#### 设置环境变量(必须)
 ```shell 
 export EIP=192.168.226.137
 
@@ -29,13 +29,13 @@ registry.cn-hangzhou.aliyuncs.com/goodrain/rainbond:v5.7.1-dind-allinone \
 && docker logs -f rainbond-allinone
 
 ```
-### 提示这个之后就启动成功了
+#### 提示这个之后就启动成功了
 ```
 正在加载数据，预计3分钟，时间取决于磁盘性能...
 正在启动Rainbond，预计5分钟...
 Rainbond启动成功，可以通过访问: http://$EIP:7070 进入Rainbond控制台
 ```
-### 进入
+#### 进入
   浏览器打开 192.168.226.137:7070
   首次登录需要设置用户名密码
 <img src="../../../doc/image/云原生/kubernetes/regist.png">
@@ -76,6 +76,7 @@ da52da9bfacc41dfb22840ec88efa899
 
 已结束
 ```
+#### 初始化k8s
   回到集群那里
   点击添加集群，可以看到刚刚添加的143服务器
   <img src="../../../doc/image/云原生/kubernetes/next.png"> 
@@ -115,7 +116,7 @@ da52da9bfacc41dfb22840ec88efa899
 
 已结束
 ```
-  创建应用
+#### 创建应用
 ![create_application.png](../../image/云原生/kubernetes/create_application.png)
   源码地址
 ```git
