@@ -31,7 +31,8 @@ java最佳云原生解决方案。
 实现整体平台的落地和管理
 <img src="./doc/image/index/tech_design.png">
 #### [快速开始详细文档](doc/1.fastboot-start.md)
-#### [快速开始 docker](doc/应用开发手册/docker/docker部署简单应用.md)
+#### [快速开始 docker部署fastboot](doc/应用开发手册/docker/docker部署简单应用.md)
+#### [快速开始 k8s部署fastboot](doc/应用开发手册/docker/docker部署简单应用.md)
 #### [快速开始 graalvm本地镜像](doc/应用开发手册/graalvm/graalvm部署打包本地镜像.md)
 #### [快速开始 mybatis](doc/db/1.fastboot-mybatis.md)
 #### [快速开始 redis](doc/db/2.fastboot-redis.md)
