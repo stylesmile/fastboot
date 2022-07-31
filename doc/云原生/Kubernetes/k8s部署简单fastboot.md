@@ -150,4 +150,4 @@ Start service grd4f6fc success
   还需配置网关
   ![img.png](../../image/云原生/kubernetes/add_git_source.png11.png)
   这样就可以直接访问了
-  ![img.png](../../image/云原生/kubernetes/add_git_source.png12.png)
+![img.png](../../image/云原生/kubernetes/add_git_source.png12.png)
