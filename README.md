@@ -52,7 +52,7 @@ java最佳云原生解决方案。
     <parent>
 		<groupId>io.github.stylesmile</groupId>
 		<artifactId>fastboot-parent</artifactId>
-		<version>0.7.1</version>
+		<version>0.8.0</version>
 	<parent>
 ```
 ```maven

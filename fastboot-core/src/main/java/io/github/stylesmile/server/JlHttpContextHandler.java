@@ -12,7 +12,7 @@ public class JlHttpContextHandler implements HTTPServer.ContextHandler {
 
     @Override
     public int serve(HTTPServer.Request request, HTTPServer.Response response) throws IOException {
-        System.out.println(request.getPath());
+        // System.out.println(request.getPath())
         try {
             //跳转controller
             goController(request, response);
