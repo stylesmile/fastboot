@@ -1,11 +1,11 @@
 package io.github.stylesmile.mybatis;
 
-import io.github.stylesmile.ioc.Bean;
+import io.github.stylesmile.annotation.Service;
 
 /**
  * 工资计算类
  */
-@Bean
+@Service
 public class SalaryHelper {
     /**
      * 计算

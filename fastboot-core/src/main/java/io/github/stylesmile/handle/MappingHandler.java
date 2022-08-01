@@ -1,20 +1,21 @@
 package io.github.stylesmile.handle;
 
-import com.sun.net.httpserver.Headers;
-import com.sun.net.httpserver.HttpExchange;
 import io.github.stylesmile.ioc.BeanContainer;
 import io.github.stylesmile.ioc.BeanKey;
+import io.github.stylesmile.parse.ParseParameterJlHttpServer;
 import io.github.stylesmile.request.RequestMethod;
+import io.github.stylesmile.server.HTTPServer;
 import io.github.stylesmile.tool.JsonGsonUtil;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.net.URI;
-import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -56,17 +57,18 @@ public class MappingHandler {
     /**
      * 处理方法
      *
-     * @param httpExchange httpExchange
+     * @param request  Request
+     * @param response Response
      * @return 是否处理了
      * @throws IllegalAccessException    异常
      * @throws InstantiationException    异常
      * @throws InvocationTargetException 异常
      * @throws IOException               异常
      */
-    public boolean handle(HttpExchange httpExchange) throws IllegalAccessException, InstantiationException,
+    public boolean handle(HTTPServer.Request request, HTTPServer.Response response) throws IllegalAccessException, InstantiationException,
             InvocationTargetException, IOException {
         //获取请求路径
-        String url = httpExchange.getRequestURI().getPath();
+        String url = request.getPath();
         //不是当前的Controller处理，直接返回
         if (!url.equals(uri)) {
             return false;
@@ -76,15 +78,19 @@ public class MappingHandler {
 
         Map<String, Object> parameterMap = new HashMap<>();
         //解析get参数
-        parseGetParameters(httpExchange, parameterMap);
+        ParseParameterJlHttpServer.parseGetParameters(request, parameterMap);
         //解析post参数
-        parsePostParameters(httpExchange, parameterMap);
+        ParseParameterJlHttpServer.parsePostParameters(request, parameterMap);
         List<Object> parameters2 = new CopyOnWriteArrayList<>();
         for (int i = 0; i < parameters.length; i++) {
 
             String parameterType = parameters[i].getParameterizedType().getTypeName();
-            if (parameterType.equals("com.sun.net.httpserver.HttpExchange")) {
-                parameters2.add(httpExchange);
+            if (parameterType.equals("io.github.stylesmile.server.HTTPServer.Response")) {
+                parameters2.add(response);
+                continue;
+            }
+            if (parameterType.equals("io.github.stylesmile.server.HTTPServer.Request")) {
+                parameters2.add(request);
                 continue;
             }
             Object o = parameterMap.get(parameters[i].getName());
@@ -98,23 +104,25 @@ public class MappingHandler {
         }
         //调用对应的接口方法，并获取响应结果
         Object[] strArray = (Object[]) parameters2.toArray();
-        Object response = method.invoke(ctl, strArray);
+        Object responseResult = method.invoke(ctl, strArray);
         String responseString;
-        if (response instanceof String) {
-            responseString = response.toString();
-        } else if (response instanceof Integer) {
-            responseString = response.toString();
+        if (responseResult instanceof String) {
+            responseString = responseResult.toString();
+        } else if (responseResult instanceof Integer) {
+            responseString = responseResult.toString();
         } else {
-            responseString = JsonGsonUtil.BeanToJson(response);
+            responseString = JsonGsonUtil.BeanToJson(responseResult);
         }
-        OutputStream outputStream = httpExchange.getResponseBody();
-        Headers headers = httpExchange.getResponseHeaders();
-        headers.set("Content-Type", "application/json; charset=utf-8");
-        headers.set("Access-Control-Allow-Origin", "*");
-        headers.set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-        headers.set("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept");
+        // OutputStream outputStream = response.getResponseBody()
+        OutputStream outputStream = response.getOutputStream();
+        HTTPServer.Headers headers = response.getHeaders();
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        headers.add("Access-Control-Allow-Origin", "*");
+        headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+        headers.add("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept");
 
-        httpExchange.sendResponseHeaders(200, responseString.length());
+        // httpExchange.sendResponseHeaders(200, responseString.length())
+        response.send(200, responseString);
         //将响应结果写到外面
         outputStream.write(responseString.getBytes(StandardCharsets.UTF_8));
         return true;
@@ -178,80 +186,5 @@ public class MappingHandler {
         }
     }
 
-    /**
-     * 解析get参数
-     */
 
-    private void parseGetParameters(HttpExchange exchange, Map<String, Object> parameters) throws UnsupportedEncodingException {
-        URI requestedUri = exchange.getRequestURI();
-        String query = requestedUri.getRawQuery();
-        parseQuery(query, parameters);
-    }
-
-    /**
-     * 解析post参数
-     */
-    private void parsePostParameters(HttpExchange exchange, Map<String, Object> parameters) throws IOException {
-        String method = exchange.getRequestMethod();
-
-        if ("POST".equalsIgnoreCase(method)
-                || "PUT".equalsIgnoreCase(method)
-                || "DELETE".equalsIgnoreCase(method)
-                || "PATCH".equalsIgnoreCase(method)) {
-
-            String ct = exchange.getRequestHeaders().getFirst("Content-Type");
-
-            if (ct == null) {
-                return;
-            }
-
-            if (ct.toLowerCase(Locale.US).startsWith("application/x-www-form-urlencoded") == false) {
-                return;
-            }
-
-            InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), "UTF-8");
-            BufferedReader br = new BufferedReader(isr);
-            String query = br.readLine();
-            parseQuery(query, parameters);
-        }
-    }
-
-    private void parseQuery(String query, Map<String, Object> parameters) throws UnsupportedEncodingException {
-
-        if (query != null) {
-            String pairs[] = query.split("[&]");
-
-            for (String pair : pairs) {
-                String param[] = pair.split("[=]");
-
-                String key = null;
-                String value = null;
-                if (param.length > 0) {
-                    key = URLDecoder.decode(param[0], "UTF-8");
-                }
-
-                if (param.length > 1) {
-                    value = URLDecoder.decode(param[1], "UTF-8");
-                } else {
-                    value = "";
-                }
-
-                if (parameters.containsKey(key)) {
-                    Object obj = parameters.get(key);
-
-                    if (obj instanceof List<?>) {
-                        List<String> values = (List<String>) obj;
-                        values.add(value);
-                    } else if (obj instanceof String) {
-                        List<String> values = new ArrayList<String>();
-                        values.add((String) obj);
-                        values.add(value);
-                        parameters.put(key, values);
-                    }
-                } else {
-                    parameters.put(key, value);
-                }
-            }
-        }
-    }
 }
