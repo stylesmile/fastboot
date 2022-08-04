@@ -6,7 +6,6 @@ import io.github.stylesmile.handle.MappingHandler;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 public class JlHttpContextHandler implements HTTPServer.ContextHandler {
 
@@ -30,18 +29,14 @@ public class JlHttpContextHandler implements HTTPServer.ContextHandler {
      *
      * @throws IOException 异常
      */
-    private void goController(HTTPServer.Request request, HTTPServer.Response response) throws IOException {
-        //获取所有Controller和内部定义的接口方法列表
-        List<MappingHandler> mappingHandlerList = HandlerManager.getMappingHandlerList();
+    private void goController(HTTPServer.Request request, HTTPServer.Response response) {
+        //获取Controller和内部定义的接口方法列表
+        MappingHandler mappingHandler = HandlerManager.getMappingHandler(request.getPath());
         //找到当前请求Url对应的Controller接口处理方法
-        for (MappingHandler mappingHandler : mappingHandlerList) {
-            try {
-                if (mappingHandler.handle(request, response)) {
-                    return;
-                }
-            } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
+        try {
+            mappingHandler.handle(request, response);
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

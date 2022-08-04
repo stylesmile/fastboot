@@ -8,16 +8,19 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Handler管理类
+ *
  * @author Stylesmile
  */
 public class HandlerManager {
     /**
      * Controller类中所有类方法和uri映射关系
      */
-    private static final List<MappingHandler> mappingHandlerList = new ArrayList<>();
+    private static final Map<String, MappingHandler> mappingHandlerList = new ConcurrentHashMap<>(32);
 
     /**
      * 找到所有Controller类
@@ -55,11 +58,15 @@ public class HandlerManager {
             //参数收集完毕，构建一个MappingHandler
             MappingHandler mappingHandler = new MappingHandler(uri, method, cls, params, parameters, requestMethod);
             //保存到列表里
-            mappingHandlerList.add(mappingHandler);
+            // mappingHandlerList.add(mappingHandler)
+            mappingHandlerList.put(uri, mappingHandler);
         }
     }
 
-    public static List<MappingHandler> getMappingHandlerList() {
+    public static Map<String, MappingHandler> getMappingHandlerList() {
         return mappingHandlerList;
+    }
+    public static MappingHandler getMappingHandler(String uri) {
+        return mappingHandlerList.get(uri);
     }
 }
