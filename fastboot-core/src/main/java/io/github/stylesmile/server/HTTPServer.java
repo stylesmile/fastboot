@@ -1118,6 +1118,7 @@ public class HTTPServer {
 
         public int serve(Request req, Response resp) throws IOException {
             try {
+                m.setAccessible(true);
                 return (Integer)m.invoke(obj, req, resp);
             } catch (InvocationTargetException ite) {
                 throw new IOException("error: " + ite.getCause().getMessage());

@@ -104,6 +104,7 @@ public class MappingHandler {
         }
         //调用对应的接口方法，并获取响应结果
         Object[] strArray = (Object[]) parameters2.toArray();
+        method.setAccessible(true);
         Object responseResult = method.invoke(ctl, strArray);
         String responseString;
         if (responseResult instanceof String) {
