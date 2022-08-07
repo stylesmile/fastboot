@@ -14,7 +14,7 @@
 	<version>${fastboot.version}</version>
 	<name>nacos-example</name>
 	<packaging>jar</packaging>
-	<description>Demo project for Spring Boot</description>
+	<description>nacos project for fastboot</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>

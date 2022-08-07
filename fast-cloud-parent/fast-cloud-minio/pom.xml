@@ -11,11 +11,11 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.stylesmile</groupId>
-	<artifactId>fast-cloud-nacos</artifactId>
+	<artifactId>fast-cloud-minio</artifactId>
 	<version>${fast-cloud.version}</version>
-	<name>fast-cloud-nacos</name>
+	<name>fast-cloud-minio</name>
 	<packaging>jar</packaging>
-	<description>redis for fastboot</description>
+	<description>minio for fastboot</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -26,12 +26,17 @@
 			<artifactId>fastboot-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.alibaba.nacos</groupId>
-			<artifactId>nacos-client</artifactId>
+			<groupId>io.minio</groupId>
+			<artifactId>minio</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

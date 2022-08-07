@@ -1,6 +1,7 @@
 package io.github.stylesmile.parse;
 
 import io.github.stylesmile.server.HTTPServer;
+import io.github.stylesmile.server.Request;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -20,7 +21,7 @@ public class ParseParameterJlHttpServer {
      * 解析get参数
      */
 
-    public static void parseGetParameters(HTTPServer.Request request, Map<String, Object> parameters) {
+    public static void parseGetParameters(Request request, Map<String, Object> parameters) {
         URI requestedUri = request.getURI();
         String query = requestedUri.getRawQuery();
         parseQuery(query, parameters);
@@ -29,7 +30,7 @@ public class ParseParameterJlHttpServer {
     /**
      * 解析post参数
      */
-    public static void parsePostParameters(HTTPServer.Request request, Map<String, Object> parameters) {
+    public static void parsePostParameters(Request request, Map<String, Object> parameters) {
 
         String ct = request.getHeaders().get("Content-Type");
         if (ct == null) {

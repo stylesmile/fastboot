@@ -5,6 +5,9 @@ import io.github.stylesmile.ioc.BeanKey;
 import io.github.stylesmile.parse.ParseParameterJlHttpServer;
 import io.github.stylesmile.request.RequestMethod;
 import io.github.stylesmile.server.HTTPServer;
+import io.github.stylesmile.server.Headers;
+import io.github.stylesmile.server.Request;
+import io.github.stylesmile.server.Response;
 import io.github.stylesmile.tool.JsonGsonUtil;
 
 import java.io.IOException;
@@ -65,7 +68,7 @@ public class MappingHandler {
      * @throws InvocationTargetException 异常
      * @throws IOException               异常
      */
-    public boolean handle(HTTPServer.Request request, HTTPServer.Response response) throws IllegalAccessException, InstantiationException,
+    public boolean handle(Request request, Response response) throws IllegalAccessException, InstantiationException,
             InvocationTargetException, IOException {
         //获取请求路径
         String url = request.getPath();
@@ -85,11 +88,11 @@ public class MappingHandler {
         for (int i = 0; i < parameters.length; i++) {
 
             String parameterType = parameters[i].getParameterizedType().getTypeName();
-            if (parameterType.equals("io.github.stylesmile.server.HTTPServer.Response")) {
+            if (parameterType.equals("io.github.stylesmile.server.Response")) {
                 parameters2.add(response);
                 continue;
             }
-            if (parameterType.equals("io.github.stylesmile.server.HTTPServer.Request")) {
+            if (parameterType.equals("io.github.stylesmile.server.Request")) {
                 parameters2.add(request);
                 continue;
             }
@@ -116,7 +119,7 @@ public class MappingHandler {
         }
         // OutputStream outputStream = response.getResponseBody()
         OutputStream outputStream = response.getOutputStream();
-        HTTPServer.Headers headers = response.getHeaders();
+        Headers headers = response.getHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
         headers.add("Access-Control-Allow-Origin", "*");
         headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");

@@ -7,10 +7,10 @@ import io.github.stylesmile.handle.MappingHandler;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-public class JlHttpContextHandler implements HTTPServer.ContextHandler {
+public class JlHttpContextHandler implements ContextHandler {
 
     @Override
-    public int serve(HTTPServer.Request request, HTTPServer.Response response) throws IOException {
+    public int serve(Request request, Response response) throws IOException {
         // System.out.println(request.getPath())
         try {
             //跳转controller
@@ -29,7 +29,7 @@ public class JlHttpContextHandler implements HTTPServer.ContextHandler {
      *
      * @throws IOException 异常
      */
-    private void goController(HTTPServer.Request request, HTTPServer.Response response) {
+    private void goController(Request request, Response response) {
         //获取Controller和内部定义的接口方法列表
         MappingHandler mappingHandler = HandlerManager.getMappingHandler(request.getPath());
         //找到当前请求Url对应的Controller接口处理方法
