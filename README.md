@@ -40,14 +40,14 @@ java最佳云原生解决方案。
 #### [快速开始 redis](doc/db/2.fastboot-redis.md)
 #### [快速开始 mongodb](doc/db/3.fastboot-mongodb.md)
 #### [快速开始 beetlsql](doc/db/4.fastboot-beetlsql.md)
-应用开发手册：[访问](./doc/应用开发手册/应用开发手册.md)
+应用开发手册：[访问](doc/应用开发手册/应用开发手册.md)
 
 #####  快速开始 [example](fastboot-example/fastboot-web-example)
 
 ### 开发规范
-#### [1.java编码的基本规范](doc/应用开发手册/数据库规范/1.java编码的基本规范.md)
-#### [2.mysql规范.md](doc/应用开发手册/数据库规范/2.mysql规范.md)
-#### [3.redis规范.md](doc/应用开发手册/数据库规范/3.redis规范.md)
+#### [1.java编码的基本规范](doc/应用开发手册/开发规范/1.java编码的基本规范.md)
+#### [2.mysql规范.md](doc/应用开发手册/开发规范/2.mysql规范.md)
+#### [3.redis规范.md](doc/应用开发手册/开发规范/3.redis规范.md)
 ```maven
     <parent>
 		<groupId>io.github.stylesmile</groupId>
