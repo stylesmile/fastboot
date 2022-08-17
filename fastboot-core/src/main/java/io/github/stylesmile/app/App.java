@@ -1,6 +1,5 @@
 package io.github.stylesmile.app;
 
-import com.sun.net.httpserver.HttpContext;
 import io.github.stylesmile.handle.HandlerManager;
 import io.github.stylesmile.ioc.BeanFactory;
 import io.github.stylesmile.plugin.PlugsManager;
@@ -30,7 +29,7 @@ public class App {
     /**
      * 创建线程池  调整队列数 拒绝服务
      */
-    private static ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, corePoolSize + 1, 10L, TimeUnit.SECONDS,
+    private static ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, corePoolSize * 2, 50L, TimeUnit.SECONDS,
             new LinkedBlockingQueue<>(2000));
 
     public static void start(Class applicationClass, String[] args) {

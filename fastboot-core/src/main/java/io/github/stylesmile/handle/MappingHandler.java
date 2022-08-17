@@ -42,17 +42,14 @@ public class MappingHandler {
     /**
      * 调用方法时传递的参数
      */
-    private final String[] args;
-
     private final Parameter[] parameters;
 
     private final RequestMethod requestMethod;
 
-    public MappingHandler(String uri, Method method, Class<?> controller, String[] args, Parameter[] parameters, RequestMethod requestMethod) {
+    public MappingHandler(String uri, Method method, Class<?> controller, Parameter[] parameters, RequestMethod requestMethod) {
         this.uri = uri;
         this.method = method;
         this.controller = controller;
-        this.args = args;
         this.parameters = parameters;
         this.requestMethod = requestMethod;
     }
