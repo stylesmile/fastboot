@@ -52,17 +52,17 @@ java最佳云原生解决方案。
 #### [2.mysql规范.md](doc/应用开发手册/开发规范/2.mysql规范.md)
 #### [3.redis规范.md](doc/应用开发手册/开发规范/3.redis规范.md)
 ```maven
-<parent>
-    <groupId>io.github.stylesmile</groupId>
-    <artifactId>fastboot-parent</artifactId>
-    <version>0.9.1</version>
-<parent>
+    <parent>
+		<groupId>io.github.stylesmile</groupId>
+		<artifactId>fastboot-parent</artifactId>
+		<version>0.8.0</version>
+	<parent>
 ```
 ```maven
-<dependency>
-    <groupId>io.github.stylesmile</groupId>
-    <artifactId>fastboot-core</artifactId>
-</dependency>
+        <dependency>
+            <groupId>io.github.stylesmile</groupId>
+            <artifactId>fastboot-core</artifactId>
+        </dependency>
 ```
 ##### 如果你管理依赖用的gradle[参考gradle配置](doc/1.fastboot-start-gradle.md)
 
