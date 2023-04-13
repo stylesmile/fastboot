@@ -55,8 +55,8 @@ java最佳云原生解决方案。
     <parent>
 		<groupId>io.github.stylesmile</groupId>
 		<artifactId>fastboot-parent</artifactId>
-		<version>0.8.0</version>
-	<parent>
+		<version>0.9.1</version>
+	</parent>
 ```
 ```maven
         <dependency>
