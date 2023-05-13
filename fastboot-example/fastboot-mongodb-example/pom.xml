@@ -22,7 +22,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.github.stylesmile</groupId>
-			<artifactId>fastboot-core</artifactId>
+			<artifactId>fastboot-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.github.stylesmile</groupId>
