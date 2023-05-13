@@ -10,12 +10,12 @@ version '1.0-SNAPSHOT'
 //父工程依赖
 dependencyManagement {
     imports {
-        mavenBom 'io.github.stylesmile:fastboot-parent:0.9.1'
+        mavenBom 'io.github.stylesmile:fastboot-parent:1.0.0'
     }
 }
 // 依赖
 dependencies {
-    implementation 'io.github.stylesmile:fastboot-core'
+    implementation 'io.github.stylesmile:fastboot-web'
 }
 // 打包配置 需要指定启动类
 jar {

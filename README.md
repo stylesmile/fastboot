@@ -55,13 +55,13 @@ java最佳云原生解决方案。
     <parent>
 		<groupId>io.github.stylesmile</groupId>
 		<artifactId>fastboot-parent</artifactId>
-		<version>0.9.1</version>
+		<version>1.0.0</version>
 	</parent>
 ```
 ```maven
         <dependency>
             <groupId>io.github.stylesmile</groupId>
-            <artifactId>fastboot-core</artifactId>
+            <artifactId>fastboot-web</artifactId>
         </dependency>
 ```
 ##### 如果你管理依赖用的gradle[参考gradle配置](doc/1.fastboot-start-gradle.md)

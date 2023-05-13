@@ -4,18 +4,18 @@
 
     <parent>
         <groupId>io.github.stylesmile</groupId>
-        <artifactId>fastboot-db</artifactId>
+        <artifactId>fastboot-parent</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
-    <artifactId>fastboot-redis</artifactId>
+    <artifactId>fastboot-web</artifactId>
     <version>${fastboot.version}</version>
-    <name>fastboot-redis</name>
+    <name>fastboot-web</name>
     <packaging>jar</packaging>
-    <description>redis for fastboot</description>
+    <description>core for fastboot</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -24,10 +24,6 @@
         <dependency>
             <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
         </dependency>
     </dependencies>
 </project>

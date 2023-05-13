@@ -25,6 +25,9 @@ public class PropertyUtil {
             } else {
                 in = clazz.getClassLoader().getResourceAsStream(path);
             }
+//            if(in == null){
+//                throw new RuntimeException("application.properties not found");
+//            }
             props.load(in);
         } catch (FileNotFoundException e) {
             System.err.println(path + "文件未找到");

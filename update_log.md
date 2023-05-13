@@ -1,3 +1,5 @@
+# 1.0.0
+依赖包改为fastboot-web
 # 0.9.0
 优化httpserver,启动速度20ms
 # 0.8.0
