@@ -38,26 +38,3 @@ dependencies {
     //testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     //testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
-
-apply plugin: 'maven'
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: 'https://packages.aliyun.com/maven/repository/2078992-release-XEebVb/') {
-                authentication(
-                        userName: '6039a96dc62564ffee1867fb',
-                        password: 'Bioz]sv](9bB'
-                )
-            }
-            snapshotRepository(url: 'https://packages.aliyun.com/maven/repository/2078992-snapshot-58GD2s/') {
-                authentication(
-                        userName: '6039a96dc62564ffee1867fb',
-                        password: 'Bioz]sv](9bB'
-                )
-            }
-            pom.version = '0.6.4-SNAPSHOT'
-            pom.artifactId = 'data-common'
-            pom.groupId = 'com.futve'
-        }
-    }
-}
