@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.github.stylesmile</groupId>
+    <artifactId>fastboot-enjoy</artifactId>
+    <version>${fastboot.version}</version>
+    <packaging>jar</packaging>
+
+    <name>${project.artifactId}</name>
+    <description>Java project for fastboot-swagger-knife4j</description>
+    <url>https://github.com/noear/solon-swagger-knife4j</url>
+    <parent>
+        <groupId>io.github.stylesmile</groupId>
+        <artifactId>fastboot-parent</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Stylesmile</name>
+            <email>3239866994@qq.com</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <solon.ver>2.0.0</solon.ver>
+        <swagger.ver>1.6.2</swagger.ver>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.stylesmile</groupId>
+            <artifactId>fastboot-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.jfinal</groupId>
+            <artifactId>enjoy</artifactId>
+            <version>5.0.3</version>
+        </dependency>
+    </dependencies>
+</project>
