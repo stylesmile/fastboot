@@ -43,3 +43,6 @@ repositories {
 tasks.named('test') {
     useJUnitPlatform()
 }
+compileJava {
+    options.compilerArgs << '-parameters'
+}
