@@ -9,6 +9,7 @@ import io.github.stylesmile.server.Headers;
 import io.github.stylesmile.server.Request;
 import io.github.stylesmile.server.Response;
 import io.github.stylesmile.tool.JsonGsonUtil;
+import io.github.stylesmile.web.ModelAndView;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -83,7 +84,6 @@ public class MappingHandler {
         ParseParameterJlHttpServer.parsePostParameters(request, parameterMap);
         List<Object> parameters2 = new CopyOnWriteArrayList<>();
         for (int i = 0; i < parameters.length; i++) {
-
             String parameterType = parameters[i].getParameterizedType().getTypeName();
             if (parameterType.equals("io.github.stylesmile.server.Response")) {
                 parameters2.add(response);
@@ -111,7 +111,11 @@ public class MappingHandler {
             responseString = responseResult.toString();
         } else if (responseResult instanceof Integer) {
             responseString = responseResult.toString();
-        } else {
+        }
+//        else if (responseResult instanceof ModelAndView) {
+//            ModelAndView modelAndView = (ModelAndView)responseResult;
+//        }
+        else {
             responseString = JsonGsonUtil.BeanToJson(responseResult);
         }
         // OutputStream outputStream = response.getResponseBody()
@@ -121,7 +125,6 @@ public class MappingHandler {
         headers.add("Access-Control-Allow-Origin", "*");
         headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
         headers.add("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept");
-
         // httpExchange.sendResponseHeaders(200, responseString.length())
         response.send(200, responseString);
         //将响应结果写到外面

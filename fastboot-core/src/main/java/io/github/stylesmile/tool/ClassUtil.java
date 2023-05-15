@@ -1,5 +1,6 @@
 package io.github.stylesmile.tool;
 
+import java.beans.Introspector;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -11,6 +12,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+
+import static com.ibm.cuda.CudaError.Assert;
 
 public class ClassUtil {
     /**
@@ -160,5 +163,35 @@ public class ClassUtil {
             }
         }
     }
+    public static String getShortNameAsProperty(Class<?> clazz) {
+        String shortName = getShortName(clazz);
+        int dotIndex = shortName.lastIndexOf(46);
+        shortName = dotIndex != -1 ? shortName.substring(dotIndex + 1) : shortName;
+        return Introspector.decapitalize(shortName);
+    }
+    public static String getShortName(Class<?> clazz) {
+        return getShortName(getQualifiedName(clazz));
+    }
+    public static String getShortName(String className) {
+        if(StringUtil.isEmpty(className)){
+            throw new RuntimeException("Class name must not be empty");
+        }
+        //Assert.hasLength(className, "Class name must not be empty");
+        int lastDotIndex = className.lastIndexOf(46);
+        int nameEndIndex = className.indexOf("$$");
+        if (nameEndIndex == -1) {
+            nameEndIndex = className.length();
+        }
 
+        String shortName = className.substring(lastDotIndex + 1, nameEndIndex);
+        shortName = shortName.replace('$', '.');
+        return shortName;
+    }
+    public static String getQualifiedName(Class<?> clazz) {
+        //Assert.notNull(clazz, "Class must not be null");
+        if(clazz == null){
+            throw new RuntimeException("Class must not be empty");
+        }
+        return clazz.getTypeName();
+    }
 }

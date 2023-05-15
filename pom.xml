@@ -20,6 +20,7 @@
         <module>fastboot-db</module>
         <module>fastboot-log</module>
         <module>fastboot-logback</module>
+        <module>fastboot-enjoy</module>
 <!--        <module>fastboot-example</module>-->
     </modules>
     <dependencyManagement>
@@ -32,6 +33,11 @@
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
                 <artifactId>fastboot-web</artifactId>
+                <version>${fastboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.stylesmile</groupId>
+                <artifactId>fastboot-enjoy</artifactId>
                 <version>${fastboot.version}</version>
             </dependency>
             <dependency>

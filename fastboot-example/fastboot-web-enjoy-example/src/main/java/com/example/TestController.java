@@ -27,7 +27,7 @@ public class TestController {
     Engine engine;
 
     @RequestMapping("/")
-    public void test1(ServletResponse response) throws IOException {
+    public String test1(ServletResponse response) throws IOException {
         Map<String, Object> data = new HashMap<>();
         data.put("name", "My Blog");
         data.put("age", 123);
@@ -36,10 +36,11 @@ public class TestController {
         user.setAge(20);
 
         Kv kv = Kv.by("name", "zhangsan");
-        String result = engine.getTemplate("view/hello.html").renderToString(kv);
+        String result = engine.getTemplate("templates/hello.html").renderToString(kv);
 //        return result;
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
         out.write("<html><body><h1>Hello, World!</h1></body></html>");
+        return "hello enjoy!";
     }
 }

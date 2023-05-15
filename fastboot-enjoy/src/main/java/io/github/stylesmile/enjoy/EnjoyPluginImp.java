@@ -38,7 +38,7 @@ public class EnjoyPluginImp implements Plugin {
 
         // 在使用 ClassPathSourceFactory 时要使用 setBaseTemplatePath
         // 代替 jfr.setPrefix("/view/")
-        engine.setBaseTemplatePath("/view/");
+        engine.setBaseTemplatePath("/templates/");
 
         // 添加模板函数
 //        engine.addSharedFunction("/common/_layout.html");
