@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+dependencies {
+    // 引入 BOM
+    implementation platform("io.github.stylesmile:fastboot-parent:1.0.0")
+    implementation 'io.github.stylesmile:fastboot-web'
+//    implementation 'io.github.stylesmile:fastboot-enjoy'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+// 打包配置 需要指定启动类 com.example.Application
+jar {
+    // 详细信息参考 https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
+    archivesBaseName = 'fastboot'//基本的文件名
+    archiveVersion = '0.0.1' //版本
+    manifest { //配置jar文件的manifest
+        attributes(
+                "Manifest-Version": 1.0,
+                'Main-Class': 'com.example.Application' //指定main方法所在的文件
+        )
+    }
+    //打包依赖包
+    from {
+        (configurations.runtimeClasspath).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+
+repositories {
+    maven {url "https://s01.oss.sonatype.org/content/repositories/releases/"}
+    maven {url "https://repo2.maven.org/maven2/"}
+    mavenCentral()
+}
+test {
+    useJUnitPlatform()
+}
+//if use jdk8 ,please add
+compileJava {
+    options.compilerArgs << '-parameters'
+}
