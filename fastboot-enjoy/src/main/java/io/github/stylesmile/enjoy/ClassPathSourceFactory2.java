@@ -1,4 +1,4 @@
-package io.github.stylesmile.enjoy;
+package io.github.stylesmile.captcha;
 
 import com.jfinal.template.source.ISource;
 import com.jfinal.template.source.ISourceFactory;

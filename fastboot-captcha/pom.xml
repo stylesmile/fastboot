@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
-    <artifactId>fastboot-enjoy</artifactId>
+    <artifactId>fastboot-captcha</artifactId>
     <version>${fastboot.version}</version>
     <packaging>jar</packaging>
 
@@ -41,10 +41,11 @@
             <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-web</artifactId>
         </dependency>
+        <!-- 验证码 -->
         <dependency>
-            <groupId>com.jfinal</groupId>
-            <artifactId>enjoy</artifactId>
-            <version>5.0.3</version>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>2.3.2</version>
         </dependency>
     </dependencies>
 </project>

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <name>fastboot-parent</name>
     <packaging>pom</packaging>
     <properties>
@@ -20,7 +20,8 @@
         <module>fastboot-db</module>
         <module>fastboot-log</module>
         <module>fastboot-logback</module>
-        <module>fastboot-enjoy</module>
+        <module>fastboot-captcha</module>
+<!--        <module>fastboot-enjoy</module>-->
 <!--        <module>fastboot-example</module>-->
     </modules>
     <dependencyManagement>
@@ -37,9 +38,14 @@
             </dependency>
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
-                <artifactId>fastboot-enjoy</artifactId>
+                <artifactId>fastboot-captcha</artifactId>
                 <version>${fastboot.version}</version>
             </dependency>
+<!--            <dependency>-->
+<!--                <groupId>io.github.stylesmile</groupId>-->
+<!--                <artifactId>fastboot-enjoy</artifactId>-->
+<!--                <version>${fastboot.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
                 <artifactId>fastboot-mybatis</artifactId>

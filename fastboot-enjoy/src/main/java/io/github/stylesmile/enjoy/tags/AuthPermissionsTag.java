@@ -1,4 +1,4 @@
-package io.github.stylesmile.enjoy.tags;
+package io.github.stylesmile.captcha.tags;
 
 import com.jfinal.template.Directive;
 import com.jfinal.template.Env;

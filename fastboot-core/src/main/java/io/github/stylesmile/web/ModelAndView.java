@@ -5,16 +5,13 @@
 
 package io.github.stylesmile.web;
 
-import com.sun.istack.internal.Nullable;
 import io.github.stylesmile.tool.CollectionUtil;
 
 import java.util.Map;
 
 public class ModelAndView {
     private Object view;
-    @Nullable
     private ModelMap model;
-    @Nullable
     private HttpStatus status;
     private boolean cleared = false;
 
@@ -29,7 +26,7 @@ public class ModelAndView {
         this.view = view;
     }
 
-    public ModelAndView(String viewName, @Nullable Map<String, ?> model) {
+    public ModelAndView(String viewName, Map<String, ?> model) {
         this.view = viewName;
         if (model != null) {
             this.getModelMap().addAllAttributes(model);
@@ -37,7 +34,7 @@ public class ModelAndView {
 
     }
 
-    public ModelAndView(View view, @Nullable Map<String, ?> model) {
+    public ModelAndView(View view, Map<String, ?> model) {
         this.view = view;
         if (model != null) {
             this.getModelMap().addAllAttributes(model);
@@ -50,7 +47,7 @@ public class ModelAndView {
         this.status = status;
     }
 
-    public ModelAndView(@Nullable String viewName, @Nullable Map<String, ?> model, @Nullable HttpStatus status) {
+    public ModelAndView(String viewName, Map<String, ?> model, HttpStatus status) {
         this.view = viewName;
         if (model != null) {
             this.getModelMap().addAllAttributes(model);
@@ -69,20 +66,20 @@ public class ModelAndView {
         this.addObject(modelName, modelObject);
     }
 
-    public void setViewName(@Nullable String viewName) {
+    public void setViewName(String viewName) {
         this.view = viewName;
     }
 
-    @Nullable
+   
     public String getViewName() {
         return this.view instanceof String ? (String)this.view : null;
     }
 
-    public void setView(@Nullable View view) {
+    public void setView(View view) {
         this.view = view;
     }
 
-    @Nullable
+   
     public View getView() {
         return this.view instanceof View ? (View)this.view : null;
     }
@@ -95,7 +92,7 @@ public class ModelAndView {
         return this.view instanceof String;
     }
 
-    @Nullable
+   
     protected Map<String, Object> getModelInternal() {
         return this.model;
     }
@@ -112,16 +109,16 @@ public class ModelAndView {
         return this.getModelMap();
     }
 
-    public void setStatus(@Nullable HttpStatus status) {
+    public void setStatus(HttpStatus status) {
         this.status = status;
     }
 
-    @Nullable
+   
     public HttpStatus getStatus() {
         return this.status;
     }
 
-    public ModelAndView addObject(String attributeName, @Nullable Object attributeValue) {
+    public ModelAndView addObject(String attributeName, Object attributeValue) {
         this.getModelMap().addAttribute(attributeName, attributeValue);
         return this;
     }
@@ -131,7 +128,7 @@ public class ModelAndView {
         return this;
     }
 
-    public ModelAndView addAllObjects(@Nullable Map<String, ?> modelMap) {
+    public ModelAndView addAllObjects(Map<String, ?> modelMap) {
         this.getModelMap().addAllAttributes(modelMap);
         return this;
     }

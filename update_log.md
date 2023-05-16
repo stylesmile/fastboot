@@ -1,4 +1,6 @@
-# 1.0.0
+# 1.1.0
+集成验证码chaptcha
+1.0.0
 依赖包改为fastboot-web
 # 0.9.0
 优化httpserver,启动速度20ms

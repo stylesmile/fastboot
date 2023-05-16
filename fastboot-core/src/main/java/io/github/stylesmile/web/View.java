@@ -5,7 +5,6 @@
 
 package io.github.stylesmile.web;
 
-import com.sun.istack.internal.Nullable;
 import io.github.stylesmile.request.ServletRequest;
 import io.github.stylesmile.request.ServletResponse;
 
@@ -16,11 +15,11 @@ public interface View {
     String PATH_VARIABLES = View.class.getName() + ".pathVariables";
     String SELECTED_CONTENT_TYPE = View.class.getName() + ".selectedContentType";
 
-    @Nullable
+    
     default String getContentType() {
         return null;
     }
 
-    void render(@Nullable Map<String, ?> model,
+    void render( Map<String, ?> model,
                 ServletRequest request, ServletResponse response) throws Exception;
 }

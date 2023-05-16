@@ -1,4 +1,4 @@
-package io.github.stylesmile.enjoy;
+package io.github.stylesmile.captcha;
 
 import com.jfinal.template.Engine;
 import com.jfinal.template.ext.spring.JFinalViewResolver;

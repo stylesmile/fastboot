@@ -6,7 +6,6 @@
 package io.github.stylesmile.web;
 
 
-import com.sun.istack.internal.Nullable;
 
 public enum HttpStatus {
     CONTINUE(100, HttpStatus.Series.INFORMATIONAL, "Continue"),
@@ -152,7 +151,7 @@ public enum HttpStatus {
         }
     }
 
-    @Nullable
+    
     public static HttpStatus resolve(int statusCode) {
         HttpStatus[] var1 = VALUES;
         int var2 = var1.length;
@@ -199,7 +198,7 @@ public enum HttpStatus {
             }
         }
 
-        @Nullable
+        
         public static Series resolve(int statusCode) {
             int seriesCode = statusCode / 100;
             Series[] var2 = values();
