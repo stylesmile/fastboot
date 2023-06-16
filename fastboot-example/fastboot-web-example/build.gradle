@@ -1,7 +1,19 @@
 plugins {
     id 'java'
+    id 'java'
+    // https://github.com/johnrengelman/shadow
+    // https://imperceptiblethoughts.com/shadow/introduction/
+//    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
-
+// 胖包打包配置
+//shadowJar {
+//    version = '1.0.0'
+//    manifest {
+//        attributes("Main-Class": "org.example.Application")
+//    }
+//    mergeServiceFiles()
+//    zip64=true
+//}
 group 'com.example'
 version '1.0-SNAPSHOT'
 
