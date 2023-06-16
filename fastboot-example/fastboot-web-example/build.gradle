@@ -31,6 +31,15 @@ jar {
             it.isDirectory() ? it : zipTree(it)
         }
     }
+//    from {
+//        configurations.runtimeClasspath.findAll {
+//            //打包所有libs目录中的jar文件
+//            it.parent.equals(project.rootDir.path + '/libs') && it.name.endsWith(".jar")
+//        }.collect {
+//            println 'add ' + it.name
+//            zipTree(it)
+//        }
+//    }
 }
 
 
