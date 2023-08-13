@@ -6,11 +6,13 @@
 
     <groupId>org.example</groupId>
     <artifactId>fastboot-example</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>fastboot-example</name>
     <packaging>pom</packaging>
 
     <modules>
+        <module>fastboot-webflux-parent-example</module>
+
         <module>fastboot-web-example</module>
         <module>fastboot-web-example-docker</module>
         <module>fastboot-redis-example</module>

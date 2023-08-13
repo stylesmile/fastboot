@@ -11,11 +11,11 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
-    <artifactId>fastboot-beetlsql</artifactId>
+    <artifactId>fastboot-webflux</artifactId>
     <version>${fastboot.version}</version>
-    <name>fastboot-beetlsql</name>
+    <name>fastboot-webflux</name>
     <packaging>jar</packaging>
-    <description>beetlsql for fastboot</description>
+    <description>webflux for fastboot</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -26,13 +26,9 @@
             <artifactId>fastboot-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.ibeetl</groupId>
-            <artifactId>beetlsql</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>4.0.3</version>
+            <groupId>io.projectreactor.netty</groupId>
+            <artifactId>reactor-netty</artifactId>
+            <version>1.1.9</version>
         </dependency>
     </dependencies>
 </project>
