@@ -4,9 +4,10 @@ import com.sun.net.httpserver.HttpServer;
 import io.github.stylesmile.handle.HandlerManager;
 import io.github.stylesmile.ioc.BeanFactory;
 import io.github.stylesmile.jlhttpserver.HTTPServer;
+import io.github.stylesmile.jlhttpserver.JlHttpContextHandler;
+import io.github.stylesmile.jlhttpserver.JlHttpServerStart;
 import io.github.stylesmile.plugin.PlugsManager;
 import io.github.stylesmile.server.JdkHTTPServer;
-import io.github.stylesmile.server.JlHttpContextHandler;
 import io.github.stylesmile.server.MethodType;
 import io.github.stylesmile.tool.ClassScanner;
 import io.github.stylesmile.tool.PropertyUtil;
@@ -48,9 +49,8 @@ public class App {
 //        httpServer.setPort(port);
         JdkHTTPServer.VirtualHost host = null;
         try {
-            HTTPServer.VirtualHost virtualHost = httpServer.getVirtualHost(null);
-
-            virtualHost.setDirectoryIndex(null);
+//            HTTPServer.VirtualHost virtualHost = httpServer.getVirtualHost(null);
+//            virtualHost.setDirectoryIndex(null);
             // sun httpServer = HTTPServer.create(new InetSocketAddress(port), 0)
             String package1 = applicationClass.getPackage().getName();
             //扫描所有的类，
@@ -78,11 +78,9 @@ public class App {
         // HttpContext httpContext = httpServer.createContext("/", new MyHttpHandler())
         // httpContext.getFilters().add(new MyFilter())
         httpServer.setExecutor(executor);
-        try {
-            httpServer.start();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        JlHttpServerStart.start(port,jlHttpContextHandler);
+
+//            httpServer.start();
         long endTime = System.currentTimeMillis();
         System.out.println("started in : " + (endTime - startTime) + "ms");
     }

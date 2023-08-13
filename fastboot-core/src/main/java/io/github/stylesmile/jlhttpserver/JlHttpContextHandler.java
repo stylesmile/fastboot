@@ -1,14 +1,17 @@
-package io.github.stylesmile.server;
+package io.github.stylesmile.jlhttpserver;
 
 
 import io.github.stylesmile.handle.HandlerManager;
 import io.github.stylesmile.handle.MappingHandler;
-import io.github.stylesmile.jlhttpserver.Handler;
+import io.github.stylesmile.server.Context;
+import io.github.stylesmile.server.ContextHandler;
+import io.github.stylesmile.server.Request;
+import io.github.stylesmile.server.Response;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-public class JlHttpContextHandler implements ContextHandler {
+public class JlHttpContextHandler implements Handler {
 
 
     public JlHttpContextHandler(Handler handler) {
@@ -16,7 +19,7 @@ public class JlHttpContextHandler implements ContextHandler {
     public JlHttpContextHandler() {
     }
 
-    @Override
+//    @Override
     public int serve(Request request, Response response) throws IOException {
         // System.out.println(request.getPath())
         try {
@@ -45,5 +48,11 @@ public class JlHttpContextHandler implements ContextHandler {
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void handle(Context ctx) throws Throwable {
+        //跳转controller
+//        goController(ctx., response);
     }
 }
