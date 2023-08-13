@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
 
-import static io.github.stylesmile.server.HTTPServer.CRLF;
-import static io.github.stylesmile.server.HTTPServer.parseDate;
+import static io.github.stylesmile.server.JdkHTTPServer.CRLF;
+import static io.github.stylesmile.server.JdkHTTPServer.parseDate;
 
 /**
  * The {@code Headers} class encapsulates a collection of HTTP headers.
@@ -144,7 +144,7 @@ public class Headers implements Iterable<Header> {
      */
     public void writeTo(OutputStream out) throws IOException {
         for (int i = 0; i < count; i++) {
-            out.write(HTTPServer.getBytes(headers[i].getName(), ": ", headers[i].getValue()));
+            out.write(JdkHTTPServer.getBytes(headers[i].getName(), ": ", headers[i].getValue()));
             out.write(CRLF);
         }
         out.write(CRLF); // ends header block
@@ -160,9 +160,9 @@ public class Headers implements Iterable<Header> {
      */
     public Map<String, String> getParams(String name) {
         Map<String, String> params = new LinkedHashMap<String, String>();
-        for (String param : HTTPServer.split(get(name), ";", -1)) {
-            String[] pair = HTTPServer.split(param, "=", 2);
-            String val = pair.length == 1 ? "" : HTTPServer.trimLeft(HTTPServer.trimRight(pair[1], '"'), '"');
+        for (String param : JdkHTTPServer.split(get(name), ";", -1)) {
+            String[] pair = JdkHTTPServer.split(param, "=", 2);
+            String val = pair.length == 1 ? "" : JdkHTTPServer.trimLeft(JdkHTTPServer.trimRight(pair[1], '"'), '"');
             params.put(pair[0], val);
         }
         return params;

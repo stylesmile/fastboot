@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.net.*;
 import java.util.*;
 
-import static io.github.stylesmile.server.HTTPServer.*;
+import static io.github.stylesmile.server.JdkHTTPServer.*;
 
 /**
      * The {@code Request} class encapsulates a single HTTP request.
@@ -20,8 +20,8 @@ import static io.github.stylesmile.server.HTTPServer.*;
         protected InputStream body;
         protected Socket sock;
         protected Map<String, String> params; // cached value
-        protected HTTPServer.VirtualHost host; // cached value
-        protected HTTPServer.VirtualHost.ContextInfo context; // cached value
+        protected JdkHTTPServer.VirtualHost host; // cached value
+        protected JdkHTTPServer.VirtualHost.ContextInfo context; // cached value
 
         /**
          * Constructs a Request from the data in the given input stream.
@@ -43,7 +43,7 @@ import static io.github.stylesmile.server.HTTPServer.*;
             String header = headers.get("Transfer-Encoding");
             if (header != null && !header.toLowerCase(Locale.US).equals("identity")) {
                 if (Arrays.asList(splitElements(header, true)).contains("chunked"))
-                    body = new HTTPServer.ChunkedInputStream(in, headers);
+                    body = new JdkHTTPServer.ChunkedInputStream(in, headers);
                 else
                     body = in; // body ends when connection closes
             } else {
@@ -143,7 +143,7 @@ import static io.github.stylesmile.server.HTTPServer.*;
             int pos = host.indexOf(':');
             host = pos < 0 ? host : host.substring(0, pos);
             try {
-                return baseURL = new URL(HTTPServer.secure ? "https" : "http", host, HTTPServer.port, "");
+                return baseURL = new URL(JdkHTTPServer.secure ? "https" : "http", host, JdkHTTPServer.port, "");
             } catch (MalformedURLException mue) {
                 return null;
             }
@@ -164,7 +164,7 @@ import static io.github.stylesmile.server.HTTPServer.*;
          * @return the request parameters name-value pairs,
          *         or an empty list if there are none
          * @throws IOException if an error occurs
-         * @see HTTPServer#parseParamsList(String)
+         * @see JdkHTTPServer#parseParamsList(String)
          */
         private List<String[]> _paramsList; //noear,20210801
         public List<String[]> getParamsList() throws IOException {
@@ -262,10 +262,10 @@ import static io.github.stylesmile.server.HTTPServer.*;
          * @return the virtual host corresponding to the requested host name,
          *         or the default virtual host
          */
-        public HTTPServer.VirtualHost getVirtualHost() {
+        public JdkHTTPServer.VirtualHost getVirtualHost() {
             return host != null ? host
-                : (host = HTTPServer.getVirtualHost(getBaseURL().getHost())) != null ? host
-                : (host = HTTPServer.getVirtualHost(null));
+                : (host = JdkHTTPServer.getVirtualHost(getBaseURL().getHost())) != null ? host
+                : (host = JdkHTTPServer.getVirtualHost(null));
         }
 
         /**
@@ -273,7 +273,7 @@ import static io.github.stylesmile.server.HTTPServer.*;
          *
          * @return the info of the context handling this request, or an empty context
          */
-        public HTTPServer.VirtualHost.ContextInfo getContext() {
+        public JdkHTTPServer.VirtualHost.ContextInfo getContext() {
             return context != null ? context : (context = getVirtualHost().getContext(getPath()));
         }
     }

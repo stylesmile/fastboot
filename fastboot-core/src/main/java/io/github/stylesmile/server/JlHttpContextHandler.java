@@ -3,11 +3,18 @@ package io.github.stylesmile.server;
 
 import io.github.stylesmile.handle.HandlerManager;
 import io.github.stylesmile.handle.MappingHandler;
+import io.github.stylesmile.jlhttpserver.Handler;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 public class JlHttpContextHandler implements ContextHandler {
+
+
+    public JlHttpContextHandler(Handler handler) {
+    }
+    public JlHttpContextHandler() {
+    }
 
     @Override
     public int serve(Request request, Response response) throws IOException {

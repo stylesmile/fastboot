@@ -4,7 +4,7 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static io.github.stylesmile.server.HTTPServer.CRLF;
+import static io.github.stylesmile.server.JdkHTTPServer.CRLF;
 
 /**
      * The {@code MultipartInputStream} decodes an InputStream whose data has

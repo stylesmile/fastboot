@@ -1,6 +1,5 @@
 package io.github.stylesmile.parse;
 
-import io.github.stylesmile.server.HTTPServer;
 import io.github.stylesmile.server.Request;
 
 import java.io.IOException;

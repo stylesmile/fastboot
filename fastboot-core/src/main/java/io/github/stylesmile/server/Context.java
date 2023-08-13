@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * The annotated methods must have the same signature and contract
  * as {@link ContextHandler#serve}, but can have arbitrary names.
  *
- * @see HTTPServer.VirtualHost#addContexts(Object)
+ * @see JdkHTTPServer.VirtualHost#addContexts(Object)
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

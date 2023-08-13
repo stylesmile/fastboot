@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
  * The method must have the same signature and contract as
  * {@link ContextHandler#serve}, but can have an arbitrary name.
  *
- * @see HTTPServer.VirtualHost#addContexts(Object)
+ * @see JdkHTTPServer.VirtualHost#addContexts(Object)
  */
 public class MethodContextHandler implements ContextHandler {
 

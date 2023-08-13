@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPOutputStream;
 
-import static io.github.stylesmile.server.HTTPServer.*;
+import static io.github.stylesmile.server.JdkHTTPServer.*;
 
 /**
      * The {@code Response} class encapsulates a single HTTP response.
@@ -95,7 +95,7 @@ import static io.github.stylesmile.server.HTTPServer.*;
             List<String> ce = Arrays.asList(splitElements(headers.get("Content-Encoding"), true));
             encodedOut = new ResponseOutputStream(out); // leaves underlying stream open when closed
             if (te.contains("chunked"))
-                encodedOut = new HTTPServer.ChunkedOutputStream(encodedOut);
+                encodedOut = new JdkHTTPServer.ChunkedOutputStream(encodedOut);
             if (ce.contains("gzip") || te.contains("gzip"))
                 encodedOut = new GZIPOutputStream(encodedOut, 4096);
             else if (ce.contains("deflate") || te.contains("deflate"))
@@ -215,7 +215,7 @@ import static io.github.stylesmile.server.HTTPServer.*;
          * as the body. The text is sent in the UTF-8 charset. If a
          * Content-Type header was not explicitly set, it will be set to
          * text/html, and so the text must contain valid (and properly
-         * {@link HTTPServer#escapeHTML escaped}) HTML.
+         * {@link JdkHTTPServer#escapeHTML escaped}) HTML.
          *
          * @param status the response status
          * @param text the text body (sent as text/html)
@@ -235,7 +235,7 @@ import static io.github.stylesmile.server.HTTPServer.*;
          * Sends an error response with the given status and detailed message.
          * An HTML body is created containing the status and its description,
          * as well as the message, which is escaped using the
-         * {@link HTTPServer#escapeHTML escape} method.
+         * {@link JdkHTTPServer#escapeHTML escape} method.
          *
          * @param status the response status
          * @param text the text body (sent as text/html)

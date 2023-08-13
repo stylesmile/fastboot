@@ -5,7 +5,7 @@ import java.io.IOException;
 /**
  * A {@code ContextHandler} serves the content of resources within a context.
  *
- * @see HTTPServer.VirtualHost#addContext
+ * @see JdkHTTPServer.VirtualHost#addContext
  */
 public interface ContextHandler {
 
