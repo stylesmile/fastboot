@@ -1,5 +1,7 @@
+# 2.0.0
+新增支持webflux
 # 1.1.0
-集成验证码chaptcha
+新增集成验证码chaptcha
 1.0.0
 依赖包改为fastboot-web
 # 0.9.0
