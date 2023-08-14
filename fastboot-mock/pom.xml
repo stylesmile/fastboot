@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>io.github.stylesmile</groupId>
+        <artifactId>fastboot-parent</artifactId>
+        <version>0.9.1</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.github.stylesmile</groupId>
+    <artifactId>fastboot-mock</artifactId>
+    <version>${fastboot.version}</version>
+    <name>fastboot-mock</name>
+    <packaging>pom</packaging>
+    <description>mock for fastboot</description>
+    <properties>
+        <java.version>1.8</java.version>
+        <powermock.version>2.0.2</powermock.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-easymock</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
