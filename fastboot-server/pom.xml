@@ -3,113 +3,49 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
-    <artifactId>fastboot-parent</artifactId>
+    <artifactId>fastboot-server</artifactId>
     <version>2.0.0</version>
-    <name>fastboot-parent</name>
+    <name>fastboot-server</name>
     <packaging>pom</packaging>
+    <parent>
+        <groupId>io.github.stylesmile</groupId>
+        <artifactId>fastboot-parent</artifactId>
+        <version>2.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
     <properties>
         <java.version>1.8</java.version>
-        <fastboot.version>2.0.0</fastboot.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <fast-cloud.version>0.1.0</fast-cloud.version>
     </properties>
     <modules>
-        <module>fastboot-core</module>
-        <module>fastboot-web</module>
-        <module>fastboot-db</module>
-        <module>fastboot-log</module>
-        <module>fastboot-logback</module>
-        <module>fastboot-captcha</module>
-        <module>fastboot-webflux-parent</module>
-
-<!--        <module>fastboot-server</module>-->
-<!--        <module>fastboot-enjoy</module>-->
-<!--        <module>fastboot-example</module>-->
+        <module>fastboot-jdkhttpserver</module>
     </modules>
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.github.stylesmile</groupId>
-                <artifactId>fastboot-core</artifactId>
-                <version>${fastboot.version}</version>
+                <groupId>com.ibeetl</groupId>
+                <artifactId>beetlsql</artifactId>
+                <version>3.15.1-RELEASE</version>
             </dependency>
             <dependency>
-                <groupId>io.github.stylesmile</groupId>
-                <artifactId>fastboot-web</artifactId>
-                <version>${fastboot.version}</version>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>4.2.0</version>
             </dependency>
             <dependency>
-                <groupId>io.github.stylesmile</groupId>
-                <artifactId>fastboot-webflux</artifactId>
-                <version>${fastboot.version}</version>
+                <groupId>org.mongodb</groupId>
+                <artifactId>mongodb-driver</artifactId>
+                <version>3.12.11</version>
             </dependency>
             <dependency>
-                <groupId>io.github.stylesmile</groupId>
-                <artifactId>fastboot-captcha</artifactId>
-                <version>${fastboot.version}</version>
-            </dependency>
-<!--            <dependency>-->
-<!--                <groupId>io.github.stylesmile</groupId>-->
-<!--                <artifactId>fastboot-enjoy</artifactId>-->
-<!--                <version>${fastboot.version}</version>-->
-<!--            </dependency>-->
-            <dependency>
-                <groupId>io.github.stylesmile</groupId>
-                <artifactId>fastboot-mybatis</artifactId>
-                <version>${fastboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.stylesmile</groupId>
-                <artifactId>fastboot-redis</artifactId>
-                <version>${fastboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.stylesmile</groupId>
-                <artifactId>fastboot-mongodb</artifactId>
-                <version>${fastboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.stylesmile</groupId>
-                <artifactId>fastboot-log</artifactId>
-                <version>${fastboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.stylesmile</groupId>
-                <artifactId>fastboot-logback</artifactId>
-                <version>${fastboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.stylesmile</groupId>
-                <artifactId>fastboot-beetlsql</artifactId>
-                <version>${fastboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.code.gson</groupId>
-                <artifactId>gson</artifactId>
-                <version>2.9.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.24</version>
-            </dependency>
-            <!-- log -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-slf4j-impl</artifactId>
-                <version>2.18.0</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>1.2.11</version>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <!--                <version>3.5.2</version>-->
+                <version>3.1.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <dependencies>
-    </dependencies>
-    <description>java web project demo for Fast Boot</description>
+    <description>cloud project for Fast Boot</description>
 
     <!--项目信息...-->
     <url>https://github.com/stylesmile/fastboot</url>
@@ -276,34 +212,6 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
-            <!-- 配置打包插件 打包成胖包 -->
-            <!--            <plugin>-->
-            <!--                <groupId>org.apache.maven.plugins</groupId>-->
-            <!--                <artifactId>maven-assembly-plugin</artifactId>-->
-            <!--                <version>3.3.0</version>-->
-            <!--                <configuration>-->
-            <!--                    <finalName>${project.artifactId}</finalName>-->
-            <!--                    <appendAssemblyId>false</appendAssemblyId>-->
-            <!--                    <descriptorRefs>-->
-            <!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
-            <!--                    </descriptorRefs>-->
-            <!--                    <archive>-->
-            <!--                        &lt;!&ndash; 此处，要改成自己的程序入口（即 main 函数类） &ndash;&gt;-->
-            <!--                        <manifest>-->
-            <!--                            <mainClass>com.example.Application</mainClass>-->
-            <!--                        </manifest>-->
-            <!--                    </archive>-->
-            <!--                </configuration>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <id>make-assembly</id>-->
-            <!--                        <phase>package</phase>-->
-            <!--                        <goals>-->
-            <!--                            <goal>single</goal>-->
-            <!--                        </goals>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
