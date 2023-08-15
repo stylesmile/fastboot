@@ -2,9 +2,9 @@ package io.github.stylesmile.app;
 
 import io.github.stylesmile.handle.HandlerManager;
 import io.github.stylesmile.ioc.BeanFactory;
-import io.github.stylesmile.jlhttpserver.HTTPServer;
 import io.github.stylesmile.jlhttpserver.JdkHttpContextHandler;
-import io.github.stylesmile.plugin.PlugsManager;
+import io.github.stylesmile.plugin.ServerPlugsManager;
+import io.github.stylesmile.plugin.StartPlugsManager;
 import io.github.stylesmile.server.JdkHTTPServer;
 import io.github.stylesmile.server.MethodType;
 import io.github.stylesmile.tool.ClassScanner;
@@ -19,7 +19,8 @@ import java.util.concurrent.TimeUnit;
 
 public class App {
     private static JdkHTTPServer httpServer = null;
-    private static final PlugsManager PLUGS_MANAGER = new PlugsManager();
+    private static final StartPlugsManager PLUGS_MANAGER = new StartPlugsManager();
+    private static final ServerPlugsManager server_plugs_manager = new ServerPlugsManager();
     public static List<Class<?>> classList = null;
 
     /**
@@ -36,23 +37,21 @@ public class App {
     public static void start(Class applicationClass, String[] args) {
         long startTime = System.currentTimeMillis();
         Integer port = 8080;
-        httpServer = new JdkHTTPServer();;
+
         PropertyUtil.loadProps(applicationClass, "application.properties");
         String portString = PropertyUtil.getProperty("server.port");
         if (StringUtil.isNotEmpty(portString)) {
             port = Integer.valueOf(portString);
         }
-        System.out.println("start server  port : " + port);
-        JdkHTTPServer.VirtualHost host = JdkHTTPServer.getVirtualHost(null);
-        httpServer.setPort(port);
+
 //        HTTPServer.VirtualHost host = null;
         try {
 //            HTTPServer.VirtualHost virtualHost = httpServer.getVirtualHost(null);
 //            virtualHost.setDirectoryIndex(null);
             // sun httpServer = HTTPServer.create(new InetSocketAddress(port), 0)
-            String package1 = applicationClass.getPackage().getName();
+            String localPackage = applicationClass.getPackage().getName();
             //扫描所有的类，
-            classList = ClassScanner.scanClasses(package1);
+            classList = ClassScanner.scanClasses(localPackage);
             PLUGS_MANAGER.start();
             PLUGS_MANAGER.init();
             PLUGS_MANAGER.end();
@@ -63,6 +62,11 @@ public class App {
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+
+        httpServer = new JdkHTTPServer();
+        System.out.println("start server  port : " + port);
+        JdkHTTPServer.VirtualHost host = JdkHTTPServer.getVirtualHost(null);
+        httpServer.setPort(port);
 //        host.setDirectoryIndex(null);
         JdkHttpContextHandler jdkHttpContextHandler = new JdkHttpContextHandler();
         host.addContext("/", jdkHttpContextHandler,

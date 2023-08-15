@@ -10,11 +10,11 @@ import java.util.Set;
  *
  * @author Stylesmile
  */
-public class PlugsManager implements Plugin {
+public class ServerPlugsManager implements Plugin {
     private final Set<String> plugPackages = new HashSet<>();
     private final Set<Plugin> obj = new HashSet<>();
 
-    public PlugsManager() {
+    public ServerPlugsManager() {
         //通过spi加载所有插件
         ServiceLoader<Plugin> loadedParsers = ServiceLoader.load(Plugin.class);
         for (Plugin plugin : loadedParsers) {

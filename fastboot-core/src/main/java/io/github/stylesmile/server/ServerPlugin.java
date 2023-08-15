@@ -7,6 +7,9 @@ package io.github.stylesmile.server;
 public interface ServerPlugin {
     /**
      * 启动方法
+     *
+     * @param applicationClass app 启动类
+     * @param args             参数
      */
-    void start();
+    void start(Class applicationClass, String[] args);
 }
