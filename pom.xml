@@ -23,7 +23,7 @@
         <module>fastboot-captcha</module>
         <module>fastboot-webflux-parent</module>
 
-<!--        <module>fastboot-server</module>-->
+        <module>fastboot-server</module>
 <!--        <module>fastboot-enjoy</module>-->
 <!--        <module>fastboot-example</module>-->
     </modules>

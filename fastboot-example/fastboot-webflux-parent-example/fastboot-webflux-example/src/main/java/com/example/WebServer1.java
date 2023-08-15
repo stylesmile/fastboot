@@ -1,4 +1,4 @@
-package org.example.test;
+package com.example;
 
 import reactor.core.publisher.Mono;
 import reactor.netty.DisposableServer;
