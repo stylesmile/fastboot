@@ -1,4 +1,4 @@
-package io.github.stylesmile.mybatis;
+package io.github.stylesmile.jdkhttpserver;
 
 
 import io.github.stylesmile.app.App;
