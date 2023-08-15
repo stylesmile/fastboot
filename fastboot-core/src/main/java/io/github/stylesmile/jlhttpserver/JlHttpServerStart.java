@@ -1,6 +1,5 @@
 package io.github.stylesmile.jlhttpserver;
 
-import io.github.stylesmile.server.JlHttpContextHandler;
 
 public class JlHttpServerStart {
     public static JdkHttpServerComb _server;

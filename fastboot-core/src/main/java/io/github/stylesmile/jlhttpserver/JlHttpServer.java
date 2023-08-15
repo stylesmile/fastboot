@@ -1,7 +1,6 @@
 package io.github.stylesmile.jlhttpserver;
 
 import io.github.stylesmile.server.JdkHTTPServer;
-import io.github.stylesmile.server.JlHttpContextHandler;
 import io.github.stylesmile.tool.StringUtil;
 import java.util.concurrent.Executor;
 
@@ -56,17 +55,17 @@ public class JlHttpServer implements ServerLifecycle {
 //            isSecure = true;
 //        }
 
-        JdkHTTPServer.VirtualHost virtualHost = server.getVirtualHost(null);
-
-        virtualHost.setDirectoryIndex(null);
-        virtualHost.addContext("/", new JlHttpContextHandler(handler), "*");
-
-        server.setExecutor(executor);
-        server.setPort(port);
-        if (StringUtil.isNotEmpty(host)) {
-            server.setHost(host);
-        }
-        server.start();
+//        JdkHTTPServer.VirtualHost virtualHost = server.getVirtualHost(null);
+//
+//        virtualHost.setDirectoryIndex(null);
+//        virtualHost.addContext("/", new JlHttpContextHandler(handler), "*");
+//
+//        server.setExecutor(executor);
+//        server.setPort(port);
+//        if (StringUtil.isNotEmpty(host)) {
+//            server.setHost(host);
+//        }
+//        server.start();
     }
 
     @Override
