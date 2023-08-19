@@ -33,7 +33,7 @@ import static io.github.stylesmile.server.JdkHTTPServer.CRLF;
          * @throws IllegalArgumentException if the given boundary's size is not
          *         between 1 and 70
          */
-        protected MultipartInputStream(InputStream in, byte[] boundary) {
+        public MultipartInputStream(InputStream in, byte[] boundary) {
             super(in);
             int len = boundary.length;
             if (len == 0 || len > 70)

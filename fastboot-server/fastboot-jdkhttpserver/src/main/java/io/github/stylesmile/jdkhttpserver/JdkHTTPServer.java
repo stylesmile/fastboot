@@ -21,6 +21,8 @@
 
 package io.github.stylesmile.jdkhttpserver;
 
+import io.github.stylesmile.server.*;
+
 import javax.net.ServerSocketFactory;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
@@ -274,16 +276,18 @@ public class JdkHTTPServer {
         protected long initChunk() throws IOException {
             if (limit == 0) { // finished previous chunk
                 // read chunk-terminating CRLF if it's not the first chunk
-                if (initialized && readLine(in).length() > 0)
+                if (initialized && readLine(in).length() > 0) {
                     throw new IOException("chunk data must end with CRLF");
+                }
                 initialized = true;
                 limit = parseChunkSize(readLine(in)); // read next chunk size
                 if (limit == 0) { // last chunk has size 0
                     limit = -1; // mark end of stream
                     // read trailing headers, if any
                     Headers trailingHeaders = readHeaders(in);
-                    if (headers != null)
+                    if (headers != null) {
                         headers.addAll(trailingHeaders);
+                    }
                 }
             }
             return limit;
@@ -331,8 +335,9 @@ public class JdkHTTPServer {
          */
         public ChunkedOutputStream(OutputStream out) {
             super(out);
-            if (out == null)
+            if (out == null) {
                 throw new NullPointerException("output stream is null");
+            }
         }
 
         /**
@@ -344,14 +349,16 @@ public class JdkHTTPServer {
          *                                  already been ended
          */
         protected void initChunk(long size) throws IOException {
-            if (size < 0)
+            if (size < 0) {
                 throw new IllegalArgumentException("invalid size: " + size);
-            if (state > 0)
+            }
+            if (state > 0) {
                 out.write(CRLF); // end previous chunk
-            else if (state == 0)
+            } else if (state == 0) {
                 state = 1; // start first chunk
-            else
+            } else {
                 throw new IOException("chunked stream has already ended");
+            }
             out.write(getBytes(Long.toHexString(size)));
             out.write(CRLF);
         }
@@ -364,10 +371,11 @@ public class JdkHTTPServer {
          */
         public void writeTrailingChunk(Headers headers) throws IOException {
             initChunk(0); // zero-sized chunk marks the end of the stream
-            if (headers == null)
+            if (headers == null) {
                 out.write(CRLF); // empty header block
-            else
+            } else {
                 headers.writeTo(out);
+            }
             state = -1;
         }
 
@@ -397,7 +405,9 @@ public class JdkHTTPServer {
         @Override
         public void write(byte[] b, int off, int len) throws IOException {
             if (len > 0) // zero-sized chunk is the trailing chunk
+            {
                 initChunk(len);
+            }
             out.write(b, off, len);
         }
 
@@ -408,8 +418,9 @@ public class JdkHTTPServer {
          */
         @Override
         public void close() throws IOException {
-            if (state > -1)
+            if (state > -1) {
                 writeTrailingChunk(null);
+            }
             super.close();
         }
     }
@@ -531,14 +542,17 @@ public class JdkHTTPServer {
          */
         public MultipartIterator(Request req) throws IOException {
             Map<String, String> ct = req.getHeaders().getParams("Content-Type");
-            if (!ct.containsKey("multipart/form-data"))
+            if (!ct.containsKey("multipart/form-data")) {
                 throw new IllegalArgumentException("Content-Type is not multipart/form-data");
+            }
             String boundary = ct.get("boundary"); // should be US-ASCII
-            if (boundary == null)
+            if (boundary == null) {
                 throw new IllegalArgumentException("Content-Type is missing boundary");
+            }
             in = new MultipartInputStream(req.getBody(), getBytes(boundary));
         }
 
+        @Override
         public boolean hasNext() {
             try {
                 return next || (next = in.nextPart());
@@ -547,9 +561,11 @@ public class JdkHTTPServer {
             }
         }
 
+        @Override
         public Part next() {
-            if (!hasNext())
+            if (!hasNext()) {
                 throw new NoSuchElementException();
+            }
             next = false;
             Part p = new Part();
             try {
@@ -564,6 +580,7 @@ public class JdkHTTPServer {
             return p;
         }
 
+        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
@@ -617,8 +634,9 @@ public class JdkHTTPServer {
              * @param methods the HTTP methods supported by the handler (default is "GET")
              */
             public void addHandler(ContextHandler handler, String... methods) {
-                if (methods.length == 0)
+                if (methods.length == 0) {
                     methods = new String[]{"GET"};
+                }
                 for (String method : methods) {
                     handlers.put(method, handler);
                     VirtualHost.this.methods.add(method); // it's now supported by server
@@ -803,6 +821,7 @@ public class JdkHTTPServer {
             this.base = dir.getCanonicalFile();
         }
 
+        @Override
         public int serve(Request req, Response resp) throws IOException {
             return serveFile(base, req.getContext().getPath(), req, resp);
         }
@@ -820,6 +839,7 @@ public class JdkHTTPServer {
                 while (serv != null && !serv.isClosed()) {
                     final Socket sock = serv.accept();
                     executor.execute(new Runnable() {
+                        @Override
                         public void run() {
                             try {
                                 try {
@@ -898,7 +918,7 @@ public class JdkHTTPServer {
      * @param port the port on which this server will accept connections
      */
     public void setPort(int port) {
-        this.port = port;
+        JdkHTTPServer.port = port;
     }
 
     public void setHost(String host) {
@@ -920,7 +940,7 @@ public class JdkHTTPServer {
      */
     public void setServerSocketFactory(ServerSocketFactory factory) {
         this.serverSocketFactory = factory;
-        this.secure = factory instanceof SSLServerSocketFactory;
+        secure = factory instanceof SSLServerSocketFactory;
     }
 
     /**
@@ -1006,17 +1026,24 @@ public class JdkHTTPServer {
      * @throws IOException if the server cannot begin accepting connections
      */
     public synchronized void start() throws IOException {
-        if (serv != null)
+        if (serv != null) {
             return;
+        }
         if (serverSocketFactory == null) // assign default server socket factory if needed
+        {
             serverSocketFactory = ServerSocketFactory.getDefault(); // plain sockets
+        }
         serv = createServerSocket();
         if (executor == null) // assign default executor if needed
+        {
             executor = Executors.newCachedThreadPool(); // consumes no resources when idle
+        }
         // register all host aliases (which may have been modified)
-        for (VirtualHost host : getVirtualHosts())
-            for (String alias : host.getAliases())
+        for (VirtualHost host : getVirtualHosts()) {
+            for (String alias : host.getAliases()) {
                 hosts.put(alias, host);
+            }
+        }
         // start handling incoming connections
         new SocketHandlerThread().start();
     }
@@ -1027,8 +1054,9 @@ public class JdkHTTPServer {
      */
     public synchronized void stop() {
         try {
-            if (serv != null)
+            if (serv != null) {
                 serv.close();
+            }
         } catch (IOException ignore) {
         }
         serv = null;
@@ -1060,13 +1088,16 @@ public class JdkHTTPServer {
                 handleTransaction(req, resp);
             } catch (Throwable t) { // unhandled errors (not normal error responses like 404)
                 if (req == null) { // error reading request
-                    if (t instanceof IOException && t.getMessage().contains("missing request line"))
+                    if (t instanceof IOException && t.getMessage().contains("missing request line")) {
                         break; // we're not in the middle of a transaction - so just disconnect
+                    }
                     resp.getHeaders().add("Connection", "close"); // about to close connection
                     if (t instanceof InterruptedIOException) // e.g. SocketTimeoutException
+                    {
                         resp.sendError(408, "Timeout waiting for client request");
-                    else
+                    } else {
                         resp.sendError(400, "Invalid request: " + t.getMessage());
+                    }
                 } else if (!resp.headersSent()) { // if headers were not already sent, we can send an error response
                     resp = new Response(out); // ignore whatever headers may have already been set
                     resp.getHeaders().add("Connection", "close"); // about to close connection
@@ -1136,8 +1167,9 @@ public class JdkHTTPServer {
             }
         } else if (version.equals("HTTP/1.0") || version.equals("HTTP/0.9")) {
             // RFC2616#14.10 - remove connection headers from older versions
-            for (String token : splitElements(reqHeaders.get("Connection"), false))
+            for (String token : splitElements(reqHeaders.get("Connection"), false)) {
                 reqHeaders.remove(token);
+            }
         } else {
             resp.sendError(400, "Unknown version: " + version);
             return false;
@@ -1225,10 +1257,12 @@ public class JdkHTTPServer {
                 req.setPath(path);
             }
         }
-        if (status == 404)
+        if (status == 404) {
             status = handler.serve(req, resp);
-        if (status > 0)
+        }
+        if (status > 0) {
             resp.sendError(status);
+        }
     }
 
     /**
@@ -1244,8 +1278,9 @@ public class JdkHTTPServer {
      *                    (excluding the '.' character)
      */
     public static void addContentType(String contentType, String... suffixes) {
-        for (String suffix : suffixes)
+        for (String suffix : suffixes) {
             contentTypes.put(suffix.toLowerCase(Locale.US), contentType.toLowerCase(Locale.US));
+        }
     }
 
     /**
@@ -1261,8 +1296,9 @@ public class JdkHTTPServer {
                 String line = readLine(in).trim(); // throws EOFException when done
                 if (line.length() > 0 && line.charAt(0) != '#') {
                     String[] tokens = split(line, " \t", -1);
-                    for (int i = 1; i < tokens.length; i++)
+                    for (int i = 1; i < tokens.length; i++) {
                         addContentType(tokens[0], tokens[i]);
+                    }
                 }
             }
         } catch (EOFException ignore) { // the end of file was reached - it's ok
@@ -1295,10 +1331,12 @@ public class JdkHTTPServer {
     public static boolean isCompressible(String contentType) {
         int pos = contentType.indexOf(';'); // exclude params
         String ct = pos < 0 ? contentType : contentType.substring(0, pos);
-        for (String s : compressibleContentTypes)
+        for (String s : compressibleContentTypes) {
             if (s.equals(ct) || s.charAt(0) == '*' && ct.endsWith(s.substring(1))
-                    || s.charAt(s.length() - 1) == '*' && ct.startsWith(s.substring(0, s.length() - 1)))
+                    || s.charAt(s.length() - 1) == '*' && ct.startsWith(s.substring(0, s.length() - 1))) {
                 return true;
+            }
+        }
         return false;
     }
 
@@ -1334,8 +1372,9 @@ public class JdkHTTPServer {
      * or an empty list if there are none
      */
     public static List<String[]> parseParamsList(String s) {
-        if (s == null || s.length() == 0)
+        if (s == null || s.length() == 0) {
             return Collections.emptyList();
+        }
         List<String[]> params = new ArrayList<String[]>(8);
         for (String pair : split(s, "&", -1)) {
             int pos = pair.indexOf('=');
@@ -1344,8 +1383,9 @@ public class JdkHTTPServer {
             try {
                 name = URLDecoder.decode(name.trim(), "UTF-8");
                 val = URLDecoder.decode(val.trim(), "UTF-8");
-                if (name.length() > 0)
+                if (name.length() > 0) {
                     params.add(new String[]{name, val});
+                }
             } catch (UnsupportedEncodingException ignore) {
             } // never thrown
         }
@@ -1365,12 +1405,15 @@ public class JdkHTTPServer {
      */
     @SuppressWarnings("unchecked")
     public static <K, V> Map<K, V> toMap(Collection<? extends Object[]> pairs) {
-        if (pairs == null || pairs.isEmpty())
+        if (pairs == null || pairs.isEmpty()) {
             return Collections.emptyMap();
+        }
         Map<K, V> map = new LinkedHashMap<K, V>(pairs.size());
-        for (Object[] pair : pairs)
-            if (!map.containsKey(pair[0]))
+        for (Object[] pair : pairs) {
+            if (!map.containsKey(pair[0])) {
                 map.put((K) pair[0], (V) pair[1]);
+            }
+        }
         return map;
     }
 
@@ -1400,17 +1443,22 @@ public class JdkHTTPServer {
                     start = parseULong(token.substring(0, dash), 10);
                     end = parseULong(token.substring(dash + 1), 10);
                 }
-                if (end < start)
+                if (end < start) {
                     throw new RuntimeException();
-                if (start < min)
+                }
+                if (start < min) {
                     min = start;
-                if (end > max)
+                }
+                if (end > max) {
                     max = end;
+                }
             }
-            if (max < 0) // no tokens
+            if (max < 0) {  // no tokens
                 throw new RuntimeException();
-            if (max >= length && min < length)
+            }
+            if (max >= length && min < length) {
                 max = length - 1;
+            }
             return new long[]{min, max}; // start might be >= length!
         } catch (RuntimeException re) { // NFE, IOOBE or explicit RE
             return null; // RFC2616#14.35.1 - ignore header if invalid
@@ -1430,8 +1478,9 @@ public class JdkHTTPServer {
      */
     public static long parseULong(String s, int radix) throws NumberFormatException {
         long val = Long.parseLong(s, radix); // throws NumberFormatException
-        if (s.charAt(0) == '-' || s.charAt(0) == '+')
+        if (s.charAt(0) == '-' || s.charAt(0) == '+') {
             throw new NumberFormatException("invalid digit: " + s.charAt(0));
+        }
         return val;
     }
 
@@ -1470,8 +1519,9 @@ public class JdkHTTPServer {
     public static String formatDate(long time) {
         // this implementation performs far better than SimpleDateFormat instances, and even
         // quite better than ThreadLocal SDFs - the server's CPU-bound benchmark gains over 20%!
-        if (time < -62167392000000L || time > 253402300799999L)
+        if (time < -62167392000000L || time > 253402300799999L) {
             throw new IllegalArgumentException("year out of range (0001-9999): " + time);
+        }
         char[] s = "DAY, 00 MON 0000 00:00:00 GMT".toCharArray(); // copy the format template
         Calendar cal = new GregorianCalendar(GMT, Locale.US);
         cal.setTimeInMillis(time);
@@ -1523,19 +1573,22 @@ public class JdkHTTPServer {
      * @return the non-empty elements in the string, or an empty array
      */
     public static String[] split(String str, String delimiters, int limit) {
-        if (str == null)
+        if (str == null) {
             return new String[0];
+        }
         Collection<String> elements = new ArrayList<String>();
         int len = str.length();
         int start = 0;
         int end;
         while (start < len) {
             for (end = --limit == 0 ? len : start;
-                 end < len && delimiters.indexOf(str.charAt(end)) < 0; end++)
+                 end < len && delimiters.indexOf(str.charAt(end)) < 0; end++) {
                 ;
+            }
             String element = str.substring(start, end).trim();
-            if (element.length() > 0)
+            if (element.length() > 0) {
                 elements.add(element);
+            }
             start = end + 1;
         }
         return elements.toArray(new String[0]);
@@ -1552,8 +1605,9 @@ public class JdkHTTPServer {
      */
     public static <T> String join(String delim, Iterable<T> items) {
         StringBuilder sb = new StringBuilder();
-        for (Iterator<T> it = items.iterator(); it.hasNext(); )
+        for (Iterator<T> it = items.iterator(); it.hasNext(); ) {
             sb.append(it.next()).append(it.hasNext() ? delim : "");
+        }
         return sb.toString();
     }
 
@@ -1581,7 +1635,9 @@ public class JdkHTTPServer {
     public static String trimRight(String s, char c) {
         int len = s.length() - 1;
         int end;
-        for (end = len; end >= 0 && s.charAt(end) == c; end--) ;
+        for (end = len; end >= 0 && s.charAt(end) == c; end--) {
+            ;
+        }
         return end == len ? s : s.substring(0, end + 1);
     }
 
@@ -1596,7 +1652,9 @@ public class JdkHTTPServer {
     public static String trimLeft(String s, char c) {
         int len = s.length();
         int start;
-        for (start = 0; start < len && s.charAt(start) == c; start++) ;
+        for (start = 0; start < len && s.charAt(start) == c; start++) {
+            ;
+        }
         return start == 0 ? s : s.substring(start);
     }
 
@@ -1613,9 +1671,12 @@ public class JdkHTTPServer {
         int start = 0;
         while ((start = s.indexOf(c, start) + 1) > 0) {
             int end;
-            for (end = start; end < s.length() && s.charAt(end) == c; end++) ;
-            if (end > start)
+            for (end = start; end < s.length() && s.charAt(end) == c; end++) {
+                ;
+            }
+            if (end > start) {
                 s = s.substring(0, start) + s.substring(end);
+            }
         }
         return s;
     }
@@ -1631,7 +1692,9 @@ public class JdkHTTPServer {
         final char[] units = {' ', 'K', 'M', 'G', 'T', 'P', 'E'};
         int u;
         double s;
-        for (u = 0, s = size; s >= 1000; u++, s /= 1024) ;
+        for (u = 0, s = size; s >= 1000; u++, s /= 1024) {
+            ;
+        }
         return String.format(s < 10 ? "%.1f%c" : "%.0f%c", s, units[u]);
     }
 
@@ -1687,13 +1750,16 @@ public class JdkHTTPServer {
      */
     public static byte[] getBytes(String... strings) {
         int n = 0;
-        for (String s : strings)
+        for (String s : strings) {
             n += s.length();
+        }
         byte[] b = new byte[n];
         n = 0;
-        for (String s : strings)
-            for (int i = 0, len = s.length(); i < len; i++)
+        for (String s : strings) {
+            for (int i = 0, len = s.length(); i < len; i++) {
                 b[n++] = (byte) s.charAt(i);
+            }
+        }
         return b;
     }
 
@@ -1708,19 +1774,22 @@ public class JdkHTTPServer {
      *                     before the requested number of bytes have been read
      */
     public static void transfer(InputStream in, OutputStream out, long len) throws IOException {
-        if (len == 0 || out == null && len < 0 && in.read() < 0)
+        if (len == 0 || out == null && len < 0 && in.read() < 0) {
             return; // small optimization - avoid buffer creation
+        }
         byte[] buf = new byte[4096];
         while (len != 0) {
             int count = len < 0 || buf.length < len ? buf.length : (int) len;
             count = in.read(buf, 0, count);
             if (count < 0) {
-                if (len > 0)
+                if (len > 0) {
                     throw new IOException("unexpected end of stream");
+                }
                 break;
             }
-            if (out != null)
+            if (out != null) {
                 out.write(buf, 0, count);
+            }
             len -= len > 0 ? count : 0;
         }
     }
@@ -1751,21 +1820,25 @@ public class JdkHTTPServer {
         byte[] buf = null; // optimization - lazy allocation only if necessary
         while ((b = in.read()) != -1 && b != delim) {
             if (count == len) { // expand buffer
-                if (count == maxLength)
+                if (count == maxLength) {
                     throw new IOException("token too large (" + count + ")");
+                }
                 len = len > 0 ? 2 * len : 256; // start small, double each expansion
                 len = maxLength < len ? maxLength : len;
                 byte[] expanded = new byte[len];
-                if (buf != null)
+                if (buf != null) {
                     System.arraycopy(buf, 0, expanded, 0, count);
+                }
                 buf = expanded;
             }
             buf[count++] = (byte) b;
         }
-        if (b < 0 && delim != -1)
+        if (b < 0 && delim != -1) {
             throw new EOFException("unexpected end of stream");
-        if (delim == '\n' && count > 0 && buf[count - 1] == '\r')
+        }
+        if (delim == '\n' && count > 0 && buf[count - 1] == '\r') {
             count--;
+        }
         return count > 0 ? new String(buf, 0, count, enc) : "";
     }
 
@@ -1804,13 +1877,17 @@ public class JdkHTTPServer {
         while ((line = readLine(in)).length() > 0) {
             int start; // start of line data (after whitespace)
             for (start = 0; start < line.length() &&
-                    Character.isWhitespace(line.charAt(start)); start++)
+                    Character.isWhitespace(line.charAt(start)); start++) {
                 ;
+            }
             if (start > 0) // unfold header continuation line
+            {
                 line = prevLine + ' ' + line.substring(start);
+            }
             int separator = line.indexOf(':');
-            if (separator < 0)
+            if (separator < 0) {
                 throw new IOException("invalid header: \"" + line + "\"");
+            }
             String name = line.substring(0, separator);
             String value = line.substring(separator + 1).trim(); // ignore LWS
             Header replaced = headers.replace(name, value);
@@ -1821,8 +1898,9 @@ public class JdkHTTPServer {
                 headers.replace(name, value);
             }
             prevLine = line;
-            if (++count > 100)
+            if (++count > 100) {
                 throw new IOException("too many header lines");
+            }
         }
         return headers;
     }
@@ -1841,11 +1919,14 @@ public class JdkHTTPServer {
      * @return true if the ETag is matched, false otherwise
      */
     public static boolean match(boolean strong, String[] etags, String etag) {
-        if (etag == null || strong && etag.startsWith("W/"))
+        if (etag == null || strong && etag.startsWith("W/")) {
             return false;
-        for (String e : etags)
-            if (e.equals("*") || (e.equals(etag) && !(strong && (e.startsWith("W/")))))
+        }
+        for (String e : etags) {
+            if ("*".equals(e) || (e.equals(etag) && !(strong && (e.startsWith("W/"))))) {
                 return true;
+            }
+        }
         return false;
     }
 
@@ -1863,30 +1944,35 @@ public class JdkHTTPServer {
         Headers headers = req.getHeaders();
         // If-Match
         String header = headers.get("If-Match");
-        if (header != null && !match(true, splitElements(header, false), etag))
+        if (header != null && !match(true, splitElements(header, false), etag)) {
             return 412;
+        }
         // If-Unmodified-Since
         Date date = headers.getDate("If-Unmodified-Since");
-        if (date != null && lastModified > date.getTime())
+        if (date != null && lastModified > date.getTime()) {
             return 412;
+        }
         // If-Modified-Since
         int status = 200;
         boolean force = false;
         date = headers.getDate("If-Modified-Since");
         if (date != null && date.getTime() <= System.currentTimeMillis()) {
-            if (lastModified > date.getTime())
+            if (lastModified > date.getTime()) {
                 force = true;
-            else
+            } else {
                 status = 304;
+            }
         }
         // If-None-Match
         header = headers.get("If-None-Match");
         if (header != null) {
             if (match(false, splitElements(header, false), etag)) // RFC7232#3.2: use weak matching
+            {
                 status = req.getMethod().equals("GET")
                         || req.getMethod().equals("HEAD") ? 304 : 412;
-            else
+            } else {
                 force = true;
+            }
         }
         return force ? 200 : status;
     }
@@ -1920,8 +2006,9 @@ public class JdkHTTPServer {
             return 403;
         } else if (file.isDirectory()) {
             if (relativePath.endsWith("/")) {
-                if (!req.getVirtualHost().isAllowGeneratedIndex())
+                if (!req.getVirtualHost().isAllowGeneratedIndex()) {
                     return 403;
+                }
                 resp.send(200, createIndex(file, req.getPath()));
             } else { // redirect to the normalized directory URL ending with '/'
                 resp.redirect(req.getBaseURL() + req.getPath() + "/", true);
@@ -1956,18 +2043,20 @@ public class JdkHTTPServer {
         } else {
             String ifRange = req.getHeaders().get("If-Range");
             if (ifRange == null) {
-                if (range[0] >= len)
+                if (range[0] >= len) {
                     status = 416; // unsatisfiable range
-                else
+                } else {
                     status = getConditionalStatus(req, lastModified, etag);
+                }
             } else if (range[0] >= len) {
                 // RFC2616#14.16, 10.4.17: invalid If-Range gets everything
                 range = null;
             } else { // send either range or everything
                 if (!ifRange.startsWith("\"") && !ifRange.startsWith("W/")) {
                     Date date = req.getHeaders().getDate("If-Range");
-                    if (date != null && lastModified > date.getTime())
+                    if (date != null && lastModified > date.getTime()) {
                         range = null; // modified - send everything
+                    }
                 } else if (!ifRange.equals(etag)) {
                     range = null; // modified - send everything
                 }
@@ -2015,13 +2104,16 @@ public class JdkHTTPServer {
      * @return an HTML string containing the file index for the directory
      */
     public static String createIndex(File dir, String path) {
-        if (!path.endsWith("/"))
+        if (!path.endsWith("/")) {
             path += "/";
+        }
         // calculate name column width
         int w = 21; // minimum width
-        for (String name : dir.list())
-            if (name.length() > w)
+        for (String name : dir.list()) {
+            if (name.length() > w) {
                 w = name.length();
+            }
+        }
         w += 2; // with room for added slash and space
         // note: we use apache's format, for consistent user experience
         Formatter f = new Formatter(Locale.US);
@@ -2031,18 +2123,21 @@ public class JdkHTTPServer {
                         "<pre> Name%" + (w - 5) + "s Last modified      Size<hr>",
                 path, path, "");
         if (path.length() > 1) // add parent link if not root path
+        {
             f.format(" <a href=\"%s/\">Parent Directory</a>%"
                     + (w + 5) + "s-%n", getParentPath(path), "");
+        }
         for (File file : dir.listFiles()) {
             try {
                 String name = file.getName() + (file.isDirectory() ? "/" : "");
                 String size = file.isDirectory() ? "- " : toSizeApproxString(file.length());
                 // properly url-encode the link
                 String link = new URI(null, path + name, null).toASCIIString();
-                if (!file.isHidden() && !name.startsWith("."))
+                if (!file.isHidden() && !name.startsWith(".")) {
                     f.format(" <a href=\"%s\">%s</a>%-" + (w - name.length()) +
                                     "s&#8206;%td-%<tb-%<tY %<tR%6s%n",
                             link, name, "", file.lastModified(), size);
+                }
             } catch (URISyntaxException ignore) {
             }
         }
@@ -2064,20 +2159,26 @@ public class JdkHTTPServer {
                 return;
             }
             File dir = new File(args[0]);
-            if (!dir.canRead())
+            if (!dir.canRead()) {
                 throw new FileNotFoundException(dir.getAbsolutePath());
+            }
             int port = args.length < 2 ? 80 : (int) parseULong(args[1], 10);
             // set up server
-            for (File f : Arrays.asList(new File("/etc/mime.types"), new File(dir, ".mime.types")))
-                if (f.exists())
+            for (File f : Arrays.asList(new File("/etc/mime.types"), new File(dir, ".mime.types"))) {
+                if (f.exists()) {
                     addContentTypes(new FileInputStream(f));
+                }
+            }
             JdkHTTPServer server = new JdkHTTPServer(port);
             if (System.getProperty("javax.net.ssl.keyStore") != null) // enable SSL if configured
+            {
                 server.setServerSocketFactory(SSLServerSocketFactory.getDefault());
-            VirtualHost host = server.getVirtualHost(null); // default host
+            }
+            VirtualHost host = getVirtualHost(null); // default host
             host.setAllowGeneratedIndex(true); // with directory index pages
             host.addContext("/", new FileContextHandler(dir));
             host.addContext("/api/time", new ContextHandler() {
+                @Override
                 public int serve(Request req, Response resp) throws IOException {
                     long now = System.currentTimeMillis();
                     resp.getHeaders().add("Content-Type", "text/plain");

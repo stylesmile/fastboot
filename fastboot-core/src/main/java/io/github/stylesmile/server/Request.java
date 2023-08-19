@@ -12,7 +12,7 @@ import static io.github.stylesmile.server.JdkHTTPServer.*;
  */
 public class Request {
 
-    protected String method;
+    public String method;
     protected URI uri;
     protected URL baseURL; // cached value
     protected String version;
