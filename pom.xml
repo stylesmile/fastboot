@@ -46,6 +46,16 @@
             </dependency>
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
+                <artifactId>fastboot-jdkhttpserver</artifactId>
+                <version>${fastboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.stylesmile</groupId>
+                <artifactId>fastboot-reactor-netty-server</artifactId>
+                <version>${fastboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.stylesmile</groupId>
                 <artifactId>fastboot-captcha</artifactId>
                 <version>${fastboot.version}</version>
             </dependency>

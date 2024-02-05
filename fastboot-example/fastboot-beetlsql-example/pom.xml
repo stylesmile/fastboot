@@ -14,6 +14,7 @@
     <version>${fastboot.version}</version>
     <name>fastboot-beetlsql-example</name>
     <packaging>jar</packaging>
+
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>

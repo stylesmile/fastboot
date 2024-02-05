@@ -18,7 +18,7 @@
     </properties>
 
     <modules>
-        <module>fastboot-reactor-web</module>
+        <module>fastboot-webflux</module>
     </modules>
 
     <dependencyManagement>

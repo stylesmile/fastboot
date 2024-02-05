@@ -11,10 +11,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>fastboot-reactor-parent-example</module>
-
         <module>fastboot-web-example</module>
-        <module>fastboot-web-example-docker</module>
+        <module>fastboot-webflux-parent-example</module>
         <module>fastboot-redis-example</module>
         <module>fastboot-mybatis-example</module>
         <module>fastboot-mongodb-example</module>
