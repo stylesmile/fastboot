@@ -1,7 +1,5 @@
 package io.github.stylesmile.plugin;
 
-import java.io.IOException;
-
 /**
  * @author Stylesmile
  */

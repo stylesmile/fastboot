@@ -3,23 +3,20 @@
 [![JDK-8+](https://img.shields.io/badge/JDK-8+-green.svg)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
 [![QQ交流群](https://img.shields.io/badge/QQ交流群-22200020-orange)](https://jq.qq.com/?_wv=1027&k=kjB5JNiC)
 
-
-
 solon 集成 knife4j , 按UI规范生成相应的 Swagger Json。目前处于试验中
-
 
 与 solon 版本对应
 
-| solon-swagger-knife4j | solon   | 备注  |
-|-----------------------|---------|-----|
-| 1.0.0-M1              | 1.7.3   |     |
-| 1.0.1-M2              | 1.10.13 |     |
-| 1.0.1-M3              | 1.11.6  |     |
-| 1.0.1-M4              | 2.0.0   |     |
-
+| solon-swagger-knife4j | solon   | 备注 |
+|-----------------------|---------|----|
+| 1.0.0-M1              | 1.7.3   |    |
+| 1.0.1-M2              | 1.10.13 |    |
+| 1.0.1-M3              | 1.11.6  |    |
+| 1.0.1-M4              | 2.0.0   |    |
 
 使用方式：
 maven引入
+
 ```xml
 <dependency>
     <groupId>org.noear</groupId>

@@ -50,14 +50,18 @@ public class Response implements Closeable {
      *
      * @param req the request
      */
-    public void setClientCapabilities(Request req) { this.req = req; }
+    public void setClientCapabilities(Request req) {
+        this.req = req;
+    }
 
     /**
      * Returns the request headers collection.
      *
      * @return the request headers collection
      */
-    public Headers getHeaders() { return headers; }
+    public Headers getHeaders() {
+        return headers;
+    }
 
     /**
      * Returns the underlying output stream to which the response is written.
@@ -65,14 +69,18 @@ public class Response implements Closeable {
      *
      * @return the underlying output stream to which the response is written
      */
-    public OutputStream getOutputStream() { return out; }
+    public OutputStream getOutputStream() {
+        return out;
+    }
 
     /**
      * Returns whether the response headers were already sent.
      *
      * @return whether the response headers were already sent
      */
-    public boolean headersSent() { return state == 1; }
+    public boolean headersSent() {
+        return state == 1;
+    }
 
     /**
      * Returns an output stream into which the response body can be written.
@@ -84,7 +92,7 @@ public class Response implements Closeable {
      * after the headers are sent, it's too late to change the status into an error.
      *
      * @return an output stream into which the response body can be written,
-     *         or null if the body should not be written (e.g. it is discarded)
+     * or null if the body should not be written (e.g. it is discarded)
      * @throws IOException if an error occurs
      */
     public OutputStream getBody() throws IOException {
@@ -146,18 +154,18 @@ public class Response implements Closeable {
      * Content-Length, Last-Modified, ETag, Connection  and Date. Ranges are
      * properly calculated as well, with a 200 status changed to a 206 status.
      *
-     * @param status the response status
-     * @param length the response body length, or zero if there is no body,
-     *        or negative if there is a body but its length is not yet known
+     * @param status       the response status
+     * @param length       the response body length, or zero if there is no body,
+     *                     or negative if there is a body but its length is not yet known
      * @param lastModified the last modified date of the response resource,
-     *        or non-positive if unknown. A time in the future will be
-     *        replaced with the current system time.
-     * @param etag the ETag of the response resource, or null if unknown
-     *        (see RFC2616#3.11)
-     * @param contentType the content type of the response resource, or null
-     *        if unknown (in which case "application/octet-stream" will be sent)
-     * @param range the content range that will be sent, or null if the
-     *        entire resource will be sent
+     *                     or non-positive if unknown. A time in the future will be
+     *                     replaced with the current system time.
+     * @param etag         the ETag of the response resource, or null if unknown
+     *                     (see RFC2616#3.11)
+     * @param contentType  the content type of the response resource, or null
+     *                     if unknown (in which case "application/octet-stream" will be sent)
+     * @param range        the content range that will be sent, or null if the
+     *                     entire resource will be sent
      * @throws IOException if an error occurs
      */
     public void sendHeaders(int status, long length, long lastModified,
@@ -173,7 +181,7 @@ public class Response implements Closeable {
         if (ct == null) {
             ct = contentType != null ? contentType : "application/octet-stream";
             headers.add("Content-Type", ct);
-        }else{
+        } else {
             if (contentType != null) { //noear,20181220
                 ct = contentType;
                 headers.replace("Content-Type", ct);
@@ -218,7 +226,7 @@ public class Response implements Closeable {
      * {@link JdkHTTPServer#escapeHTML escaped}) HTML.
      *
      * @param status the response status
-     * @param text the text body (sent as text/html)
+     * @param text   the text body (sent as text/html)
      * @throws IOException if an error occurs
      */
     public void send(int status, String text) throws IOException {
@@ -238,7 +246,7 @@ public class Response implements Closeable {
      * {@link JdkHTTPServer#escapeHTML escape} method.
      *
      * @param status the response status
-     * @param text the text body (sent as text/html)
+     * @param text   the text body (sent as text/html)
      * @throws IOException if an error occurs
      */
     public void sendError(int status, String text) throws IOException {
@@ -263,10 +271,10 @@ public class Response implements Closeable {
      * Sends the response body. This method must be called only after the
      * response headers have been sent (and indicate that there is a body).
      *
-     * @param body a stream containing the response body
+     * @param body   a stream containing the response body
      * @param length the full length of the response body, or -1 for the whole stream
-     * @param range the sub-range within the response body that should be
-     *        sent, or null if the entire body should be sent
+     * @param range  the sub-range within the response body that should be
+     *               sent, or null if the entire body should be sent
      * @throws IOException if an error occurs
      */
     public void sendBody(InputStream body, long length, long[] range) throws IOException {
@@ -289,9 +297,9 @@ public class Response implements Closeable {
     /**
      * Sends a 301 or 302 response, redirecting the client to the given URL.
      *
-     * @param url the absolute URL to which the client is redirected
+     * @param url       the absolute URL to which the client is redirected
      * @param permanent specifies whether a permanent (301) or
-     *        temporary (302) redirect status is sent
+     *                  temporary (302) redirect status is sent
      * @throws IOException if an IO error occurs or url is malformed
      */
     public void redirect(String url, boolean permanent) throws IOException {

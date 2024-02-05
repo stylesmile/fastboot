@@ -3,7 +3,7 @@ package io.github.stylesmile.mybatis;
 
 class DemoApplicationTests {
 
-	void contextLoads() {
-	}
+    void contextLoads() {
+    }
 
 }

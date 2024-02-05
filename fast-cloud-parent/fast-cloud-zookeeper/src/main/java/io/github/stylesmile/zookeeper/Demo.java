@@ -8,5 +8,5 @@ public class Demo {
         zookeeper.connectZookeeper("127.0.0.1:2181");
         List<String> children = zookeeper.getChildren("/");
         System.out.println(children);
-    } 
+    }
 }

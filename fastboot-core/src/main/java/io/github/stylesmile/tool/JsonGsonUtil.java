@@ -25,7 +25,7 @@ public class JsonGsonUtil {
 
     private JsonGsonUtil() {
     }
- 
+
     /**
      * to json
      *
@@ -39,12 +39,12 @@ public class JsonGsonUtil {
         }
         return gsonString;
     }
- 
+
     /**
      * 转成bean
      *
      * @param gsonString json string
-     * @param cls class
+     * @param cls        class
      * @return t
      */
     public static <T> T GsonToBean(String gsonString, Class<T> cls) {
@@ -54,13 +54,13 @@ public class JsonGsonUtil {
         }
         return t;
     }
- 
+
     /**
      * 转成list
      * 泛型在编译期类型被擦除导致报错
      *
      * @param gsonString gsonString
-     * @param cls class
+     * @param cls        class
      * @return T
      */
     public static <T> List<T> GsonToList(String gsonString, Class<T> cls) {
@@ -71,17 +71,17 @@ public class JsonGsonUtil {
         }
         return list;
     }
- 
+
     /**
      * 转成list
      * 解决泛型问题
      *
      * @param json json string
-     * @param cls class
-     * @param <T> t
+     * @param cls  class
+     * @param <T>  t
      * @return T
      */
-    public static  <T> List<T> jsonToList(String json, Class<T> cls) {
+    public static <T> List<T> jsonToList(String json, Class<T> cls) {
         Gson gson = new Gson();
         List<T> list = new ArrayList<T>();
         JsonArray array = new JsonParser().parse(json).getAsJsonArray();
@@ -90,8 +90,8 @@ public class JsonGsonUtil {
         }
         return list;
     }
- 
- 
+
+
     /**
      * 转成list中有map的
      *
@@ -107,7 +107,7 @@ public class JsonGsonUtil {
         }
         return list;
     }
- 
+
     /**
      * 转成map的
      *

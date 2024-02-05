@@ -30,6 +30,7 @@ public class SalaryController {
 //        return salaryService.calSalary(Integer.parseInt(count));
 //    }
 //
+
     /**
      * hello
      * http://localhost:8080/hello
@@ -51,7 +52,7 @@ public class SalaryController {
 
     @RequestMapping("/file")
     public Integer file(HttpExchange httpExchange, @RequestParam("name") Integer name) {
-        FileUploadUtil.fileUpload(httpExchange,"d://file//");
+        FileUploadUtil.fileUpload(httpExchange, "d://file//");
         return name * 100;
     }
 

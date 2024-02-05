@@ -22,7 +22,7 @@ public class CaptchaController {
     @AutoWired
     private DefaultKaptcha defaultKaptcha;
     @AutoWired
-    CaptchaService captchaService ;
+    CaptchaService captchaService;
     @Value(value = "fast.name")
     private String name;
     /**
@@ -34,12 +34,11 @@ public class CaptchaController {
 //    private static final Logger log = LoggerFactory.getLogger(TestController.class);
 
 
-
     /**
      * 获取图形验证码-验证成功后才可以发送手机验证码
      *
      * @param number 手机号
-     *  POST http://127.0.0.1:8080/captcha?number=15002770045
+     *               POST http://127.0.0.1:8080/captcha?number=15002770045
      */
     @RequestMapping(value = "/captcha", method = RequestMethod.POST) // 200 * 70
 //    @ApiOperation("获取图形验证码-验证成功后才可以发送手机验证码")
@@ -56,7 +55,7 @@ public class CaptchaController {
         System.out.println("手机号码为:{}" + number);
         // 自定义验证码
         String code = RandomCharUtil.generateRandomString(6);
-        DefaultKaptcha captchaProducer2= captchaService.getDefaultKaptcha();
+        DefaultKaptcha captchaProducer2 = captchaService.getDefaultKaptcha();
         BufferedImage image = captchaProducer2.createImage(code);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(image, "png", baos);

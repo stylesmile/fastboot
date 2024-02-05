@@ -7,7 +7,6 @@ package io.github.stylesmile.web;
 
 import io.github.stylesmile.tool.ClassUtil;
 
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Collection;
 import java.util.Iterator;
@@ -19,7 +18,7 @@ public final class Conventions {
     }
 
     public static String getVariableName(Object value) {
-        if(value == null){
+        if (value == null) {
             throw new RuntimeException("Value must not be null");
         }
         // Assert.notNull(value, "Value must not be null");
@@ -29,7 +28,7 @@ public final class Conventions {
             valueClass = value.getClass().getComponentType();
             pluralize = true;
         } else if (value instanceof Collection) {
-            Collection<?> collection = (Collection)value;
+            Collection<?> collection = (Collection) value;
             if (collection.isEmpty()) {
                 throw new IllegalArgumentException("Cannot generate variable name for an empty Collection");
             }

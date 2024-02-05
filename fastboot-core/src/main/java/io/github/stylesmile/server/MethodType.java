@@ -6,7 +6,7 @@ package io.github.stylesmile.server;
  *
  * @author noear
  * @since 1.0
- * */
+ */
 public enum MethodType {
     //http
     GET("GET", SignalType.HTTP), //获取资源
@@ -23,13 +23,19 @@ public enum MethodType {
     TRACE("TRACE", SignalType.HTTP),//回馈服务器收到的请求，用于远程诊断服务器。
     CONNECT("CONNECT", SignalType.HTTP),//用于代理进行传输
 
-    /** http general all */
+    /**
+     * http general all
+     */
     HTTP("HTTP", SignalType.HTTP),
 
-    /** web socket send */
+    /**
+     * web socket send
+     */
     WEBSOCKET("WEBSOCKET", SignalType.WEBSOCKET),
 
-    /** socket listen */
+    /**
+     * socket listen
+     */
     SOCKET("SOCKET", SignalType.SOCKET),
 
 

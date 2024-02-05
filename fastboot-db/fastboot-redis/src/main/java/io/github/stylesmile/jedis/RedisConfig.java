@@ -1,10 +1,6 @@
 package io.github.stylesmile.jedis;
 
-import io.github.stylesmile.annotation.Service;
-import io.github.stylesmile.ioc.Bean;
 import io.github.stylesmile.tool.PropertyUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;

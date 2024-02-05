@@ -4,7 +4,6 @@ import com.zaxxer.hikari.HikariDataSource;
 import io.github.stylesmile.tool.PropertyUtil;
 import org.beetl.sql.core.*;
 import org.beetl.sql.core.db.MySqlStyle;
-import org.beetl.sql.core.db.PostgresStyle;
 import org.beetl.sql.ext.DebugInterceptor;
 
 import javax.sql.DataSource;

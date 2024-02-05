@@ -16,9 +16,10 @@ import java.util.jar.JarFile;
 public class ClassScanner {
     /**
      * 扫描指定包下的所有Class
+     *
      * @param packageName 包名称
      * @return 类集合
-     * @throws IOException 异常
+     * @throws IOException            异常
      * @throws ClassNotFoundException 异常
      */
     public static List<Class<?>> scanClasses(String packageName) throws IOException, ClassNotFoundException {
@@ -38,7 +39,7 @@ public class ClassScanner {
                 classList.addAll(getClassesFromJar(jarFilePath, path));
             } else {
                 //非jar包类型
-                Set<Class<?>>  classSet = ClassUtil.getClasses(packageName);
+                Set<Class<?>> classSet = ClassUtil.getClasses(packageName);
                 System.out.println(classSet);
                 classList.addAll(classSet);
             }

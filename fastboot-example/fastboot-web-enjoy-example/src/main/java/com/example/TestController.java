@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Controller
 public class TestController {
-//    @RequestMapping("/test")
+    //    @RequestMapping("/test")
 //    public String test(HttpServletRequest request,
 //                HttpServletResponse response, Model model) {
 //        User user = new User();

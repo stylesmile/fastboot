@@ -70,18 +70,18 @@ public class ModelAndView {
         this.view = viewName;
     }
 
-   
+
     public String getViewName() {
-        return this.view instanceof String ? (String)this.view : null;
+        return this.view instanceof String ? (String) this.view : null;
     }
 
     public void setView(View view) {
         this.view = view;
     }
 
-   
+
     public View getView() {
-        return this.view instanceof View ? (View)this.view : null;
+        return this.view instanceof View ? (View) this.view : null;
     }
 
     public boolean hasView() {
@@ -92,7 +92,7 @@ public class ModelAndView {
         return this.view instanceof String;
     }
 
-   
+
     protected Map<String, Object> getModelInternal() {
         return this.model;
     }
@@ -113,7 +113,7 @@ public class ModelAndView {
         this.status = status;
     }
 
-   
+
     public HttpStatus getStatus() {
         return this.status;
     }

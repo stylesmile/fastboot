@@ -6,7 +6,6 @@
 package io.github.stylesmile.web;
 
 
-
 public enum HttpStatus {
     CONTINUE(100, HttpStatus.Series.INFORMATIONAL, "Continue"),
     SWITCHING_PROTOCOLS(101, HttpStatus.Series.INFORMATIONAL, "Switching Protocols"),
@@ -25,12 +24,16 @@ public enum HttpStatus {
     MULTIPLE_CHOICES(300, HttpStatus.Series.REDIRECTION, "Multiple Choices"),
     MOVED_PERMANENTLY(301, HttpStatus.Series.REDIRECTION, "Moved Permanently"),
     FOUND(302, HttpStatus.Series.REDIRECTION, "Found"),
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     MOVED_TEMPORARILY(302, HttpStatus.Series.REDIRECTION, "Moved Temporarily"),
     SEE_OTHER(303, HttpStatus.Series.REDIRECTION, "See Other"),
     NOT_MODIFIED(304, HttpStatus.Series.REDIRECTION, "Not Modified"),
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     USE_PROXY(305, HttpStatus.Series.REDIRECTION, "Use Proxy"),
     TEMPORARY_REDIRECT(307, HttpStatus.Series.REDIRECTION, "Temporary Redirect"),
@@ -49,24 +52,34 @@ public enum HttpStatus {
     LENGTH_REQUIRED(411, HttpStatus.Series.CLIENT_ERROR, "Length Required"),
     PRECONDITION_FAILED(412, HttpStatus.Series.CLIENT_ERROR, "Precondition Failed"),
     PAYLOAD_TOO_LARGE(413, HttpStatus.Series.CLIENT_ERROR, "Payload Too Large"),
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     REQUEST_ENTITY_TOO_LARGE(413, HttpStatus.Series.CLIENT_ERROR, "Request Entity Too Large"),
     URI_TOO_LONG(414, HttpStatus.Series.CLIENT_ERROR, "URI Too Long"),
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     REQUEST_URI_TOO_LONG(414, HttpStatus.Series.CLIENT_ERROR, "Request-URI Too Long"),
     UNSUPPORTED_MEDIA_TYPE(415, HttpStatus.Series.CLIENT_ERROR, "Unsupported Media Type"),
     REQUESTED_RANGE_NOT_SATISFIABLE(416, HttpStatus.Series.CLIENT_ERROR, "Requested range not satisfiable"),
     EXPECTATION_FAILED(417, HttpStatus.Series.CLIENT_ERROR, "Expectation Failed"),
     I_AM_A_TEAPOT(418, HttpStatus.Series.CLIENT_ERROR, "I'm a teapot"),
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     INSUFFICIENT_SPACE_ON_RESOURCE(419, HttpStatus.Series.CLIENT_ERROR, "Insufficient Space On Resource"),
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     METHOD_FAILURE(420, HttpStatus.Series.CLIENT_ERROR, "Method Failure"),
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     DESTINATION_LOCKED(421, HttpStatus.Series.CLIENT_ERROR, "Destination Locked"),
     UNPROCESSABLE_ENTITY(422, HttpStatus.Series.CLIENT_ERROR, "Unprocessable Entity"),
@@ -151,12 +164,12 @@ public enum HttpStatus {
         }
     }
 
-    
+
     public static HttpStatus resolve(int statusCode) {
         HttpStatus[] var1 = VALUES;
         int var2 = var1.length;
 
-        for(int var3 = 0; var3 < var2; ++var3) {
+        for (int var3 = 0; var3 < var2; ++var3) {
             HttpStatus status = var1[var3];
             if (status.value == statusCode) {
                 return status;
@@ -183,7 +196,9 @@ public enum HttpStatus {
             return this.value;
         }
 
-        /** @deprecated */
+        /**
+         * @deprecated
+         */
         @Deprecated
         public static Series valueOf(HttpStatus status) {
             return status.series;
@@ -198,13 +213,13 @@ public enum HttpStatus {
             }
         }
 
-        
+
         public static Series resolve(int statusCode) {
             int seriesCode = statusCode / 100;
             Series[] var2 = values();
             int var3 = var2.length;
 
-            for(int var4 = 0; var4 < var3; ++var4) {
+            for (int var4 = 0; var4 < var3; ++var4) {
                 Series series = var2[var4];
                 if (series.value == seriesCode) {
                     return series;

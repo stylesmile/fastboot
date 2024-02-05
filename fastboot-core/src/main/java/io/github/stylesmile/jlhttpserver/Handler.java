@@ -7,7 +7,7 @@ import io.github.stylesmile.server.Context;
  *
  * @author noear
  * @since 1.0
- * */
+ */
 @FunctionalInterface
 public interface Handler {
     void handle(Context ctx) throws Throwable;

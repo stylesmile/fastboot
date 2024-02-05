@@ -14,7 +14,7 @@ public class RandomCharUtil {
         }
         return sb.toString();
     }
-    
+
     public static void main(String[] args) {
         String randomChars = generateRandomString(6);
         System.out.println("随机字符串：" + randomChars);

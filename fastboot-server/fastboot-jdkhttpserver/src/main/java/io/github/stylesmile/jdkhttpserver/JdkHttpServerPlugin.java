@@ -1,8 +1,8 @@
 package io.github.stylesmile.jdkhttpserver;
 
 import io.github.stylesmile.jlhttpserver.JdkHttpContextHandler;
-import io.github.stylesmile.server.MethodType;
 import io.github.stylesmile.plugin.ServerPlugin;
+import io.github.stylesmile.server.MethodType;
 import io.github.stylesmile.tool.PropertyUtil;
 import io.github.stylesmile.tool.StringUtil;
 
@@ -32,7 +32,8 @@ public class JdkHttpServerPlugin implements ServerPlugin {
     public void start(Class applicationClass, String[] args) {
         long startTime = System.currentTimeMillis();
         Integer port = 8080;
-        httpServer = new JdkHTTPServer();;
+        httpServer = new JdkHTTPServer();
+        ;
         PropertyUtil.loadProps(applicationClass, "application.properties");
         String portString = PropertyUtil.getProperty("server.port");
         if (StringUtil.isNotEmpty(portString)) {

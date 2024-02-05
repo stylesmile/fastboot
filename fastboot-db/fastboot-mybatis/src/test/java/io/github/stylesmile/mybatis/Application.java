@@ -5,6 +5,7 @@ import io.github.stylesmile.app.App;
 
 /**
  * 测试入口类
+ *
  * @author stylesmile
  */
 public class Application {

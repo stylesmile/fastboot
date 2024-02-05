@@ -50,7 +50,7 @@ public class App {
             //扫描所有的类，
             classList = ClassScanner.scanClasses(localPackage);
 
-            SERVER_PLUGS_MANAGER.start(applicationClass,args);
+            SERVER_PLUGS_MANAGER.start(applicationClass, args);
             // 容器插件
             BEAN_PLUGS_MANAGER.start();
             BEAN_PLUGS_MANAGER.init();

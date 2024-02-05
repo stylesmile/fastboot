@@ -15,11 +15,11 @@ public interface View {
     String PATH_VARIABLES = View.class.getName() + ".pathVariables";
     String SELECTED_CONTENT_TYPE = View.class.getName() + ".selectedContentType";
 
-    
+
     default String getContentType() {
         return null;
     }
 
-    void render( Map<String, ?> model,
+    void render(Map<String, ?> model,
                 ServletRequest request, ServletResponse response) throws Exception;
 }

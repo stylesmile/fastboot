@@ -19,15 +19,15 @@ class ClassPathSource2 implements ISource {
     protected ClassLoader classLoader;
     protected URL url;
 
-    public ClassPathSource2(ClassLoader classLoader,String fileName) {
+    public ClassPathSource2(ClassLoader classLoader, String fileName) {
         this(classLoader, null, fileName, "UTF-8");
     }
 
-    public ClassPathSource2(ClassLoader classLoader,String baseTemplatePath, String fileName) {
+    public ClassPathSource2(ClassLoader classLoader, String baseTemplatePath, String fileName) {
         this(classLoader, baseTemplatePath, fileName, "UTF-8");
     }
 
-    public ClassPathSource2(ClassLoader classLoader,String baseTemplatePath, String fileName, String encoding) {
+    public ClassPathSource2(ClassLoader classLoader, String baseTemplatePath, String fileName, String encoding) {
         this.finalFileName = this.buildFinalFileName(baseTemplatePath, fileName);
         this.fileName = fileName;
         this.encoding = encoding;
@@ -110,7 +110,7 @@ class ClassPathSource2 implements ISource {
                 char[] buf = new char[1024];
 
                 int num;
-                while((num = isr.read(buf, 0, buf.length)) != -1) {
+                while ((num = isr.read(buf, 0, buf.length)) != -1) {
                     ret.append(buf, 0, num);
                 }
 

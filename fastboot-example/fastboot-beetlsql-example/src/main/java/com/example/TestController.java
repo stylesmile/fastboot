@@ -1,11 +1,10 @@
 package com.example;
 
+import io.github.stylesmile.annotation.AutoWired;
 import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.ioc.Value;
-import io.github.stylesmile.tool.PropertyUtil;
 
-import io.github.stylesmile.annotation.AutoWired;
 import java.util.List;
 
 @Controller
@@ -15,6 +14,7 @@ public class TestController {
 
     @Value(value = "fast.name")
     private String name;
+
     @RequestMapping("/")
     public String hello() {
         return "hello fastboot";

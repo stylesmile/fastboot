@@ -26,7 +26,7 @@ public class Request {
     /**
      * Constructs a Request from the data in the given input stream.
      *
-     * @param in the input stream from which the request is read
+     * @param in   the input stream from which the request is read
      * @param sock the underlying connected socket
      * @throws IOException if an error occurs
      */
@@ -58,42 +58,54 @@ public class Request {
      *
      * @return the request method
      */
-    public String getMethod() { return method; }
+    public String getMethod() {
+        return method;
+    }
 
     /**
      * Returns the request URI.
      *
      * @return the request URI
      */
-    public URI getURI() { return uri; }
+    public URI getURI() {
+        return uri;
+    }
 
     /**
      * Returns the request version string.
      *
      * @return the request version string
      */
-    public String getVersion() { return version; }
+    public String getVersion() {
+        return version;
+    }
 
     /**
      * Returns the request headers.
      *
      * @return the request headers
      */
-    public Headers getHeaders() { return headers; }
+    public Headers getHeaders() {
+        return headers;
+    }
 
     /**
      * Returns the input stream containing the request body.
      *
      * @return the input stream containing the request body
      */
-    public InputStream getBody() { return body; }
+    public InputStream getBody() {
+        return body;
+    }
 
     /**
      * Returns the underlying socket, which can be used to retrieve connection meta-data.
      *
      * @return the underlying socket
      */
-    public Socket getSocket() { return sock; }
+    public Socket getSocket() {
+        return sock;
+    }
 
     /**
      * Returns the path component of the request URI, after
@@ -128,7 +140,7 @@ public class Request {
      * default host (see RFC2616#5.2).
      *
      * @return the base URL of the requested resource, or null if it
-     *         is malformed
+     * is malformed
      */
     public URL getBaseURL() {
         if (baseURL != null)
@@ -162,13 +174,14 @@ public class Request {
      * The list retains the original order of the parameters.
      *
      * @return the request parameters name-value pairs,
-     *         or an empty list if there are none
+     * or an empty list if there are none
      * @throws IOException if an error occurs
      * @see JdkHTTPServer#parseParamsList(String)
      */
     private List<String[]> _paramsList; //noear,20210801
+
     public List<String[]> getParamsList() throws IOException {
-        if(_paramsList == null) {
+        if (_paramsList == null) {
             List<String[]> queryParams = parseParamsList(uri.getRawQuery());
             List<String[]> bodyParams = Collections.emptyList();
             String ct = headers.get("Content-Type");
@@ -201,7 +214,7 @@ public class Request {
      * The map iteration retains the original order of the parameters.
      *
      * @return the request parameters name-value pairs,
-     *         or an empty map if there are none
+     * or an empty map if there are none
      * @throws IOException if an error occurs
      * @see #getParamsList()
      */
@@ -219,7 +232,7 @@ public class Request {
      *
      * @param length the full length of the requested resource
      * @return the requested range, or null if the Range header
-     *         is missing or invalid
+     * is missing or invalid
      */
     public long[] getRange(long length) {
         String header = headers.get("Range");
@@ -238,7 +251,9 @@ public class Request {
         // RFC2616#19.3: tolerate additional whitespace between tokens
         String line;
         try {
-            do { line = readLine(in); } while (line.length() == 0);
+            do {
+                line = readLine(in);
+            } while (line.length() == 0);
         } catch (IOException ioe) { // if EOF, timeout etc.
             throw new IOException("missing request line"); // signal that the request did not begin
         }
@@ -260,7 +275,7 @@ public class Request {
      * or the default host if none exists.
      *
      * @return the virtual host corresponding to the requested host name,
-     *         or the default virtual host
+     * or the default virtual host
      */
     public JdkHTTPServer.VirtualHost getVirtualHost() {
         return host != null ? host

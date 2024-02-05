@@ -15,13 +15,13 @@ public class AuthPermissionsTag extends Directive {
     public void exec(Env env, Scope scope, Writer writer) {
         String[] attrs = getAttrArray(scope);
 
-        if(attrs.length == 0){
+        if (attrs.length == 0) {
             return;
         }
 
         String nameStr = attrs[0];
         String logicalStr = null;
-        if(attrs.length > 1){
+        if (attrs.length > 1) {
             logicalStr = attrs[1];
         }
 

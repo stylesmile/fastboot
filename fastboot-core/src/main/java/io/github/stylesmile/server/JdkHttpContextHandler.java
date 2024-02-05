@@ -13,6 +13,7 @@ public class JdkHttpContextHandler implements ContextHandler {
 
     public JdkHttpContextHandler(Handler handler) {
     }
+
     public JdkHttpContextHandler() {
     }
 

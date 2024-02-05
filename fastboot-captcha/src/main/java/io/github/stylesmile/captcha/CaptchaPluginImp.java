@@ -20,7 +20,7 @@ public class CaptchaPluginImp implements Plugin {
 
     @Override
     public void init() {
-        DefaultKaptcha defaultKaptcha =  getDefaultKaptcha();
+        DefaultKaptcha defaultKaptcha = getDefaultKaptcha();
         BeanContainer.setInstance(DefaultKaptcha.class, defaultKaptcha);
     }
 
@@ -28,6 +28,7 @@ public class CaptchaPluginImp implements Plugin {
     public void end() {
 
     }
+
     public DefaultKaptcha getDefaultKaptcha() {
         Properties props = new Properties();
         props.setProperty("kaptcha.border", "no");

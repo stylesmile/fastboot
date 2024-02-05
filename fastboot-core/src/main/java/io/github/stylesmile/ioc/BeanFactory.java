@@ -6,7 +6,6 @@ import io.github.stylesmile.annotation.Service;
 import io.github.stylesmile.tool.PropertyUtil;
 import io.github.stylesmile.tool.StringUtil;
 
-import io.github.stylesmile.annotation.AutoWired;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Bean工厂
+ *
  * @author Stylesmile
  */
 public class BeanFactory {

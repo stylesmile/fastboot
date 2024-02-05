@@ -29,10 +29,10 @@
             <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-web</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.github.stylesmile</groupId>-->
-<!--            <artifactId>fastboot-log</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.github.stylesmile</groupId>-->
+        <!--            <artifactId>fastboot-log</artifactId>-->
+        <!--        </dependency>-->
     </dependencies>
     <repositories>
         <repository>

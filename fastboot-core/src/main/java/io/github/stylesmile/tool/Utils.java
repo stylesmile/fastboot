@@ -71,7 +71,7 @@ public class Utils {
                 System.arraycopy(buf, 0, expanded, 0, count);
                 buf = expanded;
             }
-            buf[count++] = (byte)c;
+            buf[count++] = (byte) c;
         }
         if (c < 0 && delim != -1) {
             throw new EOFException("unexpected end of stream");
@@ -96,7 +96,7 @@ public class Utils {
         n = 0;
         for (String s : strings) {
             for (int i = 0, len = s.length(); i < len; i++) {
-                dest[n++] = (byte)s.charAt(i);
+                dest[n++] = (byte) s.charAt(i);
             }
         }
         return dest;

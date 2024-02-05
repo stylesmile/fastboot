@@ -112,13 +112,14 @@ public class ClassUtil {
 
         return classes;
     }
+
     /**
      * 以文件的形式来获取包下的所有Class
      *
      * @param packageName 包名称
      * @param packagePath 包路径
-     * @param recursive  是否循环迭代
-     * @param classes 类集合
+     * @param recursive   是否循环迭代
+     * @param classes     类集合
      */
     public static void findAndAddClassesInPackageByFile(String packageName,
                                                         String packagePath,
@@ -162,17 +163,20 @@ public class ClassUtil {
             }
         }
     }
+
     public static String getShortNameAsProperty(Class<?> clazz) {
         String shortName = getShortName(clazz);
         int dotIndex = shortName.lastIndexOf(46);
         shortName = dotIndex != -1 ? shortName.substring(dotIndex + 1) : shortName;
         return Introspector.decapitalize(shortName);
     }
+
     public static String getShortName(Class<?> clazz) {
         return getShortName(getQualifiedName(clazz));
     }
+
     public static String getShortName(String className) {
-        if(StringUtil.isEmpty(className)){
+        if (StringUtil.isEmpty(className)) {
             throw new RuntimeException("Class name must not be empty");
         }
         //Assert.hasLength(className, "Class name must not be empty");
@@ -186,9 +190,10 @@ public class ClassUtil {
         shortName = shortName.replace('$', '.');
         return shortName;
     }
+
     public static String getQualifiedName(Class<?> clazz) {
         //Assert.notNull(clazz, "Class must not be null");
-        if(clazz == null){
+        if (clazz == null) {
             throw new RuntimeException("Class must not be empty");
         }
         return clazz.getTypeName();

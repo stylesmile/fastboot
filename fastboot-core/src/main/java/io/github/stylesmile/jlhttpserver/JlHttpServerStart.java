@@ -4,7 +4,7 @@ package io.github.stylesmile.jlhttpserver;
 public class JlHttpServerStart {
     public static JdkHttpServerComb _server;
 
-    public static   void start(int port, JlHttpContextHandler jlHttpContextHandler) {
+    public static void start(int port, JlHttpContextHandler jlHttpContextHandler) {
         //初始化属性
 
         final String _host = null;

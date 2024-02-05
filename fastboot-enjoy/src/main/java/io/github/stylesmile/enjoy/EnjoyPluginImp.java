@@ -28,7 +28,7 @@ public class EnjoyPluginImp implements Plugin {
 //        jfr.setOrder(0);
 
         // 获取 engine 对象，对 enjoy 模板引擎进行配置，配置方式与前面章节完全一样
-        Engine engine  = JFinalViewResolver.engine;
+        Engine engine = JFinalViewResolver.engine;
 
         // 热加载配置能对后续配置产生影响，需要放在最前面
         engine.setDevMode(true);

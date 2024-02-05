@@ -4,6 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * 请求参数注解
+ *
  * @author Stylesmile
  */
 @Documented
@@ -13,6 +14,7 @@ import java.lang.annotation.*;
 public @interface RequestParam {
     /**
      * 指定请求参数的key
+     *
      * @return String
      */
     String value();

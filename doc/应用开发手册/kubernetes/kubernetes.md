@@ -1,4 +1,5 @@
 # kubernetes 安装
+
 ```aidl
 # 关闭防火墙
 systemctl stop firewalld
@@ -35,6 +36,7 @@ sudo sysctl --system
 ```
 
 ## 安装
+
 ```
 # 配置k8s的yum源
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo

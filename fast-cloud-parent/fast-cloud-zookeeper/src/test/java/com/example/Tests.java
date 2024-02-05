@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Tests {
     @Test
-    public void test(){
+    public void test() {
         BaseZookeeper zookeeper = new BaseZookeeper();
         try {
             zookeeper.connectZookeeper("192.168.0.1:2181");

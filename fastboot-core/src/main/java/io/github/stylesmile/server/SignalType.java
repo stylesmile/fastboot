@@ -5,7 +5,7 @@ package io.github.stylesmile.server;
  *
  * @author noear
  * @since 1.2
- * */
+ */
 public enum SignalType {
     HTTP,
     WEBSOCKET,

@@ -3,7 +3,6 @@ package io.github.stylesmile.webflux;
 import io.github.stylesmile.plugin.Plugin;
 
 /**
- *
  * @author Stylesmile
  */
 public class WebfluxPlugin implements Plugin {

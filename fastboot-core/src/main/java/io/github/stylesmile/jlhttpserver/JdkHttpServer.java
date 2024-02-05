@@ -1,12 +1,8 @@
 package io.github.stylesmile.jlhttpserver;
 
-import com.sun.net.httpserver.*;
+import com.sun.net.httpserver.HttpServer;
 import io.github.stylesmile.tool.StringUtil;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLEngine;
-import javax.net.ssl.SSLParameters;
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executor;
 
@@ -22,6 +18,7 @@ public class JdkHttpServer implements ServerLifecycle {
     private Handler handler;
     private boolean enableSsl = true;
     private boolean isSecure;
+
     public boolean isSecure() {
         return isSecure;
     }
@@ -50,7 +47,6 @@ public class JdkHttpServer implements ServerLifecycle {
     }
 
 
-
     @Override
     public void start(String host, int port) throws Throwable {
 //        if (enableSsl && supportSsl()) {
@@ -64,11 +60,11 @@ public class JdkHttpServer implements ServerLifecycle {
 //            addSslConfig((HttpsServer) server);
 //            isSecure = true;
 //        } else {
-            if (StringUtil.isNotEmpty(host)) {
-                server = HttpServer.create(new InetSocketAddress(host, port), 0);
-            } else {
-                server = HttpServer.create(new InetSocketAddress(port), 0);
-            }
+        if (StringUtil.isNotEmpty(host)) {
+            server = HttpServer.create(new InetSocketAddress(host, port), 0);
+        } else {
+            server = HttpServer.create(new InetSocketAddress(port), 0);
+        }
 //        }
 
 //        HttpContext httpContext = server.createContext("/", new JdkHttpContextHandler(handler));

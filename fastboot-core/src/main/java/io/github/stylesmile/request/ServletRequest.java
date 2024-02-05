@@ -64,9 +64,9 @@ public interface ServletRequest {
 //    RequestDispatcher getRequestDispatcher(String var1);
 
     /**
-     * @deprecated
      * @param var1 参数
      * @return String
+     * @deprecated
      */
     String getRealPath(String var1);
 

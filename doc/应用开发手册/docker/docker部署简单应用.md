@@ -1,5 +1,7 @@
 ## docker部署.md [example](../../../fastboot-example/fastboot-web-example)
+
 Dockerfile
+
 ```
 FROM java:8-alpine
 MAINTAINER Stylesmile<3239866994@@qq.com>
@@ -8,7 +10,9 @@ EXPOSE 18741
 COPY target/fastboot-web-example.jar /opt/app.jar
 ENTRYPOINT ["java", "-Xms128m -Xmx4g", "-jar", "/opt/app.jar"]
 ```
+
 start.sh
+
 ```shell
 #/bin/bash
 ## 服务端fastboot 启动脚本
@@ -40,8 +44,11 @@ docker run -p $PORT:$PORT --name $SERVER_NAME -e SPRING_PROFILES_ACTIVE="dev" --
 
 
 ```
+
 # maven docker 插件 [example](../../../fastboot-example/fastboot-web-example-docker)
+
 https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin
+
 ```docker
 <plugin>
                 <groupId>com.google.cloud.tools</groupId>

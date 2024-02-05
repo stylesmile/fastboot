@@ -8,7 +8,7 @@ import java.util.Enumeration;
  * @author Stylesmile
  */
 public class ClassUtils {
-	// getClassName("top.lingkang.demohibernate.entity")
+    // getClassName("top.lingkang.demohibernate.entity")
     public static Class[] getClassByPackage(String packageName) {
         try {
             Enumeration<URL> resources = ClassUtils.class.getClassLoader().getResources(packageName.replaceAll("\\.", "/"));

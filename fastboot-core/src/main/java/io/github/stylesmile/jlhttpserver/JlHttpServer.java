@@ -1,11 +1,12 @@
 package io.github.stylesmile.jlhttpserver;
 
 import io.github.stylesmile.server.JdkHTTPServer;
-import io.github.stylesmile.tool.StringUtil;
+
 import java.util.concurrent.Executor;
 
 /**
  * Jl Http Server（允许被复用）
+ *
  * @author noear
  * @since 2.2
  */
@@ -16,9 +17,11 @@ public class JlHttpServer implements ServerLifecycle {
     private Executor executor;
     private boolean enableSsl = true;
     private boolean isSecure;
+
     public boolean isSecure() {
         return isSecure;
     }
+
     public void JlHttpContextHandler(Handler handler) {
         this.handler = handler;
     }
