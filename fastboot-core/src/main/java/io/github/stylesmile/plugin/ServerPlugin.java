@@ -1,4 +1,4 @@
-package io.github.stylesmile.server;
+package io.github.stylesmile.plugin;
 
 /**
  * @author chenye

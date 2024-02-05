@@ -2,7 +2,7 @@ package io.github.stylesmile.jdkhttpserver;
 
 import io.github.stylesmile.jlhttpserver.JdkHttpContextHandler;
 import io.github.stylesmile.server.MethodType;
-import io.github.stylesmile.server.ServerPlugin;
+import io.github.stylesmile.plugin.ServerPlugin;
 import io.github.stylesmile.tool.PropertyUtil;
 import io.github.stylesmile.tool.StringUtil;
 

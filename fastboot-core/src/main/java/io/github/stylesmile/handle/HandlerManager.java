@@ -69,4 +69,9 @@ public class HandlerManager {
     public static MappingHandler getMappingHandler(String uri) {
         return mappingHandlerList.get(uri);
     }
+
+    public static Map<String, MappingHandler> getAllMappingHandler() {
+        return mappingHandlerList;
+    }
+
 }

@@ -15,7 +15,7 @@
     <version>${fastboot.version}</version>
     <name>fastboot-jlhttpserver</name>
     <packaging>jar</packaging>
-    <description>redis for jdk</description>
+    <description>fastboot-jlhttpserver for fastboot</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>

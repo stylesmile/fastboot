@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.github.stylesmile</groupId>
         <artifactId>fastboot-server</artifactId>
-        <version>2.0.0</version>
+        <version>2.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -15,7 +15,7 @@
     <version>${fastboot.version}</version>
     <name>fastboot-jdkhttpserver</name>
     <packaging>jar</packaging>
-    <description>mybatis for fastboot</description>
+    <description>fastboot-jdkhttpserver for fastboot</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>

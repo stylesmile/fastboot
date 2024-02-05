@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-server</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
     <name>fastboot-server</name>
     <packaging>pom</packaging>
     <parent>
         <groupId>io.github.stylesmile</groupId>
         <artifactId>fastboot-parent</artifactId>
-        <version>2.0.0</version>
+        <version>2.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <properties>
@@ -19,6 +19,7 @@
     </properties>
     <modules>
         <module>fastboot-jdkhttpserver</module>
+        <module>fastboot-reactor-netty-server</module>
     </modules>
     <dependencyManagement>
         <dependencies>

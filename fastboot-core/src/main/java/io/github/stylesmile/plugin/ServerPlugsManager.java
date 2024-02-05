@@ -10,7 +10,7 @@ import java.util.Set;
  *
  * @author Stylesmile
  */
-public class ServerPlugsManager implements Plugin {
+public class ServerPlugsManager implements ServerPlugin {
     private final Set<String> plugPackages = new HashSet<>();
     private final Set<Plugin> obj = new HashSet<>();
 
@@ -39,24 +39,11 @@ public class ServerPlugsManager implements Plugin {
     }
 
     @Override
-    public void start() {
+    public void start(Class applicationClass, String[] args) {
         for (Plugin plugAdapter : obj) {
             plugAdapter.start();
+            // 对于服务插件，只会启动一个
+            break;
         }
     }
-
-    @Override
-    public void init() {
-        for (Plugin plugAdapter : obj) {
-            plugAdapter.init();
-        }
-    }
-
-    @Override
-    public void end() {
-        for (Plugin plugAdapter : obj) {
-            plugAdapter.end();
-        }
-    }
-
 }

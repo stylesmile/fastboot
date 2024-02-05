@@ -3,23 +3,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
-    <artifactId>fastboot-webflux-parent</artifactId>
-    <version>2.0.0</version>
-    <name>fastboot-webflux-parent</name>
+    <artifactId>fastboot-reactor-parent</artifactId>
+    <version>2.1.0</version>
+    <name>fastboot-reactor-parent</name>
     <packaging>pom</packaging>
     <parent>
         <groupId>io.github.stylesmile</groupId>
         <artifactId>fastboot-parent</artifactId>
-        <version>2.0.0</version>
+        <version>2.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <properties>
         <java.version>1.8</java.version>
-        <fast-cloud.version>0.1.0</fast-cloud.version>
     </properties>
 
     <modules>
-        <module>fastboot-webflux</module>
+        <module>fastboot-reactor-web</module>
     </modules>
 
     <dependencyManagement>

@@ -45,6 +45,14 @@ public class MappingHandler {
 
     private final RequestMethod requestMethod;
 
+    public Method getMethod() {
+        return method;
+    }
+
+    public Class getController() {
+        return controller;
+    }
+
     public MappingHandler(String uri, Method method, Class<?> controller, Parameter[] parameters, RequestMethod requestMethod) {
         this.uri = uri;
         this.method = method;

@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>fastboot-webflux-parent-example</module>
+        <module>fastboot-reactor-parent-example</module>
 
         <module>fastboot-web-example</module>
         <module>fastboot-web-example-docker</module>

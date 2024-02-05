@@ -12,8 +12,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class BeanContainer {
 
-    public static Map<Class<?>, Object> instances = new ConcurrentHashMap<>();
-    public static Map<BeanKey, Object> instancesHasName = new ConcurrentHashMap<>();
+    private static Map<Class<?>, Object> instances = new ConcurrentHashMap<>();
+    private static Map<BeanKey, Object> instancesHasName = new ConcurrentHashMap<>();
 
     /**
      * 添加一个Bean
@@ -88,5 +88,9 @@ public class BeanContainer {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Map<Class<?>, Object> getInstancesAll() {
+        return instances;
     }
 }

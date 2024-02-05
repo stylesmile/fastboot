@@ -19,8 +19,8 @@ import java.util.concurrent.TimeUnit;
 
 public class App {
     private static JdkHTTPServer httpServer = null;
-    private static final StartPlugsManager PLUGS_MANAGER = new StartPlugsManager();
-    private static final ServerPlugsManager server_plugs_manager = new ServerPlugsManager();
+    private static final StartPlugsManager BEAN_PLUGS_MANAGER = new StartPlugsManager();
+    private static final ServerPlugsManager SERVER_PLUGS_MANAGER = new ServerPlugsManager();
     public static List<Class<?>> classList = null;
 
     /**
@@ -44,17 +44,17 @@ public class App {
             port = Integer.valueOf(portString);
         }
 
-//        HTTPServer.VirtualHost host = null;
         try {
-//            HTTPServer.VirtualHost virtualHost = httpServer.getVirtualHost(null);
-//            virtualHost.setDirectoryIndex(null);
             // sun httpServer = HTTPServer.create(new InetSocketAddress(port), 0)
             String localPackage = applicationClass.getPackage().getName();
             //扫描所有的类，
             classList = ClassScanner.scanClasses(localPackage);
-            PLUGS_MANAGER.start();
-            PLUGS_MANAGER.init();
-            PLUGS_MANAGER.end();
+
+            SERVER_PLUGS_MANAGER.start(applicationClass,args);
+            // 容器插件
+            BEAN_PLUGS_MANAGER.start();
+            BEAN_PLUGS_MANAGER.init();
+            BEAN_PLUGS_MANAGER.end();
             //创建Bean工厂,扫描Class，创建被注解标注的类
             BeanFactory.initBean(classList);
             //找到所有Controller，建立Controller中每个方法和Url的映射关系
