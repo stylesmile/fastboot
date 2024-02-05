@@ -11,19 +11,14 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
-    <artifactId>fastboot-core</artifactId>
+    <artifactId>fastboot-tool</artifactId>
     <version>${fastboot.version}</version>
-    <name>fastboot-core</name>
-    <packaging>jar</packaging>
-    <description>core for fastboot</description>
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+    <name>fastboot-tool</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
-    </dependencies>
+    <packaging>pom</packaging>
+    <description>tool for fastboot</description>
+
+    <modules>
+        <module>fastboot-aop</module>
+    </modules>
 </project>

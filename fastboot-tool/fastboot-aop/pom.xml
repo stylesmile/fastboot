@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.github.stylesmile</groupId>
+    <artifactId>fastboot-aop</artifactId>
+    <version>${fastboot.version}</version>
+    <packaging>jar</packaging>
+
+    <name>${project.artifactId}</name>
+    <description>aop fastboot</description>
+    <url>https://github.com/stylesmile/fastboot</url>
+
+
+    <parent>
+        <groupId>io.github.stylesmile</groupId>
+        <artifactId>fastboot-tool</artifactId>
+        <version>2.2.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <dependencies>
+        <!-- aop -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.7</version>
+        </dependency>
+
+    </dependencies>
+</project>
