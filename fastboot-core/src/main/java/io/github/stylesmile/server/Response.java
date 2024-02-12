@@ -236,6 +236,7 @@ public class Response implements Closeable {
                 "W/\"" + Integer.toHexString(text.hashCode()) + "\"",
 //                "text/html; charset=utf-8", null);
                 "application/json; charset=utf-8", null);
+        headers.add("Content-Type", "application/json; charset=utf-8");
         OutputStream out = getBody();
         if (out != null)
             out.write(content);
