@@ -1,27 +1,37 @@
 package io.github.stylesmile.jedis;
 
 import io.github.stylesmile.tool.PropertyUtil;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
+import io.github.stylesmile.tool.StringUtil;
+import redis.clients.jedis.*;
 
-public class RedisConfig {
-    public static Jedis getJedisPoolConfig() {
+/**
+ * redis 配置
+ */
+public class JedisConfig {
+
+    /**
+     * jedis 连接池
+     * @return JedisPool
+     */
+    static JedisPool getJedisPool() {
         String host = PropertyUtil.getProperty("redis.host");
         String port = PropertyUtil.getProperty("redis.port");
+        String user = PropertyUtil.getProperty("redis.user");
         String db = PropertyUtil.getProperty("redis.db");
         String password = PropertyUtil.getProperty("redis.password");
         String timeout = PropertyUtil.getProperty("redis.timeout");
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
 //        jedisPoolConfig.setMaxIdle(maxIdle);
 //        jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
-        JedisPool jedisPool = new JedisPool(
+
+        return new JedisPool(
                 jedisPoolConfig,
                 host,
                 Integer.parseInt(port),
                 Integer.parseInt(timeout),
-                password, db);
-        Jedis jedis = jedisPool.getResource();
-        return jedis;
+                user,
+                password,
+                Integer.parseInt(db)
+        );
     }
 }
