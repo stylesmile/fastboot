@@ -8,6 +8,7 @@ import io.github.stylesmile.server.Headers;
 import io.github.stylesmile.server.Request;
 import io.github.stylesmile.server.Response;
 import io.github.stylesmile.tool.JsonGsonUtil;
+import io.github.stylesmile.web.ModelAndView;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -119,9 +120,9 @@ public class MappingHandler {
         } else if (responseResult instanceof Integer) {
             responseString = responseResult.toString();
         }
-//        else if (responseResult instanceof ModelAndView) {
-//            ModelAndView modelAndView = (ModelAndView)responseResult;
-//        }
+        else if (responseResult instanceof ModelAndView) {
+            return true;
+        }
         else {
             responseString = JsonGsonUtil.BeanToJson(responseResult);
         }
