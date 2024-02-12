@@ -23,7 +23,7 @@
         <module>fastboot-captcha</module>
         <module>fastboot-reactor-parent</module>
         <module>fastboot-server</module>
-        <module>fastboot-enjoy</module>
+        <module>fastboot-web-parent</module>
 <!--        <module>fastboot-tool</module>-->
         <!--        <module>fastboot-example</module>-->
     </modules>
