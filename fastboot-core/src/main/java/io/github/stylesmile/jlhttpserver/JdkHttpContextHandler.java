@@ -46,7 +46,10 @@ public class JdkHttpContextHandler implements ContextHandler {
         MappingHandler mappingHandler = HandlerManager.getMappingHandler(request.getPath());
         //找到当前请求Url对应的Controller接口处理方法
         try {
-            FilterManager.excutePreHandle(request,response);
+            boolean pre = FilterManager.excutePreHandle(request,response);
+            if(!pre){
+                return;
+            }
             mappingHandler.handle(request, response);
             FilterManager.excuteAfterCompletion(request,response);
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException | IOException e) {

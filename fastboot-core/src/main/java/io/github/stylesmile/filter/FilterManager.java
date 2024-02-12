@@ -4,7 +4,6 @@ package io.github.stylesmile.filter;
 import io.github.stylesmile.ioc.BeanContainer;
 import io.github.stylesmile.server.Request;
 import io.github.stylesmile.server.Response;
-import jdk.internal.org.objectweb.asm.commons.Method;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,10 +34,14 @@ public class FilterManager {
      * @param response 响应
      */
 
-    public static void excutePreHandle(Request request, Response response) {
+    public static boolean excutePreHandle(Request request, Response response) {
         for (Filter filter : obj) {
-            BeanContainer.getSingleInstance(filter.getClass()).preHandle(request,response);
+            boolean b = BeanContainer.getSingleInstance(filter.getClass()).preHandle(request, response);
+            if (!b) {
+                return false;
+            }
         }
+        return true;
     }
 
     /**
@@ -50,7 +53,10 @@ public class FilterManager {
 
     public static void excuteAfterCompletion(Request request, Response response) {
         for (Filter filter : obj) {
-            BeanContainer.getSingleInstance(filter.getClass()).preHandle(request,response);
+            boolean b = BeanContainer.getSingleInstance(filter.getClass()).afterCompletion(request, response);
+            if (!b) {
+                break;
+            }
         }
     }
 
