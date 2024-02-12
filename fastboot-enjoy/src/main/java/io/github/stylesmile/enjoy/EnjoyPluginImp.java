@@ -1,4 +1,4 @@
-package io.github.stylesmile.captcha;
+package io.github.stylesmile.enjoy;
 
 import com.jfinal.template.Engine;
 import com.jfinal.template.ext.spring.JFinalViewResolver;
@@ -6,9 +6,7 @@ import io.github.stylesmile.ioc.BeanContainer;
 import io.github.stylesmile.plugin.Plugin;
 
 /**
- * @author chenye
- * 2023.5.15
- * @since 1.1.0
+ * @author Stylesmile
  */
 public class EnjoyPluginImp implements Plugin {
     @Override
@@ -16,19 +14,13 @@ public class EnjoyPluginImp implements Plugin {
 
     }
 
+    /**
+     * 初始化
+     */
     @Override
     public void init() {
-        // 创建用于整合 spring boot 的 ViewResolver 扩展对象
-//        JFinalViewResolver jfr = new JFinalViewResolver();
-//        jfr.setBaseTemplatePath("");
-//        jfr.setEncoding("UTF-8");
-//        jfr.set
-//        jfr.setSuffix(".html");
-//        jfr.setContentType("text/html;charset=UTF-8");
-//        jfr.setOrder(0);
-
-        // 获取 engine 对象，对 enjoy 模板引擎进行配置，配置方式与前面章节完全一样
-        Engine engine = JFinalViewResolver.engine;
+        // 创建用于整合 的 ViewResolver 扩展对象
+        Engine engine = Engine.use();
 
         // 热加载配置能对后续配置产生影响，需要放在最前面
         engine.setDevMode(true);
