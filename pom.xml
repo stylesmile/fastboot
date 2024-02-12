@@ -23,6 +23,7 @@
         <module>fastboot-captcha</module>
         <module>fastboot-reactor-parent</module>
         <module>fastboot-server</module>
+        <module>fastboot-enjoy</module>
 <!--        <module>fastboot-tool</module>-->
         <!--        <module>fastboot-example</module>-->
     </modules>
@@ -46,7 +47,7 @@
 
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
-                <artifactId>fastboot-aop</artifactId>
+                <artifactId>fastboot-enjoy</artifactId>
                 <version>${fastboot.version}</version>
             </dependency>
 

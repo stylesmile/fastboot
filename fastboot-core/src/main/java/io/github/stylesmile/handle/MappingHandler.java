@@ -8,6 +8,7 @@ import io.github.stylesmile.server.Headers;
 import io.github.stylesmile.server.Request;
 import io.github.stylesmile.server.Response;
 import io.github.stylesmile.tool.JsonGsonUtil;
+import io.github.stylesmile.web.HtmlView;
 import io.github.stylesmile.web.ModelAndView;
 
 import java.io.IOException;
@@ -119,11 +120,22 @@ public class MappingHandler {
             responseString = responseResult.toString();
         } else if (responseResult instanceof Integer) {
             responseString = responseResult.toString();
-        }
-        else if (responseResult instanceof ModelAndView) {
+        } else if (responseResult instanceof ModelAndView) {
             return true;
-        }
-        else {
+        } else if (responseResult instanceof HtmlView) {
+            responseString = ((HtmlView)responseResult).getHtmlview();
+            OutputStream outputStream = response.getOutputStream();
+            Headers headers = response.getHeaders();
+            headers.add("Content-Type", "text/html; charset=utf-8");
+            headers.add("Access-Control-Allow-Origin", "*");
+            headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+            headers.add("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept");
+            // httpExchange.sendResponseHeaders(200, responseString.length())
+            response.send(200, responseString);
+            //将响应结果写到外面
+            outputStream.write(responseString.getBytes(StandardCharsets.UTF_8));
+            return true;
+        } else {
             responseString = JsonGsonUtil.BeanToJson(responseResult);
         }
         // OutputStream outputStream = response.getResponseBody()

@@ -23,18 +23,4 @@ public class Application {
         App.start(Application.class, args);
     }
 
-    @RequestMapping("/3")
-    public String hello() {
-        return "hello fastboot";
-    }
-
-    @RequestMapping("/1")
-    public String hello1() {
-        return PropertyUtil.props.getProperty("fast.name");
-    }
-
-    @RequestMapping("/2")
-    public String hello2() {
-        return name;
-    }
 }
