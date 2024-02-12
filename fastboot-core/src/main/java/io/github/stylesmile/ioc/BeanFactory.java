@@ -3,13 +3,14 @@ package io.github.stylesmile.ioc;
 import io.github.stylesmile.annotation.AutoWired;
 import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.Service;
+import io.github.stylesmile.filter.Filter;
+import io.github.stylesmile.filter.FilterManager;
 import io.github.stylesmile.tool.PropertyUtil;
 import io.github.stylesmile.tool.StringUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -122,10 +123,31 @@ public class BeanFactory {
                     field.set(bean, reliantBean);
                     System.out.println();
                 }
+
             }
+            addFilter(cls);
             //缓存实例到工厂中
             BeanContainer.setInstance(cls, bean);
         }
         return true;
+    }
+    private static void addFilter(Class<?> cls) {
+        if (!cls.isInterface()) {
+            Class<?>[] interfaces = cls.getInterfaces();
+            int len = interfaces.length;
+            if (interfaces.length > 0) {
+                Set<Class> interfaceSet = new HashSet<>(Arrays.asList(interfaces));
+                interfaceSet.add(Filter.class);
+                if (interfaceSet.size() == len) {
+                    try {
+                        FilterManager.addFilter(cls);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    } catch (InstantiationException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
     }
 }

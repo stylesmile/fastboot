@@ -28,10 +28,12 @@ public class PropertyUtil {
             } else {
                 in = clazz.getClassLoader().getResourceAsStream(path);
             }
-//            if(in == null){
-//                throw new RuntimeException("application.properties not found");
-//            }
-            props.load(in);
+            if (in == null) {
+                System.err.println("application.properties " + "文件未找到");
+                props.setProperty("server.port=8080", "8080");
+            } else {
+                props.load(in);
+            }
         } catch (FileNotFoundException e) {
             System.err.println(path + "文件未找到");
         } catch (IOException e) {

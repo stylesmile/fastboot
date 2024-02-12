@@ -33,26 +33,6 @@ public class HandlerManager {
             if (cls.isAnnotationPresent(Controller.class)) {
                 parseHandlerFromController(cls);
             }
-            if (!cls.isInterface()) {
-                Class<?>[] interfaces = cls.getInterfaces();
-                int len = interfaces.length;
-                if (interfaces.length > 0) {
-                    Set<Class> interfaceSet = new HashSet<>(Arrays.asList(interfaces));
-                    interfaceSet.add(Filter.class);
-                    if (interfaceSet.size() == len) {
-                        try {
-                            FilterManager.addFilter(cls);
-                        } catch (IllegalAccessException e) {
-                            throw new RuntimeException(e);
-                        } catch (InstantiationException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-            }
-            if (cls.isInterface()) {
-
-            }
         }
     }
 
