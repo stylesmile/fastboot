@@ -76,18 +76,18 @@ java领域最佳云原生解决方案。
 #### [3.redis规范.md](doc/应用开发手册/开发规范/3.redis规范.md)
 
 ```maven
-    <parent>
-		<groupId>io.github.stylesmile</groupId>
-		<artifactId>fastboot-parent</artifactId>
-		<version>2.3.0</version>
-	</parent>
+<parent>
+    <groupId>io.github.stylesmile</groupId>
+    <artifactId>fastboot-parent</artifactId>
+    <version>2.3.0</version>
+</parent>
 ```
 
 ```maven
-        <dependency>
-            <groupId>io.github.stylesmile</groupId>
-            <artifactId>fastboot-web</artifactId>
-        </dependency>
+<dependency>
+    <groupId>io.github.stylesmile</groupId>
+    <artifactId>fastboot-web</artifactId>
+</dependency>
 ```
 
 ##### 如果你管理依赖用的gradle[参考gradle配置](doc/1.fastboot-start-gradle.md)
