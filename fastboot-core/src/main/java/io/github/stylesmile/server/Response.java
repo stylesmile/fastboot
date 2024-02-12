@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.zip.DeflaterOutputStream;
@@ -230,13 +231,26 @@ public class Response implements Closeable {
      * @throws IOException if an error occurs
      */
     public void send(int status, String text) throws IOException {
-        byte[] content = text.getBytes("UTF-8");
+        byte[] content = text.getBytes(StandardCharsets.UTF_8);
         sendHeaders(status, content.length, -1,
                 "W/\"" + Integer.toHexString(text.hashCode()) + "\"",
-                "text/html; charset=utf-8", null);
+//                "text/html; charset=utf-8", null);
+                "application/json; charset=utf-8", null);
         OutputStream out = getBody();
         if (out != null)
             out.write(content);
+    }
+    public void send2(int status, String text) throws IOException {
+        byte[] content = text.getBytes(StandardCharsets.UTF_8);
+        sendHeaders(status, content.length, -1,
+                "W" + Integer.toHexString(text.hashCode()) + "",
+//                "text/html; charset=utf-8", null);
+                "application/json; charset=utf-8", null);
+        OutputStream out = getBody();
+        if (out != null)
+            out.write(content);
+    }
+    public void send(int status) throws IOException {
     }
 
     /**

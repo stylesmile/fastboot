@@ -7,6 +7,7 @@ import io.github.stylesmile.request.RequestMethod;
 import io.github.stylesmile.server.Headers;
 import io.github.stylesmile.server.Request;
 import io.github.stylesmile.server.Response;
+import io.github.stylesmile.tool.GsonByteUtils;
 import io.github.stylesmile.tool.JsonGsonUtil;
 import io.github.stylesmile.web.HtmlView;
 import io.github.stylesmile.web.ModelAndView;
@@ -115,40 +116,35 @@ public class MappingHandler {
         Object[] strArray = (Object[]) parameters2.toArray();
         method.setAccessible(true);
         Object responseResult = method.invoke(ctl, strArray);
-        String responseString;
+        String resResult;
+
         if (responseResult instanceof String) {
-            responseString = responseResult.toString();
+            resResult = responseResult.toString();
         } else if (responseResult instanceof Integer) {
-            responseString = responseResult.toString();
+            resResult = responseResult.toString();
         } else if (responseResult instanceof ModelAndView) {
             return true;
         } else if (responseResult instanceof HtmlView) {
-            responseString = ((HtmlView)responseResult).getHtmlview();
             OutputStream outputStream = response.getOutputStream();
             Headers headers = response.getHeaders();
             headers.add("Content-Type", "text/html; charset=utf-8");
             headers.add("Access-Control-Allow-Origin", "*");
             headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
             headers.add("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept");
-            // httpExchange.sendResponseHeaders(200, responseString.length())
-            response.send(200, responseString);
             //将响应结果写到外面
-            outputStream.write(responseString.getBytes(StandardCharsets.UTF_8));
+            response.send(200, (((HtmlView) responseResult).getHtmlview()));
             return true;
         } else {
-            responseString = JsonGsonUtil.BeanToJson(responseResult);
+            resResult = JsonGsonUtil.BeanToJson(responseResult);
         }
-        // OutputStream outputStream = response.getResponseBody()
-        OutputStream outputStream = response.getOutputStream();
         Headers headers = response.getHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
+//        headers.add("Content-Type", "application/json");
         headers.add("Access-Control-Allow-Origin", "*");
         headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
         headers.add("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept");
-        // httpExchange.sendResponseHeaders(200, responseString.length())
-        response.send(200, responseString);
         //将响应结果写到外面
-        outputStream.write(responseString.getBytes(StandardCharsets.UTF_8));
+        response.send(200, resResult);
         return true;
     }
 

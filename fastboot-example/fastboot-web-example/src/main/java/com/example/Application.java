@@ -9,7 +9,11 @@ import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.app.App;
 import io.github.stylesmile.ioc.Value;
+import io.github.stylesmile.tool.JsonGsonUtil;
 import io.github.stylesmile.tool.PropertyUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class Application {
@@ -41,5 +45,38 @@ public class Application {
     @RequestMapping("/3")
     public String hello3(String name) {
         return name;
+    }
+
+    @RequestMapping("/4")
+    public Map<String,String> hello4() {
+        Map<String,String> map = new HashMap<>();
+        map.put("1","1");
+        map.put("2","1");
+        System.out.println(JsonGsonUtil.BeanToJson(map));
+        return map;
+    }
+    @RequestMapping("/5")
+    public User hello5() {
+        User user = new User();
+        user.setName("lisi");
+        user.setAge(18);
+        System.out.println(JsonGsonUtil.BeanToJson(user));
+        return user;
+    }
+    public class User{
+        private String name;
+        private Integer age;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setAge(Integer age) {
+            this.age = age;
+        }
     }
 }
