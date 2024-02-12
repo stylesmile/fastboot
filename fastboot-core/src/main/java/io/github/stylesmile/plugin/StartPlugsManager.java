@@ -14,6 +14,9 @@ public class StartPlugsManager implements Plugin {
     private final Set<String> plugPackages = new HashSet<>();
     private final Set<Plugin> obj = new HashSet<>();
 
+    /**
+     * 启动时 初始化所有插件
+     */
     public StartPlugsManager() {
         //通过spi加载所有插件
         ServiceLoader<Plugin> loadedParsers = ServiceLoader.load(Plugin.class);

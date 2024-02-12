@@ -1,6 +1,7 @@
 package io.github.stylesmile.jlhttpserver;
 
 
+import io.github.stylesmile.filter.FilterManager;
 import io.github.stylesmile.handle.HandlerManager;
 import io.github.stylesmile.handle.MappingHandler;
 import io.github.stylesmile.server.Context;
@@ -45,7 +46,9 @@ public class JdkHttpContextHandler implements ContextHandler {
         MappingHandler mappingHandler = HandlerManager.getMappingHandler(request.getPath());
         //找到当前请求Url对应的Controller接口处理方法
         try {
+            FilterManager.excutePreHandle(request,response);
             mappingHandler.handle(request, response);
+            FilterManager.excuteAfterCompletion(request,response);
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException | IOException e) {
             throw new RuntimeException(e);
         }

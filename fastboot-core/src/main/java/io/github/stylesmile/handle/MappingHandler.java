@@ -42,16 +42,18 @@ public class MappingHandler {
      * 调用方法时传递的参数
      */
     private final Parameter[] parameters;
-
+    /**
+     * 请求方法
+     */
     private final RequestMethod requestMethod;
 
-//    public Method getMethod() {
-//        return method;
-//    }
-//    public Class getController() {
-//        return controller;
-//    }
-
+    /**
+     * @param uri           url
+     * @param method        方法
+     * @param controller    控制器
+     * @param parameters    参数
+     * @param requestMethod 请求方法
+     */
     public MappingHandler(String uri, Method method, Class<?> controller, Parameter[] parameters, RequestMethod requestMethod) {
         this.uri = uri;
         this.method = method;
@@ -137,6 +139,13 @@ public class MappingHandler {
         return true;
     }
 
+    /**
+     * 构建参数
+     *
+     * @param parameters2
+     * @param parameterType
+     * @param o
+     */
     private void buildParameters(List<Object> parameters2, String parameterType, Object o) {
         if (o != null) {
             switch (parameterType) {

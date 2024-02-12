@@ -2,12 +2,13 @@ package io.github.stylesmile.handle;
 
 import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
+import io.github.stylesmile.filter.Filter;
+import io.github.stylesmile.filter.FilterManager;
 import io.github.stylesmile.request.RequestMethod;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -31,6 +32,26 @@ public class HandlerManager {
             //判断是否使用了Controller注解
             if (cls.isAnnotationPresent(Controller.class)) {
                 parseHandlerFromController(cls);
+            }
+            if (!cls.isInterface()) {
+                Class<?>[] interfaces = cls.getInterfaces();
+                int len = interfaces.length;
+                if (interfaces.length > 0) {
+                    Set<Class> interfaceSet = new HashSet<>(Arrays.asList(interfaces));
+                    interfaceSet.add(Filter.class);
+                    if (interfaceSet.size() == len) {
+                        try {
+                            FilterManager.addFilter(cls);
+                        } catch (IllegalAccessException e) {
+                            throw new RuntimeException(e);
+                        } catch (InstantiationException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+            }
+            if (cls.isInterface()) {
+
             }
         }
     }

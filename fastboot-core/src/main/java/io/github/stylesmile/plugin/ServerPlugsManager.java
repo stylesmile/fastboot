@@ -13,7 +13,9 @@ import java.util.Set;
 public class ServerPlugsManager implements ServerPlugin {
     private final Set<String> plugPackages = new HashSet<>();
     private final Set<Plugin> obj = new HashSet<>();
-
+    /**
+     * 启动时 初始化所有插件
+     */
     public ServerPlugsManager() {
         //通过spi加载所有插件
         ServiceLoader<Plugin> loadedParsers = ServiceLoader.load(Plugin.class);
