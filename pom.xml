@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>2.2.0</version>
+    <version>2.1.0</version>
     <name>fastboot-parent</name>
     <packaging>pom</packaging>
     <properties>
@@ -23,7 +23,7 @@
         <module>fastboot-captcha</module>
         <module>fastboot-reactor-parent</module>
         <module>fastboot-server</module>
-        <module>fastboot-tool</module>
+<!--        <module>fastboot-tool</module>-->
         <!--        <module>fastboot-example</module>-->
     </modules>
     <dependencyManagement>
