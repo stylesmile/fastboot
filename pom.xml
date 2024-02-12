@@ -20,7 +20,6 @@
         <module>fastboot-db</module>
         <module>fastboot-log</module>
         <module>fastboot-logback</module>
-        <module>fastboot-captcha</module>
         <module>fastboot-reactor-parent</module>
         <module>fastboot-server</module>
         <module>fastboot-web-parent</module>

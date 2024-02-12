@@ -62,6 +62,7 @@ java领域最佳云原生解决方案。
 #### [快速开始 mongodb](doc/db/3.fastboot-mongodb.md)
 
 #### [快速开始 beetlsql](doc/db/4.fastboot-beetlsql.md)
+#### [快速开始 模板引擎 enjoy](fastboot-example%2Ffastboot-enjoy-example%2Fpom.xml)
 
 应用开发手册：[访问](doc/应用开发手册/应用开发手册.md)
 
