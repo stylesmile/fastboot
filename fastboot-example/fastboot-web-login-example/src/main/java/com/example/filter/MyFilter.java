@@ -2,7 +2,6 @@ package com.example.filter;
 
 import com.example.entity.User;
 import io.github.stylesmile.annotation.AutoWired;
-import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.Service;
 import io.github.stylesmile.filter.Filter;
 import io.github.stylesmile.jedis.JedisTemplate;
@@ -24,11 +23,13 @@ public class MyFilter implements Filter {
         String token = request.getHeaders()
                 .get("token");
         System.out.println("token: " + token);
-        User user = jedisTemplate.getSerializeData("user:user_info", User.class);
+        User user = jedisTemplate.getSerializeData(String.format("user:user_info_%s", token), User.class);
         if (user != null) {
             return true;
         }
-        throw new RuntimeException("用户无权限");
+        System.err.println("用户无权限 " + uri);
+//        throw new RuntimeException("用户无权限 " + uri);
+        return false;
     }
 
     @Override

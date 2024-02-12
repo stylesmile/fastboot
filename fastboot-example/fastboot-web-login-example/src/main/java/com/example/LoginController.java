@@ -6,7 +6,6 @@ import com.example.tool.MD5Util;
 import io.github.stylesmile.annotation.AutoWired;
 import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
-import io.github.stylesmile.annotation.Service;
 import io.github.stylesmile.jedis.JedisTemplate;
 
 @Controller
@@ -22,11 +21,12 @@ public class LoginController {
                     .username("admin")
                     .age("18")
                     .build();
-            // 设置缓存，600秒
-            jedisTemplate.setSerializeDataEx("user:user_info", user, 600);
-            //
             //返回token
             String token = MD5Util.calculateMD5(username);
+            // 设置缓存，600秒
+            jedisTemplate.setSerializeDataEx(
+                    String.format("user:user_info_%s", token),
+                    user, 600);
             return Result.success(token);
         } else {
             return Result.failMessage("fail");
