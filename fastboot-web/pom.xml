@@ -25,9 +25,9 @@
             <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.github.stylesmile</groupId>
-            <artifactId>fastboot-jdkhttpserver</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.github.stylesmile</groupId>-->
+<!--            <artifactId>fastboot-jdkhttpserver</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 </project>

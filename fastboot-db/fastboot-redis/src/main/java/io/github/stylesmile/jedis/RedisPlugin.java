@@ -18,10 +18,13 @@ public class RedisPlugin implements Plugin {
 
     @Override
     public void init() {
+        // 获取jedis 连接池
         JedisPool jedisPool = JedisConfig.getJedisPool();
+        // 加入到 bean 中
         BeanContainer.setInstance(JedisPool.class, jedisPool);
-//        Jedis jedis = JedisConfig.getJedisPool().getResource();
+        // 获取 jedis 操作模板
         JedisTemplate jedisTemplate = new JedisTemplate();
+        // 加入到 bean 中
         BeanContainer.setInstance(JedisTemplate.class, jedisTemplate);
     }
 
