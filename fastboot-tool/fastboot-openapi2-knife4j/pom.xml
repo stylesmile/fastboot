@@ -14,11 +14,11 @@
     <parent>
         <groupId>io.github.stylesmile</groupId>
         <artifactId>fastboot-tool</artifactId>
-        <version>2.4.0</version>
+        <version>2.4.3</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <properties>
-        <knife4j.version>4.5.0</knife4j.version>
+        <knife4j.version>4.4.0</knife4j.version>
         <swagger.version>1.6.11</swagger.version>
     </properties>
 
@@ -51,6 +51,13 @@
                     <artifactId>jackson-annotations</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>
