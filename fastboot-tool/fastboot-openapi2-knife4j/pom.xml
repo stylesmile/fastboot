@@ -25,16 +25,11 @@
     <dependencies>
         <dependency>
             <groupId>io.github.stylesmile</groupId>
-            <artifactId>fastboot-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi2-ui</artifactId>
-            <version>${knife4j.version}</version>
+            <artifactId>fastboot-web</artifactId>
         </dependency>
         <dependency>
             <groupId>io.github.stylesmile</groupId>
-            <artifactId>fastboot-core</artifactId>
+            <artifactId>fastboot-staticfile</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
