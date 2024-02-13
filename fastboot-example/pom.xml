@@ -20,6 +20,7 @@
         <module>fastboot-mongodb-example</module>
         <module>fastboot-beetlsql-example</module>
         <module>fastboot-enjoy-example</module>
+        <module>fastboot-staticfile-example</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
