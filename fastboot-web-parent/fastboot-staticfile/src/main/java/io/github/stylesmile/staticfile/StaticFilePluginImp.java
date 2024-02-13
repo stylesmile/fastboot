@@ -76,13 +76,11 @@ public class StaticFilePluginImp implements Plugin {
         // 遍历并打印文件名
         for (File file : listOfFiles) {
             if (file.isDirectory()) {
-                System.out.println("文件夹：" + file.getName());
                 // 递归调用该方法，继续获取子文件夹中的文件名
                 printFileNames(file, length);
             } else if (file.isFile()) {
                 FILE_MAPPING.put(file.getPath().substring(length)
                         , file.getPath());
-                System.out.println("文件名：" + file.getName());
             }
         }
     }
