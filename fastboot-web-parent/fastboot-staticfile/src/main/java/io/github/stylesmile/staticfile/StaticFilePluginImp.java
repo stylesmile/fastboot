@@ -28,7 +28,7 @@ public class StaticFilePluginImp implements Plugin {
         for (String s : chars) {
             if (s.equals("/")) {
                 stringBuffer.append("\\");
-            }else {
+            } else {
                 stringBuffer.append(s);
             }
         }
@@ -62,6 +62,11 @@ public class StaticFilePluginImp implements Plugin {
 
     }
 
+    /**
+     * 查找文件，
+     *
+     * @param folderPath 文件路径
+     */
     public static void findFile(String folderPath) {
         // 指定文件夹路径
         // 创建File对象
@@ -70,6 +75,11 @@ public class StaticFilePluginImp implements Plugin {
         printFileNames(folder, folderPath.length() - 1);
     }
 
+    /**
+     * 递归查询文件
+     * @param folder 文件夹
+     * @param length 字符串长度
+     */
     public static void printFileNames(File folder, int length) {
         // 获取文件夹下的所有文件和文件夹
         File[] listOfFiles = folder.listFiles();
