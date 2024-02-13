@@ -29,7 +29,7 @@ public class JdkHttpContextHandler implements ContextHandler {
             goController(request, response);
         } catch (Throwable ex) {
             //context 初始化时，可能会出错
-            System.err.println("error：" + ex.getCause());
+//            System.err.println("error：" + ex.getCause());
             response.sendHeaders(500);
             throw new RuntimeException();
         }

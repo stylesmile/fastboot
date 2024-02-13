@@ -16,23 +16,17 @@ public class StaticFileFilter implements Filter {
         if ("/favicon.ico".equals(uri.toString())) {
             return true;
         }
-        System.out.println(uri);
         String path = StaticFilePluginImp.get(uri.getPath());
         if (StringUtil.isNotEmpty(path)) {
             File file = new File(path);
             try (FileInputStream fis = new FileInputStream(file)) {
                 byte[] buffer = new byte[fis.available()];
                 fis.read(buffer);
-//                response.getOutputStream().write(buffer);
                 response.sendHtml(200,buffer);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.printf(path);
         }
-        String contentType = request.getHeaders().get("Content-Type");
-        System.out.println(contentType);
-
         return false;
     }
 
