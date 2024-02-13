@@ -45,6 +45,14 @@ public class JdkHttpContextHandler implements ContextHandler {
     private void goController(Request request, Response response) {
         //获取Controller和内部定义的接口方法列表
         MappingHandler mappingHandler = HandlerManager.getMappingHandler(request.getPath());
+        if (mappingHandler == null) {
+            try {
+                response.sendError(404);
+                return;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         //找到当前请求Url对应的Controller接口处理方法
         try {
             boolean pre = FilterManager.excutePreHandle(request, response);
