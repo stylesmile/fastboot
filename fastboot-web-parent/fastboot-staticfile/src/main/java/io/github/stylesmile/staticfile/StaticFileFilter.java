@@ -26,6 +26,7 @@ public class StaticFileFilter implements Filter {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return true;
         }
         return false;
     }
