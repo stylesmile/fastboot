@@ -1,7 +1,3 @@
-//
-// Source code recreated from a .class file by Stylesmile
-// (powered by FernFlower decompiler)
-//
 
 package com.example;
 
