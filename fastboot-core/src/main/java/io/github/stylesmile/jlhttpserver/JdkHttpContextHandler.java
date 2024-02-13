@@ -29,6 +29,7 @@ public class JdkHttpContextHandler implements ContextHandler {
             goController(request, response);
         } catch (Throwable ex) {
             //context 初始化时，可能会出错
+            System.err.println("error：" + ex.getCause());
             response.sendHeaders(500);
             throw new RuntimeException();
         }
@@ -46,12 +47,12 @@ public class JdkHttpContextHandler implements ContextHandler {
         MappingHandler mappingHandler = HandlerManager.getMappingHandler(request.getPath());
         //找到当前请求Url对应的Controller接口处理方法
         try {
-            boolean pre = FilterManager.excutePreHandle(request,response);
-            if(!pre){
+            boolean pre = FilterManager.excutePreHandle(request, response);
+            if (!pre) {
                 return;
             }
             mappingHandler.handle(request, response);
-            FilterManager.excuteAfterCompletion(request,response);
+            FilterManager.excuteAfterCompletion(request, response);
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException | IOException e) {
             throw new RuntimeException(e);
         }

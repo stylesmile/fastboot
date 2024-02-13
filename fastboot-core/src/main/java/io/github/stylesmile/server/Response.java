@@ -241,6 +241,18 @@ public class Response implements Closeable {
         if (out != null)
             out.write(content);
     }
+
+    public void sendHtml(int status, byte[] content) throws IOException {
+        sendHeaders(status, content.length, -1,
+                "W/\"" + Integer.toHexString(content.hashCode()) + "\"",
+                "text/html; charset=utf-8", null);
+//                "application/json; charset=utf-8", null);
+        headers.add("Content-Type", "application/json; charset=utf-8");
+        OutputStream out = getBody();;
+        if (out != null){
+            out.write(content);
+        }
+    }
     public void send2(int status, String text) throws IOException {
         byte[] content = text.getBytes(StandardCharsets.UTF_8);
         sendHeaders(status, content.length, -1,

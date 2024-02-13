@@ -23,9 +23,16 @@ public class StaticFilePluginImp implements Plugin {
     public final static Map<String, String> FILE_MAPPING = new HashMap<>();
 
     public static String get(String key) {
-        String newStr = key.replaceAll("aa", "/");
-
-        return FILE_MAPPING.get(newStr);
+        String[] chars = key.split("");
+        StringBuffer stringBuffer = new StringBuffer();
+        for (String s : chars) {
+            if (s.equals("/")) {
+                stringBuffer.append("\\");
+            }else {
+                stringBuffer.append(s);
+            }
+        }
+        return FILE_MAPPING.get(stringBuffer.toString());
     }
 
     @Override
@@ -73,7 +80,7 @@ public class StaticFilePluginImp implements Plugin {
                 // 递归调用该方法，继续获取子文件夹中的文件名
                 printFileNames(file, length);
             } else if (file.isFile()) {
-                FILE_MAPPING.put(file.getPath().substring(length).replace("/", "\\")
+                FILE_MAPPING.put(file.getPath().substring(length)
                         , file.getPath());
                 System.out.println("文件名：" + file.getName());
             }
