@@ -115,14 +115,14 @@ public class Application {
 #### 发布最新版后，其他各个镜像仓库可能过好几天才同步镜像，可以用maven官方仓库原仓库下载
 
 ```maven
-        <repository>
-            <id>maven1</id>
-            <url>https://repo1.maven.org/maven2/</url>
-        </repository>        
-        <repository>
-            <id>maven1</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
-        </repository>
+<repository>
+    <id>maven1</id>
+    <url>https://repo1.maven.org/maven2/</url>
+</repository>        
+<repository>
+    <id>maven1</id>
+    <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
+</repository>
 ```
 
 占用20m内存，启动时间仅需01秒（服务器是1核1g的虚拟机）
