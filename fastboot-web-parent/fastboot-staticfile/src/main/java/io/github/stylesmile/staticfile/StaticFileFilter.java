@@ -28,7 +28,7 @@ public class StaticFileFilter implements Filter {
             }
             return true;
         }
-        return false;
+        return true;
     }
 
     @Override
