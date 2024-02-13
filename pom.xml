@@ -49,6 +49,11 @@
                 <artifactId>fastboot-enjoy</artifactId>
                 <version>${fastboot.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.github.stylesmile</groupId>
+                <artifactId>fastboot-staticfile</artifactId>
+                <version>${fastboot.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>io.github.stylesmile</groupId>

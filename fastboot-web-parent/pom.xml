@@ -15,6 +15,7 @@
     </parent>
     <modules>
         <module>fastboot-enjoy</module>
+        <module>fastboot-staticfile</module>
     </modules>
     <dependencyManagement>
         <dependencies>
