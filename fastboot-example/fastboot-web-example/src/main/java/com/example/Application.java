@@ -50,13 +50,14 @@ public class Application {
     }
 
     @RequestMapping("/4")
-    public Map<String,String> hello4() {
-        Map<String,String> map = new HashMap<>();
-        map.put("1","1");
-        map.put("2","1");
+    public Map<String, String> hello4() {
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "1");
+        map.put("2", "1");
         System.out.println(JsonGsonUtil.BeanToJson(map));
         return map;
     }
+
     @RequestMapping("/5")
     public User hello5() {
         User user = new User();
@@ -65,12 +66,19 @@ public class Application {
         System.out.println(JsonGsonUtil.BeanToJson(user));
         return user;
     }
+
     @RequestMapping("/6")
-    public String test(MultipartFile multipartFile) throws IOException {
-        multipartFile.save("d://test//" + multipartFile.getFilename());
-        return "success~";
+    public String test(MultipartFile file, String username) throws IOException {
+        file.save("d://test//" + System.currentTimeMillis() + file.getFilename());
+        return "success~" + username;
     }
-    public class User{
+
+    @RequestMapping("/7")
+    public String test(String password, String username) throws IOException {
+        return "username~" + username + "， password: " + password;
+    }
+
+    public class User {
         private String name;
         private Integer age;
 

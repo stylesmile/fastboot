@@ -22,6 +22,9 @@ public class MultipartUtil {
      * 第二行以"Content-Disposition: form-data;“    》》》    Content-Disposition: form-data; name="username"
      * 第二行是空字符串  ”“                           》》》    ”“
      * 第四行是参数值                                 》》》    zhangsan
+     * <p>
+     * 文件
+     * <p>
      * 第一行是以28个“-”开头,和第一行一样表示结束         》》》    ----------------------------097682892719969847534030--
      *
      * @param request
@@ -34,9 +37,6 @@ public class MultipartUtil {
         String line;
         //当前行号
         AtomicInteger integer = new AtomicInteger(0);
-
-        // 当前 数据数据值 的行号
-        AtomicInteger currentParameterValueLine = new AtomicInteger(0);
 
         // 是否为文件
         // 参数名称
@@ -70,13 +70,20 @@ public class MultipartUtil {
         // 第一行为http消息头 28个- 加一个长整型 18数字，后面一行为参数，一行为值
         while ((line = reader.readLine()) != null) {
             System.out.println(line);
-            AtomicInteger i = new AtomicInteger(integer.addAndGet(1));
+            // 当前 数据数据值 的行号
+            AtomicInteger currentLine = new AtomicInteger(integer.addAndGet(1));
             // 第一行为http消息头 28个- 加一个长整型为分隔符   后面为数字 数字，第二行为 参数基本信息，
             if (line.startsWith("------------------")) {
+                // line.equals(line1 + "--") 完全结束 最后一行
                 if (line.equals(line1 + "--")) {
+                    continue;
+                }
+                // line.equals(line1) 前一个参数读取结束，接
+                if (line.equals(line1)) {
                     // 结束标识符
                     if (isFile.get()) {
-                        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(parameterValue.getBytes());
+                        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
+                                parameterValue.getBytes(StandardCharsets.UTF_8));
                         multipartFile.setBody(byteArrayInputStream);
                         multipartFile.setSize(Long.valueOf(parameterValue.length()));
                         parameterMap.put(parameterName, multipartFile);
@@ -85,8 +92,7 @@ public class MultipartUtil {
                     }
                     parameterName = null;
                     parameterValue = null;
-                    line1 = null;
-                    line1Line = null;
+                    line1Line = new AtomicInteger(currentLine.get());
                     line2 = null;
                     line2Line = null;
                     line3 = null;
@@ -99,20 +105,21 @@ public class MultipartUtil {
 
                 }
                 line1 = line;
-                line1Line = new AtomicInteger(i.get());
+                line1Line = new AtomicInteger(currentLine.get());
                 continue;
             }
             // 以”Content-Disposition:"开头为 参数名称
             if (line.startsWith("Content-Disposition:")) {
                 line2 = line;
-                line2Line = new AtomicInteger(i.get());
+                line2Line = new AtomicInteger(currentLine.get());
                 Map<String, String> map = Utils.getHeaderParams(line);
                 parameterName = map.get("name");
                 parameterMap.put(parameterName, "");
                 filename = map.get("filename");
+                String name = map.get("name");
                 if (StringUtil.isNotEmpty(filename)) {
                     multipartFile = new MultipartFile();
-                    multipartFile.setName(filename);
+                    multipartFile.setName(name);
                     multipartFile.setFilename(filename);
                 }
                 continue;
@@ -120,17 +127,17 @@ public class MultipartUtil {
             if (("").equals(line)) {
                 if (StringUtil.isEmpty(line3)) {
                     line3 = line;
-                    line3Line = new AtomicInteger(i.get());
+                    line3Line = new AtomicInteger(currentLine.get());
                     continue;
                 } else {
                     line4 = line;
-                    line4Line = new AtomicInteger(i.get());
+                    line4Line = new AtomicInteger(currentLine.get());
                     continue;
                 }
             }
             if (line.startsWith("Content-Type: ")) {
                 line3 = line;
-                line3Line = new AtomicInteger(i.get());
+                line3Line = new AtomicInteger(currentLine.get());
                 continue;
             }
             if (line1Line.get() + 2 == line2Line.get() + 1

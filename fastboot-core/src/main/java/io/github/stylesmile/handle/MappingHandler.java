@@ -109,10 +109,10 @@ public class MappingHandler {
                 parameters2.add(request);
                 continue;
             }
-            if (parameterType.equals("io.github.stylesmile.file.MultipartFile")) {
-                parameters2.add(parameterMap.get("file"));
-                continue;
-            }
+//            if (parameterType.equals("io.github.stylesmile.file.MultipartFile")) {
+//                parameters2.add(parameters[i].getName());
+//                continue;
+//            }
             Object o = parameterMap.get(parameters[i].getName());
             buildParameters(parameters2, parameterType, o);
         }
@@ -134,7 +134,6 @@ public class MappingHandler {
         } else if (responseResult instanceof ModelAndView) {
             return true;
         } else if (responseResult instanceof HtmlView) {
-            OutputStream outputStream = response.getOutputStream();
             Headers headers = response.getHeaders();
             headers.add("Content-Type", "text/html; charset=utf-8");
             headers.add("Access-Control-Allow-Origin", "*");
@@ -224,7 +223,7 @@ public class MappingHandler {
                     parameters2.add(o.toString());
                     break;
                 case "io.github.stylesmile.file.MultipartFile":
-                    parameters2.add((MultipartFile)o);
+                    parameters2.add(((MultipartFile)o));
                     break;
                 default:
                     parameters2.add(o.toString());
