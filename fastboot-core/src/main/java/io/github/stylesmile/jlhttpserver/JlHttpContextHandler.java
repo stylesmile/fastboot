@@ -45,8 +45,8 @@ public class JlHttpContextHandler implements Handler {
         //找到当前请求Url对应的Controller接口处理方法
         try {
             mappingHandler.handle(request, response);
-        } catch (IllegalAccessException | InstantiationException | InvocationTargetException | IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

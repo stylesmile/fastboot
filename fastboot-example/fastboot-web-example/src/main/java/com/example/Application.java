@@ -8,10 +8,12 @@ package com.example;
 import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.app.App;
+import io.github.stylesmile.file.MultipartFile;
 import io.github.stylesmile.ioc.Value;
 import io.github.stylesmile.tool.JsonGsonUtil;
 import io.github.stylesmile.tool.PropertyUtil;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,6 +64,11 @@ public class Application {
         user.setAge(18);
         System.out.println(JsonGsonUtil.BeanToJson(user));
         return user;
+    }
+    @RequestMapping("/6")
+    public String test(MultipartFile multipartFile) throws IOException {
+        multipartFile.save("d://test//" + multipartFile.getFilename());
+        return "success~";
     }
     public class User{
         private String name;

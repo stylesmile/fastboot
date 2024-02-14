@@ -21,6 +21,8 @@
 
 package io.github.stylesmile.jdkhttpserver;
 
+import io.github.stylesmile.file.LimitedInputStream;
+import io.github.stylesmile.file.MultipartInputStream;
 import io.github.stylesmile.server.*;
 
 import javax.net.ServerSocketFactory;

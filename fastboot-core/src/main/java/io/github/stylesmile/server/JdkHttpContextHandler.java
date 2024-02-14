@@ -44,8 +44,8 @@ public class JdkHttpContextHandler implements ContextHandler {
         try {
 
             mappingHandler.handle(request, response);
-        } catch (IllegalAccessException | InstantiationException | InvocationTargetException | IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

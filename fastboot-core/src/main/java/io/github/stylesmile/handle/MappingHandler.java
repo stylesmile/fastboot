@@ -1,5 +1,6 @@
 package io.github.stylesmile.handle;
 
+import io.github.stylesmile.file.MultipartFile;
 import io.github.stylesmile.ioc.BeanContainer;
 import io.github.stylesmile.ioc.BeanKey;
 import io.github.stylesmile.parse.ParseParameterJlHttpServer;
@@ -7,8 +8,9 @@ import io.github.stylesmile.request.RequestMethod;
 import io.github.stylesmile.server.Headers;
 import io.github.stylesmile.server.Request;
 import io.github.stylesmile.server.Response;
-import io.github.stylesmile.tool.GsonByteUtils;
 import io.github.stylesmile.tool.JsonGsonUtil;
+import io.github.stylesmile.tool.MultipartUtil;
+import io.github.stylesmile.tool.StringUtil;
 import io.github.stylesmile.web.HtmlView;
 import io.github.stylesmile.web.ModelAndView;
 
@@ -17,7 +19,6 @@ import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,8 +77,7 @@ public class MappingHandler {
      * @throws InvocationTargetException 异常
      * @throws IOException               异常
      */
-    public boolean handle(Request request, Response response) throws IllegalAccessException, InstantiationException,
-            InvocationTargetException, IOException {
+    public boolean handle(Request request, Response response) throws Exception {
         //获取请求路径
         String url = request.getPath();
         //不是当前的Controller处理，直接返回
@@ -92,6 +92,12 @@ public class MappingHandler {
         ParseParameterJlHttpServer.parseGetParameters(request, parameterMap);
         //解析post参数
         ParseParameterJlHttpServer.parsePostParameters(request, parameterMap);
+
+        //文件上传需要
+        if (isMultipartFormData(request.getHeaders())) {
+            // 解析form-data
+            MultipartUtil.parseFormData(request,parameterMap);
+        }
         List<Object> parameters2 = new CopyOnWriteArrayList<>();
         for (int i = 0; i < parameters.length; i++) {
             String parameterType = parameters[i].getParameterizedType().getTypeName();
@@ -101,6 +107,10 @@ public class MappingHandler {
             }
             if (parameterType.equals("io.github.stylesmile.server.Request")) {
                 parameters2.add(request);
+                continue;
+            }
+            if (parameterType.equals("io.github.stylesmile.file.MultipartFile")) {
+                parameters2.add(parameterMap.get("file"));
                 continue;
             }
             Object o = parameterMap.get(parameters[i].getName());
@@ -117,7 +127,6 @@ public class MappingHandler {
         method.setAccessible(true);
         Object responseResult = method.invoke(ctl, strArray);
         String resResult;
-
         if (responseResult instanceof String) {
             resResult = responseResult.toString();
         } else if (responseResult instanceof Integer) {
@@ -146,6 +155,14 @@ public class MappingHandler {
         //将响应结果写到外面
         response.send(200, resResult);
         return true;
+    }
+
+    private boolean isMultipartFormData(Headers headers) {
+        String contentType = headers.get("Content-Type");
+        if (StringUtil.isEmpty(contentType)) {
+            return false;
+        }
+        return contentType.toLowerCase().contains(("multipart/form-data"));
     }
 
     /**
@@ -205,6 +222,9 @@ public class MappingHandler {
                     break;
                 case "java.lang.char":
                     parameters2.add(o.toString());
+                    break;
+                case "io.github.stylesmile.file.MultipartFile":
+                    parameters2.add((MultipartFile)o);
                     break;
                 default:
                     parameters2.add(o.toString());

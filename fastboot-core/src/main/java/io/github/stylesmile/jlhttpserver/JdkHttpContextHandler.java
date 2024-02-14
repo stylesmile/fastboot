@@ -31,7 +31,7 @@ public class JdkHttpContextHandler implements ContextHandler {
             //context 初始化时，可能会出错
             System.err.println("error：" + ex.getCause());
             response.sendHeaders(500);
-            throw new RuntimeException();
+            ex.printStackTrace();
         }
         return 0;
     }
@@ -62,7 +62,8 @@ public class JdkHttpContextHandler implements ContextHandler {
             //找到当前请求Url对应的Controller接口处理方法
             mappingHandler.handle(request, response);
             FilterManager.excuteAfterCompletion(request, response);
-        } catch (IllegalAccessException | InstantiationException | InvocationTargetException | IOException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

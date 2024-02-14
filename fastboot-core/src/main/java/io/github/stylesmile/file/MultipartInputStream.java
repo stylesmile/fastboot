@@ -1,4 +1,4 @@
-package io.github.stylesmile.server;
+package io.github.stylesmile.file;
 
 import java.io.FilterInputStream;
 import java.io.IOException;

@@ -1,5 +1,7 @@
 package io.github.stylesmile.server;
 
+import io.github.stylesmile.file.LimitedInputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.*;
