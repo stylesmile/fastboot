@@ -36,15 +36,24 @@
             <version>8.0.29</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j2-impl</artifactId>
-            <version>2.20.0</version>
-        </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>io.github.stylesmile</groupId>-->
-        <!--            <artifactId>fastboot-log</artifactId>-->
-        <!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.logging.log4j</groupId>-->
+<!--            <artifactId>log4j-slf4j2-impl</artifactId>-->
+<!--            <version>2.20.0</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.github.stylesmile</groupId>-->
+<!--            <artifactId>fastboot-log</artifactId>-->
+<!--        </dependency>        -->
+<!--        <dependency>-->
+<!--            <groupId>io.github.stylesmile</groupId>-->
+<!--            <artifactId>fastboot-logback</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ch.qos.logback</groupId>-->
+<!--            <artifactId>logback-classic</artifactId>-->
+<!--            <version>1.4.14</version>-->
+<!--        </dependency>-->
     </dependencies>
     <repositories>
         <repository>

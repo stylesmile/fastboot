@@ -16,10 +16,6 @@
     <name>fastboot-log</name>
     <packaging>pom</packaging>
     <description>log for fastboot</description>
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

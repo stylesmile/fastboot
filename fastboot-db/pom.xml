@@ -40,10 +40,15 @@
                 <artifactId>mongodb-driver</artifactId>
                 <version>3.12.11</version>
             </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.baomidou</groupId>-->
+<!--                <artifactId>mybatis-plus</artifactId>-->
+<!--                <version>3.1.0</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus</artifactId>
-                <version>3.1.0</version>
+                <version>3.5.5</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
