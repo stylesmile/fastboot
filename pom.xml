@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
-        <fastboot.version>2.4.3</fastboot.version>
+        <fastboot.version>2.5.0</fastboot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
