@@ -6,6 +6,7 @@ import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.annotation.RequestParam;
 import io.github.stylesmile.app.App;
 import io.github.stylesmile.file.MultipartFile;
+import io.github.stylesmile.file.UploadedFile;
 import io.github.stylesmile.tool.IoUtil;
 import org.junit.Test;
 
@@ -28,8 +29,8 @@ public class ApplicationTest {
     }
 
     @RequestMapping("/1")
-    public String test(MultipartFile multipartFile) throws IOException {
-        multipartFile.saveLocal("d://test//" + multipartFile.getFilename());
+    public String test(UploadedFile uploadedFile) throws IOException {
+        uploadedFile.save("d://test//" + uploadedFile.getName());
         return "success~";
     }
     @RequestMapping("/11")

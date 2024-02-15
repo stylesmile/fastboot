@@ -9,6 +9,7 @@ import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.app.App;
 import io.github.stylesmile.file.MultipartFile;
+import io.github.stylesmile.file.UploadedFile;
 import io.github.stylesmile.ioc.Value;
 import io.github.stylesmile.tool.JsonGsonUtil;
 import io.github.stylesmile.tool.PropertyUtil;
@@ -68,8 +69,8 @@ public class Application {
     }
 
     @RequestMapping("/6")
-    public String test(MultipartFile file, String username) throws IOException {
-        file.save("d://test//" + System.currentTimeMillis() + file.getFilename());
+    public String test(UploadedFile file, String username) throws IOException {
+        file.save("d://test//" + System.currentTimeMillis() + file.getName());
         return "success~" + username;
     }
 

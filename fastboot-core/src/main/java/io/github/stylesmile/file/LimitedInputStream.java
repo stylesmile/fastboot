@@ -38,6 +38,13 @@ public class LimitedInputStream extends FilterInputStream {
         this.limit = limit < 0 ? 0 : limit;
         this.prematureEndException = prematureEndException;
     }
+    public LimitedInputStream(InputStream in, long limit) {
+        super(in);
+        if (in == null) {
+            throw new NullPointerException("input stream is null");
+        }
+        this.limit = limit < 0 ? 0 : limit;
+    }
 
     @Override
     public int read() throws IOException {

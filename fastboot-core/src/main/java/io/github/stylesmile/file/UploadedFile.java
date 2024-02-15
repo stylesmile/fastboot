@@ -1,29 +1,27 @@
 package io.github.stylesmile.file;
 
 
+import io.github.stylesmile.tool.IoUtil;
+
 import java.io.*;
 
 /**
- * 上传文件模型（例：通过http上传的文件）
+ * 上传文件模型（例：通过http form-data 上传的文件）
  *
- * <pre><code>
  * @Controller
- * public class DemoController{
- *     @Mapping("/update/")
+ * public class HelloController{
+ *     @RequestMapping("/update/")
  *     public String update(UploadedFile file){
- *         return "我收到文件：" + file.name;
+ *         return "I receive file ：" + file.name;
  *     }
  * }
  * </code></pre>
  *
- * @author noear
- * @since 1.0
- * @update noear 20210506 添加字段访问控制
  * */
 public class UploadedFile extends DownloadedFile {
 
     /**
-     * 扩展名（例：jpg）
+     * 扩展名（例：zip ,doc,jar）
      */
     private String extension;
 
@@ -68,5 +66,20 @@ public class UploadedFile extends DownloadedFile {
      */
     public boolean isEmpty() throws IOException {
         return getContentSize() == 0L;
+    }
+    /**
+     * file save
+     *
+     * @param path     file all path(文件全路径)
+     * @throws IOException e
+     */
+    public void save(String path) throws IOException {
+        File file = new File(path);
+        // If the parent folder does not exist, create
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        IoUtil.transferTo(this.getContent(), fileOutputStream);
     }
 }

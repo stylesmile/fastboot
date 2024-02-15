@@ -1,6 +1,7 @@
 package io.github.stylesmile.handle;
 
 import io.github.stylesmile.file.MultipartFile;
+import io.github.stylesmile.file.UploadedFile;
 import io.github.stylesmile.ioc.BeanContainer;
 import io.github.stylesmile.ioc.BeanKey;
 import io.github.stylesmile.parse.ParseParameterJlHttpServer;
@@ -96,7 +97,8 @@ public class MappingHandler {
         //文件上传需要
         if (isMultipartFormData(request.getHeaders())) {
             // 解析form-data
-            MultipartUtil.parseFormData(request,parameterMap);
+            //MultipartUtil.parseFormData(request,parameterMap);
+            MultipartUtil.buildParamsAndFiles(request,parameterMap);
         }
         List<Object> parameters2 = new CopyOnWriteArrayList<>();
         for (int i = 0; i < parameters.length; i++) {
@@ -224,6 +226,9 @@ public class MappingHandler {
                     break;
                 case "io.github.stylesmile.file.MultipartFile":
                     parameters2.add(((MultipartFile)o));
+                    break;
+                case "io.github.stylesmile.file.UploadedFile":
+                    parameters2.add(((UploadedFile)o));
                     break;
                 default:
                     parameters2.add(o.toString());

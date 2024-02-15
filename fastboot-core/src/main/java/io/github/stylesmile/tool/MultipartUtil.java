@@ -1,8 +1,6 @@
 package io.github.stylesmile.tool;
 
-import io.github.stylesmile.file.MultipartFile;
-import io.github.stylesmile.file.MultipartInputStream;
-import io.github.stylesmile.file.UploadedFile;
+import io.github.stylesmile.file.*;
 import io.github.stylesmile.server.Request;
 
 import java.io.*;
@@ -25,8 +23,10 @@ public class MultipartUtil {
      * <p>
      * 文件
      * <p>
-     * 第一行是以28个“-”开头,和第一行一样表示结束         》》》    ----------------------------097682892719969847534030--
-     *
+     * 第一行是以28个“-”开头                         》》》    ----------------------------097682892719969847534030
+     * 第二行以"Content-Disposition: form-data;“    》》》    Content-Disposition: form-data; name="username"
+     * 第二行是空字符串  ”“                           》》》    ”“
+     * 第四行是参数值                                 》》》    zhangsan     *
      * @param request
      * @param parameterMap
      * @return
@@ -65,6 +65,8 @@ public class MultipartUtil {
         // 第四行 行号
         AtomicInteger line4Line = new AtomicInteger(0);
         MultipartFile multipartFile = null;
+        // 文件数据
+        Byte[] fileData = null;
 
         AtomicBoolean isFile = new AtomicBoolean(false);
         // 第一行为http消息头 28个- 加一个长整型 18数字，后面一行为参数，一行为值
@@ -119,7 +121,7 @@ public class MultipartUtil {
                 String name = map.get("name");
                 if (StringUtil.isNotEmpty(filename)) {
                     multipartFile = new MultipartFile();
-                    multipartFile.setName(name);
+                    multipartFile.setExtension(name);
                     multipartFile.setFilename(filename);
                 }
                 continue;
@@ -161,6 +163,22 @@ public class MultipartUtil {
             ) {
                 // 参数类型为 文件
                 isFile = new AtomicBoolean(true);
+//                fileData = reader.
+//                String path = "d://test//" + System.nanoTime() + "_" + filename;
+//                File file = new File(path);
+//                if (!file.getParentFile().exists()) {
+//                    file.mkdirs();
+//                }
+//                try (FileOutputStream fos = new FileOutputStream(file);
+//                ) {
+//                    byte[] buffer = new byte[1024];
+//                    int bytesRead;
+//                    while ((bytesRead = request.getBody().read(buffer)) != -1) {
+//                        fos.write(buffer, 0, bytesRead);
+//                    }
+//                }
+
+
                 // 为文件
                 // 为参数值
                 if (StringUtil.isNotEmpty(parameterValue)) {
@@ -200,29 +218,44 @@ public class MultipartUtil {
 //        return parseFormData(request.getBody());
 //    }
 
-    public static void buildParamsAndFiles(Request request, Map<String, Object> parameterMap) throws IOException {
-        Map<String, String> ct = Utils.getHeaderParams(request.getHeaders().get("Content-Type"));
-        if (!ct.containsKey("multipart/form-data")) {
-            throw new IllegalArgumentException("Content-Type is not multipart/form-data");
-        }
-        String boundary = ct.get("boundary"); // should be US-ASCII
-        if (boundary == null)
-            throw new IllegalArgumentException("Content-Type is missing boundary");
-        parameterMap.put("file", request.getBody());
-        final MultipartInputStream in = new MultipartInputStream(request.getBody(),
-                boundary.getBytes(StandardCharsets.UTF_8));
+    public static void buildParamsAndFiles(Request request, Map<String, Object> parameterMap) throws Exception {
+        HttpMultipartCollection parts = new HttpMultipartCollection(request);
 
-        MultipartFile p = new MultipartFile();
-//        try {
-//            p.headers = Utils.readHeaders(request.getHeaders());
-//        } catch (IOException ioe) {
-//            throw new RuntimeException(ioe);
+        while (parts.hasNext()) {
+            HttpMultipart part = parts.next();
+
+            if (!isFile(part)) {
+                // 无文件
+//                parseFormData(request, parameterMap);
+                parameterMap.put(part.name, part.name);
+
+            } else {
+                doBuildFiles(request, part, parameterMap);
+            }
+        }
+
+//        Map<String, String> ct = Utils.getHeaderParams(request.getHeaders().get("Content-Type"));
+//        if (!ct.containsKey("multipart/form-data")) {
+//            throw new IllegalArgumentException("Content-Type is not multipart/form-data");
 //        }
-        Map<String, String> cd = Utils.getHeaderParams(request.getHeaders().get("Content-Disposition"));
-        p.name = cd.get("name");
-        p.filename = cd.get("filename");
+//        String boundary = ct.get("boundary"); // should be US-ASCII
+//        if (boundary == null)
+//            throw new IllegalArgumentException("Content-Type is missing boundary");
+////        parameterMap.put("file", request.getBody());
+//        final MultipartInputStream in = new MultipartInputStream(request.getBody(),
+//                boundary.getBytes(StandardCharsets.UTF_8));
+//
+//        MultipartFile p = new MultipartFile();
+////        try {
+////            p.headers = Utils.readHeaders(request.getHeaders());
+////        } catch (IOException ioe) {
+////            throw new RuntimeException(ioe);
+////        }
+//        Map<String, String> cd = Utils.getHeaderParams(request.getHeaders().get("Content-Disposition"));
+//        p.extension = cd.get("name");
+//        p.filename = cd.get("filename");
 //        p.body = in;
-        parameterMap.put("file", request.getBody());
+//        parameterMap.put("file", request.getBody());
 
 //        doBuildFiles(request, p,parameterMap);
     }
@@ -230,28 +263,38 @@ public class MultipartUtil {
     /**
      * 构建文件上传参数
      *
-     * @param context
+     * @param request
      * @param part
      * @param parameterMap
      * @throws IOException
      */
-    private static void doBuildFiles(Request context, MultipartFile part, Map<String, Object> parameterMap) throws
+    private static void doBuildFiles(Request request, HttpMultipart part, Map<String, Object> parameterMap) throws
             IOException {
         List<UploadedFile> uploadedFileList = new ArrayList<>();
         String contentType = part.getHeaders().get("Content-Type");
+        String contentDisposition = part.getHeaders().get("Content-Disposition");
+        String fileParameterName = Utils.getHeaderParams(contentDisposition).get("name");
         // todo 文件大小限制
-//        InputStream content = read(new LimitedInputStream(part.getBody(), request_maxFileSize));
+//        InputStream content = read(new LimitedInputStream(part.getBody(), 1024 * 1024 * 1024,true))
+        InputStream content = read(new LimitedInputStream(part.getBody(), (long) 1073741824));
+        ;
 //        InputStream content = read(part.getBody());
-//        int contentSize = content.available();
+        int contentSize = content.available();
         String name = part.getFilename();
         String extension = null;
         int idx = name.lastIndexOf(".");
         if (idx > 0) {
             extension = name.substring(idx + 1);
         }
-//        UploadedFile f1 = new UploadedFile(contentType, contentSize, content, name, extension);
+//        MultipartFile multipartFile = new MultipartFile();
+//        multipartFile.setSize((long)contentSize);
+//        multipartFile.setBody(content);
+//        multipartFile.setExtension(extension);
+//        multipartFile.setFilename(name);
+//        multipartFile.setContentType(contentType);
+        UploadedFile uploadedFile = new UploadedFile(contentType, contentSize, content, name, extension);
 //        uploadedFileList.add(f1);
-//        parameterMap.put("uploadedFileList", uploadedFileList);
+        parameterMap.put(fileParameterName, uploadedFile);
 
     }
 
@@ -272,5 +315,13 @@ public class MultipartUtil {
         printWriter.write(str);
         printWriter.flush();
         return byteArrayOutputStream;
+    }
+
+    private static boolean isField(HttpMultipart filePart) {
+        return filePart.getFilename() == null;
+    }
+
+    private static boolean isFile(HttpMultipart filePart) {
+        return !isField(filePart);
     }
 }

@@ -12,8 +12,9 @@ import java.io.InputStream;
 
 @Data
 public class MultipartFile {
-    public String name;
+    public String extension;
     public String filename;
+    public String contentType;
     public HttpHeaderCollection headers;
     /**     * 输入流
      */

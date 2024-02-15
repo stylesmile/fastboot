@@ -28,7 +28,7 @@
             <dependency>
                 <groupId>com.ibeetl</groupId>
                 <artifactId>beetlsql</artifactId>
-                <version>3.15.1-RELEASE</version>
+                <version>3.30.0-RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>redis.clients</groupId>
@@ -43,7 +43,6 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus</artifactId>
-                <!--                <version>3.5.2</version>-->
                 <version>3.1.0</version>
             </dependency>
         </dependencies>
