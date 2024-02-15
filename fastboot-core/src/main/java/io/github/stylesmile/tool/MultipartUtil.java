@@ -12,6 +12,18 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MultipartUtil {
+    public static void parseApplicationJson(Request request, Map<String, Object> parameterMap) throws Exception {
+        StringBuffer stringBuffer = new StringBuffer();
+        try (InputStreamReader inputStreamReader = new InputStreamReader(request.getBody());
+             BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuffer.append(line);
+            }
+        }
+        parameterMap.put("fastboot__application__json__", stringBuffer.toString());
+    }
+
     /**
      * 处理form-data参数，
      * 如果 为form-data数据，
@@ -27,6 +39,7 @@ public class MultipartUtil {
      * 第二行以"Content-Disposition: form-data;“    》》》    Content-Disposition: form-data; name="username"
      * 第二行是空字符串  ”“                           》》》    ”“
      * 第四行是参数值                                 》》》    zhangsan     *
+     *
      * @param request
      * @param parameterMap
      * @return

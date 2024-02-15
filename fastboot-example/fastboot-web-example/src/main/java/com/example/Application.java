@@ -6,9 +6,9 @@
 package com.example;
 
 import io.github.stylesmile.annotation.Controller;
+import io.github.stylesmile.annotation.RequestBody;
 import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.app.App;
-import io.github.stylesmile.file.MultipartFile;
 import io.github.stylesmile.file.UploadedFile;
 import io.github.stylesmile.ioc.Value;
 import io.github.stylesmile.tool.JsonGsonUtil;
@@ -79,20 +79,9 @@ public class Application {
         return "username~" + username + "， password: " + password;
     }
 
-    public class User {
-        private String name;
-        private Integer age;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public void setAge(Integer age) {
-            this.age = age;
-        }
+    @RequestMapping("/8")
+    public String test8(@RequestBody User user) throws IOException {
+        return "username~" + user.getName() + "， password: " + user.getName();
     }
+
 }

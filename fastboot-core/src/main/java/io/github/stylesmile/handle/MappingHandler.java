@@ -9,14 +9,13 @@ import io.github.stylesmile.request.RequestMethod;
 import io.github.stylesmile.server.Headers;
 import io.github.stylesmile.server.Request;
 import io.github.stylesmile.server.Response;
+import io.github.stylesmile.tool.HeaderUtil;
 import io.github.stylesmile.tool.JsonGsonUtil;
 import io.github.stylesmile.tool.MultipartUtil;
-import io.github.stylesmile.tool.StringUtil;
 import io.github.stylesmile.web.HtmlView;
 import io.github.stylesmile.web.ModelAndView;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -94,29 +93,34 @@ public class MappingHandler {
         //解析post参数
         ParseParameterJlHttpServer.parsePostParameters(request, parameterMap);
 
-        //文件上传需要
-        if (isMultipartFormData(request.getHeaders())) {
+        // form-data 数据解析文件上传需要
+        if (HeaderUtil.isMultipartFormData(request.getHeaders())) {
             // 解析form-data
             //MultipartUtil.parseFormData(request,parameterMap);
-            MultipartUtil.buildParamsAndFiles(request,parameterMap);
+            MultipartUtil.buildParamsAndFiles(request, parameterMap);
+        }
+        if (HeaderUtil.isApplicationJsonData(request.getHeaders())) {
+            // 解析form-data
+            //MultipartUtil.parseFormData(request,parameterMap);
+            MultipartUtil.parseApplicationJson(request, parameterMap);
         }
         List<Object> parameters2 = new CopyOnWriteArrayList<>();
         for (int i = 0; i < parameters.length; i++) {
             String parameterType = parameters[i].getParameterizedType().getTypeName();
-            if (parameterType.equals("io.github.stylesmile.server.Response")) {
-                parameters2.add(response);
-                continue;
+            switch (parameterType) {
+                case "io.github.stylesmile.server.Response":
+                    parameters2.add(response);
+                    break;
+                case "io.github.stylesmile.server.Request":
+                    parameters2.add(request);
+                    break;
+                case "io.github.stylesmile.file.MultipartFile":
+                    parameters2.add(parameters[i].getName());
+                    break;
+                default:
+                    Object o = parameterMap.get(parameters[i].getName());
+                    buildParameters(parameters2, parameterType, o, request, parameterMap);
             }
-            if (parameterType.equals("io.github.stylesmile.server.Request")) {
-                parameters2.add(request);
-                continue;
-            }
-//            if (parameterType.equals("io.github.stylesmile.file.MultipartFile")) {
-//                parameters2.add(parameters[i].getName());
-//                continue;
-//            }
-            Object o = parameterMap.get(parameters[i].getName());
-            buildParameters(parameters2, parameterType, o);
         }
         //从缓存中取出Controller，启动时就已经创建Controller实例了
         BeanKey beanKey = new BeanKey(controller, requestMethod.name());
@@ -158,22 +162,16 @@ public class MappingHandler {
         return true;
     }
 
-    private boolean isMultipartFormData(Headers headers) {
-        String contentType = headers.get("Content-Type");
-        if (StringUtil.isEmpty(contentType)) {
-            return false;
-        }
-        return contentType.toLowerCase().contains(("multipart/form-data"));
-    }
-
     /**
      * 构建参数
      *
      * @param parameters2
      * @param parameterType
      * @param o
+     * @param request
+     * @param parameterMap
      */
-    private void buildParameters(List<Object> parameters2, String parameterType, Object o) {
+    private void buildParameters(List<Object> parameters2, String parameterType, Object o, Request request, Map<String, Object> parameterMap) throws ClassNotFoundException {
         if (o != null) {
             switch (parameterType) {
                 case "java.lang.Boolean":
@@ -225,14 +223,28 @@ public class MappingHandler {
                     parameters2.add(o.toString());
                     break;
                 case "io.github.stylesmile.file.MultipartFile":
-                    parameters2.add(((MultipartFile)o));
+                    parameters2.add(((MultipartFile) o));
                     break;
                 case "io.github.stylesmile.file.UploadedFile":
-                    parameters2.add(((UploadedFile)o));
+                    parameters2.add(((UploadedFile) o));
                     break;
                 default:
+
                     parameters2.add(o.toString());
                     break;
+            }
+        } else {
+            if (HeaderUtil.isApplicationJsonData(request.getHeaders())) {
+                try {
+                    Class clazz = Class.forName(parameterType);
+                    String json = parameterMap.get("fastboot__application__json__").toString();
+                    Object o1 = JsonGsonUtil.GsonToBean(json, clazz);
+                    parameters2.add(o1);
+                } catch (Exception e) {
+                    System.err.println(e);
+                    throw new RuntimeException("The parameter format is incorrect");
+                }
+
             }
         }
     }
