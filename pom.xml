@@ -69,11 +69,6 @@
                 <artifactId>fastboot-captcha</artifactId>
                 <version>${fastboot.version}</version>
             </dependency>
-            <!--            <dependency>-->
-            <!--                <groupId>io.github.stylesmile</groupId>-->
-            <!--                <artifactId>fastboot-enjoy</artifactId>-->
-            <!--                <version>${fastboot.version}</version>-->
-            <!--            </dependency>-->
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
                 <artifactId>fastboot-mybatis</artifactId>
@@ -124,7 +119,7 @@
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.2.11</version>
+                <version>1.4.14</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
