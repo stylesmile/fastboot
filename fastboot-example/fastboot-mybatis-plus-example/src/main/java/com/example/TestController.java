@@ -15,28 +15,18 @@ public class TestController {
     @Value(value = "fast.name")
     private String name;
 
-    @RequestMapping("/")
-    public String hello() {
-        return "hello fastboot";
-    }
-
-    @RequestMapping("/2")
-    public String hello2() {
-        return userService.get();
-    }
-
-    @RequestMapping("/3")
-    public List<User> hello3() {
+    @RequestMapping("/1")
+    public List<User> hello1() {
         return userService.query();
     }
 
-    @RequestMapping("/4")
-    public List<User> hello4() {
+    @RequestMapping("/3")
+    public List<User> hello2() {
         return userService.query2();
     }
 
-    @RequestMapping("/5")
-    public Integer hello5() {
+    @RequestMapping("/3")
+    public Integer hello3() {
         return userService.insert();
     }
 }
