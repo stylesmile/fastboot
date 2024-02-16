@@ -1,20 +1,17 @@
 package io.github.stylesmile.mybatis;
 
-import com.baomidou.mybatisplus.core.MybatisConfiguration;
-import com.baomidou.mybatisplus.core.config.GlobalConfig;
-import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
 import com.zaxxer.hikari.HikariDataSource;
 import io.github.stylesmile.ioc.BeanContainer;
 import io.github.stylesmile.ioc.BeanFactory;
 import io.github.stylesmile.plugin.Plugin;
+import io.github.stylesmile.tool.FastbootUtil;
 import io.github.stylesmile.tool.PropertyUtil;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
 import org.apache.ibatis.io.ResolverUtil;
 import org.apache.ibatis.logging.slf4j.Slf4jImpl;
 import org.apache.ibatis.mapping.Environment;
+import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -41,10 +38,16 @@ import java.util.jar.JarFile;
  */
 public class MybatisPlugin implements Plugin {
 
-    SqlSession session;
+    private static SqlSession session;
+
+    public static SqlSession getSession() {
+        return session;
+    }
 
     @Override
     public void start() {
+        //添加扫描的bean
+        FastbootUtil.addClass(MybatisFilter.class);
         BeanFactory.addBeanClasses(Mapper.class);
     }
 
@@ -53,7 +56,7 @@ public class MybatisPlugin implements Plugin {
         Long startTime = System.currentTimeMillis();
         SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
         //这是mybatis-plus的配置对象，对mybatis的Configuration进行增强
-        MybatisConfiguration configuration = new MybatisConfiguration();
+        Configuration configuration = new Configuration();
         //这是初始化配置，后面会添加这部分代码
         initConfiguration(configuration);
         //这是初始化连接器，如mybatis-plus的分页插件
@@ -68,15 +71,15 @@ public class MybatisPlugin implements Plugin {
         });
 //        configuration.addMappers(packageName);
         //构建mybatis-plus需要的globalconfig
-        GlobalConfig globalConfig = new GlobalConfig();
+//        GlobalConfig globalConfig = new GlobalConfig();
         //此参数会自动生成实现baseMapper的基础方法映射
-        globalConfig.setSqlInjector(new DefaultSqlInjector());
+//        globalConfig.setSqlInjector(new DefaultSqlInjector());
         //设置id生成器
 //        globalConfig.setIdentifierGenerator(new DefaultIdentifierGenerator());
         //设置超类mapper
-        globalConfig.setSuperMapperClass(BaseMapper.class);
+//        globalConfig.setSuperMapperClass(BaseMapper.class);
         //给configuration注入GlobalConfig里面的配置
-        GlobalConfigUtils.setGlobalConfig(configuration, globalConfig);
+//        GlobalConfigUtils.setGlobalConfig(configuration, globalConfig);
         //设置数据源
         Environment environment = new Environment("1", new JdbcTransactionFactory(), initDataSource());
         configuration.setEnvironment(environment);
@@ -88,6 +91,8 @@ public class MybatisPlugin implements Plugin {
         }
         //构建sqlSessionFactory
         SqlSessionFactory sqlSessionFactory = builder.build(configuration);
+        // 添加bean
+        BeanContainer.setInstance(SqlSessionFactory.class, sqlSessionFactory);
         //创建session
         this.session = sqlSessionFactory.openSession();
         classSet.forEach(cls -> {
@@ -107,7 +112,7 @@ public class MybatisPlugin implements Plugin {
     /**
      * 初始化配置
      */
-    private void initConfiguration(MybatisConfiguration configuration) {
+    private void initConfiguration(Configuration configuration) {
         //开启驼峰大小写转换
         configuration.setMapUnderscoreToCamelCase(true);
         //配置添加数据自动返回数据主键
@@ -156,7 +161,7 @@ public class MybatisPlugin implements Plugin {
      * @param classPath
      * @throws IOException
      */
-    private void registryMapperXml(MybatisConfiguration configuration, String classPath) throws IOException {
+    private void registryMapperXml(Configuration configuration, String classPath) throws IOException {
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
         Enumeration<URL> mapper = contextClassLoader.getResources(classPath);
         while (mapper.hasMoreElements()) {
