@@ -19,11 +19,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 启动时，只需扫描 controller service 和配置，这样可以提高启动速度
+ */
 @Fastboot(exclude = {User.class})
 @Controller
 public class Application {
-    public Application() {
-    }
 
     @Value("fast.name")
     String name;
