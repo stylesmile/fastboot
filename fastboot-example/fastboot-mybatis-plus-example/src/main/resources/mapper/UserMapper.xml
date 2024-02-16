@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+    <select id="queryUser" resultType="com.example.User">
+        select *
+        from user limit 1;
+    </select>
+
+
+    <insert id="appx_add">
+        insert into user (id)
+        values (1024);
+    </insert>
+
+</mapper>
