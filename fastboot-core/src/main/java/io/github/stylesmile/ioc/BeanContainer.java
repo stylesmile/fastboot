@@ -87,8 +87,9 @@ public class BeanContainer {
 //            }
             return obj;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        return null;
     }
 
     public Map<Class<?>, Object> getInstancesAll() {
