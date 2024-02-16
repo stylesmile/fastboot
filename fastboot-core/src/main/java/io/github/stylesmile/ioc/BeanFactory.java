@@ -121,9 +121,7 @@ public class BeanFactory {
                     field.setAccessible(true);
                     //反射将对象设置到属性上
                     field.set(bean, reliantBean);
-                    System.out.println();
                 }
-
             }
             addFilter(cls);
             //缓存实例到工厂中

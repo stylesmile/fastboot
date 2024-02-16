@@ -1,5 +1,6 @@
 package io.github.stylesmile.app;
 
+import io.github.stylesmile.annotation.Fastboot;
 import io.github.stylesmile.handle.HandlerManager;
 import io.github.stylesmile.ioc.BeanFactory;
 import io.github.stylesmile.jlhttpserver.JdkHttpContextHandler;
@@ -12,6 +13,7 @@ import io.github.stylesmile.tool.PropertyUtil;
 import io.github.stylesmile.tool.StringUtil;
 
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -36,6 +38,21 @@ public class App {
 
     public static void start(Class applicationClass, String[] args) {
         long startTime = System.currentTimeMillis();
+        // 需要扫描的包
+        String scanPackage = null;
+        // 需要添加添加的类
+        Class[] includeClass = null;
+        // 需要排除的类
+        Class[] excludeClass = null;
+        // inc
+        Annotation[] annotations = applicationClass.getAnnotations();
+        if (applicationClass.isAnnotationPresent(Fastboot.class)) {
+            Fastboot annotation = (Fastboot) applicationClass.getAnnotation(Fastboot.class);
+            scanPackage = annotation.scanPackage();
+            includeClass = annotation.include();
+            excludeClass = annotation.exclude();
+            System.out.println(1);
+        }
         Integer port = 8080;
 
         PropertyUtil.loadProps(applicationClass, "application.properties");
@@ -43,13 +60,19 @@ public class App {
         if (StringUtil.isNotEmpty(portString)) {
             port = Integer.valueOf(portString);
         }
-
         try {
             // sun httpServer = HTTPServer.create(new InetSocketAddress(port), 0)
-            String localPackage = applicationClass.getPackage().getName();
+            if (StringUtil.isEmpty(scanPackage)) {
+                scanPackage = applicationClass.getPackage().getName();
+            }
             //扫描所有的类，
-            classList = ClassScanner.scanClasses(localPackage);
-
+            classList = ClassScanner.scanClasses(scanPackage);
+            for (Class aClass : includeClass) {
+                classList.add(aClass);
+            }
+            for (Class aClass : excludeClass) {
+                classList.remove(aClass);
+            }
             SERVER_PLUGS_MANAGER.start(applicationClass, args);
             // 容器插件
             BEAN_PLUGS_MANAGER.start();
@@ -89,5 +112,9 @@ public class App {
         }
         long endTime = System.currentTimeMillis();
         System.out.println("started in : " + (endTime - startTime) + "ms");
+    }
+
+    public static void addClass(Class clz) {
+        classList.add(clz);
     }
 }

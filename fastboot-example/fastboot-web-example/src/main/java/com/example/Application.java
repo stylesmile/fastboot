@@ -6,6 +6,7 @@
 package com.example;
 
 import io.github.stylesmile.annotation.Controller;
+import io.github.stylesmile.annotation.Fastboot;
 import io.github.stylesmile.annotation.RequestBody;
 import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.app.App;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@Fastboot(exclude = {User.class})
 @Controller
 public class Application {
     public Application() {
