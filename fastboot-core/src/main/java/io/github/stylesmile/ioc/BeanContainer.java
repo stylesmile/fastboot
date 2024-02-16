@@ -59,8 +59,9 @@ public class BeanContainer {
             }
             return (T) obj;
         } catch (Exception e) {
-            throw new RuntimeException();
+            e.printStackTrace();
         }
+        return null;
     }
 
     public static <T> T getInstance(Class<T> cls) {
