@@ -27,4 +27,12 @@ public class UserService {
         System.out.println(list);
         return list;
     }
+
+    public int insert() {
+        User user = new User();
+        user.setAge(18);
+        user.setName("Stylesmile"+System.currentTimeMillis());
+        int i = userMapper.insert(user);
+        return i;
+    }
 }

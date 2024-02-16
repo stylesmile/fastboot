@@ -34,4 +34,9 @@ public class TestController {
     public List<User> hello4() {
         return userService.query2();
     }
+
+    @RequestMapping("/5")
+    public Integer hello5() {
+        return userService.insert();
+    }
 }
