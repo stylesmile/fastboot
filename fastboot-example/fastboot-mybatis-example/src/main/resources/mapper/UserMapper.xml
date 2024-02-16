@@ -3,13 +3,13 @@
 <mapper namespace="com.example.mapper.UserMapper">
     <select id="queryUser" resultType="com.example.User">
         select *
-        from user limit 1;
+        from user limit 100;
     </select>
 
 
-    <insert id="appx_add">
-        insert into user (id)
-        values (1024);
+    <insert id="insert">
+        insert into user (name,age)
+        values (#{name},#{age});
     </insert>
 
 </mapper>

@@ -12,12 +12,8 @@ public class UserService {
     @AutoWired
     UserMapper userMapper;
 
-    public String get() {
-        return "hello service!";
-    }
-
     public List query() {
-        List list = userMapper.selectByMap(new HashMap<>(1));
+        List list = userMapper.queryUser();
         System.out.println(list);
         return list;
     }

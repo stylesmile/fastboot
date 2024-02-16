@@ -12,30 +12,12 @@ public class TestController {
     @AutoWired
     UserService userService;
 
-    @Value(value = "fast.name")
-    private String name;
-
-    @RequestMapping("/")
-    public String hello() {
-        return "hello fastboot";
-    }
-
-    @RequestMapping("/2")
-    public String hello2() {
-        return userService.get();
-    }
-
-    @RequestMapping("/3")
+    @RequestMapping("/1")
     public List<User> hello3() {
         return userService.query();
     }
 
-    @RequestMapping("/4")
-    public List<User> hello4() {
-        return userService.query2();
-    }
-
-    @RequestMapping("/5")
+    @RequestMapping("/2")
     public Integer hello5() {
         return userService.insert();
     }
