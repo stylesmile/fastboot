@@ -17,6 +17,7 @@
 <!--        <module>fastboot-webflux-parent-example</module>-->
         <module>fastboot-redis-example</module>
         <module>fastboot-mybatis-example</module>
+        <module>fastboot-mybatis-plus-example</module>
         <module>fastboot-mongodb-example</module>
         <module>fastboot-beetlsql-example</module>
         <module>fastboot-enjoy-example</module>

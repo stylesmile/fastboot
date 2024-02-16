@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-db</artifactId>
-    <version>2.6.2</version>
+    <version>2.7.0</version>
     <name>fastboot-db</name>
     <packaging>pom</packaging>
     <parent>
         <groupId>io.github.stylesmile</groupId>
         <artifactId>fastboot-parent</artifactId>
-        <version>2.6.2</version>
+        <version>2.7.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <properties>
@@ -22,6 +22,7 @@
         <module>fastboot-redis</module>
         <module>fastboot-beetlsql</module>
         <module>fastboot-mybatis</module>
+        <module>fastboot-mybatis-plus</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -49,6 +50,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus</artifactId>
                 <version>3.5.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.5.15</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

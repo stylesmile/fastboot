@@ -13,7 +13,6 @@ import io.github.stylesmile.tool.PropertyUtil;
 import io.github.stylesmile.tool.StringUtil;
 
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -44,17 +43,14 @@ public class App {
         Class[] includeClass = null;
         // 需要排除的类
         Class[] excludeClass = null;
-        // inc
-        Annotation[] annotations = applicationClass.getAnnotations();
         if (applicationClass.isAnnotationPresent(Fastboot.class)) {
             Fastboot annotation = (Fastboot) applicationClass.getAnnotation(Fastboot.class);
             scanPackage = annotation.scanPackage();
             includeClass = annotation.include();
             excludeClass = annotation.exclude();
-            System.out.println(1);
         }
+        // 默认为8080端口
         Integer port = 8080;
-
         PropertyUtil.loadProps(applicationClass, "application.properties");
         String portString = PropertyUtil.getProperty("server.port");
         if (StringUtil.isNotEmpty(portString)) {
@@ -67,15 +63,20 @@ public class App {
             }
             //扫描所有的类，
             classList = ClassScanner.scanClasses(scanPackage);
-            for (Class aClass : includeClass) {
-                classList.add(aClass);
+            if (includeClass != null && includeClass.length != 0) {
+                for (Class aClass : includeClass) {
+                    classList.add(aClass);
+                }
             }
-            for (Class aClass : excludeClass) {
-                classList.remove(aClass);
+            if (excludeClass != null && excludeClass.length != 0) {
+                for (Class aClass : excludeClass) {
+                    classList.remove(aClass);
+                }
             }
-            SERVER_PLUGS_MANAGER.start(applicationClass, args);
             // 容器插件
+            SERVER_PLUGS_MANAGER.start(applicationClass, args);
             BEAN_PLUGS_MANAGER.start();
+
             BEAN_PLUGS_MANAGER.init();
             BEAN_PLUGS_MANAGER.end();
             //创建Bean工厂,扫描Class，创建被注解标注的类
@@ -85,9 +86,7 @@ public class App {
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-
         httpServer = new JdkHTTPServer();
-        System.out.println("start server  port : " + port);
         JdkHTTPServer.VirtualHost host = JdkHTTPServer.getVirtualHost(null);
         httpServer.setPort(port);
 //        host.setDirectoryIndex(null);
@@ -111,7 +110,7 @@ public class App {
             throw new RuntimeException(e);
         }
         long endTime = System.currentTimeMillis();
-        System.out.println("started in : " + (endTime - startTime) + "ms");
+        System.out.println("start server  port : " + port + ",started in : " + (endTime - startTime) + "ms");
     }
 
     public static void addClass(Class clz) {

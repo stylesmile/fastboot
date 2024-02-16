@@ -22,7 +22,7 @@ public class LoginController {
                     .age("18")
                     .build();
             //返回token
-            String token = MD5Util.calculateMD5(username);
+            String token = MD5Util.calculateMD5(username+System.currentTimeMillis());
             // 设置缓存，600秒
             jedisTemplate.setSerializeDataEx(
                     String.format("user:user_info_%s", token),
