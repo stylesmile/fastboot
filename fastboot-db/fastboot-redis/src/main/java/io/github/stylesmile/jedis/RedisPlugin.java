@@ -22,6 +22,7 @@ public class RedisPlugin implements Plugin {
         JedisPool jedisPool = JedisConfig.getJedisPool();
         // 加入到 bean 中
         BeanContainer.setInstance(JedisPool.class, jedisPool);
+        BeanContainer.setInstance(Jedis.class, jedisPool.getResource());
         // 获取 jedis 操作模板
         JedisTemplate jedisTemplate = new JedisTemplate();
         // 加入到 bean 中
