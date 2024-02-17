@@ -29,9 +29,9 @@
             <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-redis</artifactId>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>redis.clients</groupId>-->
-        <!--            <artifactId>jedis</artifactId>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>io.github.stylesmile</groupId>
+            <artifactId>fastboot-log</artifactId>
+        </dependency>
     </dependencies>
 </project>
