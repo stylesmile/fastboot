@@ -2,6 +2,7 @@ package io.github.stylesmile.mybatis;
 
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.core.incrementer.DefaultIdentifierGenerator;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
@@ -43,62 +44,43 @@ import java.util.jar.JarFile;
 public class MybatisPlusPlugin implements Plugin {
 
     private static SqlSession session;
+    private static SqlSessionFactory sqlSessionFactory;
 
     public static SqlSession getSession() {
         return session;
     }
 
+    protected static SqlSessionFactory getSqlSessionFactory() {
+        if (sqlSessionFactory != null) {
+            return sqlSessionFactory;
+        }
+        return null;
+    }
+    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
+    }
+
     @Override
     public void start() {
         FastbootUtil.addClass(MybatisPlusFilter.class);
+        FastbootUtil.addClass(FastModel.class);
         BeanFactory.addBeanClasses(Mapper.class);
     }
 
     @Override
     public void init() {
         Long startTime = System.currentTimeMillis();
-        SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-        //这是mybatis-plus的配置对象，对mybatis的Configuration进行增强
-        MybatisConfiguration configuration = new MybatisConfiguration();
-        //这是初始化配置，后面会添加这部分代码
-        initConfiguration(configuration);
-        //这是初始化连接器，如mybatis-plus的分页插件
-//        configuration.addInterceptor(initInterceptor());
-        //配置日志实现
-        configuration.setLogImpl(Slf4jImpl.class);
-        //扫描mapper接口所在包
-        String packageName = PropertyUtil.getProperty("mybatis-plus.scanPackage");
-        Set<Class> classSet = getMapperClass(packageName);
-        classSet.forEach(cls -> {
-            configuration.addMapper(cls);
-        });
-//        configuration.addMappers(packageName);
-        //构建mybatis-plus需要的globalconfig
-        GlobalConfig globalConfig = new GlobalConfig();
-        //此参数会自动生成实现baseMapper的基础方法映射
-        globalConfig.setSqlInjector(new DefaultSqlInjector());
-        //设置id生成器
-//        globalConfig.setIdentifierGenerator(new DefaultIdentifierGenerator());
-        //设置超类mapper
-        globalConfig.setSuperMapperClass(BaseMapper.class);
-        //给configuration注入GlobalConfig里面的配置
-        GlobalConfigUtils.setGlobalConfig(configuration, globalConfig);
-        //设置数据源
-        Environment environment = new Environment("1", new JdbcTransactionFactory(), initDataSource());
-        configuration.setEnvironment(environment);
-
-        try {
-            this.registryMapperXml(configuration, "mapper");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         //构建sqlSessionFactory
-        SqlSessionFactory sqlSessionFactory = builder.build(configuration);
+        ResultMybatisPlus result = getResultMybatisPlus();
+        SqlSessionFactory sqlSessionFactory = result.sqlSessionFactory;
+        setSqlSessionFactory(sqlSessionFactory);
+//        SqlHelper.FACTORY = sqlSessionFactory;
         // 添加bean
         BeanContainer.setInstance(SqlSessionFactory.class, sqlSessionFactory);
+        FastbootUtil.addClass(FastModel.class);
         //创建session
-        this.session = sqlSessionFactory.openSession();
-        classSet.forEach(cls -> {
+        this.session = result.sqlSessionFactory.openSession();
+        result.classSet.forEach(cls -> {
             Object bean = session.getMapper(cls);
             //注入bean容器
             BeanContainer.setInstance(cls, bean);
@@ -107,15 +89,26 @@ public class MybatisPlusPlugin implements Plugin {
         System.out.println("mybatis init time : " + (endTime - startTime) + "ms");
     }
 
+    private static class ResultMybatisPlus {
+        public final Set<Class> classSet;
+        public final SqlSessionFactory sqlSessionFactory;
+
+        public ResultMybatisPlus(Set<Class> classSet, SqlSessionFactory sqlSessionFactory) {
+            this.classSet = classSet;
+            this.sqlSessionFactory = sqlSessionFactory;
+        }
+    }
+
     @Override
     public void end() {
+        FastbootUtil.addClass(FastModel.class);
 
     }
 
     /**
      * 初始化配置
      */
-    private void initConfiguration(MybatisConfiguration configuration) {
+    private static void initConfiguration(MybatisConfiguration configuration) {
         //开启驼峰大小写转换
         configuration.setMapUnderscoreToCamelCase(true);
         //配置添加数据自动返回数据主键
@@ -197,7 +190,7 @@ public class MybatisPlusPlugin implements Plugin {
         }
     }
 
-    public Set<Class> getMapperClass(String packageName) {
+    public static Set<Class> getMapperClass(String packageName) {
         Set<Class> classSet = new HashSet<>();
         ResolverUtil<Class<?>> resolverUtil = new ResolverUtil();
         resolverUtil.find(new ResolverUtil.IsA(Object.class), packageName);
@@ -210,5 +203,47 @@ public class MybatisPlusPlugin implements Plugin {
             classSet.add(mapperClass);
         }
         return classSet;
+    }
+
+    private ResultMybatisPlus getResultMybatisPlus() {
+        SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+        //这是mybatis-plus的配置对象，对mybatis的Configuration进行增强
+        MybatisConfiguration configuration = new MybatisConfiguration();
+        //这是初始化配置，后面会添加这部分代码
+        initConfiguration(configuration);
+        //这是初始化连接器，如mybatis-plus的分页插件
+//        configuration.addInterceptor(initInterceptor());
+        //配置日志实现
+        configuration.setLogImpl(Slf4jImpl.class);
+        //扫描mapper接口所在包
+        String packageName = PropertyUtil.getProperty("mybatis-plus.scanPackage");
+        Set<Class> classSet = getMapperClass(packageName);
+        classSet.forEach(cls -> {
+            configuration.addMapper(cls);
+        });
+//        configuration.addMappers(packageName);
+        //构建mybatis-plus需要的globalconfig
+        GlobalConfig globalConfig = new GlobalConfig();
+        //此参数会自动生成实现baseMapper的基础方法映射
+        globalConfig.setSqlInjector(new DefaultSqlInjector());
+        //设置id生成器
+        globalConfig.setIdentifierGenerator(new DefaultIdentifierGenerator());
+        //设置超类mapper
+        globalConfig.setSuperMapperClass(BaseMapper.class);
+        //给configuration注入GlobalConfig里面的配置
+        GlobalConfigUtils.setGlobalConfig(configuration, globalConfig);
+        //设置数据源
+        Environment environment = new Environment("1", new JdbcTransactionFactory(), initDataSource());
+        configuration.setEnvironment(environment);
+
+        try {
+            this.registryMapperXml(configuration, "mapper");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        SqlSessionFactory sqlSessionFactory = builder.build(configuration);
+        ResultMybatisPlus result = new ResultMybatisPlus(classSet, sqlSessionFactory);
+        return result;
     }
 }
