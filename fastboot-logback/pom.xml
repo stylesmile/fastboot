@@ -14,7 +14,7 @@
     <artifactId>fastboot-logback</artifactId>
     <version>${fastboot.version}</version>
     <name>fastboot-logback</name>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <description>log for fastboot</description>
     <properties>
         <java.version>1.8</java.version>
