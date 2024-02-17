@@ -2,8 +2,12 @@ package io.github.stylesmile.handle;
 
 import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
+import io.github.stylesmile.annotation.RequestParam;
+import io.github.stylesmile.ioc.BeanContainer;
 import io.github.stylesmile.request.RequestMethod;
+import io.github.stylesmile.tool.StringUtil;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.List;
@@ -51,7 +55,27 @@ public class HandlerManager {
             RequestMethod requestMethod = method.getDeclaredAnnotation(RequestMapping.class).method();
             //获取形参上的RequestParam注解，拿取注解上定义的值
             // ArrayList<String> paramNameList = new ArrayList<>()
+
             Parameter[] parameters = method.getParameters();
+            for (int i = 0; i < parameters.length; i++) {
+                Parameter parameterOld = parameters[i];
+                if (parameterOld.isAnnotationPresent(RequestParam.class)) {
+                    String paraName = parameterOld.getDeclaredAnnotation(RequestParam.class).value();
+                    if (StringUtil.isNotEmpty(paraName)) {
+                        Field[] fields = Parameter.class.getDeclaredFields();
+                        for (Field field : fields) {
+                            //获取属性的类型
+                            field.setAccessible(true);
+                            //反射将对象设置到属性上
+                            try {
+                                field.set(parameterOld, paraName);
+                            } catch (IllegalAccessException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                }
+            }
             //参数集合转换为数组
             // String[] params = paramNameList.toArray(new String[paramNameList.size()])
             //参数收集完毕，构建一个MappingHandler
