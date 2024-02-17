@@ -64,9 +64,9 @@ public class JdkHttpContextHandler implements ContextHandler {
             //找到当前请求Url对应的Controller接口处理方法
             mappingHandler.handle(request, response);
             FilterManager.excuteAfterCompletion(request, response);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             Map<String, String> result = new HashMap<>();
-            result.put("message", e.getMessage());
+            result.put("message", e.getCause().getMessage());
             ResultUtil.sendJson(response, 500, result);
             e.printStackTrace();
             throw new RuntimeException(e);
