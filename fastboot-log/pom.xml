@@ -14,12 +14,17 @@
     <artifactId>fastboot-log</artifactId>
     <version>${fastboot.version}</version>
     <name>fastboot-log</name>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <description>log for fastboot</description>
     <dependencies>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.7.2</version>
         </dependency>
     </dependencies>
 </project>
