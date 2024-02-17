@@ -69,7 +69,6 @@ public class JdkHttpContextHandler implements ContextHandler {
             result.put("message", e.getCause().getMessage());
             ResultUtil.sendJson(response, 500, result);
             e.printStackTrace();
-            throw new RuntimeException(e);
         }
     }
 
