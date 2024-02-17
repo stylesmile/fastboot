@@ -128,3 +128,6 @@ public class Application {
 占用20m内存，启动时间仅需01秒（服务器是1核1g的虚拟机）
 <img src="./doc/image/index/fastboot-memory.png">
 <img src="./doc/image/index/fastboot-start-time.png">
+
+#### 开发遇到问题
+[问题解决](doc%2F%CE%CA%CC%E2%BD%E2%BE%F6.md)
