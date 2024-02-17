@@ -1,5 +1,9 @@
 ### 2.6.0
 
+mybatis ，mybatis-plus 集成及优化
+
+### 2.6.0
+
 application/json 相关优化
 
 ### 2.5.0
