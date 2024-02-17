@@ -23,6 +23,16 @@ public class JedisConfig {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
 //        jedisPoolConfig.setMaxIdle(maxIdle);
 //        jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
+        if(StringUtil.isEmpty(password)){
+            return new JedisPool(
+                    jedisPoolConfig,
+                    host,
+                    Integer.parseInt(port),
+                    Integer.parseInt(timeout),
+                    user,
+                    Integer.parseInt(db)
+            );
+        }
 
         return new JedisPool(
                 jedisPoolConfig,
