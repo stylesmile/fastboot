@@ -12,9 +12,6 @@ public class TestController {
     @AutoWired
     UserService userService;
 
-    @AutoWired
-    UserService2 userService2;
-
     @Value(value = "fast.name")
     private String name;
 
