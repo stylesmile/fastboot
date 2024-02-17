@@ -1,6 +1,7 @@
 package io.github.stylesmile.jedis;
 
 import io.github.stylesmile.ioc.BeanContainer;
+import io.github.stylesmile.tool.GsonByteUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
@@ -320,6 +321,114 @@ public class JedisTemplate {
     public boolean setExistMember(String key, String value) {
         try (Jedis jedis = getJedis()) {
             return jedis.sismember(key, value);
+        }
+    }
+
+    /**
+     * 从左边push
+     *
+     * @param key   键
+     * @param value 值
+     * @return long
+     */
+    public long lpush(String key, String value) {
+        try (Jedis jedis = getJedis()) {
+            return jedis.lpush(key, value);
+        }
+    }
+
+    /**
+     * 从左边边push
+     *
+     * @param key   键
+     * @param value 值
+     * @return long
+     */
+    public long lpush(String key, Object value) {
+        try (Jedis jedis = getJedis()) {
+            return jedis.lpush(GsonByteUtils.toByteArray(key), GsonByteUtils.toByteArray(value));
+        }
+    }
+
+    /**
+     * 从右边push
+     *
+     * @param key   键
+     * @param value 值
+     * @return long
+     */
+    public long rpush(String key, String value) {
+        try (Jedis jedis = getJedis()) {
+            return jedis.rpush(key, value);
+        }
+    }
+
+    /**
+     * 从右边push
+     *
+     * @param key   键
+     * @param value 值
+     * @return long
+     */
+    public long rpush(String key, Object value) {
+        try (Jedis jedis = getJedis()) {
+            return jedis.rpush(GsonByteUtils.toByteArray(key), GsonByteUtils.toByteArray(value));
+        }
+    }
+
+    /**
+     * 从左边拉 String
+     *
+     * @param key 键
+     * @return boolean
+     */
+    public String lpopString(String key) {
+        try (Jedis jedis = getJedis()) {
+            return jedis.lpop(key);
+        }
+    }
+
+    /**
+     * 从右边边拉String
+     *
+     * @param key 键
+     * @return boolean
+     */
+    public String rpopString(String key) {
+        try (Jedis jedis = getJedis()) {
+            return jedis.rpop(key);
+        }
+    }
+
+    /**
+     * 从左边拉 对象
+     *
+     * @param key   键
+     * @param clazz 值
+     * @return boolean
+     */
+    @SuppressWarnings("all")
+    public <T> T lpop(String key, Class clazz) {
+        try (Jedis jedis = getJedis()) {
+            return (T) GsonByteUtils.fromByteArray(
+                    jedis.lpop(GsonByteUtils.toByteArray(key)), clazz
+            );
+        }
+    }
+
+    /**
+     * 从右边拉 对象
+     *
+     * @param key   键
+     * @param value 值
+     * @return boolean
+     */
+    @SuppressWarnings("all")
+    public <T> T rpop(String key, Class clazz) {
+        try (Jedis jedis = getJedis()) {
+            return (T) GsonByteUtils.fromByteArray(
+                    jedis.rpop(GsonByteUtils.toByteArray(key)), clazz
+            );
         }
     }
 
