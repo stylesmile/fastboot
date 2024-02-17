@@ -8,9 +8,11 @@ import io.github.stylesmile.server.Context;
 import io.github.stylesmile.server.ContextHandler;
 import io.github.stylesmile.server.Request;
 import io.github.stylesmile.server.Response;
+import io.github.stylesmile.tool.ResultUtil;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JdkHttpContextHandler implements ContextHandler {
 
@@ -63,6 +65,9 @@ public class JdkHttpContextHandler implements ContextHandler {
             mappingHandler.handle(request, response);
             FilterManager.excuteAfterCompletion(request, response);
         } catch (Exception e) {
+            Map<String, String> result = new HashMap<>();
+            result.put("message", e.getMessage());
+            ResultUtil.sendJson(response, 500, result);
             e.printStackTrace();
             throw new RuntimeException(e);
         }
