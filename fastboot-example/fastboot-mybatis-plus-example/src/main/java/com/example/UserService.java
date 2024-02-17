@@ -3,12 +3,13 @@ package com.example;
 import com.example.mapper.UserMapper;
 import io.github.stylesmile.annotation.AutoWired;
 import io.github.stylesmile.annotation.Service;
+import io.github.stylesmile.mybatis.BaseService;
 
 import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService extends BaseService<UserMapper,User> {
     @AutoWired
     UserMapper userMapper;
 

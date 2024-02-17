@@ -33,16 +33,16 @@ public class TestController {
         return userService.insert();
     }
 
-    @RequestMapping("/4")
-    public List<User> hello4() {
-        return userService2.selectAll();
-    }
+//    @RequestMapping("/4")
+//    public List<User> hello4() {
+//        return userService2.selectAll();
+//    }
     @RequestMapping("/5")
     public Boolean hello5() {
         User user = new User();
         user.setAge(18);
         user.setName("Stylesmile"+System.currentTimeMillis());
-        boolean b = user.insert();
+        boolean b = userService.insert(user);
         System.out.println(b);
         return b;
     }
