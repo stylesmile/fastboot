@@ -22,7 +22,7 @@ public class OpenApi2Controller {
         SwaggerResourcesInfo resourcesInfo = new SwaggerResourcesInfo();
         resourcesInfo.setName("fastboot");
         resourcesInfo.setUrl("/v2/api-docs?group=????");
-        resourcesInfo.setSwaggerVersion("2.7.5");
+        resourcesInfo.setSwaggerVersion("2.7.6");
         resourcesInfo.setLocation("/v2/api-docs?group=????");
 //        return resourcesInfo;
         return "{\"configUrl\":\"/v3/api-docs/swagger-config\",\"oauth2RedirectUrl\":\"http://localhost:8082/swagger-ui/oauth2-redirect.html\",\"operationsSorter\":\"alpha\",\"tagsSorter\":\"alpha\",\"urls\":[{\"url\":\"/v3/api-docs/default\",\"name\":\"default\"}],\"validatorUrl\":\"\"}";

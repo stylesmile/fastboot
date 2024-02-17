@@ -5,10 +5,7 @@
 
 package com.example;
 
-import io.github.stylesmile.annotation.Controller;
-import io.github.stylesmile.annotation.Fastboot;
-import io.github.stylesmile.annotation.RequestBody;
-import io.github.stylesmile.annotation.RequestMapping;
+import io.github.stylesmile.annotation.*;
 import io.github.stylesmile.app.App;
 import io.github.stylesmile.file.UploadedFile;
 import io.github.stylesmile.ioc.Value;
@@ -85,6 +82,10 @@ public class Application {
     @RequestMapping("/8")
     public String test8(@RequestBody User user) throws IOException {
         return "username~" + user.getName() + "， password: " + user.getName();
+    }
+    @RequestMapping("/9")
+    public String test8(@RequestParam("username1") String username) throws IOException {
+        return "username~" + username ;
     }
 
 }
