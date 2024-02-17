@@ -244,8 +244,8 @@ public class MappingHandler {
                     System.err.println(e);
                     throw new RuntimeException("The parameter format is incorrect");
                 }
-
             }
+            parameters2.add(o);
         }
     }
 
