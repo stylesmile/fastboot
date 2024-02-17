@@ -1,4 +1,4 @@
-### 2.6.0
+### 2.7.0
 
 mybatis ，mybatis-plus 集成及优化
 
