@@ -208,7 +208,7 @@ public  class FastModel <T> implements Serializable {
     }
 
     protected SqlSession sqlSession() {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         return sqlSessionFactory.openSession();
 
     }

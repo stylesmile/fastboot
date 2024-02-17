@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class BaseService<M extends BaseMapper<T>, T> {
     public boolean insert(T t) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         boolean b = false;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             b = getMapper(session).insert(t) > 0;
@@ -26,7 +26,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public boolean deleteById(Serializable id) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         boolean b = false;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             b = getMapper(session).deleteById(id) > 0;
@@ -36,7 +36,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public boolean deleteById(T t) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         boolean b = false;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             b = getMapper(session).deleteById(t) > 0;
@@ -46,7 +46,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public boolean deleteByMap(Map<String, Object> columnMap) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         boolean b = false;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             b = getMapper(session).deleteByMap(columnMap) > 0;
@@ -57,7 +57,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
 
 
     public boolean delete(Wrapper wrapper) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         boolean b = false;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             b = getMapper(session).delete(wrapper) > 0;
@@ -67,7 +67,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public boolean deleteBatchIds(Collection<?> idList) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         boolean b = false;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             b = getMapper(session).deleteBatchIds(idList) > 0;
@@ -77,7 +77,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public boolean updateById(T t) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         boolean b = false;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             b = getMapper(session).updateById(t) > 0;
@@ -87,7 +87,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public boolean update(T t, Wrapper wrapper) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         boolean b = false;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             b = getMapper(session).update(t, wrapper) > 0;
@@ -97,7 +97,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public boolean update(Wrapper wrapper) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         boolean b = false;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             b = getMapper(session).update(wrapper) > 0;
@@ -107,7 +107,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public T selectById(Serializable id) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         T t = null;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             t = (T) getMapper(session).selectById(id);
@@ -117,7 +117,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public List<T> selectBatchIds(Collection<? extends Serializable> idList) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         List<T> t = null;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             t = getMapper(session).selectBatchIds(idList);
@@ -126,7 +126,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public void selectBatchIds(Collection<? extends Serializable> idList, ResultHandler<T> resultHandler) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         List<T> t = null;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             getMapper(session).selectBatchIds(idList, resultHandler);
@@ -134,7 +134,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public T selectById(Wrapper wrapper) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         T t = null;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             t = (T) getMapper(session).selectById(wrapper);
@@ -144,7 +144,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public List<T> selectByMap(Map<String, Object> columnMap) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         List<T> t = null;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             t = getMapper(session).selectByMap(columnMap);
@@ -154,7 +154,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public void selectByMap(Map<String, Object> columnMap, ResultHandler<T> resultHandler) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         try (SqlSession session = sqlSessionFactory.openSession()) {
             getMapper(session).selectByMap(columnMap, resultHandler);
             session.commit();
@@ -162,7 +162,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public T selectOne(Wrapper<T> queryWrapper) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         T t = null;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             t = getMapper(session).selectOne(queryWrapper);
@@ -172,7 +172,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public T selectOne(Wrapper<T> queryWrapper, boolean throwEx) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         T t = null;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             t = getMapper(session).selectOne(queryWrapper, throwEx);
@@ -182,7 +182,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public boolean exists(Wrapper<T> queryWrapper) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         boolean t = false;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             t = getMapper(session).exists(queryWrapper);
@@ -192,7 +192,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public long selectCount(Wrapper wrapper) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         long t = 0;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             t = getMapper(session).selectCount(wrapper);
@@ -201,7 +201,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public List<T> selectList(Wrapper<T> wrapper) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         List<T> t = null;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             t = getMapper(session).selectList(wrapper);
@@ -210,14 +210,14 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public void selectList(Wrapper wrapper, ResultHandler<T> resultHandler) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         try (SqlSession session = sqlSessionFactory.openSession()) {
             getMapper(session).selectList(wrapper, resultHandler);
         }
     }
 
     public List<T> selectList(IPage<T> page, Wrapper wrapper) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         List<T> t = null;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             t = getMapper(session).selectList(page, wrapper);
@@ -226,14 +226,14 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public void selectList(IPage<T> page, Wrapper<T> wrapper, ResultHandler<T> resultHandler) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         try (SqlSession session = sqlSessionFactory.openSession()) {
             getMapper(session).selectList(page, wrapper, resultHandler);
         }
     }
 
     public List<Map<String, Object>> selectMaps(Wrapper<T> wrapper) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         List<Map<String, Object>> t = null;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             t = getMapper(session).selectMaps(wrapper);
@@ -242,14 +242,14 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public void selectMaps(Wrapper<T> wrapper, ResultHandler<Map<String, Object>> resultHandler) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         try (SqlSession session = sqlSessionFactory.openSession()) {
             getMapper(session).selectMaps(wrapper, resultHandler);
         }
     }
 
     public List<Map<String, Object>> selectMaps(IPage<? extends Map<String, Object>> page, Wrapper<T> wrapper) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         List<Map<String, Object>> t = null;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             t = getMapper(session).selectMaps(page, wrapper);
@@ -258,14 +258,14 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     public void selectMaps(IPage<? extends Map<String, Object>> page, Wrapper<T> wrapper, ResultHandler<Map<String, Object>> resultHandler) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         try (SqlSession session = sqlSessionFactory.openSession()) {
             getMapper(session).selectMaps(page, wrapper, resultHandler);
         }
     }
 
     public <E> List<E> selectObjs(Wrapper<T> wrapper) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         List<E> t = null;
         try (SqlSession session = sqlSessionFactory.openSession()) {
             t = getMapper(session).selectObjs(wrapper);
@@ -274,7 +274,7 @@ public class BaseService<M extends BaseMapper<T>, T> {
     }
 
     void selectObjs(Wrapper<T> wrapper, ResultHandler<Map<String, Object>> resultHandler) {
-        SqlSessionFactory sqlSessionFactory = FastbootMybatisPlusUtil.getSqlSessionFactory();
+        SqlSessionFactory sqlSessionFactory = MybatisPlusUtil.getSqlSessionFactory();
         try (SqlSession session = sqlSessionFactory.openSession()) {
             getMapper(session).selectObjs(wrapper, resultHandler);
         }
