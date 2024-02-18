@@ -7,6 +7,9 @@ import io.github.stylesmile.ioc.Value;
 import io.github.stylesmile.jedis.JedisTemplate;
 import redis.clients.jedis.Jedis;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 public class TestController {
 
@@ -19,7 +22,7 @@ public class TestController {
     @Value(value = "fast.name")
     private String name;
 
-    @RequestMapping("/")
+    @RequestMapping("/0")
     public String hello() {
         jedis.set("test", "hello");
         return jedis.get("test");
@@ -37,6 +40,20 @@ public class TestController {
     @RequestMapping("/2")
     public String hello2() {
         return jedis.get("test");
+    }
+
+    @RequestMapping("/3")
+    public String hello3() {
+        jedisTemplate.rpush("trusteeship", "test");
+        return jedisTemplate.rpopString("trusteeship");
+    }
+
+    @RequestMapping("/4")
+    public Map hello4() {
+        Map map = new HashMap<>();
+        map.put("test",1);
+        jedisTemplate.rpush("testrpush", map);
+        return jedisTemplate.rpop("testrpush",Map.class);
     }
 
 }
