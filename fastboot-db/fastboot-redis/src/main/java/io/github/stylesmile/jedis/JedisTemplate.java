@@ -357,7 +357,7 @@ public class JedisTemplate {
      * @param value 值
      * @return long
      */
-    public long rpush(String key, String value) {
+    public long rpushString(String key, String value) {
         try (Jedis jedis = getJedis()) {
             return jedis.rpush(key, value);
         }
