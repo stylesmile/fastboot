@@ -59,22 +59,22 @@ public class HandlerManager {
             Parameter[] parameters = method.getParameters();
             for (int i = 0; i < parameters.length; i++) {
                 Parameter parameterOld = parameters[i];
-                if (parameterOld.isAnnotationPresent(RequestParam.class)) {
-                    String paraName = parameterOld.getDeclaredAnnotation(RequestParam.class).value();
-                    if (StringUtil.isNotEmpty(paraName)) {
-                        Field[] fields = Parameter.class.getDeclaredFields();
-                        for (Field field : fields) {
-                            //获取属性的类型
-                            field.setAccessible(true);
-                            //反射将对象设置到属性上
-                            try {
-                                field.set(parameterOld, paraName);
-                            } catch (IllegalAccessException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    }
-                }
+//                if (parameterOld.isAnnotationPresent(RequestParam.class)) {
+//                    String paraName = parameterOld.getDeclaredAnnotation(RequestParam.class).value();
+//                    if (StringUtil.isNotEmpty(paraName)) {
+//                        Field[] fields = Parameter.class.getDeclaredFields();
+//                        for (Field field : fields) {
+//                            //获取属性的类型
+//                            field.setAccessible(true);
+//                            //反射将对象设置到属性上
+//                            try {
+//                                field.set(parameterOld, paraName);
+//                            } catch (IllegalAccessException e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                        }
+//                    }
+//                }
             }
             //参数集合转换为数组
             // String[] params = paramNameList.toArray(new String[paramNameList.size()])
