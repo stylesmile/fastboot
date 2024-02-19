@@ -344,7 +344,7 @@ public class JedisTemplate {
      * @param value 值
      * @return long
      */
-    public long lpush(String key, Object value) {
+    public long lpushSerializeData(String key, Object value) {
         try (Jedis jedis = getJedis()) {
             return jedis.lpush(GsonByteUtils.toByteArray(key), GsonByteUtils.toByteArray(value));
         }
@@ -370,7 +370,7 @@ public class JedisTemplate {
      * @param value 值
      * @return long
      */
-    public long rpush(String key, Object value) {
+    public long rpushSerializeData(String key, Object value) {
         try (Jedis jedis = getJedis()) {
             return jedis.rpush(GsonByteUtils.toByteArray(key), GsonByteUtils.toByteArray(value));
         }
@@ -408,11 +408,13 @@ public class JedisTemplate {
      * @return boolean
      */
     @SuppressWarnings("all")
-    public <T> T lpop(String key, Class clazz) {
+    public <T> T lpopSerializeData(String key, Class clazz) {
         try (Jedis jedis = getJedis()) {
-            return (T) GsonByteUtils.fromByteArray(
-                    jedis.lpop(GsonByteUtils.toByteArray(key)), clazz
-            );
+            byte[] bs = jedis.lpop(GsonByteUtils.toByteArray(key));
+            if (bs == null) {
+                return null;
+            }
+            return (T) GsonByteUtils.fromByteArray(bs, clazz);
         }
     }
 
@@ -424,11 +426,13 @@ public class JedisTemplate {
      * @return boolean
      */
     @SuppressWarnings("all")
-    public <T> T rpop(String key, Class clazz) {
+    public <T> T rpopSerializeData(String key, Class clazz) {
         try (Jedis jedis = getJedis()) {
-            return (T) GsonByteUtils.fromByteArray(
-                    jedis.rpop(GsonByteUtils.toByteArray(key)), clazz
-            );
+            byte[] bs = jedis.rpop(GsonByteUtils.toByteArray(key));
+            if (bs == null) {
+                return null;
+            }
+            return (T) GsonByteUtils.fromByteArray(bs, clazz);
         }
     }
 
