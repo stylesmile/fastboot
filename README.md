@@ -52,7 +52,7 @@ Implement the landing and management of the overall platform
 
 #### [Quickly start Docker deployment fastboot](doc/应用开发手册/docker/docker部署简单应用.md)
 
-#### [Quickly start local mirroring of graalvm](doc/应用开发手册/graalvm/graalvm部署打包本地镜像.md)
+#### [Quickly start native image of graalvm](doc/应用开发手册/graalvm/graalvm部署打包本地镜像.md)
 
 #### [Quickly start about mybatis](doc/db/1.fastboot-mybatis.md)
 
