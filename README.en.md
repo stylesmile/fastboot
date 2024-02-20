@@ -1,37 +1,132 @@
-# java_write_frame
+# Introduction
 
-#### Description
+a Extremely fast Java web framework, with a startup speed 20 times faster than commonly used frameworks, one-fifth memory usage, less than 0.1 seconds startup, and a minimum memory usage of 20-30m
+# 项目愿景
 
-java手写各种框架的demo
+java领域最佳云原生解决方案。
 
-#### Software Architecture
+# 个人愿景
 
-Software architecture description
+* 需要的是一个平台，在这个平台上面，不断沉淀自己，毕竟每天都在学习东西，接触新的技术点
 
-#### Installation
+* 有方向感，不迷茫，不浪费时间，有可行的学习计划
+* 在工作和学习过得中不断积累和提高学习效率
+* 可以总结和反思，过程可以不断的打磨出一个平台，一个产品或者一个精品
+* 希望自己写这个项目的过程技术越来越好
 
-1. xxxx
-2. xxxx
-3. xxxx
 
-#### Instructions
+* 也是 quarkus 太重,自己就写了易用一个轻量级框架。
 
-1. xxxx
-2. xxxx
-3. xxxx
+## 支持说明
 
-#### Contribution
+为了可以更好的开源和支撑，以下为提供的技术支持，协助企业快速云原生化平台化和中台化
 
-1. Fork the repository
-2. Create Feat_xxx branch
-3. Commit your code
-4. Create Pull Request
+* 企业DevOps技术平台搭建和落地指导
+* 企业自动化和持续集成体系支持
+* 企业云原生化中台化和平台化架构规划和设计指导
+* 企业过程技术答疑和技术指导
+* 如需技术支持，请关注公众号加我微信沟通：
 
-#### Gitee Feature
+<img src="./doc/image/index/java_zhilu_gongzonghao.png">
 
-1. You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2. Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3. Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4. The most valuable open source project [GVP](https://gitee.com/gvp)
-5. The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6. The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+### 云原生概念
+
+#### [云原生是什么](doc/云原生/云原生是什么.md)
+
+#### [如何云原生](doc/云原生/如何云原生.md)
+
+### devOps架构
+
+基础 DevOps 技术体
+<img src="./doc/image/index/fastboot-devOps.png">
+
+### 整体架构支撑
+
+整体架构支撑是为了整体平台的流程，从管理、开发、测试、运维、生产几条线，
+实现整体平台的落地和管理
+<img src="./doc/image/index/tech_design.png">
+
+#### [快速开始详细文档](doc/1.fastboot-start.md)
+
+#### [快速开始 k8s部署fastboot](doc/云原生/Kubernetes/k8s部署简单fastboot.md)
+
+#### [快速开始 docker部署fastboot](doc/应用开发手册/docker/docker部署简单应用.md)
+
+#### [快速开始 graalvm本地镜像](doc/应用开发手册/graalvm/graalvm部署打包本地镜像.md)
+
+#### [快速开始 mybatis](doc/db/1.fastboot-mybatis.md)
+
+#### [快速开始 redis](doc/db/2.fastboot-redis.md)
+
+#### [快速开始 mongodb](doc/db/3.fastboot-mongodb.md)
+
+#### [快速开始 beetlsql](doc/db/4.fastboot-beetlsql.md)
+#### [快速开始 模板引擎 enjoy](fastboot-example%2Ffastboot-enjoy-example%2Fpom.xml)
+
+应用开发手册：[访问](doc/应用开发手册/应用开发手册.md)
+
+##### 快速开始 [example](fastboot-example/fastboot-web-example)
+
+### 开发规范
+
+#### [1.java编码的基本规范](doc/应用开发手册/开发规范/1.java编码的基本规范.md)
+
+#### [2.mysql规范.md](doc/应用开发手册/开发规范/2.mysql规范.md)
+
+#### [3.redis规范.md](doc/应用开发手册/开发规范/3.redis规范.md)
+
+```maven
+<parent>
+    <groupId>io.github.stylesmile</groupId>
+    <artifactId>fastboot-parent</artifactId>
+    <version>2.7.8</version>
+</parent>
+```
+
+```maven
+<dependency>
+    <groupId>io.github.stylesmile</groupId>
+    <artifactId>fastboot-web</artifactId>
+</dependency>
+```
+
+##### 如果你管理依赖用的gradle[参考gradle配置](doc/1.fastboot-start-gradle.md)
+
+```java
+
+import io.github.stylesmile.annotation.Controller;
+import io.github.stylesmile.annotation.RequestMapping;
+import io.github.stylesmile.app.App;
+
+@Controller
+public class Application {
+    public static void main(String[] args) {
+        App.start(Application.class, args);
+    }
+
+    @RequestMapping("/")
+    public String hello() {
+        return "hello fastboot";
+    }
+}
+```
+
+#### 发布最新版后，其他各个镜像仓库可能过好几天才同步镜像，可以用maven官方仓库原仓库下载
+
+```maven
+<repository>
+    <id>maven1</id>
+    <url>https://repo1.maven.org/maven2/</url>
+</repository>        
+<repository>
+    <id>maven1</id>
+    <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
+</repository>
+```
+
+占用20m内存，启动时间仅需01秒（服务器是1核1g的虚拟机）
+<img src="./doc/image/index/fastboot-memory.png">
+<img src="./doc/image/index/fastboot-start-time.png">
+
+#### 开发遇到问题
+[问题解决](doc%2F%CE%CA%CC%E2%BD%E2%BE%F6.md)
