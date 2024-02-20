@@ -8,15 +8,11 @@ The best cloud native solution in the Java field.
 
 # Personal Vision
 
-* 需要的是一个平台，在这个平台上面，不断沉淀自己，毕竟每天都在学习东西，接触新的技术点
-
-* 有方向感，不迷茫，不浪费时间，有可行的学习计划
-* 在工作和学习过得中不断积累和提高学习效率
-* 可以总结和反思，过程可以不断的打磨出一个平台，一个产品或者一个精品
-* 希望自己写这个项目的过程技术越来越好
-
-
-* 也是 quarkus 太重,自己就写了易用一个轻量级框架。
+* What is needed is a platform, on which one can constantly cultivate oneself, after all, learning things and being exposed to new technological points every day
+* Has a sense of direction, is not confused, does not waste time, and has a feasible learning plan
+* Continuously accumulate and improve learning efficiency through work and study experience
+* It can be summarized and reflected on, and the process can be continuously polished to create a platform, a product, or a masterpiece
+* I hope to improve my process skills in writing this project
 
 ## 支持说明
 
