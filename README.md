@@ -61,7 +61,10 @@ Implement the landing and management of the overall platform
 #### [Quickly start about mongodb](doc/db/3.fastboot-mongodb.md)
 
 #### [Quickly start about beetlsql](doc/db/4.fastboot-beetlsql.md)
+
 #### [Quickly start about template engine enjoy](fastboot-example%2Ffastboot-enjoy-example%2Fpom.xml)
+
+#### [Quickly start about login ](fastboot-example%2Ffastboot-enjoy-example%2Fpom.xml)
 
 Application Development Manual：[visit](doc/应用开发手册/应用开发手册.md)
 
@@ -79,7 +82,7 @@ Application Development Manual：[visit](doc/应用开发手册/应用开发手�
 <parent>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>2.7.8</version>
+    <version>2.8.0</version>
 </parent>
 ```
 
