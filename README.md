@@ -1,29 +1,28 @@
-# 项目介绍
+# Introduction
 
-极速的java web 框架，比起常用框架，启动速度提高20倍，五分之一内存占用，启动不到0.1秒，20-30m最小内存占用
+a Extremely fast Java web framework, with a startup speed 20 times faster than commonly used frameworks, one-fifth memory usage, less than 0.1 seconds startup, and a minimum memory usage of 20-30m
 
-# 项目愿景
+# Project Vision
 
-java领域最佳云原生解决方案。
+The best cloud native solution in the Java field.
 
-# 个人愿景
+# Personal Vision
 
-* 需要的是一个平台，在这个平台上面，不断沉淀自己，毕竟每天都在学习东西，接触新的技术点
+* What is needed is a platform, on which one can constantly cultivate oneself, after all, learning things and being exposed to new technological points every day
+* Has a sense of direction, is not confused, does not waste time, and has a feasible learning plan
+* Continuously accumulate and improve learning efficiency through work and study experience
+* It can be summarized and reflected on, and the process can be continuously polished to create a platform, a product, or a masterpiece
+* I hope to improve my process skills in writing this project
 
-* 有方向感，不迷茫，不浪费时间，有可行的学习计划
-* 在工作和学习过得中不断积累和提高学习效率
-* 可以总结和反思，过程可以不断的打磨出一个平台，一个产品或者一个精品
-* 希望自己写这个项目的过程技术越来越好
+## Support Description
 
-## 支持说明
+In order to better open source and support, the following technical support is provided to assist enterprises in quickly realizing cloud based bio platform and platform integration
 
-为了可以更好的开源和支撑，以下为提供的技术支持，协助企业快速云原生化平台化和中台化
-
-* 企业DevOps技术平台搭建和落地指导
-* 企业自动化和持续集成体系支持
-* 企业云原生化中台化和平台化架构规划和设计指导
-* 企业过程技术答疑和技术指导
-* 如需技术支持，请关注公众号加我微信沟通：
+* Construction and Implementation Guidelines for Enterprise DevOps Technology Platform
+* Enterprise automation and continuous integration system support
+* Planning and design guidance for the architecture of enterprise cloud original biochemistry in Taiwan and Taiwan
+* Enterprise Process Technology Q&A and Technical Guidance
+* If you need technical support or group communication, please follow the official account and WeChat communication:
 
 <img src="./doc/image/index/java_zhilu_gongzonghao.png">
 
