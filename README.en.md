@@ -1,11 +1,12 @@
 # Introduction
 
 a Extremely fast Java web framework, with a startup speed 20 times faster than commonly used frameworks, one-fifth memory usage, less than 0.1 seconds startup, and a minimum memory usage of 20-30m
-# 项目愿景
 
-java领域最佳云原生解决方案。
+# Project Vision
 
-# 个人愿景
+The best cloud native solution in the Java field.
+
+# Personal Vision
 
 * 需要的是一个平台，在这个平台上面，不断沉淀自己，毕竟每天都在学习东西，接触新的技术点
 
