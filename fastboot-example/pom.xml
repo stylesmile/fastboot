@@ -12,7 +12,6 @@
 
     <modules>
         <module>fastboot-web-example</module>
-        <module>fastboot-web-login-example</module>
         <module>fastboot-redis-example</module>
         <module>fastboot-mybatis-example</module>
         <module>fastboot-mybatis-plus-example</module>
