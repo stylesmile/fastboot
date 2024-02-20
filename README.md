@@ -28,51 +28,52 @@ In order to better open source and support, the following technical support is p
 
 <img src="./doc/image/index/java_zhilu_gongzonghao.png">
 
-### 云原生概念
+### Cloud native concept
 
-#### [云原生是什么](doc/云原生/云原生是什么.md)
+#### [What is cloud native](doc/云原生/云原生是什么.md)
 
-#### [如何云原生](doc/云原生/如何云原生.md)
+#### [How to cloud native](doc/云原生/如何云原生.md)
 
-### devOps架构
+### Basic DevOps Technology Body
 
-基础 DevOps 技术体
+
 <img src="./doc/image/index/fastboot-devOps.png">
 
-### 整体架构支撑
+### Overall architecture support
 
-整体架构支撑是为了整体平台的流程，从管理、开发、测试、运维、生产几条线，
-实现整体平台的落地和管理
+The overall architecture support is for the overall platform process, covering management, development, testing, operation and maintenance, and production lines,
+
+Implement the landing and management of the overall platform
 <img src="./doc/image/index/tech_design.png">
 
-#### [快速开始详细文档](doc/1.fastboot-start.md)
+#### [Quickly start detailed documentation](doc/1.fastboot-start.md)
 
-#### [快速开始 k8s部署fastboot](doc/云原生/Kubernetes/k8s部署简单fastboot.md)
+#### [Quickly start k8s deployment for fastbost (base rainbond)](doc/云原生/Kubernetes/k8s部署简单fastboot.md)
 
-#### [快速开始 docker部署fastboot](doc/应用开发手册/docker/docker部署简单应用.md)
+#### [Quickly start Docker deployment fastboot](doc/应用开发手册/docker/docker部署简单应用.md)
 
-#### [快速开始 graalvm本地镜像](doc/应用开发手册/graalvm/graalvm部署打包本地镜像.md)
+#### [Quickly start local mirroring of graalvm](doc/应用开发手册/graalvm/graalvm部署打包本地镜像.md)
 
-#### [快速开始 mybatis](doc/db/1.fastboot-mybatis.md)
+#### [Quickly start about mybatis](doc/db/1.fastboot-mybatis.md)
 
-#### [快速开始 redis](doc/db/2.fastboot-redis.md)
+#### [Quickly start about redis](doc/db/2.fastboot-redis.md)
 
-#### [快速开始 mongodb](doc/db/3.fastboot-mongodb.md)
+#### [Quickly start about mongodb](doc/db/3.fastboot-mongodb.md)
 
-#### [快速开始 beetlsql](doc/db/4.fastboot-beetlsql.md)
-#### [快速开始 模板引擎 enjoy](fastboot-example%2Ffastboot-enjoy-example%2Fpom.xml)
+#### [Quickly start about beetlsql](doc/db/4.fastboot-beetlsql.md)
+#### [Quickly start about template engine enjoy](fastboot-example%2Ffastboot-enjoy-example%2Fpom.xml)
 
-应用开发手册：[访问](doc/应用开发手册/应用开发手册.md)
+Application Development Manual：[visit](doc/应用开发手册/应用开发手册.md)
 
-##### 快速开始 [example](fastboot-example/fastboot-web-example)
+##### Quickly start [example](fastboot-example/fastboot-web-example)
 
-### 开发规范
+### Development specifications
 
-#### [1.java编码的基本规范](doc/应用开发手册/开发规范/1.java编码的基本规范.md)
+#### [1.Basic specifications for Java coding](doc/应用开发手册/开发规范/1.java编码的基本规范.md)
 
-#### [2.mysql规范.md](doc/应用开发手册/开发规范/2.mysql规范.md)
+#### [2.specifications](doc/应用开发手册/开发规范/2.mysql规范.md)
 
-#### [3.redis规范.md](doc/应用开发手册/开发规范/3.redis规范.md)
+#### [3.redisspecifications](doc/应用开发手册/开发规范/3.redis规范.md)
 
 ```maven
 <parent>
@@ -89,7 +90,8 @@ In order to better open source and support, the following technical support is p
 </dependency>
 ```
 
-##### 如果你管理依赖用的gradle[参考gradle配置](doc/1.fastboot-start-gradle.md)
+##### If you manage the gradle used for dependency
+[Refer to Gradle configuration](doc/1.fastboot-start-gradle.md)
 
 ```java
 
@@ -110,22 +112,19 @@ public class Application {
 }
 ```
 
-#### 发布最新版后，其他各个镜像仓库可能过好几天才同步镜像，可以用maven官方仓库原仓库下载
+#### After the latest version is released, it may take several days for other image repositories to synchronize the images, which can be downloaded from the original Maven official repository
 
 ```maven
 <repository>
     <id>maven1</id>
     <url>https://repo1.maven.org/maven2/</url>
 </repository>        
-<repository>
-    <id>maven1</id>
-    <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
-</repository>
 ```
 
-占用20m内存，启动时间仅需01秒（服务器是1核1g的虚拟机）
+
+20 m of memory occupied, with a startup time of only 01 seconds (the server is a 1-core 1g virtual machine)
 <img src="./doc/image/index/fastboot-memory.png">
 <img src="./doc/image/index/fastboot-start-time.png">
 
-#### 开发遇到问题
-[问题解决](doc%2F%CE%CA%CC%E2%BD%E2%BE%F6.md)
+#### Development encountered issues
+[Problem Solving List](doc%2F%CE%CA%CC%E2%BD%E2%BE%F6.md)
