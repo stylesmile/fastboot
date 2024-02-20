@@ -1,4 +1,4 @@
-### [中文版](README.cn.md) | [英文版](README.md)
+### [中文版](README.cn.md) | [English](README.md)
 
 # Introduction
 
