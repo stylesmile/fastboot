@@ -20,6 +20,15 @@ public class WebsocketUtil {
     }
 
     /**
+     * 绑定用户
+     *
+     * @param channelContext 上下文
+     */
+    public static void remove(ChannelContext channelContext) {
+        Tio.remove(channelContext, "receive close flag");
+    }
+
+    /**
      * 发送个人消息
      *
      * @param tioConfig 配置
