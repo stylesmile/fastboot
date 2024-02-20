@@ -16,14 +16,26 @@
     <modules>
         <module>fastboot-enjoy</module>
         <module>fastboot-staticfile</module>
+        <module>fastboot-websocket</module>
     </modules>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>io.github.stylesmile</groupId>
+                <artifactId>fastboot-websocket</artifactId>
+                <version>${fastboot.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.ibeetl</groupId>
                 <artifactId>beetlsql</artifactId>
                 <version>3.15.1-RELEASE</version>
             </dependency>
+            <dependency>
+                <groupId>org.t-io</groupId>
+                <artifactId>tio-websocket-server</artifactId>
+                <version>3.7.4.v20210808-RELEASE</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <description>fastboot-web-parent project for Fast Boot</description>
