@@ -70,6 +70,16 @@
             </dependency>
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
+                <artifactId>fastboot-websocket</artifactId>
+                <version>${fastboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.stylesmile</groupId>
+                <artifactId>fastboot-web-parent</artifactId>
+                <version>${fastboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.stylesmile</groupId>
                 <artifactId>fastboot-enjoy</artifactId>
                 <version>${fastboot.version}</version>
             </dependency>
@@ -130,7 +140,7 @@
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.4.14</version>
+                <version>1.3.14</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
