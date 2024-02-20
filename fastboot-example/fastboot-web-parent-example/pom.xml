@@ -18,5 +18,6 @@
     <description>Demo project parent for Spring Boot</description>
     <modules>
         <module>fastboot-websocket-example</module>
+        <module>fastboot-web-login-example</module>
     </modules>
 </project>
