@@ -33,5 +33,9 @@
             <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-websocket</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.github.stylesmile</groupId>
+            <artifactId>fastboot-logback</artifactId>
+        </dependency>
     </dependencies>
 </project>
