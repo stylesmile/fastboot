@@ -78,15 +78,7 @@ public class MappingHandler {
      * @throws IOException               异常
      */
     public boolean handle(Request request, Response response) throws Exception {
-        //获取请求路径
-        String url = request.getPath();
-        //不是当前的Controller处理，直接返回
-        if (!url.equals(uri)) {
-            return false;
-        }
-
         //是当前Controller要处理的，准备方法参数，从Request对象中获取，获取到的值给反射调用
-
         Map<String, Object> parameterMap = new HashMap<>();
         //解析get参数
         ParseParameterJlHttpServer.parseGetParameters(request, parameterMap);

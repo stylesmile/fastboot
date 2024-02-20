@@ -2,12 +2,8 @@ package io.github.stylesmile.handle;
 
 import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
-import io.github.stylesmile.annotation.RequestParam;
-import io.github.stylesmile.ioc.BeanContainer;
 import io.github.stylesmile.request.RequestMethod;
-import io.github.stylesmile.tool.StringUtil;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.List;
@@ -91,7 +87,16 @@ public class HandlerManager {
     }
 
     public static MappingHandler getMappingHandler(String uri) {
-        return mappingHandlerList.get(uri);
+        MappingHandler mappingHandler = mappingHandlerList.get(uri);
+        if (mappingHandler != null) {
+            return mappingHandler;
+        } else {
+            if (uri.equals("/index.html")) {
+                mappingHandler = mappingHandlerList.get("/");
+                return mappingHandler;
+            }
+        }
+        return null;
     }
 
     public static Map<String, MappingHandler> getAllMappingHandler() {
