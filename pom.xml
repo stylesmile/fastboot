@@ -253,36 +253,41 @@
                     <name>snapshots</name>
                     <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
                 </snapshotRepository>
-                <repository>
-                    <uniqueVersion>false</uniqueVersion>
-                    <id>ossrh</id>
-                    <name>releases</name>
-                    <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
+<!--                <repository>-->
+<!--                    <uniqueVersion>false</uniqueVersion>-->
+<!--                    <id>ossrh</id>-->
+<!--                    <name>releases</name>-->
+<!--                    <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+<!--                </repository>-->
             </distributionManagement>
         </profile>
 
     </profiles>
     <repositories>
+<!--        <repository>-->
+<!--            <id>sonatype-snapshots</id>-->
+<!--            <name>snapshots</name>-->
+<!--            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>-->
+<!--        </repository>-->
+<!--        <repository>-->
+<!--            <id>sonatype-releases</id>-->
+<!--            <name>snapshots</name>-->
+<!--            <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>-->
+<!--        </repository>-->
         <repository>
-            <id>sonatype-snapshots</id>
-            <name>snapshots</name>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+            <id>ali</id>
+            <url>https://maven.aliyun.com/repository/public</url>
         </repository>
         <repository>
-            <id>sonatype-releases</id>
-            <name>snapshots</name>
-            <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
+            <id>maven1</id>
+            <url>https://repo1.maven.org/maven2/</url>
         </repository>
         <repository>
             <id>central</id>
             <name>Central Repository</name>
             <url>https://repo2.maven.org/maven2/</url>
         </repository>
-        <repository>
-            <id>ali</id>
-            <url>https://maven.aliyun.com/repository/public</url>
-        </repository>
+
     </repositories>
     <pluginRepositories>
         <pluginRepository>
