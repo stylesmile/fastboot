@@ -46,9 +46,8 @@ The overall architecture support is for the overall platform process, covering m
 Implement the landing and management of the overall platform
 <img src="./doc/image/index/tech_design.png">
 
-IM system based on fastboot -> fastboot-im
-
-https://gitee.com/stylesmile/fastboot-im.git
+* IM system based on fastboot -> fastboot-im  
+https://gitee.com/stylesmile/fastboot-im.git  
 https://github.com/stylesmile/fastboot-im.git
 
 #### [Quickly start detailed documentation](doc/1.fastboot-start.md)
