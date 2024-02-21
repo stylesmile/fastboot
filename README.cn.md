@@ -46,7 +46,7 @@ java领域最佳云原生解决方案。
 实现整体平台的落地和管理
 <img src="./doc/image/index/tech_design.png">
 #### 系统推荐 
-* 基于fastboot的im系统 -> fastboot-im  
+* 基于fastboot的im聊天系统 -> fastboot-im  
 https://gitee.com/stylesmile/fastboot-im.git  
 https://github.com/stylesmile/fastboot-im.git
 #### [快速开始详细文档](doc/1.fastboot-start.md)
