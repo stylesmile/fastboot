@@ -49,7 +49,7 @@ Implement the landing and management of the overall platform
 IM system based on fastboot -> fastboot-im
 
 https://gitee.com/stylesmile/fastboot-im.git
-https://gitee.com/stylesmile/fastboot-im.git
+https://github.com/stylesmile/fastboot-im.git
 
 #### [Quickly start detailed documentation](doc/1.fastboot-start.md)
 
