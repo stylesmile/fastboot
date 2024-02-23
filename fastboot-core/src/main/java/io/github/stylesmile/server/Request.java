@@ -119,6 +119,10 @@ public class Request {
         return uri.getPath();
     }
 
+    public void setHeader(String key, String value) {
+        this.headers.add(key, value);
+    }
+
     /**
      * Sets the path component of the request URI. This can be useful
      * in URL rewriting, etc.
