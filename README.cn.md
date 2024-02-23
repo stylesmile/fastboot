@@ -84,7 +84,7 @@ https://github.com/stylesmile/fastboot-im.git
 <parent>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>2.8.4</version>
+    <version>2.8.5</version>
 </parent>
 ```
 
