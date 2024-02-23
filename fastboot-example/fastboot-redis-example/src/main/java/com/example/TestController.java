@@ -44,7 +44,7 @@ public class TestController {
 
     @RequestMapping("/3")
     public String hello3() {
-        jedisTemplate.rpush("trusteeship", "test");
+        jedisTemplate.rpushString("trusteeship", "test");
         return jedisTemplate.rpopString("trusteeship");
     }
 
@@ -52,8 +52,8 @@ public class TestController {
     public Map hello4() {
         Map map = new HashMap<>();
         map.put("test",1);
-        jedisTemplate.rpush("testrpush", map);
-        return jedisTemplate.rpop("testrpush",Map.class);
+        jedisTemplate.rpushSerializeData("testrpush", map);
+        return jedisTemplate.rpopSerializeData("testrpush",Map.class);
     }
 
 }
