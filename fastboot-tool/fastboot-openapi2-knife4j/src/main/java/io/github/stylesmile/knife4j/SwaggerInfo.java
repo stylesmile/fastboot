@@ -27,7 +27,7 @@ public class SwaggerInfo {
     @AllArgsConstructor
     private class Info {
         private String description = "swagger-ui";
-        private String version = "2.8.4";
+        private String version = "2.8.5";
         private String title = "";
         private String termsOfService;
 
