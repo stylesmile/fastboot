@@ -179,7 +179,7 @@ public class JedisTemplate {
      * @param key   缓存key
      * @param value 缓存value
      */
-    public void hgetSerializeData(String key, String field, Object value) {
+    public void hgetSerializeData(String key, String field) {
         try (Jedis jedis = getJedis()) {
             jedis.hget(GsonByteUtils.toByteArray(key), GsonByteUtils.toByteArray(field));
         }
