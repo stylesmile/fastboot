@@ -162,7 +162,7 @@ public class JedisTemplate {
     }
 
     /**
-     * 设置缓存,序列化方式
+     * 设置hash缓存,序列化方式
      *
      * @param key   缓存key
      * @param value 缓存value
@@ -170,6 +170,18 @@ public class JedisTemplate {
     public void hsetSerializeData(String key, String field, Object value) {
         try (Jedis jedis = getJedis()) {
             jedis.hset(GsonByteUtils.toByteArray(key), GsonByteUtils.toByteArray(field), GsonByteUtils.toByteArray(value));
+        }
+    }
+
+    /**
+     * 获取hash缓存,序列化方式
+     *
+     * @param key   缓存key
+     * @param value 缓存value
+     */
+    public void hgetSerializeData(String key, String field, Object value) {
+        try (Jedis jedis = getJedis()) {
+            jedis.hget(GsonByteUtils.toByteArray(key), GsonByteUtils.toByteArray(field));
         }
     }
 
