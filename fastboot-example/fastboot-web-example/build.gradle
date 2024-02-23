@@ -19,7 +19,7 @@ version '1.0-SNAPSHOT'
 
 dependencies {
     // 引入 BOM
-    implementation platform("io.github.stylesmile:fastboot-parent:2.8.2")
+    implementation platform("io.github.stylesmile:fastboot-parent:2.8.3")
     implementation 'io.github.stylesmile:fastboot-core'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
