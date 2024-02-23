@@ -65,6 +65,14 @@ public class Response implements Closeable {
     }
 
     /**
+     * set header
+     * @param key key
+     * @param value value
+     */
+    public void setHeader(String key, String value) {
+        this.headers.add(key, value);
+    }
+    /**
      * Returns the underlying output stream to which the response is written.
      * Except for special cases, you should use {@link #getBody()} instead.
      *

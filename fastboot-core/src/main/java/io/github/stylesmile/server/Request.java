@@ -90,7 +90,6 @@ public class Request {
     public Headers getHeaders() {
         return headers;
     }
-
     /**
      * Returns the input stream containing the request body.
      *
@@ -117,10 +116,6 @@ public class Request {
      */
     public String getPath() {
         return uri.getPath();
-    }
-
-    public void setHeader(String key, String value) {
-        this.headers.add(key, value);
     }
 
     /**
