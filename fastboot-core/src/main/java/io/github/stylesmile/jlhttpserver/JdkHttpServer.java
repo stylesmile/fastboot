@@ -51,7 +51,7 @@ public class JdkHttpServer implements ServerLifecycle {
     public void start(String host, int port) throws Throwable {
 //        if (enableSsl && supportSsl()) {
 //            // enable SSL if configured
-//            if (Utils.isNotEmpty(host)) {
+//            if (StringUtil.isNotEmpty(host)) {
 //                server = HttpsServer.create(new InetSocketAddress(host, port), 0);
 //            } else {
 //                server = HttpsServer.create(new InetSocketAddress(port), 0);
