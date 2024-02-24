@@ -45,10 +45,13 @@ java领域最佳云原生解决方案。
 整体架构支撑是为了整体平台的流程，从管理、开发、测试、运维、生产几条线，
 实现整体平台的落地和管理
 <img src="./doc/image/index/tech_design.png">
-#### 系统推荐 
+
+#### 系统推荐
+
 * 基于fastboot的im聊天系统 -> fastboot-im  
-https://gitee.com/stylesmile/fastboot-im.git  
-https://github.com/stylesmile/fastboot-im.git
+  https://gitee.com/stylesmile/fastboot-im.git  
+  https://github.com/stylesmile/fastboot-im.git
+
 #### [快速开始详细文档](doc/1.fastboot-start.md)
 
 #### [快速开始 k8s部署fastboot](doc/云原生/Kubernetes/k8s部署简单fastboot.md)
@@ -66,7 +69,9 @@ https://github.com/stylesmile/fastboot-im.git
 #### [快速开始 beetlsql](doc/db/4.fastboot-beetlsql.md)
 
 #### [快速开始 模板引擎 enjoy](fastboot-example%2Ffastboot-enjoy-example%2Fpom.xml)
+
 #### [快速开始 login 权限拦截案例](fastboot-example%2Ffastboot-web-parent-example%2Ffastboot-web-login-example)
+
 #### [快速开始 自定义注解实现aop](doc%2Ftool%2F%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0aop.md)
 
 应用开发手册：[访问](doc/应用开发手册/应用开发手册.md)
@@ -135,4 +140,5 @@ public class Application {
 <img src="./doc/image/index/fastboot-start-time.png">
 
 #### 开发遇到问题
+
 [问题解决](doc%2F%CE%CA%CC%E2%BD%E2%BE%F6.md)
