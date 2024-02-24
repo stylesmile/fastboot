@@ -4,7 +4,7 @@ import com.example.websocket.WebsocketStarter;
 import io.github.stylesmile.app.App;
 
 /**
- * @author tanyaowu
+ * @author Stylesmile
  */
 public class FastbootWebsocketApplication {
 	/**
