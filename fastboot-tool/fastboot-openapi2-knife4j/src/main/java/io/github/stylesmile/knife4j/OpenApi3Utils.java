@@ -4,9 +4,7 @@ import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.handle.HandlerManager;
 import io.github.stylesmile.handle.MappingHandler;
 import io.github.stylesmile.knife4j.domain.ApiGroupResource;
-import io.github.stylesmile.knife4j.openapi.MethodInfo;
-import io.github.stylesmile.knife4j.openapi.SwaggerInfo;
-import io.github.stylesmile.knife4j.openapi.SwaggerParameter;
+import io.github.stylesmile.knife4j.openapi.*;
 import io.github.stylesmile.parameter.ParameterWrap;
 import io.github.stylesmile.tool.JsonGsonUtil;
 import io.github.stylesmile.tool.StringUtil;
@@ -141,6 +139,9 @@ public class OpenApi3Utils {
         }
         SwaggerInfo swaggerInfo = new SwaggerInfo();
         swaggerInfo.setPaths(paths);
+        swaggerInfo.setInfo(new Info());
+        swaggerInfo.setHost("");
+        swaggerInfo.setTags(new Tags());
         return JsonGsonUtil.BeanToJson(swaggerInfo);
     }
 }
