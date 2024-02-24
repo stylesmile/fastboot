@@ -6,7 +6,7 @@ package com.example.websocket;
 import org.tio.utils.time.Time;
 
 /**
- * @author tanyaowu
+ * @author Stylesmile
  */
 public class ConstantConfig {
     /**
