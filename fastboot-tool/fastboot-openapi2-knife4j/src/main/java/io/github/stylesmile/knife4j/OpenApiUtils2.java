@@ -62,11 +62,15 @@ public class OpenApiUtils2 {
         List<Map<String, Object>> paths = new ArrayList<>();
         for (String key : mappingHandlerList.keySet()) {
             MappingHandler mappingHandler = mappingHandlerList.get(key);
+            Class controllerClass = mappingHandler.getController();
+            String exclude = "io.github.stylesmile.knife4j.OpenApi2Controller";
+            if (exclude.equals(controllerClass.getName())) {
+                continue;
+            }
             // 接口
             Map<String, Object> path = new ConcurrentHashMap<>();
             // 接口方法
             Map<String, Object> methodMap = new ConcurrentHashMap<>();
-            Class controllerClass = mappingHandler.getController();
             Method method = mappingHandler.getMethod();
             RequestMapping mapping = method.getAnnotation(RequestMapping.class);
             // 获取接口类型 get post delete
