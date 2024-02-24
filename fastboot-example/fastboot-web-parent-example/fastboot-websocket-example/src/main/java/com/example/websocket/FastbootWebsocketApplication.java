@@ -1,6 +1,5 @@
-package com.example;
+package com.example.websocket;
 
-import com.example.websocket.WebsocketStarter;
 import io.github.stylesmile.app.App;
 
 /**
