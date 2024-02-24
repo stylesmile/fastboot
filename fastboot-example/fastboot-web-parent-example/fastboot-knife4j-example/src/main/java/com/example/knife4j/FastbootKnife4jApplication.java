@@ -1,4 +1,4 @@
-package com.example;
+package com.example.knife4j;
 
 import io.github.stylesmile.app.App;
 
