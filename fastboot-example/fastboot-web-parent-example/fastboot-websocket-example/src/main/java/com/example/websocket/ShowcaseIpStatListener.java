@@ -13,7 +13,7 @@ import org.tio.core.stat.IpStatListener;
 
 /**
  * 
- * @author tanyaowu
+ * @author Stylesmile
  *
  */
 public class ShowcaseIpStatListener implements IpStatListener {
