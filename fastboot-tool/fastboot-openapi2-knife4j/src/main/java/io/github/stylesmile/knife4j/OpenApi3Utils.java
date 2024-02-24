@@ -141,6 +141,6 @@ public class OpenApi3Utils {
         }
         SwaggerInfo swaggerInfo = new SwaggerInfo();
         swaggerInfo.setPaths(paths);
-        return JsonGsonUtil.BeanToJson(paths);
+        return JsonGsonUtil.BeanToJson(swaggerInfo);
     }
 }
