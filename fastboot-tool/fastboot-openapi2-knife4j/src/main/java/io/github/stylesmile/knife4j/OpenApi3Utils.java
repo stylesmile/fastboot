@@ -5,6 +5,7 @@ import io.github.stylesmile.handle.HandlerManager;
 import io.github.stylesmile.handle.MappingHandler;
 import io.github.stylesmile.knife4j.domain.ApiGroupResource;
 import io.github.stylesmile.knife4j.openapi.MethodInfo;
+import io.github.stylesmile.knife4j.openapi.SwaggerInfo;
 import io.github.stylesmile.knife4j.openapi.SwaggerParameter;
 import io.github.stylesmile.parameter.ParameterWrap;
 import io.github.stylesmile.tool.JsonGsonUtil;
@@ -26,7 +27,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author noear
  * @since 2.4
  */
-public class OpenApiUtils2 {
+public class OpenApi3Utils {
     /**
      * 获取接口分组资源
      */
@@ -138,6 +139,8 @@ public class OpenApiUtils2 {
             path.put(key, methodMap);
             paths.add(path);
         }
+        SwaggerInfo swaggerInfo = new SwaggerInfo();
+        swaggerInfo.setPaths(paths);
         return JsonGsonUtil.BeanToJson(paths);
     }
 }

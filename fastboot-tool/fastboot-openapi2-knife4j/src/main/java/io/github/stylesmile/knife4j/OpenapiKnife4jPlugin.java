@@ -29,7 +29,7 @@ public class OpenapiKnife4jPlugin implements Plugin {
     public void end() {
         String s = null;
         try {
-            s = OpenApiUtils2.getApiJson("");
+            s = OpenApi3Utils.getApiJson("");
         } catch (IOException e) {
             System.err.println(e);
         }

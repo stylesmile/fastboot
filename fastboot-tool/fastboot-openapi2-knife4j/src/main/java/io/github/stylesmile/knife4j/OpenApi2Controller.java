@@ -50,6 +50,6 @@ public class OpenApi2Controller {
     }
     @RequestMapping("/test")
     public String api311() throws IOException {
-        return OpenApiUtils2.getApiJson("");
+        return OpenApi3Utils.getApiJson("");
     }
 }
