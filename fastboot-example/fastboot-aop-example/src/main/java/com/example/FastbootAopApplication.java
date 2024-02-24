@@ -8,9 +8,9 @@ package com.example;
 import io.github.stylesmile.app.App;
 
 
-public class FastbootRopApplication {
+public class FastbootAopApplication {
     public static void main(String[] args) {
-        App.start(FastbootRopApplication.class, args);
+        App.start(FastbootAopApplication.class, args);
     }
 
 }
