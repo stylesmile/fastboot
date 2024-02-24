@@ -4,8 +4,10 @@ import io.github.stylesmile.handle.HandlerManager;
 import io.github.stylesmile.handle.MappingHandler;
 import io.github.stylesmile.knife4j.BuilderHelper;
 import io.github.stylesmile.knife4j.domain.model.ApiContact;
+import io.github.stylesmile.knife4j.domain.model.ApiEnum;
 import io.github.stylesmile.knife4j.domain.model.ApiLicense;
 import io.github.stylesmile.knife4j.domain.model.ApiResProperty;
+import io.github.stylesmile.tool.StringUtil;
 import io.swagger.annotations.*;
 import io.swagger.models.Contact;
 import io.swagger.models.ExternalDocs;
@@ -128,12 +130,10 @@ public class OpenApi2Builder {
      */
     private void parseGroupPackage() {
         Map<String, MappingHandler> mappingHandlerList = HandlerManager.getAllMappingHandler();
-        ;
-
         List<ApiGroupResource> resourceList = new ArrayList<>();
         for (String key : mappingHandlerList.keySet()) {
             //解析controller
-            this.parseController(key, mappingHandlerList.get(key));
+            this.parseController(mappingHandlerList.get(key).getController(), mappingHandlerList.get(key));
         }
         //获取所有控制器及动作
 //        Map<Class<?>, List<ActionHolder>> classMap = this.getApiAction();
@@ -292,7 +292,7 @@ public class OpenApi2Builder {
             }
         }
 
-        if (Utils.isBlank(apiAction.consumes())) {
+        if (StringUtil.isBlank(apiAction.consumes())) {
             if (operationMethod.equals(ApiEnum.METHOD_GET)) {
                 operation.consumes(ApiEnum.CONSUMES_URLENCODED); //如果是 get ，则没有 content-type
             } else {
@@ -307,7 +307,7 @@ public class OpenApi2Builder {
             operation.consumes(apiAction.consumes());
         }
 
-        operation.produces(Utils.isBlank(apiAction.produces()) ? ApiEnum.PRODUCES_DEFAULT : apiAction.produces());
+        operation.produces(StringUtil.isBlank(apiAction.produces()) ? ApiEnum.PRODUCES_DEFAULT : apiAction.produces());
 
         operation.setOperationId(operationMethod + "_" + pathKey.replace("/", "_"));
 
@@ -319,18 +319,18 @@ public class OpenApi2Builder {
      */
     private List<Parameter> parseActionParameters(MappingHandler actionHolder) {
         Map<String, Map<String, String>> actionParamMap = new LinkedHashMap<>();
-        for (ParamWrap p1 : actionHolder.action().method().getParamWraps()) {
-            actionParamMap.put(p1.getName(), new ParamHolder(p1));
-        }
+//        for (java.lang.reflect.Parameter p1 : actionHolder.getMethod().getParameters()) {
+//            actionParamMap.put(p1.getName(), new Parameter(p1));
+//        }
         // 获取参数注解信息
-        {
+//        {
             List<ApiImplicitParam> apiParams = new ArrayList<>();
-            if (actionHolder.isAnnotationPresent(ApiImplicitParams.class)) {
-                apiParams.addAll(Arrays.asList(actionHolder.getAnnotation(ApiImplicitParams.class).value()));
+            if (actionHolder.getMethod().isAnnotationPresent(ApiImplicitParams.class)) {
+                apiParams.addAll(Arrays.asList(actionHolder.getController().getAnnotation(ApiImplicitParams.class).value()));
             }
 
-            if (actionHolder.isAnnotationPresent(ApiImplicitParams.class)) {
-                ApiImplicitParam[] paramArray = actionHolder.getAnnotationsByType(ApiImplicitParam.class);
+            if (actionHolder.getMethod().isAnnotationPresent(ApiImplicitParams.class)) {
+                ApiImplicitParam[] paramArray = actionHolder.getMethod().getAnnotationsByType(ApiImplicitParam.class);
                 apiParams.addAll(Arrays.asList(paramArray));
             }
 
@@ -342,7 +342,7 @@ public class OpenApi2Builder {
                 }
                 paramHolder.binding(new ApiImplicitParamImpl(a1));
             }
-        }
+//        }
 
         // 构建参数列表(包含全局参数)
         List<Parameter> paramList = new ArrayList<>();
@@ -358,7 +358,7 @@ public class OpenApi2Builder {
             Parameter parameter;
 
             if (paramHolder.allowMultiple()) {
-                if (Utils.isNotEmpty(paramSchema)) {
+                if (StringUtil.isNotEmpty(paramSchema)) {
                     //array model
                     BodyParameter modelParameter = new BodyParameter();
                     modelParameter.setSchema(new ArrayModel().items(new RefProperty(paramSchema)));
@@ -387,7 +387,7 @@ public class OpenApi2Builder {
                         parameter = new PathParameter().type(ApiEnum.RES_ARRAY);
                     } else if (paramHolder.isRequiredBody()) {
                         BodyParameter bodyParameter = new BodyParameter();
-                        if (Utils.isNotEmpty(dataType)) {
+                        if (StringUtil.isNotEmpty(dataType)) {
                             bodyParameter.setSchema(new ArrayModel().items(objectProperty));
                         }
                         parameter = bodyParameter;
@@ -396,7 +396,7 @@ public class OpenApi2Builder {
                     }
                 }
             } else {
-                if (Utils.isNotEmpty(paramSchema)) {
+                if (StringUtil.isNotEmpty(paramSchema)) {
                     //model
                     if (paramHolder.isRequiredBody() || paramHolder.getParam() == null) {
                         //做为 body
@@ -434,7 +434,7 @@ public class OpenApi2Builder {
                         parameter = new PathParameter();
                     } else if (paramHolder.isRequiredBody()) {
                         BodyParameter bodyParameter = new BodyParameter();
-                        if (Utils.isNotEmpty(dataType)) {
+                        if (StringUtil.isNotEmpty(dataType)) {
                             bodyParameter.setSchema(new ModelImpl().type(dataType));
                         }
                         parameter = bodyParameter;
@@ -537,7 +537,7 @@ public class OpenApi2Builder {
                 parameter.setRequired(anno.required());
                 parameter.setReadOnly(anno.readOnly());
 
-                if (Utils.isNotEmpty(anno.dataType())) {
+                if (StringUtil.isNotEmpty(anno.dataType())) {
                     parameter.setType(anno.dataType());
                 }
             }
@@ -821,7 +821,7 @@ public class OpenApi2Builder {
                     fieldPr.setDescription(apiField.value());
                     fieldPr.setRequired(apiField.required());
                     fieldPr.setExample(apiField.example());
-                    fieldPr.setType(Utils.isBlank(apiField.dataType()) ? typeClazz.getSimpleName().toLowerCase() : apiField.dataType());
+                    fieldPr.setType(StringUtil.isBlank(apiField.dataType()) ? typeClazz.getSimpleName().toLowerCase() : apiField.dataType());
                 } else {
                     fieldPr.setType(typeClazz.getSimpleName().toLowerCase());
                 }
@@ -879,11 +879,11 @@ public class OpenApi2Builder {
 
                     fieldPr.setName(apiResponse.name());
                     fieldPr.setDescription(apiResponse.value());
-                    fieldPr.setFormat(Utils.isBlank(apiResponse.format()) ? ApiEnum.FORMAT_STRING : apiResponse.format());
+                    fieldPr.setFormat(StringUtil.isBlank(apiResponse.format()) ? ApiEnum.FORMAT_STRING : apiResponse.format());
                     fieldPr.setExample(apiResponse.example());
 
                     UntypedProperty itemsProperty = new UntypedProperty();
-                    itemsProperty.setType(Utils.isBlank(apiResponse.dataType()) ? ApiEnum.RES_STRING : apiResponse.dataType());
+                    itemsProperty.setType(StringUtil.isBlank(apiResponse.dataType()) ? ApiEnum.RES_STRING : apiResponse.dataType());
                     fieldPr.items(itemsProperty);
 
                     propertiesList.put(apiResponse.name(), fieldPr);
@@ -892,8 +892,8 @@ public class OpenApi2Builder {
 
                     fieldPr.setName(apiResponse.name());
                     fieldPr.setDescription(apiResponse.value());
-                    fieldPr.setType(Utils.isBlank(apiResponse.dataType()) ? ApiEnum.RES_STRING : apiResponse.dataType());
-                    fieldPr.setFormat(Utils.isBlank(apiResponse.format()) ? ApiEnum.FORMAT_STRING : apiResponse.format());
+                    fieldPr.setType(StringUtil.isBlank(apiResponse.dataType()) ? ApiEnum.RES_STRING : apiResponse.dataType());
+                    fieldPr.setFormat(StringUtil.isBlank(apiResponse.format()) ? ApiEnum.FORMAT_STRING : apiResponse.format());
                     fieldPr.setExample(apiResponse.example());
 
                     propertiesList.put(apiResponse.name(), fieldPr);
