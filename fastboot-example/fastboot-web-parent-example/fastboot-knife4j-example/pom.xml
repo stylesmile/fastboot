@@ -27,10 +27,6 @@
         </dependency>
         <dependency>
             <groupId>io.github.stylesmile</groupId>
-            <artifactId>fastboot-staticfile</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-openapi2-knife4j</artifactId>
         </dependency>
         <dependency>
