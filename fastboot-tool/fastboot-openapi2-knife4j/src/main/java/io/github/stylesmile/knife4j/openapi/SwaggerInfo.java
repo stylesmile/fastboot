@@ -7,7 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * swagger参数信息
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,7 +23,7 @@ public class SwaggerInfo {
     private String host;
     private String basePath;
     private Tags tags;
-    private HashMap<String, Object> paths;
+    private List<Map<String, Object>> paths;
     @SerializedName("x-openapi")
     private Xopenapi xopenapi;
 
