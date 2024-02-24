@@ -15,6 +15,7 @@ import io.github.stylesmile.tool.MultipartUtil;
 import io.github.stylesmile.web.HtmlView;
 import io.github.stylesmile.web.ModelAndView;
 import lombok.Data;
+import lombok.Getter;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -30,7 +31,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @author Stylesmile
  */
-@Data
+@Getter
 public class MappingHandler {
     /**
      * 请求路径Uri
