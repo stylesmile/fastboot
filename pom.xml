@@ -88,11 +88,11 @@
                 <artifactId>fastboot-staticfile</artifactId>
                 <version>${fastboot.version}</version>
             </dependency>
-            <dependency>
-                <groupId>io.github.stylesmile</groupId>
-                <artifactId>fastboot-openapi2-knife4j</artifactId>
-                <version>${fastboot.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>io.github.stylesmile</groupId>-->
+<!--                <artifactId>fastboot-openapi2-knife4j</artifactId>-->
+<!--                <version>${fastboot.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
                 <artifactId>fastboot-jdkhttpserver</artifactId>
