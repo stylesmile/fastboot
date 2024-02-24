@@ -15,8 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
- * @author tanyaowu
- * 2017年6月28日 下午5:32:38
+ * @author Stylesmile
  */
 public class ShowcaseWsMsgHandler implements IWsMsgHandler {
 
