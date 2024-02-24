@@ -66,7 +66,7 @@ https://github.com/stylesmile/fastboot-im.git
 #### [快速开始 beetlsql](doc/db/4.fastboot-beetlsql.md)
 
 #### [快速开始 模板引擎 enjoy](fastboot-example%2Ffastboot-enjoy-example%2Fpom.xml)
-#### [快速开始 login 权限拦截案例]([fastboot-web-login-example](fastboot-example%2Ffastboot-web-parent-example%2Ffastboot-web-login-example))
+#### [快速开始 login 权限拦截案例](fastboot-example%2Ffastboot-web-parent-example%2Ffastboot-web-login-example))
 #### [快速开始 自定义注解实现aop](doc%2Ftool%2F%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0aop.md)
 
 应用开发手册：[访问](doc/应用开发手册/应用开发手册.md)
