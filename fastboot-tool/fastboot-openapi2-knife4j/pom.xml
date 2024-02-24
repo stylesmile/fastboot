@@ -14,7 +14,7 @@
     <parent>
         <groupId>io.github.stylesmile</groupId>
         <artifactId>fastboot-tool</artifactId>
-        <version>2.9.0</version>
+        <version>2.9.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <properties>
