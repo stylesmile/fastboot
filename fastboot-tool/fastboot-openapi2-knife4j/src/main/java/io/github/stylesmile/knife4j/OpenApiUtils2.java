@@ -70,7 +70,7 @@ public class OpenApiUtils2 {
             Method method = mappingHandler.getMethod();
             RequestMapping mapping = method.getAnnotation(RequestMapping.class);
             // 获取接口类型 get post delete
-            String httpMethod = mapping.value();
+            String httpMethod = mapping.method().name().toLowerCase();
             String httpMethod2 = null;
             if (StringUtil.isEmpty(httpMethod)) {
                 httpMethod = "get";
