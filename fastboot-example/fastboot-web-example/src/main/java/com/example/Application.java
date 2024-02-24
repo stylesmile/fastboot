@@ -46,7 +46,7 @@ public class Application {
     }
 
     @RequestMapping("/3")
-    public String hello3(String name) {
+    public String hello3(@RequestParam("name") String name) {
         return name;
     }
 
