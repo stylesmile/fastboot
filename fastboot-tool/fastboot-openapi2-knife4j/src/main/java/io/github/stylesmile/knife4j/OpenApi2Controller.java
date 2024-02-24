@@ -48,4 +48,8 @@ public class OpenApi2Controller {
     public String api2() throws IOException {
         return "{\"openapi\":\"3.0.1\",\"info\":{\"title\":\"OpenAPI definition\",\"version\":\"v0\"},\"servers\":[{\"url\":\"http://localhost:8082\",\"description\":\"Generated server url\"}],\"paths\":{},\"components\":{},\"x-openapi\":{\"x-setting\":{\"customCode\":200,\"language\":\"zh-CN\",\"enableSwaggerModels\":true,\"swaggerModelName\":\"Swagger Models\",\"enableReloadCacheParameter\":false,\"enableAfterScript\":true,\"enableDocumentManage\":true,\"enableVersion\":false,\"enableRequestCache\":true,\"enableFilterMultipartApis\":false,\"enableFilterMultipartApiMethodType\":\"POST\",\"enableHost\":false,\"enableHostText\":\"\",\"enableDynamicParameter\":false,\"enableDebug\":true,\"enableFooter\":true,\"enableFooterCustom\":false,\"enableSearch\":true,\"enableOpenApi\":true,\"enableHomeCustom\":false,\"enableGroup\":true,\"enableResponseCode\":true},\"x-markdownFiles\":[]}}";
     }
+    @RequestMapping("/test")
+    public String api311() throws IOException {
+        return OpenApiUtils2.getApiJson("");
+    }
 }
