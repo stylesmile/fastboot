@@ -78,9 +78,9 @@ public class App {
             BEAN_PLUGS_MANAGER.start();
 
             BEAN_PLUGS_MANAGER.init();
-            BEAN_PLUGS_MANAGER.end();
             //创建Bean工厂,扫描Class，创建被注解标注的类
             BeanFactory.initBean(classList);
+            BEAN_PLUGS_MANAGER.end();
             //找到所有Controller，建立Controller中每个方法和Url的映射关系
             HandlerManager.resolveMappingHandler(classList);
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
