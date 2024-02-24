@@ -18,7 +18,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SwaggerInfo {
-    private String swagger = "2.0";
+    private String swagger = "3.0";
     private Info info;
     private String host;
     private String basePath;
@@ -27,15 +27,5 @@ public class SwaggerInfo {
     @SerializedName("x-openapi")
     private Xopenapi xopenapi;
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    private class Info {
-        private String description = "swagger-ui";
-        private String version = "2.0.0";
-        private String title = "";
-        private String termsOfService;
-        private Contact contact;
-        private License license;
-    }
+
 }
