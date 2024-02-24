@@ -4,6 +4,7 @@ import io.github.stylesmile.file.MultipartFile;
 import io.github.stylesmile.file.UploadedFile;
 import io.github.stylesmile.ioc.BeanContainer;
 import io.github.stylesmile.ioc.BeanKey;
+import io.github.stylesmile.parameter.ParameterWrap;
 import io.github.stylesmile.parse.ParseParameterJlHttpServer;
 import io.github.stylesmile.request.RequestMethod;
 import io.github.stylesmile.server.Headers;
@@ -14,13 +15,11 @@ import io.github.stylesmile.tool.JsonGsonUtil;
 import io.github.stylesmile.tool.MultipartUtil;
 import io.github.stylesmile.web.HtmlView;
 import io.github.stylesmile.web.ModelAndView;
-import lombok.Data;
 import lombok.Getter;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +47,7 @@ public class MappingHandler {
     /**
      * 调用方法时传递的参数
      */
-    private final Parameter[] parameters;
+    private final ParameterWrap[] parameters;
     /**
      * 请求方法
      */
@@ -61,7 +60,7 @@ public class MappingHandler {
      * @param parameters    参数
      * @param requestMethod 请求方法
      */
-    public MappingHandler(String uri, Method method, Class<?> controller, Parameter[] parameters, RequestMethod requestMethod) {
+    public MappingHandler(String uri, Method method, Class<?> controller, ParameterWrap[] parameters, RequestMethod requestMethod) {
         this.uri = uri;
         this.method = method;
         this.controller = controller;
@@ -101,7 +100,7 @@ public class MappingHandler {
         }
         List<Object> parameters2 = new CopyOnWriteArrayList<>();
         for (int i = 0; i < parameters.length; i++) {
-            String parameterType = parameters[i].getParameterizedType().getTypeName();
+            String parameterType = parameters[i].getParameter().getParameterizedType().getTypeName();
             switch (parameterType) {
                 case "io.github.stylesmile.server.Response":
                     parameters2.add(response);
