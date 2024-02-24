@@ -122,7 +122,7 @@ public class OpenApiUtils2 {
                     swaggerParameter.setSchema(schema);
                     swaggerParameters.add(swaggerParameter);
                 }
-            } else if (controllerClass.isAnnotationPresent(Parameter.class)) {
+            } else if (method.isAnnotationPresent(Parameter.class)) {
                 SwaggerParameter swaggerParameter = new SwaggerParameter();
                 Parameter parameter = method.getAnnotation(Parameter.class);
                 swaggerParameter.setDescription(parameter.description());
@@ -133,10 +133,11 @@ public class OpenApiUtils2 {
                 swaggerParameter.setSchema(schema);
                 swaggerParameters.add(swaggerParameter);
             }
+            methodInfo.setParameters(swaggerParameters);
             methodMap.put(httpMethod, methodInfo);
             path.put(key, methodMap);
             paths.add(path);
         }
-        return null;
+        return JsonGsonUtil.BeanToJson(paths);
     }
 }
