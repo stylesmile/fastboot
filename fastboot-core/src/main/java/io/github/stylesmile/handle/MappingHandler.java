@@ -143,7 +143,7 @@ public class MappingHandler {
             response.send(200, (((HtmlView) responseResult).getHtmlview()));
             return true;
         } else {
-            resResult = JsonGsonUtil.BeanToJson(responseResult);
+            resResult = JsonGsonUtil.objectToJson(responseResult);
         }
         Headers headers = response.getHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
@@ -232,7 +232,7 @@ public class MappingHandler {
                 try {
                     Class clazz = Class.forName(parameterType);
                     String json = parameterMap.get("fastboot__application__json__").toString();
-                    Object o1 = JsonGsonUtil.GsonToBean(json, clazz);
+                    Object o1 = JsonGsonUtil.jsonToObject(json, clazz);
                     parameters2.add(o1);
                 } catch (Exception e) {
                     System.err.println(e);

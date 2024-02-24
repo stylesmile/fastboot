@@ -32,7 +32,7 @@ public class JsonGsonUtil {
      * @param object object
      * @return String
      */
-    public static String BeanToJson(Object object) {
+    public static String objectToJson(Object object) {
         String gsonString = null;
         if (gson != null) {
             gsonString = gson.toJson(object);
@@ -47,7 +47,7 @@ public class JsonGsonUtil {
      * @param cls        class
      * @return t
      */
-    public static <T> T GsonToBean(String gsonString, Class<T> cls) {
+    public static <T> T jsonToObject(String gsonString, Class<T> cls) {
         T t = null;
         if (gson != null) {
             t = gson.fromJson(gsonString, cls);
@@ -63,7 +63,7 @@ public class JsonGsonUtil {
      * @param cls        class
      * @return T
      */
-    public static <T> List<T> GsonToList(String gsonString, Class<T> cls) {
+    public static <T> List<T> jsonToList(String gsonString, Class<T> cls) {
         List<T> list = null;
         if (gson != null) {
             list = gson.fromJson(gsonString, new TypeToken<List<T>>() {
@@ -73,32 +73,12 @@ public class JsonGsonUtil {
     }
 
     /**
-     * 转成list
-     * 解决泛型问题
-     *
-     * @param json json string
-     * @param cls  class
-     * @param <T>  t
-     * @return T
-     */
-    public static <T> List<T> jsonToList(String json, Class<T> cls) {
-        Gson gson = new Gson();
-        List<T> list = new ArrayList<T>();
-        JsonArray array = new JsonParser().parse(json).getAsJsonArray();
-        for (final JsonElement elem : array) {
-            list.add(gson.fromJson(elem, cls));
-        }
-        return list;
-    }
-
-
-    /**
      * 转成list中有map的
      *
      * @param gsonString json string
      * @return t
      */
-    public static <T> List<Map<String, T>> GsonToListMaps(String gsonString) {
+    public static <T> List<Map<String, T>> jsonToListMaps(String gsonString) {
         List<Map<String, T>> list = null;
         if (gson != null) {
             list = gson.fromJson(gsonString,
@@ -114,7 +94,7 @@ public class JsonGsonUtil {
      * @param gsonString json string
      * @return t
      */
-    public static <T> Map<String, T> GsonToMaps(String gsonString) {
+    public static <T> Map<String, T> jsonToMaps(String gsonString) {
         Map<String, T> map = null;
         if (gson != null) {
             map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
