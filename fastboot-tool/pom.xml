@@ -19,7 +19,7 @@
     <description>tool for fastboot</description>
 
     <modules>
-<!--        <module>fastboot-aop</module>-->
+        <module>fastboot-aop</module>
 <!--        <module>fastboot-openapi2</module>-->
 <!--        <module>fastboot-openapi2-knife4j</module>-->
         <module>fastboot-captcha</module>

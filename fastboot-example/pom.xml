@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>fastboot-aop-example</module>
         <module>fastboot-web-example</module>
         <module>fastboot-redis-example</module>
         <module>fastboot-mybatis-example</module>
