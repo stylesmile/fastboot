@@ -13,7 +13,7 @@ import org.tio.websocket.common.WsSessionContext;
 import org.tio.websocket.server.WsServerAioListener;
 
 /**
- * @author tanyaowu
+ * @author Stylesmile
  * 用户根据情况来完成该类的实现
  */
 public class ShowcaseServerAioListener extends WsServerAioListener {
