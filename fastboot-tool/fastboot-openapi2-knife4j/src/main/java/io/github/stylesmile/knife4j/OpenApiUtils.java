@@ -4,11 +4,9 @@ import io.github.stylesmile.handle.HandlerManager;
 import io.github.stylesmile.handle.MappingHandler;
 import io.github.stylesmile.knife4j.domain.ApiGroupResource;
 import io.github.stylesmile.knife4j.domain.DocDocket;
-import io.github.stylesmile.knife4j.domain.OpenApi2Builder;
 import io.github.stylesmile.tool.FastbootUtil;
 import io.github.stylesmile.tool.JsonGsonUtil;
 import io.github.stylesmile.tool.StringUtil;
-import io.swagger.models.Swagger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,7 +49,8 @@ public class OpenApiUtils {
      */
     public static String getApiJson(String group) throws IOException {
         DocDocket docket = FastbootUtil.getBean(DocDocket.class);
-        Swagger swagger = new OpenApi2Builder(docket).build();
-        return JsonGsonUtil.BeanToJson(swagger);
+//        Swagger swagger = new OpenApi2Builder(docket).build();
+//        return JsonGsonUtil.BeanToJson(swagger);
+        return null;
     }
 }
