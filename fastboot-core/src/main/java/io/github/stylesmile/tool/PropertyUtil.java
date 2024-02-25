@@ -34,6 +34,21 @@ public class PropertyUtil {
             } else {
                 props.load(in);
             }
+            String env = PropertyUtil.getProperty("fastboot.active");
+            if (StringUtil.isNotBlank(env)) {
+                path = "application-" + env + ".properties";
+                if (propertiesPath.contains("/target/classes")) {
+                    in = new FileInputStream(propertiesPath + path);
+                } else {
+                    in = clazz.getClassLoader().getResourceAsStream(path);
+                }
+                if (in == null) {
+                    System.err.println("application.properties " + "文件未找到");
+                    props.setProperty("server.port=8080", "8080");
+                } else {
+                    props.load(in);
+                }
+            }
         } catch (FileNotFoundException e) {
             System.err.println(path + "文件未找到");
         } catch (IOException e) {
