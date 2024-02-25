@@ -55,7 +55,7 @@ public class Application {
         Map<String, String> map = new HashMap<>();
         map.put("1", "1");
         map.put("2", "1");
-        System.out.println(JsonGsonUtil.BeanToJson(map));
+        System.out.println(JsonGsonUtil.objectToJson(map));
         return map;
     }
 
@@ -64,7 +64,7 @@ public class Application {
         User user = new User();
         user.setName("lisi");
         user.setAge(18);
-        System.out.println(JsonGsonUtil.BeanToJson(user));
+        System.out.println(JsonGsonUtil.objectToJson(user));
         return user;
     }
 
