@@ -24,6 +24,7 @@
         <module>fastboot-server</module>
         <module>fastboot-web-parent</module>
         <module>fastboot-tool</module>
+        <module>fastboot-maven-plugin</module>
         <!--        <module>fastboot-example</module>-->
     </modules>
     <dependencyManagement>
@@ -88,11 +89,11 @@
                 <artifactId>fastboot-staticfile</artifactId>
                 <version>${fastboot.version}</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>io.github.stylesmile</groupId>-->
-<!--                <artifactId>fastboot-openapi2-knife4j</artifactId>-->
-<!--                <version>${fastboot.version}</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>io.github.stylesmile</groupId>-->
+            <!--                <artifactId>fastboot-openapi2-knife4j</artifactId>-->
+            <!--                <version>${fastboot.version}</version>-->
+            <!--            </dependency>-->
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
                 <artifactId>fastboot-jdkhttpserver</artifactId>
@@ -272,27 +273,27 @@
                     <name>snapshots</name>
                     <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
                 </snapshotRepository>
-<!--                <repository>-->
-<!--                    <uniqueVersion>false</uniqueVersion>-->
-<!--                    <id>ossrh</id>-->
-<!--                    <name>releases</name>-->
-<!--                    <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
-<!--                </repository>-->
+                <repository>
+                    <uniqueVersion>false</uniqueVersion>
+                    <id>ossrh</id>
+                    <name>releases</name>
+                    <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
             </distributionManagement>
         </profile>
 
     </profiles>
     <repositories>
-<!--        <repository>-->
-<!--            <id>sonatype-snapshots</id>-->
-<!--            <name>snapshots</name>-->
-<!--            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>-->
-<!--        </repository>-->
-<!--        <repository>-->
-<!--            <id>sonatype-releases</id>-->
-<!--            <name>snapshots</name>-->
-<!--            <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>-->
-<!--        </repository>-->
+        <!--        <repository>-->
+        <!--            <id>sonatype-snapshots</id>-->
+        <!--            <name>snapshots</name>-->
+        <!--            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>-->
+        <!--        </repository>-->
+        <!--        <repository>-->
+        <!--            <id>sonatype-releases</id>-->
+        <!--            <name>snapshots</name>-->
+        <!--            <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>-->
+        <!--        </repository>-->
         <repository>
             <id>ali</id>
             <url>https://maven.aliyun.com/repository/public</url>
@@ -306,6 +307,11 @@
             <name>Central Repository</name>
             <url>https://repo2.maven.org/maven2/</url>
         </repository>
+        <!--        <repository>-->
+        <!--            <id>central</id>-->
+        <!--            <name>Central Repository</name>-->
+        <!--            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+        <!--        </repository>-->
 
     </repositories>
     <pluginRepositories>
@@ -361,5 +367,14 @@
                 <version>2.8.2</version>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>io.github.fastboot.plugins.maven</groupId>
+                    <artifactId>fastboot-maven-plugin</artifactId>
+                    <version>2.9.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>
