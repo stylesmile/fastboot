@@ -23,7 +23,7 @@ import java.util.Map;
 @Controller
 public class Application {
 
-    @Value("fast.name")
+    @Value("fastboot.name")
     String name;
 
     public static void main(String[] args) {
