@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package com.example;
+package com.example.web;
 
 import io.github.stylesmile.annotation.*;
 import io.github.stylesmile.app.App;

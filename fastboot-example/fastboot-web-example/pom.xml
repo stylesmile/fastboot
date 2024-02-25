@@ -84,7 +84,7 @@
                     <archive>
                         <!-- 此处，要改成自己的程序入口（即 main 函数类） -->
                         <manifest>
-                            <mainClass>com.example.Application</mainClass>
+                            <mainClass>com.web.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
