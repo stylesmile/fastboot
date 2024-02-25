@@ -48,6 +48,7 @@ public class PropertyUtil {
                 } else {
                     props.load(in);
                 }
+                System.out.println("fastboot current environment is " + env);
             }
         } catch (FileNotFoundException e) {
             System.err.println(path + "文件未找到");
