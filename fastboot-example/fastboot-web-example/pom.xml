@@ -58,19 +58,19 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <!--            <plugin>-->
-            <!--                <groupId>io.github.fastboot.plugins.maven</groupId>-->
-            <!--                <artifactId>fastboot-maven-plugin</artifactId>-->
-            <!--                <version>2.9.3</version>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <phase>package</phase>-->
-            <!--                        <goals>-->
-            <!--                            <goal>repackage</goal>-->
-            <!--                        </goals>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--            </plugin>-->
+            <plugin>
+                <groupId>io.github.fastboot.plugins.maven</groupId>
+                <artifactId>fastboot-maven-plugin</artifactId>
+<!--                <version>2.9.3</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>repackage</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+            </plugin>
 <!--                        <plugin>-->
 <!--                            <groupId>io.github.stylesmile</groupId>-->
 <!--                            <artifactId>fastboot2-maven-plugin</artifactId>-->

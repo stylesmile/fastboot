@@ -218,7 +218,7 @@ public class Repackager {
                     Class<?> myclass = myClassLoader.loadClass(className);
                     Method[] methods = myclass.getMethods();
                     for (Method method : methods) {
-                        System.out.println(method.getName());
+                        System.out.println("method: " + method.getName());
                         if (method.getName().equals("main") && method.getParameterTypes().length == 1) {
                             if (method.getParameterTypes()[0].equals(String[].class) && Modifier.isStatic(method.getModifiers())) {
                                 if (method.getReturnType().getName().equals("void")) {
