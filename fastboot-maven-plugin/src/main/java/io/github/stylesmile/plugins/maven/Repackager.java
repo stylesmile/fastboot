@@ -199,27 +199,32 @@ public class Repackager {
 
 
     private String getStartClass() throws IOException {
+        System.out.println("getStartClass");
         ClassPool pool = ClassPool.getDefault();
         File f = getBackupFile();
         URL url1 = f.toURI().toURL();
         URLClassLoader myClassLoader = new URLClassLoader(new URL[]{url1}, Thread.currentThread().getContextClassLoader());
         JarFile jar = new JarFile(f);
         Enumeration<JarEntry> enumFiles = jar.entries();
+        System.out.println(enumFiles);
         while (enumFiles.hasMoreElements()) {
             JarEntry entry = enumFiles.nextElement();
             String classFullName = entry.getName();
+            System.out.println("classFullName: " + classFullName);
             if (classFullName.endsWith(".class")) {
                 try {
                     String className = classFullName.substring(0, classFullName.length() - 6).replace("/", ".");
                     Class<?> myclass = myClassLoader.loadClass(className);
                     Method[] methods = myclass.getMethods();
                     for (Method method : methods) {
+                        System.out.println(method.getName());
                         if (method.getName().equals("main") && method.getParameterTypes().length == 1) {
                             if (method.getParameterTypes()[0].equals(String[].class) && Modifier.isStatic(method.getModifiers())) {
                                 if (method.getReturnType().getName().equals("void")) {
                                     CtClass ctClass = pool.makeClass(jar.getInputStream(entry));
                                     for (Object annotation : ctClass.getAnnotations()) {
 //                                        if (annotation.toString().endsWith("HServerBoot")) {
+                                        System.out.println("annotation" + annotation.toString());
                                         if (annotation.toString().endsWith("Fastboot")) {
                                             logger.info("启动类：" + myclass);
                                             return myclass.getName();
@@ -235,7 +240,7 @@ public class Repackager {
         }
         jar.close();
         myClassLoader.close();
-        throw new IllegalStateException("找不到启动类,请使用@HServerBoot标记你的启动类");
+        throw new IllegalStateException("找不到启动类,请使用@Fastboot标记你的启动类");
     }
 
     private static Class<?> loadClass(String fullClzName) {

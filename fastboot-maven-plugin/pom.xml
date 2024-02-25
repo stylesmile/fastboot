@@ -7,10 +7,12 @@
     <groupId>io.github.fastboot.plugins.maven</groupId>
     <artifactId>fastboot-maven-plugin</artifactId>
     <version>2.9.2</version>
-
-    <url>https://gitee.com/stylesmile/fastboot/fastboot-maven-plugin</url>
-    <description>一个fastboot的打包插件</description>
-
+    <parent>
+        <groupId>io.github.stylesmile</groupId>
+        <artifactId>fastboot-parent</artifactId>
+        <version>2.9.2</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
     <build>
         <plugins>
@@ -43,105 +45,26 @@
             <artifactId>maven-archiver</artifactId>
             <version>3.5.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.maven/maven-plugin-api -->
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
             <version>3.6.3</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugin-tools/maven-plugin-annotations -->
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
             <version>3.6.0</version>
             <scope>provided</scope>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>javassist</groupId>-->
-<!--            <artifactId>javassist</artifactId>-->
-<!--            <version>3.12.1.GA</version>-->
-<!--        </dependency>-->
         <dependency>
-            <groupId>org.javassist</groupId>
+            <groupId>javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.13.0-GA</version>
+            <version>3.12.1.GA</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.javassist</groupId>-->
+<!--            <artifactId>javassist</artifactId>-->
+<!--            <version>3.13.0-GA</version>-->
+<!--        </dependency>-->
     </dependencies>
-
-
-    <profiles>
-        <profile>
-            <id>release</id>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>heixiaoma</id>
-                    <url>
-                        https://oss.sonatype.org/content/repositories/snapshots/
-                    </url>
-                </snapshotRepository>
-                <repository>
-                    <id>heixiaoma</id>
-                    <url>
-                        https://oss.sonatype.org/service/local/staging/deploy/maven2/
-                    </url>
-                </repository>
-            </distributionManagement>
-            <build>
-                <plugins>
-                    <!--  Source  -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.0.1</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!--  Javadoc  -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.10.3</version>
-                        <configuration>
-                            <charset>UTF-8</charset>
-                            <docencoding>UTF-8</docencoding>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                                <configuration>
-                                    <additionalparam>-Xdoclint:none</additionalparam>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!--  Gpg Signature  -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
-
 </project>
