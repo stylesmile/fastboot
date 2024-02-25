@@ -24,7 +24,7 @@
         <module>fastboot-server</module>
         <module>fastboot-web-parent</module>
         <module>fastboot-tool</module>
-        <module>fastboot-maven-plugin</module>
+        <!--        <module>fastboot-maven-plugin</module>-->
         <!--        <module>fastboot-example</module>-->
     </modules>
     <dependencyManagement>
@@ -368,13 +368,13 @@
             </plugin>
         </plugins>
         <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>io.github.fastboot.plugins.maven</groupId>
-                    <artifactId>fastboot-maven-plugin</artifactId>
-                    <version>2.9.2</version>
-                </plugin>
-            </plugins>
+            <!--            <plugins>-->
+            <!--                <plugin>-->
+            <!--                    <groupId>io.github.fastboot.plugins.maven</groupId>-->
+            <!--                    <artifactId>fastboot-maven-plugin</artifactId>-->
+            <!--                    <version>2.9.2</version>-->
+            <!--                </plugin>-->
+            <!--            </plugins>-->
         </pluginManagement>
     </build>
 </project>
