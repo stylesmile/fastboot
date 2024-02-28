@@ -1,4 +1,9 @@
 ### [中文版](README.cn.md) | [English](README.md)
+#### 项目推荐
+
+* 基于fastboot的im聊天系统 -> fastboot-im  
+  https://gitee.com/stylesmile/fastboot-im.git  
+  https://github.com/stylesmile/fastboot-im.git
 
 # 项目介绍
 
@@ -45,12 +50,6 @@ java领域最佳云原生解决方案。
 整体架构支撑是为了整体平台的流程，从管理、开发、测试、运维、生产几条线，
 实现整体平台的落地和管理
 <img src="./doc/image/index/tech_design.png">
-
-#### 系统推荐
-
-* 基于fastboot的im聊天系统 -> fastboot-im  
-  https://gitee.com/stylesmile/fastboot-im.git  
-  https://github.com/stylesmile/fastboot-im.git
 
 #### [快速开始详细文档](doc/1.fastboot-start.md)
 
