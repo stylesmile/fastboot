@@ -1,26 +1,21 @@
-package io.github.stylesmile.plugins.maven;
+package org.noear.solon.maven.plugin;
 
 
-import io.github.stylesmile.plugins.maven.tools.tool.*;
-import io.github.stylesmile.tool.JsonGsonUtil;
-import javassist.ClassPool;
-import javassist.CtClass;
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.logging.Log;
+import org.noear.solon.maven.plugin.tools.SolonMavenUtil;
+import org.noear.solon.maven.plugin.tools.tool.*;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
-import static io.github.stylesmile.plugins.maven.tools.Constant.*;
+import static org.noear.solon.maven.plugin.Constant.*;
 
 
 /**
@@ -31,11 +26,13 @@ public class Repackager {
     private static final byte[] ZIP_FILE_HEADER = new byte[]{'P', 'K', 3, 4};
 
     private final File source;
+    private final String mainClass;
 
     private Layout layout;
-    private Log logger;
 
-    public Repackager(File source, Log logger) {
+    private final Log logger;
+
+    public Repackager(File source, Log logger, String mainClass) throws Exception {
         this.logger = logger;
         if (source == null) {
             throw new IllegalArgumentException("Source file must be provided");
@@ -45,6 +42,9 @@ public class Repackager {
                     + "got " + source.getAbsolutePath());
         }
         this.source = source.getAbsoluteFile();
+
+        this.mainClass = SolonMavenUtil.getStartClass(getFile(), mainClass, logger);
+        logger.info("The startup class of the JAR: " + this.mainClass);
     }
 
     /**
@@ -72,16 +72,21 @@ public class Repackager {
         File workingSource = this.source;
         if (this.source.equals(destination)) {
             workingSource = getBackupFile();
-            workingSource.delete();
-            renameFile(this.source, workingSource);
+            if (workingSource.exists()) {
+                FileUtils.delete(workingSource);
+            }
+            FileUtils.moveFile(this.source, workingSource);
         }
-        destination.delete();
+        if (destination.exists()) {
+            FileUtils.delete(destination);
+        }
         JarFile jarFileSource = new JarFile(workingSource);
         try {
             repackage(jarFileSource, destination, libraries);
         } finally {
             jarFileSource.close();
         }
+
     }
 
     private LayoutFactory getLayoutFactory() {
@@ -95,6 +100,10 @@ public class Repackager {
      */
     public final File getBackupFile() {
         return new File(this.source.getParentFile(), this.source.getName() + ".original");
+    }
+
+    public final File getFile() {
+        return new File(this.source.getParentFile(), this.source.getName());
     }
 
     private boolean alreadyRepackaged() throws IOException {
@@ -193,76 +202,16 @@ public class Repackager {
         manifest = new Manifest(manifest);
         manifest.getMainAttributes().putValue("Manifest-Version", "1.0");
         manifest.getMainAttributes().putValue(JAR_TOOL, JAR_TOOL_VALUE);
-        manifest.getMainAttributes().putValue(START_CLASS, getStartClass());
+        manifest.getMainAttributes().putValue(START_CLASS, mainClass);
         manifest.getMainAttributes().putValue("Main-Class", MAIN_CLASS);
         return manifest;
     }
 
 
-    private String getStartClass() throws IOException {
-        System.out.println("getStartClass");
-        ClassPool pool = ClassPool.getDefault();
-        File f = getBackupFile();
-        URL url1 = f.toURI().toURL();
-        URLClassLoader myClassLoader = new URLClassLoader(new URL[]{url1}, Thread.currentThread().getContextClassLoader());
-        JarFile jar = new JarFile(f);
-        Enumeration<JarEntry> enumFiles = jar.entries();
-        System.out.println(JsonGsonUtil.objectToJson(enumFiles));
-        while (enumFiles.hasMoreElements()) {
-            JarEntry entry = enumFiles.nextElement();
-            String classFullName = entry.getName();
-            System.out.println("classFullName: " + classFullName);
-            if (classFullName.endsWith(".class")) {
-                try {
-                    String className = classFullName.substring(0, classFullName.length() - 6).replace("/", ".");
-                    Class<?> myclass = myClassLoader.loadClass(className);
-                    Method[] methods = myclass.getMethods();
-                    for (Method method : methods) {
-                        System.out.println("method: " + method.getName());
-                        if (method.getName().equals("main") && method.getParameterTypes().length == 1) {
-                            if (method.getParameterTypes()[0].equals(String[].class) && Modifier.isStatic(method.getModifiers())) {
-                                if (method.getReturnType().getName().equals("void")) {
-                                    CtClass ctClass = pool.makeClass(jar.getInputStream(entry));
-                                    for (Object annotation : ctClass.getAnnotations()) {
-//                                        if (annotation.toString().endsWith("HServerBoot")) {
-                                        System.out.println("annotation" + annotation.toString());
-                                        if (annotation.toString().endsWith("Fastboot")) {
-                                            logger.info("启动类：" + myclass);
-                                            return myclass.getName();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } catch (Throwable ignored) {
-                }
-            }
-        }
-        jar.close();
-        myClassLoader.close();
-        throw new IllegalStateException("找不到启动类,请使用@Fastboot标记你的启动类");
-    }
-
-    private static Class<?> loadClass(String fullClzName) {
-        try {
-            return Thread.currentThread().getContextClassLoader().loadClass(fullClzName);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     private void renameFile(File file, File dest) {
         if (!file.renameTo(dest)) {
             throw new IllegalStateException(
                     "Unable to rename '" + file + "' to '" + dest + "'");
-        }
-    }
-
-    private void deleteFile(File file) {
-        if (!file.delete()) {
-            throw new IllegalStateException("Unable to delete '" + file + "'");
         }
     }
 
