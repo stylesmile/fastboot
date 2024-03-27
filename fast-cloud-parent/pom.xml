@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fast-cloud-parent</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
     <name>fast-cloud-parent</name>
     <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
-        <fast-cloud.version>0.2.0</fast-cloud.version>
+        <fast-cloud.version>0.2.1</fast-cloud.version>
     </properties>
     <modules>
         <!--		<module>fast-cloud-zookeeper</module>-->

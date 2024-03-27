@@ -4,12 +4,14 @@ import io.github.stylesmile.tool.PropertyUtil;
 import io.minio.MinioClient;
 
 public class MinioConfig {
-
-    private static String endpoint = PropertyUtil.getProperty("minio.endpoint");
-    private static String accessKey = PropertyUtil.getProperty("minio.accessKey");
-    private static String secretKey = PropertyUtil.getProperty("minio.secretKey");
-
+    /**
+     * 获取 minio 客户端
+     * @return MinioClient
+     */
     public static MinioClient getMinioClient() {
+        String endpoint = PropertyUtil.getProperty("minio.endpoint");
+        String accessKey = PropertyUtil.getProperty("minio.accessKey");
+        String secretKey = PropertyUtil.getProperty("minio.secretKey");
         System.out.println(accessKey);
         System.out.println(secretKey);
         MinioClient minioClient = MinioClient.builder()
