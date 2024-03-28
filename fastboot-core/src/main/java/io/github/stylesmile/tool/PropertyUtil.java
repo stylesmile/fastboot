@@ -13,7 +13,7 @@ public class PropertyUtil {
     //	private static final Logger logger = LoggerFactory.getLogger(PropertyUtil.class);
     public static Properties props;
 
-    synchronized static public void loadProps(Class clazz, String path) {
+    synchronized static public void loadProps(Class clazz, String path, String[] args) {
 //		logger.info("开始加载properties文件内容.......");
         props = new Properties();
         InputStream in = null;
@@ -34,7 +34,23 @@ public class PropertyUtil {
             } else {
                 props.load(in);
             }
+            String port = null;
             String env = PropertyUtil.getProperty("fastboot.active");
+            for (int i = 0; i < args.length; i++) {
+                String arg = args[i];
+                if (arg.contains("--server.port=")) {
+                    arg = arg.replace("--server.port=", "");
+                    if (StringUtil.isNotBlank(arg)) {
+                        port = arg.trim();
+                    }
+                }
+                if (arg.contains("--fastboot.active=")) {
+                    arg = arg.replace("--fastboot.active=", "");
+                    if (StringUtil.isNotBlank(arg)) {
+                        env = arg.trim();
+                    }
+                }
+            }
             if (StringUtil.isNotBlank(env)) {
                 path = "application-" + env + ".properties";
                 if (propertiesPath.contains("/target/classes")) {
@@ -42,14 +58,15 @@ public class PropertyUtil {
                 } else {
                     in = clazz.getClassLoader().getResourceAsStream(path);
                 }
-                if (in == null) {
+                if (in == null && StringUtil.isEmpty(port)) {
                     System.err.println("application.properties " + "文件未找到");
-                    props.setProperty("server.port=8080", "8080");
+                    port = "8080";
                 } else {
                     props.load(in);
                 }
                 System.out.println("fastboot current environment is " + env);
             }
+            props.setProperty("server.port", port);
         } catch (FileNotFoundException e) {
             System.err.println(path + "文件未找到");
         } catch (IOException e) {
@@ -69,14 +86,14 @@ public class PropertyUtil {
 
     public static String getProperty(String key) {
         if (null == props) {
-            loadProps(null, null);
+            loadProps(null, null, new String[0]);
         }
         return props.getProperty(key);
     }
 
     public static String getProperty(String key, String defaultValue) {
         if (null == props) {
-            loadProps(null, null);
+            loadProps(null, null, new String[0]);
         }
         return props.getProperty(key, defaultValue);
     }
