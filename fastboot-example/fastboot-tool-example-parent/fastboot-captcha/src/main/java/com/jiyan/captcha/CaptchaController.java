@@ -55,8 +55,9 @@ public class CaptchaController {
         System.out.println("手机号码为:{}" + number);
         // 自定义验证码
         String code = RandomCharUtil.generateRandomString(6);
-        DefaultKaptcha captchaProducer2 = captchaService.getDefaultKaptcha();
-        BufferedImage image = captchaProducer2.createImage(code);
+//        DefaultKaptcha captchaProducer2 = captchaService.getDefaultKaptcha();
+//        BufferedImage image = captchaProducer2.createImage(code);
+        BufferedImage image = defaultKaptcha.createImage(code);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(image, "png", baos);
         baos.flush();

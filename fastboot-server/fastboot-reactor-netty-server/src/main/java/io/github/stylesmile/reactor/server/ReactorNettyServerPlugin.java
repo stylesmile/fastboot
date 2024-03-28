@@ -34,7 +34,7 @@ public class ReactorNettyServerPlugin implements ServerPlugin {
     public void start(Class applicationClass, String[] args) {
         long startTime = System.currentTimeMillis();
         Integer port = 8080;
-        PropertyUtil.loadProps(applicationClass, "application.properties");
+        PropertyUtil.loadProps(applicationClass, "application.properties", args);
         String portString = PropertyUtil.getProperty("server.port");
         if (StringUtil.isNotEmpty(portString)) {
             port = Integer.valueOf(portString);

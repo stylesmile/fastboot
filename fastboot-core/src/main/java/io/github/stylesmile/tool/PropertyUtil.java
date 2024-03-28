@@ -38,16 +38,16 @@ public class PropertyUtil {
             String env = PropertyUtil.getProperty("fastboot.active");
             for (int i = 0; i < args.length; i++) {
                 String arg = args[i];
-                if (arg.contains("--server.port=")) {
-                    arg = arg.replace("--server.port=", "");
-                    if (StringUtil.isNotBlank(arg)) {
-                        port = arg.trim();
-                    }
-                }
                 if (arg.contains("--fastboot.active=")) {
                     arg = arg.replace("--fastboot.active=", "");
                     if (StringUtil.isNotBlank(arg)) {
                         env = arg.trim();
+                    }
+                }
+                if (arg.contains("--server.port=")) {
+                    arg = arg.replace("--server.port=", "");
+                    if (StringUtil.isNotBlank(arg)) {
+                        port = arg.trim();
                     }
                 }
             }
@@ -60,13 +60,15 @@ public class PropertyUtil {
                 }
                 if (in == null && StringUtil.isEmpty(port)) {
                     System.err.println("application.properties " + "文件未找到");
-                    port = "8080";
+                    props.setProperty("server.port", "8080");
                 } else {
                     props.load(in);
                 }
                 System.out.println("fastboot current environment is " + env);
             }
-            props.setProperty("server.port", port);
+            if (StringUtil.isNotBlank(port)) {
+                props.setProperty("server.port", port);
+            }
         } catch (FileNotFoundException e) {
             System.err.println(path + "文件未找到");
         } catch (IOException e) {

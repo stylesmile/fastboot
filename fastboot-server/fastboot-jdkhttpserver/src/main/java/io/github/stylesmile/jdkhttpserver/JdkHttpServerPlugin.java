@@ -34,7 +34,7 @@ public class JdkHttpServerPlugin implements ServerPlugin {
         Integer port = 8080;
         httpServer = new JdkHTTPServer();
         ;
-        PropertyUtil.loadProps(applicationClass, "application.properties");
+        PropertyUtil.loadProps(applicationClass, "application.properties", args);
         String portString = PropertyUtil.getProperty("server.port");
         if (StringUtil.isNotEmpty(portString)) {
             port = Integer.valueOf(portString);
