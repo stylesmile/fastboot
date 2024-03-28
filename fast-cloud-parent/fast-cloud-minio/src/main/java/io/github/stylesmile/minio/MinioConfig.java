@@ -12,8 +12,6 @@ public class MinioConfig {
         String endpoint = PropertyUtil.getProperty("minio.endpoint");
         String accessKey = PropertyUtil.getProperty("minio.accessKey");
         String secretKey = PropertyUtil.getProperty("minio.secretKey");
-        System.out.println(accessKey);
-        System.out.println(secretKey);
         MinioClient minioClient = MinioClient.builder()
                 .endpoint(endpoint)
                 .credentials(accessKey, secretKey)

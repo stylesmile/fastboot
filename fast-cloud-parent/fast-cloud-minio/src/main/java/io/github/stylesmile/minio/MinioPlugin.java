@@ -11,13 +11,13 @@ public class MinioPlugin implements Plugin {
 
     @Override
     public void start() {
-
+        MinioClient minioClient = MinioConfig.getMinioClient();
+        BeanContainer.setInstance(MinioClient.class, minioClient);
     }
 
     @Override
     public void init() {
-        MinioClient minioClient = MinioConfig.getMinioClient();
-        BeanContainer.setInstance(MinioClient.class, minioClient);
+
     }
 
     @Override
