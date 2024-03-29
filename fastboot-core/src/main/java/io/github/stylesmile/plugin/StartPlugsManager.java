@@ -21,6 +21,7 @@ public class StartPlugsManager implements Plugin {
         //通过spi加载所有插件
         ServiceLoader<Plugin> loadedParsers = ServiceLoader.load(Plugin.class);
         for (Plugin plugin : loadedParsers) {
+            System.out.println("load plugin: " + plugin.getClass());
             obj.add(plugin);
             plugPackages.add(plugin.getClass().getPackage().getName());
         }
