@@ -1,10 +1,10 @@
 package io.github.stylesmile;
 
 
+import io.github.stylesmile.annotation.AutoWired;
 import io.github.stylesmile.app.App;
 import io.github.stylesmile.jedis.JedisTemplate;
 
-import javax.annotation.Resource;
 
 /**
  * 测试入口类
@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * @author stylesmile
  */
 public class Application {
-    @Resource
+    @AutoWired
     JedisTemplate jedisTemplate;
 
     public static void main(String[] args) {
