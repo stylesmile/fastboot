@@ -15,12 +15,12 @@ public class CopyLoader {
     static String path;
     static String name;
     static String tempName;
-    static String HServerName = "HServer.jar";
+    static String fastbootName = "fastboot.jar";
 
     public static void start(File file) throws Exception {
         CopyLoader.name = file.getName();
         CopyLoader.tempName = UUID.randomUUID().toString() + ".jar";
-        CopyLoader.HServerName = UUID.randomUUID().toString() + ".jar";
+        CopyLoader.fastbootName = UUID.randomUUID().toString() + ".jar";
         CopyLoader.path = (file.getAbsolutePath().replace(name, ""));
         getHServerJar();
         setLoader();
@@ -30,13 +30,13 @@ public class CopyLoader {
 
     private static void organizeFiles() {
         new File(path + name).delete();
-        new File(path + HServerName).delete();
+        new File(path + fastbootName).delete();
         new File(path + tempName).renameTo(new File(path + name));
 
     }
 
     private static void setLoader() throws IOException {
-        JarFile jarfile = new JarFile(path + HServerName);
+        JarFile jarfile = new JarFile(path + fastbootName);
         JarFile targetJarfile = new JarFile(path + name);
         JarOutputStream jarOutputStream = new JarOutputStream(new FileOutputStream(path + tempName));
         //写loader 文件
@@ -69,9 +69,9 @@ public class CopyLoader {
         Enumeration<JarEntry> entries = jarfile.entries();
         while (entries.hasMoreElements()) {
             JarEntry jarEntry = entries.nextElement();
-            if (jarEntry.getName().endsWith(".jar") && jarEntry.getName().startsWith("lib/HServer")) {
+            if (jarEntry.getName().endsWith(".jar") || jarEntry.getName().startsWith("lib/fastboot")) {
                 InputStream inputStream = jarfile.getInputStream(jarEntry);
-                writeToLocal(path + HServerName, inputStream);
+                writeToLocal(path + fastbootName, inputStream);
                 break;
             }
         }

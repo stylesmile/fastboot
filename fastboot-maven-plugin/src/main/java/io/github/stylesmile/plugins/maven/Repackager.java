@@ -1,17 +1,15 @@
 package io.github.stylesmile.plugins.maven;
 
 
+import io.github.stylesmile.annotation.Fastboot;
 import io.github.stylesmile.plugins.maven.tools.tool.*;
 import javassist.ClassPool;
-import javassist.CtClass;
 import org.apache.maven.plugin.logging.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.*;
@@ -191,16 +189,15 @@ public class Repackager {
         }
         manifest = new Manifest(manifest);
         manifest.getMainAttributes().putValue("Manifest-Version", "1.0");
-        manifest.getMainAttributes().putValue(JAR_TOOL, JAR_TOOL_VALUE);
+//        manifest.getMainAttributes().putValue(JAR_TOOL, JAR_TOOL_VALUE);
         manifest.getMainAttributes().putValue(Main_Class, getStartClass());
-        manifest.getMainAttributes().putValue(START_CLASS, getStartClass());
+//        manifest.getMainAttributes().putValue(START_CLASS, getStartClass());
 //        manifest.getMainAttributes().putValue("Main-Class", MAIN_CLASS);
         return manifest;
     }
 
 
     private String getStartClass() throws IOException {
-        System.out.println("getStartClass");
         ClassPool pool = ClassPool.getDefault();
         File f = getBackupFile();
         URL url1 = f.toURI().toURL();
@@ -209,36 +206,46 @@ public class Repackager {
         Enumeration<JarEntry> enumFiles = jar.entries();
         while (enumFiles.hasMoreElements()) {
             JarEntry entry = enumFiles.nextElement();
-            String classFullName = entry.getName();
+            final String classFullName = entry.getName();
             if (classFullName.endsWith(".class")) {
                 try {
-                    System.out.println("classFullName0: " + classFullName);
                     String className = classFullName.substring(0, classFullName.length() - 6).replace("/", ".");
                     Class<?> myclass = myClassLoader.loadClass(className);
-                    Method[] methods = myclass.getMethods();
-                    for (Method method : methods) {
-                        System.out.println("method: " + method.getName());
-                        if (method.getName().equals("main") && method.getParameterTypes().length == 1) {
-                            System.out.println("method2: " + method.getName());
-                            if (method.getParameterTypes()[0].equals(String[].class) && Modifier.isStatic(method.getModifiers())) {
-                                System.out.println("classFullName: " + classFullName);
-                                System.out.println("method3: " + method.getName());
-                                if (method.getReturnType().getName().equals("void")) {
-                                    System.out.println("classFullName: " + classFullName);
-                                    System.out.println("method4: " + method.getName());
-//                                    CtClass ctClass = pool.makeClass(jar.getInputStream(entry));
-                                    for (Object annotation : myclass.getAnnotations()) {
-//                                        if (annotation.toString().endsWith("HServerBoot")) {
-                                        System.out.println("annotation : " + annotation.toString());
-                                        if (annotation.toString().equals("@io.github.stylesmile.annotation.Fastboot()")) {
-                                            logger.info("启动类：" + myclass);
-                                            return myclass.getName();
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    System.out.println("classFullName0: " + classFullName);
+                    System.out.println("className0: " + className);
+                    Fastboot fastboot = myclass.getAnnotation(Fastboot.class);
+                    if (fastboot != null) {
+                        logger.info("启动类：" + myclass);
+                        return myclass.getName();
                     }
+//                    if (fastboot.toString().equals("@io.github.stylesmile.annotation.Fastboot()")) {
+//                        logger.info("启动类：" + myclass);
+//                        return myclass.getName();
+//                    }
+//                    for (Method method : myclass.getMethods()) {
+//                        System.out.println("classFullName2: " + classFullName);
+//                        System.out.println("method: " + method.getName());
+//                        if (method.getName().equals("main") && method.getParameterTypes().length == 1) {
+//                            System.out.println("method2: " + method.getName());
+//                            if (method.getParameterTypes()[0].equals(String[].class) && Modifier.isStatic(method.getModifiers())) {
+//                                System.out.println("classFullName: " + classFullName);
+//                                System.out.println("method3: " + method.getName());
+//                                if (method.getReturnType().getName().equals("void")) {
+//                                    System.out.println("classFullName: " + classFullName);
+//                                    System.out.println("method4: " + method.getName());
+////                                    CtClass ctClass = pool.makeClass(jar.getInputStream(entry));
+//                                    for (Object annotation : myclass.getAnnotations()) {
+////                                        if (annotation.toString().endsWith("HServerBoot")) {
+//                                        System.out.println("annotation : " + annotation.toString());
+//                                        if (annotation.toString().equals("@io.github.stylesmile.annotation.Fastboot()")) {
+//                                            logger.info("启动类：" + myclass);
+//                                            return myclass.getName();
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
                 } catch (Throwable ignored) {
                 }
             }

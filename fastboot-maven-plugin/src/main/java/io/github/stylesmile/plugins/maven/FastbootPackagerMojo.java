@@ -33,7 +33,7 @@ public class FastbootPackagerMojo extends AbstractMojo {
     private Log logger = getLog();
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() throws MojoExecutionException {
         repackage();
         //处理loader
         try {
@@ -43,7 +43,7 @@ public class FastbootPackagerMojo extends AbstractMojo {
         }
     }
 
-    private void repackage() throws MojoExecutionException, MojoFailureException {
+    private void repackage() throws MojoExecutionException {
         File sourceFile = project.getArtifact().getFile();
         Repackager repackager = new Repackager(sourceFile,logger);
         File target = getTargetFile();
