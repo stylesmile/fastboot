@@ -14,7 +14,7 @@ public class MqttClientConfig {
     private String ip;
 
     @Value("mqtt.client.port")
-    private int port = 1883;
+    private String port;
 
     @Value("mqtt.client.username")
     private String username = "admin";
@@ -26,21 +26,21 @@ public class MqttClientConfig {
     private String clientId;
 
     @Value("mqtt.client.readBufferSize")
-    private int readBufferSize = 512;
+    private String readBufferSize;
 
     @Value("mqtt.client.maxBytesInMessage")
-    private int maxBytesInMessage;
+    private String maxBytesInMessage;
 
     @Value("mqtt.client.keepAliveSecs")
-    private int keepAliveSecs;
+    private String keepAliveSecs;
 
 
     @Value("mqtt.client.timeout")
-    private int timeout;
+    private String timeout;
     @Value("mqtt.client.reconnect")
     private Boolean reconnect;
     @Value("mqtt.client.reInterval")
-    private int reInterval;
+    private String reInterval;
 
 
     @Value("mqtt.client.willMessage.topic")
@@ -54,18 +54,18 @@ public class MqttClientConfig {
     public MqttClient test() {
         // 初始化 mqtt 客户端
         MqttClient client = MqttClient.create()
-                .ip(ip)                       // mqtt 服务端 ip 地址
-                .port(port)                     // 默认：1883
-                .username(username)              // 账号
-                .password(password)             // 密码
-                .version(MqttVersion.MQTT_5)    // 默认：3_1_1
-                .clientId(clientId)             // 非常重要务必手动设置，一般设备 sn 号，默认：MICA-MQTT- 前缀和 36进制的纳秒数
-                .readBufferSize(readBufferSize) // 消息一起解析的长度，默认：为 8092 （mqtt 消息最大长度）
-                .maxBytesInMessage(maxBytesInMessage)   // 最大包体长度,如果包体过大需要设置此参数，默认为： 10M (10*1024*1024)
-                .keepAliveSecs(keepAliveSecs)             // 默认：60s
-                .timeout(timeout)                    // 超时时间，t-io 配置，可为 null，为 null 时，t-io 默认为 5
-                .reconnect(reconnect)                // 是否重连，默认：true
-                .reInterval(reInterval)               // 重连重试时间，reconnect 为 true 时有效，t-io 默认为：5000
+                .ip(ip)                                               // mqtt 服务端 ip 地址
+                .port(Integer.valueOf(port))                          // 默认：1883
+                .username(username)                                   // 账号
+                .password(password)                                   // 密码
+                .version(MqttVersion.MQTT_5)                          // 默认：3_1_1
+                .clientId(clientId)                                   // 非常重要务必手动设置，一般设备 sn 号，默认：MICA-MQTT- 前缀和 36进制的纳秒数
+                .readBufferSize(Integer.valueOf(readBufferSize))      // 消息一起解析的长度，默认：为 8092 （mqtt 消息最大长度）
+                .maxBytesInMessage(Integer.valueOf(maxBytesInMessage))// 最大包体长度,如果包体过大需要设置此参数，默认为： 10M (10*1024*1024)
+                .keepAliveSecs(Integer.valueOf(keepAliveSecs))        // 默认：60s
+                .timeout(Integer.valueOf(timeout))                    // 超时时间，t-io 配置，可为 null，为 null 时，t-io 默认为 5
+                .reconnect(reconnect)                                 // 是否重连，默认：true
+                .reInterval(Integer.valueOf(reInterval))              // 重连重试时间，reconnect 为 true 时有效，t-io 默认为：5000
                 .willMessage(builder -> {
 //                    builder.topic("/test/offline").messageText("down");    // 遗嘱消息
                     builder.topic(topic).messageText(message);    // 遗嘱消息

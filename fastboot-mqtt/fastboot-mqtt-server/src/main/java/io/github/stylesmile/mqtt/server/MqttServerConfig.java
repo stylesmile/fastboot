@@ -15,7 +15,7 @@ public class MqttServerConfig {
     private String ip;
 
     @Value("mqtt.server.port")
-    private int port = 1883;
+    private String port;
 
     @Value("mqtt.server.username")
     private String username = "admin";
@@ -27,21 +27,21 @@ public class MqttServerConfig {
     private String clientId;
 
     @Value("mqtt.server.readBufferSize")
-    private int readBufferSize = 512;
+    private String readBufferSize;
 
     @Value("mqtt.server.maxBytesInMessage")
-    private int maxBytesInMessage;
+    private String maxBytesInMessage;
 
     @Value("mqtt.server.keepAliveSecs")
-    private int keepAliveSecs;
+    private String keepAliveSecs;
 
 
     @Value("mqtt.server.timeout")
-    private int timeout;
+    private String timeout;
     @Value("mqtt.server.reconnect")
     private Boolean reconnect;
     @Value("mqtt.server.reInterval")
-    private int reInterval;
+    private String reInterval;
 
 
     @Value("mqtt.server.willMessage.topic")
@@ -61,11 +61,11 @@ public class MqttServerConfig {
                 // 服务端 ip 默认为空，0.0.0.0，建议不要设置
                 .ip(ip)
                 // 默认：1883
-                .port(port)
+                .port(Integer.valueOf(port))
                 // 默认为： 8092（mqtt 默认最大消息大小），为了降低内存可以减小小此参数，如果消息过大 t-io 会尝试解析多次（建议根据实际业务情况而定）
-                .readBufferSize(readBufferSize)
+                .readBufferSize(Integer.valueOf(readBufferSize))
                 // 最大包体长度，如果包体过大需要设置此参数，默认为： 8092
-                .maxBytesInMessage(maxBytesInMessage)
+                .maxBytesInMessage(Integer.valueOf(maxBytesInMessage))
                 // 自定义认证
 //                .authHandler((clientId, userName, password) -> true)
                 .usernamePassword(username, password)
