@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @Fastboot(exclude = {User.class})
 @Controller
-public class Application {
+public class PluginTestApplication {
 
     @Value("fastboot.name")
     String name;
@@ -30,7 +30,7 @@ public class Application {
         for (int a = 0; a < args.length; a++) {
             System.out.println(args[a]);
         }
-        App.start(Application.class, args);
+        App.start(PluginTestApplication.class, args);
     }
 
     @RequestMapping("/")

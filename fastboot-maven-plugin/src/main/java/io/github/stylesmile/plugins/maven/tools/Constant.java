@@ -8,11 +8,12 @@ public class Constant {
 
     public static final String MDW_PATH       = "/opt/hserver/mdw";
 
-    public static final String JAR_TOOL       = "HServer-Jar-Build-Tool";
+    public static final String JAR_TOOL       = "fastboot-Jar-Build-Tool";
 
-    public static final String JAR_TOOL_VALUE = "HServer-Jar-Plugin";
+    public static final String JAR_TOOL_VALUE = "fastboot-Jar-Plugin";
 
     public static final String START_CLASS = "Start-Class";
+    public static final String Main_Class = "Main-Class";
 
     public static final String HEAD_PACKAGE = "top.hserver.core.loader";
 

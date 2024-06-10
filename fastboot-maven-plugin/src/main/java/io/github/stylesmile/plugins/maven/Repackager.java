@@ -2,7 +2,6 @@ package io.github.stylesmile.plugins.maven;
 
 
 import io.github.stylesmile.plugins.maven.tools.tool.*;
-import io.github.stylesmile.tool.JsonGsonUtil;
 import javassist.ClassPool;
 import javassist.CtClass;
 import org.apache.maven.plugin.logging.Log;
@@ -193,8 +192,9 @@ public class Repackager {
         manifest = new Manifest(manifest);
         manifest.getMainAttributes().putValue("Manifest-Version", "1.0");
         manifest.getMainAttributes().putValue(JAR_TOOL, JAR_TOOL_VALUE);
+        manifest.getMainAttributes().putValue(Main_Class, getStartClass());
         manifest.getMainAttributes().putValue(START_CLASS, getStartClass());
-        manifest.getMainAttributes().putValue("Main-Class", MAIN_CLASS);
+//        manifest.getMainAttributes().putValue("Main-Class", MAIN_CLASS);
         return manifest;
     }
 
@@ -207,26 +207,30 @@ public class Repackager {
         URLClassLoader myClassLoader = new URLClassLoader(new URL[]{url1}, Thread.currentThread().getContextClassLoader());
         JarFile jar = new JarFile(f);
         Enumeration<JarEntry> enumFiles = jar.entries();
-        System.out.println(JsonGsonUtil.objectToJson(enumFiles));
         while (enumFiles.hasMoreElements()) {
             JarEntry entry = enumFiles.nextElement();
             String classFullName = entry.getName();
-            System.out.println("classFullName: " + classFullName);
             if (classFullName.endsWith(".class")) {
                 try {
+                    System.out.println("classFullName0: " + classFullName);
                     String className = classFullName.substring(0, classFullName.length() - 6).replace("/", ".");
                     Class<?> myclass = myClassLoader.loadClass(className);
                     Method[] methods = myclass.getMethods();
                     for (Method method : methods) {
                         System.out.println("method: " + method.getName());
                         if (method.getName().equals("main") && method.getParameterTypes().length == 1) {
+                            System.out.println("method2: " + method.getName());
                             if (method.getParameterTypes()[0].equals(String[].class) && Modifier.isStatic(method.getModifiers())) {
+                                System.out.println("classFullName: " + classFullName);
+                                System.out.println("method3: " + method.getName());
                                 if (method.getReturnType().getName().equals("void")) {
-                                    CtClass ctClass = pool.makeClass(jar.getInputStream(entry));
-                                    for (Object annotation : ctClass.getAnnotations()) {
+                                    System.out.println("classFullName: " + classFullName);
+                                    System.out.println("method4: " + method.getName());
+//                                    CtClass ctClass = pool.makeClass(jar.getInputStream(entry));
+                                    for (Object annotation : myclass.getAnnotations()) {
 //                                        if (annotation.toString().endsWith("HServerBoot")) {
-                                        System.out.println("annotation" + annotation.toString());
-                                        if (annotation.toString().endsWith("Fastboot")) {
+                                        System.out.println("annotation : " + annotation.toString());
+                                        if (annotation.toString().equals("@io.github.stylesmile.annotation.Fastboot()")) {
                                             logger.info("启动类：" + myclass);
                                             return myclass.getName();
                                         }
