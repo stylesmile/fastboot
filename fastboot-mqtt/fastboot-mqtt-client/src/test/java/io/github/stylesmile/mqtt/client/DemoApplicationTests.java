@@ -1,4 +1,4 @@
-package io.github.stylesmile;
+package io.github.stylesmile.mqtt.client;
 
 
 class DemoApplicationTests {

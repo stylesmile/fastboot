@@ -1,9 +1,7 @@
-package io.github.stylesmile;
+package io.github.stylesmile.mqtt.client;
 
 
-import io.github.stylesmile.annotation.AutoWired;
 import io.github.stylesmile.app.App;
-import io.github.stylesmile.jedis.JedisTemplate;
 
 
 /**
@@ -12,8 +10,6 @@ import io.github.stylesmile.jedis.JedisTemplate;
  * @author stylesmile
  */
 public class Application {
-    @AutoWired
-    JedisTemplate jedisTemplate;
 
     public static void main(String[] args) {
         App.start(Application.class, args);
