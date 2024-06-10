@@ -3,6 +3,7 @@ package io.github.stylesmile.mqtt.server;
 import io.github.stylesmile.annotation.Service;
 import io.github.stylesmile.ioc.Bean;
 import io.github.stylesmile.ioc.Value;
+import io.github.stylesmile.tool.PropertyUtil;
 import net.dreamlu.iot.mqtt.core.server.MqttServer;
 import net.dreamlu.iot.mqtt.core.server.dispatcher.IMqttMessageDispatcher;
 import net.dreamlu.iot.mqtt.core.server.event.IMqttConnectStatusListener;
@@ -35,7 +36,6 @@ public class MqttServerConfig {
     @Value("mqtt.server.keepAliveSecs")
     private String keepAliveSecs;
 
-
     @Value("mqtt.server.timeout")
     private String timeout;
     @Value("mqtt.server.reconnect")
@@ -51,21 +51,21 @@ public class MqttServerConfig {
     private String message;
 
     @Value("mqtt.server.heartbeatTimeout")
-    private Long heartbeatTimeout;
+    private String heartbeatTimeout;
 
 
-    @Bean("mqttClient")
     public MqttServer getMqttServer() {
+        System.out.println("start MqttServer");
         // 注意：为了能接受更多链接（降低内存），请添加 jvm 参数 -Xss129k
         MqttServer mqttServer = MqttServer.create()
                 // 服务端 ip 默认为空，0.0.0.0，建议不要设置
                 .ip(ip)
                 // 默认：1883
-                .port(Integer.valueOf(port))
+                .port(Integer.valueOf(PropertyUtil.getProperty("mqtt.server.port","1883")))
                 // 默认为： 8092（mqtt 默认最大消息大小），为了降低内存可以减小小此参数，如果消息过大 t-io 会尝试解析多次（建议根据实际业务情况而定）
-                .readBufferSize(Integer.valueOf(readBufferSize))
+                .readBufferSize(Integer.valueOf(PropertyUtil.getProperty("mqtt.server.readBufferSize","8092")))
                 // 最大包体长度，如果包体过大需要设置此参数，默认为： 8092
-                .maxBytesInMessage(Integer.valueOf(maxBytesInMessage))
+                .maxBytesInMessage(Integer.valueOf(PropertyUtil.getProperty("mqtt.server.maxBytesInMessage","8092")))
                 // 自定义认证
 //                .authHandler((clientId, userName, password) -> true)
                 .usernamePassword(username, password)
@@ -74,10 +74,11 @@ public class MqttServerConfig {
 //                    logger.info("clientId:{} message:{} payload:{}", clientId, message, new String(message.getPayload(), StandardCharsets.UTF_8));
 //                })
                 // 心跳超时时间，默认：120s
-                .heartbeatTimeout(heartbeatTimeout)
+                .heartbeatTimeout(Long.valueOf(
+                        PropertyUtil.getProperty("mqtt.server.heartbeatTimeout","120")))
                 // ssl 配置
 //                .useSsl("", "", "")
-                .useSsl("", "")
+//                .useSsl("", "")
                 // 自定义客户端上下线监听
                 .connectStatusListener(new IMqttConnectStatusListener() {
                     @Override

@@ -24,6 +24,7 @@
         <module>fastboot-server</module>
         <module>fastboot-web-parent</module>
         <module>fastboot-tool</module>
+        <module>fastboot-mqtt</module>
 <!--        <module>fastboot-maven-plugin</module>-->
         <!--        <module>fastboot-example</module>-->
     </modules>
