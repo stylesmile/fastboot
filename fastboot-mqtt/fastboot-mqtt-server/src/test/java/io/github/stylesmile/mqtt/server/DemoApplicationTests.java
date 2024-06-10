@@ -1,4 +1,4 @@
-package io.github.stylesmile.mybatis;
+package io.github.stylesmile.mqtt.server;
 
 
 class DemoApplicationTests {
