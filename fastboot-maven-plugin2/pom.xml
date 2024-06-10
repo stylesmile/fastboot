@@ -6,12 +6,12 @@
     <parent>
         <groupId>io.github.stylesmile</groupId>
         <artifactId>fastboot-parent</artifactId>
-        <version>2.9.2</version>
+        <version>2.9.6</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>io.github.stylesmile</groupId>
-    <artifactId>fastboot2-maven-plugin</artifactId>
+    <artifactId>fastboot-maven-plugin2</artifactId>
     <version>${fastboot.version}</version>
     <packaging>maven-plugin</packaging>
 
