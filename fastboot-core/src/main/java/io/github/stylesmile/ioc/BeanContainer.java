@@ -5,6 +5,8 @@ import io.github.stylesmile.annotation.AutoWired;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static io.github.stylesmile.ioc.BeanFactory.initValue;
+
 /**
  * Bean容器
  *
@@ -22,6 +24,7 @@ public class BeanContainer {
      * @return Object
      */
     public static void setInstance(Class cls, Object o) {
+        initValue(cls, o);
         instances.put(cls, o);
     }
 
@@ -55,7 +58,6 @@ public class BeanContainer {
                     obj = getInstance(cls);
                     instances.put(cls, obj);
                 }
-
             }
             return (T) obj;
         } catch (Exception e) {
@@ -70,6 +72,7 @@ public class BeanContainer {
             T obj = null;
             obj = (T) instances.get(cls);
             if (obj == null) {
+
                 obj = cls.newInstance();
             }
             //返回本类申明的字段包括非public,不包括父类

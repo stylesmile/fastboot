@@ -6,7 +6,6 @@ import io.github.stylesmile.annotation.Service;
 import io.github.stylesmile.filter.Filter;
 import io.github.stylesmile.filter.FilterManager;
 import io.github.stylesmile.tool.PropertyUtil;
-import io.github.stylesmile.tool.StringUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -57,10 +56,10 @@ public class BeanFactory {
 //        while (toCreate.size() != 0) {
         int remainSize = toCreate.size();
         putClassToBean(classList);
-        for (Class classes : classList) {
-            // 初始化 @Value 注解的属性
-            initValue(classes);
-        }
+//        for (Class classes : classList) {
+//            // 初始化 @Value 注解的属性
+//            initValue(classes);
+//        }
 
         Iterator<Class<?>> iterator = classList.iterator();
         while (iterator.hasNext()) {
@@ -95,6 +94,9 @@ public class BeanFactory {
                 }
             }
             if (hasBean) {
+                Object bean = null;
+                bean = BeanContainer.getSingleInstance(cls);
+                BeanContainer.setInstance(cls, bean);
                 Method[] methods = cls.getDeclaredMethods();
                 for (Method method : methods) {
                     //判断方法是否使用了 Bean 注解，如果有，就处理
@@ -111,9 +113,7 @@ public class BeanFactory {
                         }
                     }
                 }
-                Object bean = null;
-                bean = BeanContainer.getSingleInstance(cls);
-                BeanContainer.setInstance(cls, bean);
+
             }
         });
     }
@@ -163,7 +163,7 @@ public class BeanFactory {
      * @return boolean
      * @throws IllegalAccessException 异常
      */
-    private static void initValue(Class<?> cls){
+    protected static void initValue(Class<?> cls,Object bean){
         boolean hasBean = false;
         for (Class beanClass : beanClassesBase) {
             boolean b = cls.isAnnotationPresent(beanClass);
@@ -173,10 +173,7 @@ public class BeanFactory {
             }
         }
         if (hasBean) {
-            //创建Bean，处理对象中的属性，查看是否需要依赖注入
-            Object bean = null;
-            bean = BeanContainer.getSingleInstance(cls);
-            Field[] fields = cls.getDeclaredFields();
+            Field[] fields =  bean.getClass().getDeclaredFields();
             for (Field field : fields) {
                 if (field.getAnnotation(Value.class) != null) {
                     field.setAccessible(true);
