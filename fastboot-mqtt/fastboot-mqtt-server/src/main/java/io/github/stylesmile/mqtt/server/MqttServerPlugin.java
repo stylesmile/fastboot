@@ -13,8 +13,8 @@ public class MqttServerPlugin implements Plugin {
 
     @Override
     public void start() {
+        // 添加到 待扫描的类中
         FastbootUtil.addClass(MqttServerConfig.class);
-
     }
 
     @Override
@@ -24,9 +24,6 @@ public class MqttServerPlugin implements Plugin {
 
     @Override
     public void end() {
-        MqttServerConfig mqttServerConfig = new MqttServerConfig();
-        MqttServer mqttServer = mqttServerConfig.getMqttServer();
-        BeanContainer.setInstance(MqttServer.class, mqttServer);
     }
 
 }
