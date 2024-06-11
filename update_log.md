@@ -3,8 +3,9 @@ knif4j集成
 单元测试框架集成
 多环节区分配置文件集成
 fastboot-maven-plugin
-### 2.9.7
+### 2.10.0
 支持mqtt server
+支持@Bean注入
 ### 2.9.0
 
 aop集成
