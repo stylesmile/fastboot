@@ -59,10 +59,10 @@ public class BeanFactory {
         putClassToBean(classList);
         Iterator<Class<?>> iterator = classList.iterator();
         while (iterator.hasNext()) {
-            Class item = iterator.next();
+            Class<?> item = iterator.next();
             if (finishCreate(item)) {
                 //创建完，就要移除掉
-                toCreate.remove(item);
+                iterator.remove();
             }
         }
 //        for (int i = 0; i < toCreate.size(); i++) {
