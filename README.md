@@ -90,7 +90,7 @@ Application Development Manual：[visit](doc/应用开发手册/应用开发手�
 <parent>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>2.9.7</version>
+    <version>2.10.0</version>
 </parent>
 ```
 
