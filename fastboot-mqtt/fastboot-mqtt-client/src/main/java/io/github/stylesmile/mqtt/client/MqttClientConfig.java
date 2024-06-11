@@ -14,10 +14,10 @@ import java.util.UUID;
 @Service
 public class MqttClientConfig {
     @Value("mqtt.client.ip")
-    private String ip = "0.0.0.0";
+    private String ip = "127.0.0.1";
 
     @Value("mqtt.client.port")
-    private String port;
+    private String port = "1883";
 
     @Value("mqtt.client.username")
     private String username = "admin";
