@@ -57,6 +57,11 @@ public class BeanFactory {
 //        while (toCreate.size() != 0) {
         int remainSize = toCreate.size();
         putClassToBean(classList);
+        for (Class classes : classList) {
+            // 初始化 @Value 注解的属性
+            initValue(classes);
+        }
+
         Iterator<Class<?>> iterator = classList.iterator();
         while (iterator.hasNext()) {
             Class<?> item = iterator.next();
@@ -90,6 +95,22 @@ public class BeanFactory {
                 }
             }
             if (hasBean) {
+                Method[] methods = cls.getDeclaredMethods();
+                for (Method method : methods) {
+                    //判断方法是否使用了 Bean 注解，如果有，就处理
+                    if (method.isAnnotationPresent(Bean.class)) {
+                        try {
+                            method.setAccessible(true);
+                            // bean 注解的方法 返回值 对象
+                            Object result = method.invoke(BeanContainer.getInstance(cls));
+                            // bean 注解的方法 返回值 class 类型
+                            Class<?> returnClassType = method.getReturnType();
+                            BeanContainer.setInstance(returnClassType, result);
+                        } catch (IllegalAccessException | InvocationTargetException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
                 Object bean = null;
                 bean = BeanContainer.getSingleInstance(cls);
                 BeanContainer.setInstance(cls, bean);
@@ -115,11 +136,7 @@ public class BeanFactory {
             bean = BeanContainer.getSingleInstance(cls);
             Field[] fields = cls.getDeclaredFields();
             for (Field field : fields) {
-                if (field.getAnnotation(Value.class) != null) {
-                    field.setAccessible(true);
-                    Value value = field.getAnnotation(Value.class);
-                    field.set(bean, StringUtil.isNotEmpty(value.value()) ? PropertyUtil.getProperty(value.value()) : null);
-                } else if (field.isAnnotationPresent(AutoWired.class)) {
+                if (field.isAnnotationPresent(AutoWired.class)) {
                     //获取属性的类型
                     Class<?> fieldType = field.getType();
                     //从工厂里面获取，获取不到，先返回
@@ -133,27 +150,46 @@ public class BeanFactory {
                     field.set(bean, reliantBean);
                 }
             }
-            Method[] methods = cls.getDeclaredMethods();
-            for (Method method : methods) {
-                //判断方法是否使用了 Bean 注解，如果有，就处理
-                if (method.isAnnotationPresent(Bean.class)) {
-                    try {
-                        method.setAccessible(true);
-                        // bean 注解的方法 返回值 对象
-                        Object result = method.invoke(bean);
-                        // bean 注解的方法 返回值 class 类型
-                        Class<?> returnClassType = method.getReturnType();
-                        BeanContainer.setInstance(returnClassType, result);
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
             addFilter(cls);
             //缓存实例到工厂中
             BeanContainer.setInstance(cls, bean);
         }
         return true;
+    }
+
+    /**
+     * 初始化 @Value 注解的属性
+     * @param cls clas
+     * @return boolean
+     * @throws IllegalAccessException 异常
+     */
+    private static void initValue(Class<?> cls){
+        boolean hasBean = false;
+        for (Class beanClass : beanClassesBase) {
+            boolean b = cls.isAnnotationPresent(beanClass);
+            if (b) {
+                hasBean = true;
+                break;
+            }
+        }
+        if (hasBean) {
+            //创建Bean，处理对象中的属性，查看是否需要依赖注入
+            Object bean = null;
+            bean = BeanContainer.getSingleInstance(cls);
+            Field[] fields = cls.getDeclaredFields();
+            for (Field field : fields) {
+                if (field.getAnnotation(Value.class) != null) {
+                    field.setAccessible(true);
+                    Value value = field.getAnnotation(Value.class);
+                    try {
+                        String valueStr = PropertyUtil.getProperty(value.value()) == null ? "" : PropertyUtil.getProperty(value.value());
+                        field.set(bean, valueStr);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
     }
 
     private static void addFilter(Class<?> cls) {

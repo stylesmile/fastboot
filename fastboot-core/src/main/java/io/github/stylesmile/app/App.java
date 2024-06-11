@@ -76,7 +76,7 @@ public class App {
             BEAN_PLUGS_MANAGER.start();
 
             // 容器插件
-            SERVER_PLUGS_MANAGER.start(applicationClass, args);
+//            SERVER_PLUGS_MANAGER.start(applicationClass, args);
 
             BEAN_PLUGS_MANAGER.init();
             //创建Bean工厂,扫描Class，创建被注解标注的类

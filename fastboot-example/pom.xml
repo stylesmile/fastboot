@@ -22,6 +22,7 @@
         <module>fastboot-staticfile-example</module>
         <module>fastboot-web-parent-example</module>
         <module>fastboot-web-mqtt-server-example</module>
+        <module>fastboot-web-mqtt-client-example</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
