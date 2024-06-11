@@ -33,7 +33,6 @@
         <dependency>
             <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-mqtt-server</artifactId>
-            <version>2.9.6</version>
         </dependency>
 
         <dependency>
