@@ -10,6 +10,8 @@ import io.github.stylesmile.tool.StringUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -55,12 +57,20 @@ public class BeanFactory {
 //        while (toCreate.size() != 0) {
         int remainSize = toCreate.size();
         putClassToBean(classList);
-        for (int i = 0; i < toCreate.size(); i++) {
-            //创建完，就要移除掉
-            if (finishCreate(toCreate.get(i))) {
-                //toCreate.remove(i);
+        Iterator<Class<?>> iterator = classList.iterator();
+        while (iterator.hasNext()) {
+            Class item = iterator.next();
+            if (finishCreate(item)) {
+                //创建完，就要移除掉
+                toCreate.remove(item);
             }
         }
+//        for (int i = 0; i < toCreate.size(); i++) {
+//            //创建完，就要移除掉
+//            if (finishCreate(toCreate.get(i))) {
+//                //toCreate.remove(i);
+//            }
+//        }
         // todo 陷入循环依赖的死循环，抛出异常
 //        if (toCreate.size() == remainSize) {
 //            toCreate.clear();
@@ -123,12 +133,29 @@ public class BeanFactory {
                     field.set(bean, reliantBean);
                 }
             }
+            Method[] methods = cls.getDeclaredMethods();
+            for (Method method : methods) {
+                //判断方法是否使用了 Bean 注解，如果有，就处理
+                if (method.isAnnotationPresent(Bean.class)) {
+                    try {
+                        method.setAccessible(true);
+                        // bean 注解的方法 返回值 对象
+                        Object result = method.invoke(bean);
+                        // bean 注解的方法 返回值 class 类型
+                        Class<?> returnClassType = method.getReturnType();
+                        BeanContainer.setInstance(returnClassType, result);
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
             addFilter(cls);
             //缓存实例到工厂中
             BeanContainer.setInstance(cls, bean);
         }
         return true;
     }
+
     private static void addFilter(Class<?> cls) {
         if (!cls.isInterface()) {
             Class<?>[] interfaces = cls.getInterfaces();
