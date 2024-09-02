@@ -49,7 +49,7 @@
             <dependency>
                 <groupId>io.minio</groupId>
                 <artifactId>minio</artifactId>
-                <version>8.5.12</version>
+                <version>8.4.3</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
