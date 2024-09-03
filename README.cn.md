@@ -89,7 +89,7 @@ java领域最佳云原生解决方案。
 <parent>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>2.10.0</version>
+    <version>2.10.1</version>
 </parent>
 ```
 
