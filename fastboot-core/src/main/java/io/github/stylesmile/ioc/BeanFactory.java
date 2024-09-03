@@ -53,28 +53,20 @@ public class BeanFactory {
      */
     public static void initBean(List<Class<?>> classList) throws InstantiationException, IllegalAccessException {
         ArrayList<Class<?>> toCreate = new ArrayList<>(classList);
-//        while (toCreate.size() != 0) {
         int remainSize = toCreate.size();
         putClassToBean(classList);
 //        for (Class classes : classList) {
 //            // 初始化 @Value 注解的属性
 //            initValue(classes);
 //        }
-
         Iterator<Class<?>> iterator = classList.iterator();
         while (iterator.hasNext()) {
             Class<?> item = iterator.next();
             if (finishCreate(item)) {
                 //创建完，就要移除掉
-                iterator.remove();
+//                iterator.remove();
             }
         }
-//        for (int i = 0; i < toCreate.size(); i++) {
-//            //创建完，就要移除掉
-//            if (finishCreate(toCreate.get(i))) {
-//                //toCreate.remove(i);
-//            }
-//        }
         // todo 陷入循环依赖的死循环，抛出异常
 //        if (toCreate.size() == remainSize) {
 //            toCreate.clear();

@@ -9,6 +9,7 @@ import io.github.stylesmile.tool.StringUtil;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,12 +31,22 @@ public class HandlerManager {
      * @param classList 类的Class集合
      */
     public static void resolveMappingHandler(List<Class<?>> classList) {
-        for (Class<?> cls : classList) {
+        Iterator<Class<?>> iterator = classList.iterator();
+        while (iterator.hasNext()) {
+            Class<?> cls = iterator.next();
             //判断是否使用了Controller注解
             if (cls.isAnnotationPresent(Controller.class)) {
                 parseHandlerFromController(cls);
+                //创建完，就要移除掉
+                iterator.remove();
             }
         }
+//        for (Class<?> cls : classList) {
+//            //判断是否使用了Controller注解
+//            if (cls.isAnnotationPresent(Controller.class)) {
+//                parseHandlerFromController(cls);
+//            }
+//        }
     }
 
     /**
