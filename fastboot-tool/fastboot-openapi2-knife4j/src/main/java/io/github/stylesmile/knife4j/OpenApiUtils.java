@@ -41,7 +41,7 @@ public class OpenApiUtils {
 //                String url = resourceUri + "?group=" + group;
             }
         }
-        return JsonGsonUtil.BeanToJson(resourceList);
+        return JsonGsonUtil.objectToJson(resourceList);
     }
 
     /**

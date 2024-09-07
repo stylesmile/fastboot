@@ -48,7 +48,7 @@ public class OpenApi3Utils {
 //                String url = resourceUri + "?group=" + group;
             }
         }
-        return JsonGsonUtil.BeanToJson(resourceList);
+        return JsonGsonUtil.objectToJson(resourceList);
     }
 
     /**
@@ -142,6 +142,6 @@ public class OpenApi3Utils {
         swaggerInfo.setInfo(new Info());
         swaggerInfo.setHost("");
         swaggerInfo.setTags(new Tags());
-        return JsonGsonUtil.BeanToJson(swaggerInfo);
+        return JsonGsonUtil.objectToJson(swaggerInfo);
     }
 }
