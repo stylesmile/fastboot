@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 @Fastboot()
 @Controller
 public class MqttClientApplication {
+
     @AutoWired
     private static MqttClient mqttClient;
 
@@ -30,10 +31,10 @@ public class MqttClientApplication {
 
     public static void main(String[] args) {
         App.start(MqttClientApplication.class, args);
-        // 消息订阅，同类方法 subxxx
-        mqttClient.subQos0("/test/1", (context, topic, message, payload) -> {
+        mqttClient.subQos1("/test/1", (context, topic, message, payload) -> {
             System.out.println(topic + '\t' + new String(payload, StandardCharsets.UTF_8));
         });
+        // 消息订阅，同类方法 subxxx
     }
 
     @RequestMapping("/")
@@ -46,16 +47,5 @@ public class MqttClientApplication {
         mqttClient.publish("/test/1", "test".getBytes(StandardCharsets.UTF_8));
         return PropertyUtil.props.getProperty("fast.name");
     }
-
-    @RequestMapping("/2")
-    public String hello2() {
-        return name;
-    }
-
-    @RequestMapping("/3")
-    public String hello3(@RequestParam("name") String name) {
-        return name;
-    }
-
 
 }
