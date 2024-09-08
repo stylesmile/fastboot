@@ -1,0 +1,13 @@
+{
+  "configUrl": "/v3/api-docs/swagger-config",
+  "oauth2RedirectUrl": "http://localhost:8081/swagger-ui/oauth2-redirect.html",
+  "operationsSorter": "alpha",
+  "tagsSorter": "alpha",
+  "urls": [
+    {
+      "url": "/v3/api-docs/default",
+      "name": "default"
+    }
+  ],
+  "validatorUrl": ""
+}

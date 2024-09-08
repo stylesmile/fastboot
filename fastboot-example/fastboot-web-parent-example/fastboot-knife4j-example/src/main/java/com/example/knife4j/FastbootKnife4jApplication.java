@@ -19,9 +19,28 @@ public class FastbootKnife4jApplication {
     }
 
     @Parameter(name = "name", description = "姓名", required = true)
-    @Operation(description = "向客人问好")
+    @Operation(description = "hello方法描述",summary = "hello方法描述")
     @RequestMapping("/hello")
     public String hello(@RequestParam(value = "name") String name) {
         return "Hi:" + name;
     }
+
+//    @RequestMapping("/v3/api-docs/swagger-config")
+//    public String swagger_config(@RequestParam(value = "name") String name) {
+//        return "{\n" +
+//                "    \"configUrl\": \"/v3/api-docs/swagger-config\",\n" +
+//                "    \"oauth2RedirectUrl\": \"http://localhost:8081/swagger-ui/oauth2-redirect.html\",\n" +
+//                "    \"operationsSorter\": \"alpha\",\n" +
+//                "    \"tagsSorter\": \"alpha\",\n" +
+//                "    \"urls\": [\n" +
+//                "        {\n" +
+//                "            \"url\": \"/v3/api-docs/default\",\n" +
+//                "            \"name\": \"default\"\n" +
+//                "        }\n" +
+//                "    ],\n" +
+//                "    \"validatorUrl\": \"\"\n" +
+//                "}";
+//    }
+
+
 }
