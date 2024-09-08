@@ -1,7 +1,9 @@
-package io.github.stylesmile.staticfile;
+package io.github.stylesmile.knife4j;
 
 import io.github.stylesmile.filter.FilterManager;
 import io.github.stylesmile.plugin.Plugin;
+import io.github.stylesmile.staticfile.ResourceUtil;
+import io.github.stylesmile.staticfile.StaticFileFilter;
 
 import java.io.File;
 import java.net.URL;
@@ -12,7 +14,7 @@ import java.util.Map;
 /**
  * @author Stylesmile
  */
-public class StaticFilePluginImp implements Plugin {
+public class Knife4jPluginImp implements Plugin {
     /**
      * 默认静态目录
      */
@@ -38,11 +40,15 @@ public class StaticFilePluginImp implements Plugin {
     @Override
     public void start() {
         try {
-            List<URL> urlList = ResourceUtil.getAllResourceFiles(DEFAULT_STATIC_LOCATION);
-            if (urlList.size() == 0) {
+            List<URL> urlList1 = ResourceUtil.getAllResourceFiles("img/");
+            List<URL> urlList2 = ResourceUtil.getAllResourceFiles("webjars/");
+            List<URL> urlList3 = ResourceUtil.getAllResourceFiles("doc.html");
+            urlList1.addAll(urlList2);
+            urlList1.addAll(urlList3);
+            if (urlList1.size() == 0) {
                 return;
             }
-            findFile(urlList.get(0).toString().substring(6));
+            findFile(urlList1.get(0).toString().substring(6));
             FilterManager.addFilter(StaticFileFilter.class);
         } catch (IllegalAccessException e) {
             System.err.println(String.format("init static error %s ", e.getMessage()));

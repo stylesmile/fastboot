@@ -54,7 +54,7 @@ public class MqttClientConfig {
 
 
     @Bean("MqttClient")
-    public MqttClient test() {
+    public MqttClient getMqttClient() {
         if (StringUtil.isBlank(clientId)) {
             clientId = UUID.randomUUID().toString();
         }

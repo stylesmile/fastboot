@@ -11,6 +11,6 @@
     <modules>
         <module>fastboot-websocket-example</module>
         <module>fastboot-web-login-example</module>
-<!--        <module>fastboot-knife4j-example</module>-->
+        <module>fastboot-knife4j-example</module>
     </modules>
 </project>

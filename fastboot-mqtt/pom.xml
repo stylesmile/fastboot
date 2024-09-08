@@ -19,7 +19,7 @@
         <fast-cloud.version>0.1.0</fast-cloud.version>
     </properties>
     <modules>
-<!--        <module>fastboot-mqtt-client</module>-->
+        <module>fastboot-mqtt-client</module>
         <module>fastboot-mqtt-server</module>
     </modules>
     <dependencyManagement>
