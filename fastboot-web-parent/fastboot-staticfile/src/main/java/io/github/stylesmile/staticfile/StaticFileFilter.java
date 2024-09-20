@@ -5,7 +5,9 @@ import io.github.stylesmile.server.Request;
 import io.github.stylesmile.server.Response;
 import io.github.stylesmile.tool.StringUtil;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URI;
 
 public class StaticFileFilter implements Filter {
@@ -22,7 +24,7 @@ public class StaticFileFilter implements Filter {
             try (FileInputStream fis = new FileInputStream(file)) {
                 byte[] buffer = new byte[fis.available()];
                 fis.read(buffer);
-                response.sendHtml(200,buffer);
+                response.sendHtml(200, buffer);
             } catch (IOException e) {
                 e.printStackTrace();
             }

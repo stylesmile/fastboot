@@ -1,7 +1,6 @@
 package io.github.stylesmile.enjoy;
 
 import com.jfinal.template.Engine;
-import com.jfinal.template.ext.spring.JFinalViewResolver;
 import io.github.stylesmile.ioc.BeanContainer;
 import io.github.stylesmile.plugin.Plugin;
 

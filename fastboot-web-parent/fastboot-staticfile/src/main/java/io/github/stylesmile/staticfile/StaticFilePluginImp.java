@@ -80,6 +80,7 @@ public class StaticFilePluginImp implements Plugin {
 
     /**
      * 递归查询文件
+     *
      * @param folder 文件夹
      * @param length 字符串长度
      */
