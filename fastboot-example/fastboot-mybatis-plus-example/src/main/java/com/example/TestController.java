@@ -6,7 +6,6 @@ import io.github.stylesmile.annotation.Controller;
 import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.ioc.Value;
 import io.github.stylesmile.mybatis.MybatisPlusUtil;
-import jdk.internal.org.objectweb.asm.commons.Method;
 
 import java.util.List;
 

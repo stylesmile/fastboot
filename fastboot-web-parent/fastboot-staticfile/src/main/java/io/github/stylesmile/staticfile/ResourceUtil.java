@@ -1,6 +1,5 @@
 package io.github.stylesmile.staticfile;
 
-import com.sun.org.apache.bcel.internal.util.ClassLoader;
 
 import java.io.IOException;
 import java.net.URL;
