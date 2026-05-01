@@ -1,4 +1,4 @@
-## solon-maven-plugin
+## fastboot-maven-plugin
 
 #### 1.新打包插件配置示例：（打包前先清理下）
 
@@ -8,8 +8,8 @@
 <build>
     <plugins>
         <plugin>
-            <groupId>org.noear</groupId>
-            <artifactId>solon-maven-plugin</artifactId>
+            <groupId>io.github.stylesmile</groupId>
+            <artifactId>fastboot-maven-plugin</artifactId>
         </plugin>
     </plugins>
 </build>
