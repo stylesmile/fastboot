@@ -15,7 +15,7 @@
     <version>${fastboot.version}</version>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
-    <description>mybatis-plus for fastboot</description>
+    <description>MQTT server for fastboot</description>
     <dependencies>
         <dependency>
             <groupId>io.github.stylesmile</groupId>
