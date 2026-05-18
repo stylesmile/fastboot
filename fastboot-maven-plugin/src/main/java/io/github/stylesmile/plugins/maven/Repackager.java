@@ -21,17 +21,55 @@ import static io.github.stylesmile.plugins.maven.tools.Constant.*;
 
 
 /**
+ * JAR 重新打包器。
+ * <p>
+ * 该类负责将普通的 JAR 文件重新打包为可执行的 Fat JAR，包括：
+ * <ul>
+ *     <li>自动检测并配置启动类（通过 @Fastboot 注解）</li>
+ *     <li>嵌入所有依赖库到 JAR 文件中</li>
+ *     <li>生成正确的 MANIFEST.MF 文件</li>
+ *     <li>重命名应用类以避免与依赖冲突</li>
+ * </ul>
+ * <p>
+ * 使用示例：
+ * <pre>{@code
+ * File sourceJar = new File("myapp.jar");
+ * Repackager repackager = new Repackager(sourceJar, logger);
+ * repackager.repackage(new File("myapp-exec.jar"), libraries);
+ * }</pre>
+ *
  * @author hxm
+ * @since 2.10.0
  */
 public class Repackager {
 
+    /**
+     * ZIP 文件头标识字节（PK\x03\x04）。
+     */
     private static final byte[] ZIP_FILE_HEADER = new byte[]{'P', 'K', 3, 4};
 
+    /**
+     * 源 JAR 文件。
+     */
     private final File source;
 
+    /**
+     * JAR 布局策略，决定类和库的存放位置。
+     */
     private Layout layout;
+    
+    /**
+     * Maven 日志记录器。
+     */
     private Log logger;
 
+    /**
+     * 创建 Repackager 实例。
+     *
+     * @param source 源 JAR 文件，必须存在且为文件类型
+     * @param logger Maven 日志记录器
+     * @throws IllegalArgumentException 如果源文件为空或不存在
+     */
     public Repackager(File source, Log logger) {
         this.logger = logger;
         if (source == null) {
@@ -45,12 +83,19 @@ public class Repackager {
     }
 
     /**
-     * Repackage to the given destination so that it can be launched using '
-     * {@literal java -jar}'.
+     * 重新打包 JAR 文件，使其可以通过 'java -jar' 命令直接运行。
+     * <p>
+     * 该方法会：
+     * <ol>
+     *     <li>验证目标文件和依赖库参数</li>
+     *     <li>检查是否已经重新打包过</li>
+     *     <li>备份原始文件（如果需要）</li>
+     *     <li>执行实际的重新打包操作</li>
+     * </ol>
      *
-     * @param destination the destination file (may be the same as the source)
-     * @param libraries   the libraries required to run the archive
-     * @throws IOException if the file cannot be repackaged
+     * @param destination 目标文件（可以与源文件相同）
+     * @param libraries   运行所需的依赖库列表
+     * @throws IOException 如果重新打包失败
      */
     public void repackage(File destination, Libraries libraries) throws IOException {
         if (destination == null || destination.isDirectory()) {
@@ -81,19 +126,36 @@ public class Repackager {
         }
     }
 
+    /**
+     * 获取布局工厂实例。
+     * <p>
+     * 默认使用 {@link DefaultLayoutFactory}，可以根据需要扩展自定义布局策略。
+     *
+     * @return 布局工厂实例
+     */
     private LayoutFactory getLayoutFactory() {
         return new DefaultLayoutFactory();
     }
 
     /**
-     * Return the {@link File} to use to backup the original source.
+     * 返回用于备份原始源文件的文件对象。
+     * <p>
+     * 备份文件名为原文件名 + ".original" 后缀，位于同一目录下。
      *
-     * @return the file to use to backup the original source
+     * @return 备份文件的 File 对象
      */
     public final File getBackupFile() {
         return new File(this.source.getParentFile(), this.source.getName() + ".original");
     }
 
+    /**
+     * 检查源文件是否已经被重新打包过。
+     * <p>
+     * 通过检查 MANIFEST.MF 中是否存在特定的标记属性来判断。
+     *
+     * @return 如果已经重新打包过则返回 true
+     * @throws IOException 如果读取 JAR 文件失败
+     */
     private boolean alreadyRepackaged() throws IOException {
         JarFile jarFile = new JarFile(this.source);
         try {
@@ -197,6 +259,21 @@ public class Repackager {
     }
 
 
+    /**
+     * 扫描 JAR 文件中的所有类，查找带有 @Fastboot 注解的启动类。
+     * <p>
+     * 该方法会：
+     * <ol>
+     *     <li>加载备份的 JAR 文件</li>
+     *     <li>遍历所有 .class 文件</li>
+     *     <li>检查每个类是否有 @Fastboot 注解</li>
+     *     <li>返回第一个找到的启动类全限定名</li>
+     * </ol>
+     *
+     * @return 启动类的全限定名
+     * @throws IOException 如果找不到启动类或读取 JAR 失败
+     * @throws IllegalStateException 如果没有找到带 @Fastboot 注解的类
+     */
     private String getStartClass() throws IOException {
         ClassPool pool = ClassPool.getDefault();
         File f = getBackupFile();

@@ -16,25 +16,52 @@ import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 
 /**
- * Writes JAR content, ensuring valid directory entries are always create and duplicate
- * items are ignored.
+ * JAR 文件写入器。
+ * <p>
+ * 该类负责将内容写入 JAR 文件，确保：
+ * <ul>
+ *     <li>始终创建有效的目录条目</li>
+ *     <li>忽略重复的条目</li>
+ *     <li>正确处理嵌套库文件</li>
+ *     <li>维护正确的 CRC 校验和</li>
+ * </ul>
+ * <p>
+ * 使用示例：
+ * <pre>{@code
+ * JarWriter writer = new JarWriter(new File("output.jar"));
+ * writer.writeManifest(manifest);
+ * writer.writeEntries(sourceJar);
+ * writer.writeNestedLibrary("BOOT-INF/lib/", library);
+ * writer.close();
+ * }</pre>
  *
  * @author Phillip Webb
  * @author Andy Wilkinson
+ * @since 2.10.0
  */
 public class JarWriter {
 
+	/**
+	 * 缓冲区大小（32 KB）。
+	 */
 	private static final int BUFFER_SIZE = 32 * 1024;
 
+	/**
+	 * JAR 输出流。
+	 */
 	private final JarOutputStream jarOutput;
 
+	/**
+	 * 已写入的条目集合，用于避免重复写入。
+	 */
 	private final Set<String> writtenEntries = new HashSet<String>();
 
 	/**
-	 * Create a new {@link JarWriter} instance.
-	 * @param file the file to write
-	 * @throws IOException if the file cannot be opened
-	 * @throws FileNotFoundException if the file cannot be found
+	 * 创建新的 JarWriter 实例。
+	 *
+	 * @param file 要写入的文件
+	 * @throws FileNotFoundException 如果文件找不到
+	 * @throws IOException           如果文件无法打开
 	 */
 	public JarWriter(File file) throws FileNotFoundException, IOException {
 		FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -42,9 +69,10 @@ public class JarWriter {
 	}
 
 	/**
-	 * Write the specified manifest.
-	 * @param manifest the manifest to write
-	 * @throws IOException of the manifest cannot be written
+	 * 写入指定的 MANIFEST.MF 文件。
+	 *
+	 * @param manifest 要写入的清单对象
+	 * @throws IOException 如果清单无法写入
 	 */
 	public void writeManifest(final Manifest manifest) throws IOException {
 		JarEntry entry = new JarEntry("META-INF/MANIFEST.MF");
@@ -57,9 +85,10 @@ public class JarWriter {
 	}
 
 	/**
-	 * Write all entries from the specified jar file.
-	 * @param jarFile the source jar file
-	 * @throws IOException if the entries cannot be written
+	 * 从指定的 JAR 文件中写入所有条目。
+	 *
+	 * @param jarFile 源 JAR 文件
+	 * @throws IOException 如果条目无法写入
 	 */
 	public void writeEntries(JarFile jarFile) throws IOException {
 		this.writeEntries(jarFile, new IdentityEntryTransformer());
@@ -92,10 +121,13 @@ public class JarWriter {
 	}
 
 	/**
-	 * Write a nested library.
-	 * @param destination the destination of the library
-	 * @param library the library
-	 * @throws IOException if the write fails
+	 * 写入嵌套的依赖库文件。
+	 * <p>
+	 * 该方法会设置正确的文件时间戳，并为需要解压的库添加注释标记。
+	 *
+	 * @param destination 库的目标路径（例如：BOOT-INF/lib/）
+	 * @param library     要写入的库对象
+	 * @throws IOException 如果写入失败
 	 */
 	public void writeNestedLibrary(String destination, Library library)
 			throws IOException {
@@ -132,19 +164,27 @@ public class JarWriter {
 	}
 
 	/**
-	 * Close the writer.
-	 * @throws IOException if the file cannot be closed
+	 * 关闭写入器，释放资源。
+	 *
+	 * @throws IOException 如果文件无法关闭
 	 */
 	public void close() throws IOException {
 		this.jarOutput.close();
 	}
 
 	/**
-	 * Perform the actual write of a {@link JarEntry}. All other {@code write} method
-	 * delegate to this one.
-	 * @param entry the entry to write
-	 * @param entryWriter the entry writer or {@code null} if there is no content
-	 * @throws IOException in case of I/O errors
+	 * 执行实际的 JAR 条目写入操作。所有其他 write 方法都委托给此方法。
+	 * <p>
+	 * 该方法会：
+	 * <ol>
+	 *     <li>确保父目录条目存在</li>
+	 *     <li>检查是否已经写入过该条目（避免重复）</li>
+	 *     <li>写入条目内容</li>
+	 * </ol>
+	 *
+	 * @param entry       要写入的条目
+	 * @param entryWriter 条目写入器，如果无内容则为 null
+	 * @throws IOException 如果发生 I/O 错误
 	 */
 	private void writeEntry(JarEntry entry, EntryWriter entryWriter) throws IOException {
 		String parent = entry.getName();
