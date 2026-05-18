@@ -48,5 +48,10 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.github.stylesmile</groupId>
+            <artifactId>fastboot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

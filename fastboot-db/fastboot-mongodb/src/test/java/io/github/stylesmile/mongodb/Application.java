@@ -1,4 +1,4 @@
-package io.github.stylesmile.mybatis;
+package io.github.stylesmile.mongodb;
 
 
 import io.github.stylesmile.annotation.Fastboot;

@@ -1,6 +1,7 @@
 package io.github.stylesmile.mybatis;
 
 
+import io.github.stylesmile.annotation.Fastboot;
 import io.github.stylesmile.app.App;
 
 /**
@@ -8,6 +9,7 @@ import io.github.stylesmile.app.App;
  *
  * @author stylesmile
  */
+@Fastboot
 public class Application {
     public static void main(String[] args) {
         App.start(Application.class, args);

@@ -22,15 +22,18 @@ public class PropertyUtil {
                 clazz = PropertyUtil.class;
             }
             //<!--第一种，通过类加载器进行获取properties文件流-->
+            if (path == null || path.isEmpty()) {
+                path = "application.properties";
+            }
             String propertiesPath = clazz.getProtectionDomain().getCodeSource().getLocation().getFile();
-            if (propertiesPath.contains("/target/classes")) {
+            if (propertiesPath != null && propertiesPath.contains("/target/classes")) {
                 in = new FileInputStream(propertiesPath + path);
             } else {
                 in = clazz.getClassLoader().getResourceAsStream(path);
             }
             if (in == null) {
                 System.err.println("application.properties " + "文件未找到");
-                props.setProperty("server.port=8080", "8080");
+                props.setProperty("server.port", "8080");
             } else {
                 props.load(in);
             }
@@ -60,6 +63,9 @@ public class PropertyUtil {
                 }
                 if (in == null && StringUtil.isEmpty(port)) {
                     System.err.println("application.properties " + "文件未找到");
+                    if (props == null) {
+                        props = new Properties();
+                    }
                     props.setProperty("server.port", "8080");
                 } else {
                     props.load(in);

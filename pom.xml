@@ -26,6 +26,7 @@
         <module>fastboot-tool</module>
         <module>fastboot-mqtt</module>
         <module>fastboot-maven-plugin</module>
+        <module>fastboot-test</module>
         <!--        <module>fastboot-example</module>-->
     </modules>
     <dependencyManagement>
@@ -113,6 +114,11 @@
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
                 <artifactId>fastboot-aop</artifactId>
+                <version>${fastboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.stylesmile</groupId>
+                <artifactId>fastboot-test</artifactId>
                 <version>${fastboot.version}</version>
             </dependency>
 

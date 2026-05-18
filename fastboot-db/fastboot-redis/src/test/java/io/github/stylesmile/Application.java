@@ -2,6 +2,7 @@ package io.github.stylesmile;
 
 
 import io.github.stylesmile.annotation.AutoWired;
+import io.github.stylesmile.annotation.Fastboot;
 import io.github.stylesmile.app.App;
 import io.github.stylesmile.jedis.JedisTemplate;
 
@@ -11,6 +12,7 @@ import io.github.stylesmile.jedis.JedisTemplate;
  *
  * @author stylesmile
  */
+@Fastboot
 public class Application {
     @AutoWired
     JedisTemplate jedisTemplate;
