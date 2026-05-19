@@ -11,11 +11,38 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
-    <artifactId>fast-cloud-nacos</artifactId>
+    <artifactId>fast-cloud-gateway</artifactId>
     <version>${fast-cloud.version}</version>
-    <name>fast-cloud-nacos</name>
+    <name>fast-cloud-gateway</name>
     <packaging>jar</packaging>
-    <description>redis for fastboot</description>
+    <description>API Gateway for fastboot</description>
+    <url>https://github.com/stylesmile/fastboot</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>stylesmile</id>
+            <name>Stylesmile</name>
+            <email>3239866994@qq.com</email>
+            <roles>
+                <role>Project Manager</role>
+                <role>Architect</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>https://github.com/stylesmile/fastboot.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:stylesmile/fastboot.git</developerConnection>
+        <url>https://github.com/stylesmile/fastboot</url>
+    </scm>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -24,24 +51,29 @@
         <dependency>
             <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-core</artifactId>
+            <version>2.12.1</version>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.nacos</groupId>
-            <artifactId>nacos-client</artifactId>
+            <groupId>io.github.stylesmile</groupId>
+            <artifactId>fastboot-web</artifactId>
+            <version>2.12.1</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
         </dependency>
         <!-- Test dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.github.stylesmile</groupId>
             <artifactId>fastboot-test</artifactId>
+            <version>2.12.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
