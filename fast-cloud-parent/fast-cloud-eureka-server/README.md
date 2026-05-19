@@ -17,7 +17,7 @@ FastBoot 框架的 Eureka 服务注册中心插件。
 <dependency>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fast-cloud-eureka-server</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.1</version>
 </dependency>
 ```
 

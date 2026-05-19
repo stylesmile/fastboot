@@ -19,7 +19,7 @@ FastBoot 框架的 Nacos 配置管理插件，提供动态配置管理服务。
 <dependency>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fast-cloud-nacos</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.1</version>
 </dependency>
 ```
 

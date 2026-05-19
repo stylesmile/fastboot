@@ -17,7 +17,7 @@ FastBoot 框架的 Eureka 客户端插件，用于服务注册与发现。
 <dependency>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fast-cloud-eureka-client</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.1</version>
 </dependency>
 ```
 

@@ -19,7 +19,7 @@ FastBoot 框架的 Zookeeper 分布式协调插件，提供服务发现、配置
 <dependency>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fast-cloud-zookeeper</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.1</version>
 </dependency>
 ```
 

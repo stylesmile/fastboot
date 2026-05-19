@@ -21,7 +21,7 @@ FastBoot 框架的 API 网关插件，提供路由、限流、认证等网关功
 <dependency>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fast-cloud-gateway</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.1</version>
 </dependency>
 ```
 

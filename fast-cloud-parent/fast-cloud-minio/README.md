@@ -19,7 +19,7 @@ FastBoot 框架的 Minio 对象存储插件，提供文件上传、下载和管�
 <dependency>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fast-cloud-minio</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.1</version>
 </dependency>
 ```
 
