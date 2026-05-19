@@ -24,6 +24,7 @@
         <module>fastboot-web-mqtt-server-example</module>
         <module>fastboot-web-mqtt-client-example</module>
         <module>fastboot-web-plugin-example</module>
+        <module>fastboot-web-knife4j-example</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

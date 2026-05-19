@@ -1,9 +1,9 @@
 package io.github.stylesmile.knife4j.openapi3;
 
-import io.github.stylesmile.knife4j.openapi.SwaggerParameter;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -16,21 +16,21 @@ public class Openapi3MethodInfo {
      */
     private Set<String> tags;
     /**
-     * 描述
+     * 简短描述
      */
     private String summary;
     /**
-     * 描述
+     * 详细描述
      */
     private String description;
     private String operationId = "index";
     /**
-     * 参数
+     * 参数列表
      */
-    private List<SwaggerParameter> parameters;
+    private List<OpenApi3Parameter> parameters;
     /**
-     * 返回值
+     * 返回值 - OpenAPI3 规范要求是 Map
      */
-    private List<Object> responses;
+    private Map<String, Object> responses;
 
 }

@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 public class Info {
     private String title = "OpenAPI definition";
     private String version = "v0";
+    private String description = "FastBoot API Documentation";
 }

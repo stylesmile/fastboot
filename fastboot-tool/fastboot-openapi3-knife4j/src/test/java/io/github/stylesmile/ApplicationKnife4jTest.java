@@ -2,6 +2,7 @@ package io.github.stylesmile;
 
 
 import io.github.stylesmile.annotation.Controller;
+import io.github.stylesmile.annotation.Fastboot;
 import io.github.stylesmile.annotation.RequestMapping;
 import io.github.stylesmile.app.App;
 
@@ -12,6 +13,7 @@ import java.io.IOException;
  *
  * @author stylesmile
  */
+@Fastboot(scanPackage = "io.github.stylesmile")
 @Controller
 public class ApplicationKnife4jTest {
 

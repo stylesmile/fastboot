@@ -36,6 +36,23 @@ public class MockRequest {
     }
 
     /**
+     * Create a GET request with query parameters.
+     * Example: MockRequest.get("/api/users", "page", "1", "size", "10")
+     */
+    public static MockRequest get(String uri, String... queryParams) {
+        MockRequest request = new MockRequest();
+        request.method = "GET";
+        request.uri = uri;
+        // Parse query parameters (key-value pairs)
+        for (int i = 0; i < queryParams.length; i += 2) {
+            if (i + 1 < queryParams.length) {
+                request.params.put(queryParams[i], queryParams[i + 1]);
+            }
+        }
+        return request;
+    }
+
+    /**
      * Create a POST request to the given URI.
      */
     public static MockRequest post(String uri) {

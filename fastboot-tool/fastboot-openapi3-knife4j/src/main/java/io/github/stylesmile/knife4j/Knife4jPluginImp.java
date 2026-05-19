@@ -3,15 +3,16 @@ package io.github.stylesmile.knife4j;
 import io.github.stylesmile.filter.FilterManager;
 import io.github.stylesmile.plugin.Plugin;
 import io.github.stylesmile.staticfile.ResourceUtil;
-import io.github.stylesmile.staticfile.StaticFileFilter;
 
-import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * Knife4j 静态资源插件实现
+ * 负责加载和映射 knife4j-openapi3-ui 的静态资源
+ * 
  * @author Stylesmile
  */
 public class Knife4jPluginImp implements Plugin {
@@ -20,10 +21,16 @@ public class Knife4jPluginImp implements Plugin {
      */
     public static final String DEFAULT_STATIC_LOCATION = "static/";
     /**
-     * 文件映射关系
+     * 文件映射关系 (URL路径 -> 资源路径)
      */
     public final static Map<String, String> FILE_MAPPING = new HashMap<>();
 
+    /**
+     * 根据 URL 路径获取资源路径
+     * 
+     * @param key URL 路径（如 /doc.html）
+     * @return 资源路径
+     */
     public static String get(String key) {
         String[] chars = key.split("");
         StringBuffer stringBuffer = new StringBuffer();
@@ -40,22 +47,27 @@ public class Knife4jPluginImp implements Plugin {
     @Override
     public void start() {
         try {
-            List<URL> urlList1 = ResourceUtil.getAllResourceFiles("img/");
-            List<URL> urlList2 = ResourceUtil.getAllResourceFiles("webjars/");
-            List<URL> urlList3 = ResourceUtil.getAllResourceFiles("doc.html");
-            urlList1.addAll(urlList2);
-            urlList1.addAll(urlList3);
-            if (urlList1.size() == 0) {
+            System.out.println("Loading knife4j static resources...");
+            
+            // 检查是否有 knife4j 资源
+            List<URL> urlList = ResourceUtil.getAllResourceFiles("META-INF/resources/doc.html");
+            
+            if (urlList.size() == 0) {
+                System.out.println("Warning: knife4j static resources not found in classpath");
                 return;
             }
-            findFile(urlList1.get(0).toString().substring(6));
-            FilterManager.addFilter(StaticFileFilter.class);
-        } catch (IllegalAccessException e) {
-            System.err.println(String.format("init static error %s ", e.getMessage()));
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            System.err.println(String.format("init static error %s ", e.getMessage()));
-            throw new RuntimeException(e);
+            
+            System.out.println("Found knife4j resources: " + urlList.size() + " location(s)");
+            for (URL url : urlList) {
+                System.out.println("  - " + url.toString());
+            }
+            
+            // 添加 Knife4j 资源过滤器（支持从 JAR 包加载资源）
+            FilterManager.addFilter(Knife4jResourceFilter.class);
+            System.out.println("Knife4j resource filter registered successfully");
+        } catch (Exception e) {
+            System.err.println(String.format("Failed to initialize knife4j resources: %s", e.getMessage()));
+            e.printStackTrace();
         }
     }
 
@@ -69,38 +81,5 @@ public class Knife4jPluginImp implements Plugin {
     @Override
     public void end() {
 
-    }
-
-    /**
-     * 查找文件，
-     *
-     * @param folderPath 文件路径
-     */
-    public static void findFile(String folderPath) {
-        // 指定文件夹路径
-        // 创建File对象
-        File folder = new File(folderPath);
-        // 获取文件夹下的所有文件和文件夹
-        printFileNames(folder, folderPath.length() - 1);
-    }
-
-    /**
-     * 递归查询文件
-     * @param folder 文件夹
-     * @param length 字符串长度
-     */
-    public static void printFileNames(File folder, int length) {
-        // 获取文件夹下的所有文件和文件夹
-        File[] listOfFiles = folder.listFiles();
-        // 遍历并打印文件名
-        for (File file : listOfFiles) {
-            if (file.isDirectory()) {
-                // 递归调用该方法，继续获取子文件夹中的文件名
-                printFileNames(file, length);
-            } else if (file.isFile()) {
-                FILE_MAPPING.put(file.getPath().substring(length)
-                        , file.getPath());
-            }
-        }
     }
 }

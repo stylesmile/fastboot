@@ -1,7 +1,12 @@
 ### todo 
+
+
+
+
+### 2.12.0
 knif4j集成
+### 2.11.0
 单元测试框架集成
-多环节区分配置文件集成
 fastboot-maven-plugin
 ### 2.10.0
 支持mqtt server

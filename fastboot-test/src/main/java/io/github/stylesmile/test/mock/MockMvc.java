@@ -92,6 +92,14 @@ public class MockMvc {
     }
 
     /**
+     * Perform a GET request with query parameters.
+     * Example: mockMvc.get("/api/users", "page", "1", "size", "10")
+     */
+    public MockMvcResult get(String uri, String... queryParams) {
+        return perform(MockRequest.get(uri, queryParams));
+    }
+
+    /**
      * Perform a POST request.
      */
     public MockMvcResult post(String uri) {

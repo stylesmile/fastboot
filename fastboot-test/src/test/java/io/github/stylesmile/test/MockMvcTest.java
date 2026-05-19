@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static io.github.stylesmile.test.util.AssertUtils.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test for MockMvc functionality.
@@ -45,6 +46,18 @@ public class MockMvcTest {
         assertNotNull(postResult);
         assertNotNull(putResult);
         assertNotNull(deleteResult);
+    }
+
+    @Test
+    public void testGetWithQueryParameters() {
+        // Test GET with query parameters
+        MockMvcResult result = mockMvc.get("/test", "page", "1", "size", "10");
+        
+        assertNotNull(result);
+        assertNotNull(result.getRequest());
+        // Verify query parameters are set
+        assertEquals("1", result.getRequest().getParams().get("page"));
+        assertEquals("10", result.getRequest().getParams().get("size"));
     }
 
     @Test
