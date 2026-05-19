@@ -77,6 +77,40 @@ java领域最佳云原生解决方案。
 
 ##### 快速开始 [example](fastboot-example/fastboot-web-example)
 
+### 云原生模块
+
+FastBoot 提供了一系列云原生模块，帮助企业快速构建微服务架构：
+
+#### [Nacos 配置管理](fast-cloud-parent/fast-cloud-nacos/README.md)
+- 动态配置管理
+- 配置实时更新
+- 多环境配置支持
+
+#### [Minio 对象存储](fast-cloud-parent/fast-cloud-minio/README.md)
+- 文件上传/下载
+- 存储桶管理
+- 文件预览
+
+#### [Eureka Server 服务注册中心](fast-cloud-parent/fast-cloud-eureka-server/README.md)
+- 提供服务注册中心
+- 支持多实例集群
+- Web 管理界面
+
+#### [Eureka Client 服务发现](fast-cloud-parent/fast-cloud-eureka-client/README.md)
+- 自动服务注册
+- 服务发现
+- 健康检查
+
+#### [Zookeeper 分布式协调](fast-cloud-parent/fast-cloud-zookeeper/README.md)
+- 服务注册与发现
+- 分布式配置管理
+- 分布式锁
+
+#### [Gateway API 网关](fast-cloud-parent/fast-cloud-gateway/README.md)
+- 动态路由配置
+- 请求过滤与拦截
+- 负载均衡
+
 ### 开发规范
 
 #### [1.java编码的基本规范](doc/应用开发手册/开发规范/1.java编码的基本规范.md)

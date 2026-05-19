@@ -78,6 +78,40 @@ Application Development Manual：[visit](doc/应用开发手册/应用开发手�
 
 ##### Quickly start [example](fastboot-example/fastboot-web-example)
 
+### Cloud Native Modules
+
+FastBoot provides a series of cloud-native modules to help enterprises quickly build microservice architectures:
+
+#### [Nacos Configuration Management](fast-cloud-parent/fast-cloud-nacos/README.md)
+- Dynamic configuration management
+- Real-time configuration updates
+- Multi-environment configuration support
+
+#### [Minio Object Storage](fast-cloud-parent/fast-cloud-minio/README.md)
+- File upload/download
+- Bucket management
+- File preview
+
+#### [Eureka Server Service Registry](fast-cloud-parent/fast-cloud-eureka-server/README.md)
+- Provide service registry
+- Support multi-instance cluster
+- Web management interface
+
+#### [Eureka Client Service Discovery](fast-cloud-parent/fast-cloud-eureka-client/README.md)
+- Automatic service registration
+- Service discovery
+- Health check
+
+#### [Zookeeper Distributed Coordination](fast-cloud-parent/fast-cloud-zookeeper/README.md)
+- Service registration and discovery
+- Distributed configuration management
+- Distributed lock
+
+#### [Gateway API Gateway](fast-cloud-parent/fast-cloud-gateway/README.md)
+- Dynamic route configuration
+- Request filtering and interception
+- Load balancing
+
 ### Development specifications
 
 #### [1.Basic specifications for Java coding](doc/应用开发手册/开发规范/1.java编码的基本规范.md)

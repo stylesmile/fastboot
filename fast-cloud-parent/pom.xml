@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fast-cloud-parent</artifactId>
-    <version>0.5.0</version>
+    <version>0.5.1</version>
     <name>fast-cloud-parent</name>
     <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
-        <fast-cloud.version>0.5.0</fast-cloud.version>
-        <fast-boot.version>0.5.0</fast-boot.version>
+        <fast-cloud.version>0.5.1</fast-cloud.version>
+        <fast-boot.version>2.12.1</fast-boot.version>
     </properties>
     <modules>
         <module>fast-cloud-nacos</module>
