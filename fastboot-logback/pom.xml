@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
         <groupId>io.github.stylesmile</groupId>
         <artifactId>fastboot-parent</artifactId>
-        <version>2.10.3</version>
+        <version>2.11.1</version>
         <!--        <relativePath>../pom.xml</relativePath>-->
     </parent>
 
@@ -16,6 +16,33 @@
     <name>fastboot-logback</name>
     <packaging>jar</packaging>
     <description>log for fastboot</description>
+    <url>https://github.com/stylesmile/fastboot</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>stylesmile</id>
+            <name>Stylesmile</name>
+            <email>3239866994@qq.com</email>
+            <roles>
+                <role>Project Manager</role>
+                <role>Architect</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>https://github.com/stylesmile/fastboot.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:stylesmile/fastboot.git</developerConnection>
+        <url>https://github.com/stylesmile/fastboot</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -29,3 +56,4 @@
         </dependency>
     </dependencies>
 </project>
+
