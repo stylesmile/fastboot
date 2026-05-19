@@ -2,26 +2,53 @@ package io.github.stylesmile.minio;
 
 import io.github.stylesmile.tool.PropertyUtil;
 import io.minio.MinioClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ * Minio 配置类
+ * 
+ * @author Stylesmile
+ */
 public class MinioConfig {
+    
+    private static final Logger logger = LoggerFactory.getLogger(MinioConfig.class);
+    
     /**
      * 获取 minio 客户端
      *
-     * @return MinioClient
+     * @return MinioClient，如果配置错误则返回 null
      */
     public static MinioClient getMinioClient() {
-        MinioClient minioClient = null;
         try {
             String endpoint = PropertyUtil.getProperty("minio.endpoint");
             String accessKey = PropertyUtil.getProperty("minio.accessKey");
             String secretKey = PropertyUtil.getProperty("minio.secretKey");
-            minioClient = MinioClient.builder()
+            
+            // 验证必需的配置
+            if (endpoint == null || endpoint.isEmpty()) {
+                logger.warn("Minio endpoint not configured");
+                return null;
+            }
+            if (accessKey == null || accessKey.isEmpty()) {
+                logger.warn("Minio access key not configured");
+                return null;
+            }
+            if (secretKey == null || secretKey.isEmpty()) {
+                logger.warn("Minio secret key not configured");
+                return null;
+            }
+            
+            logger.info("Connecting to Minio server: {}", endpoint);
+            MinioClient minioClient = MinioClient.builder()
                     .endpoint(endpoint)
                     .credentials(accessKey, secretKey)
                     .build();
+            logger.info("Minio client initialized successfully");
+            return minioClient;
         } catch (Exception e) {
-            System.err.println("minio 配置错误" + e.getMessage());
+            logger.error("Failed to initialize Minio client", e);
+            return null;
         }
-        return minioClient;
     }
 }

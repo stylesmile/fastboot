@@ -4,17 +4,19 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fast-cloud-parent</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
     <name>fast-cloud-parent</name>
     <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
-        <fast-cloud.version>0.3.0</fast-cloud.version>
+        <fast-cloud.version>0.4.0</fast-cloud.version>
     </properties>
     <modules>
         <!--		<module>fast-cloud-zookeeper</module>-->
         <module>fast-cloud-nacos</module>
         <module>fast-cloud-minio</module>
+        <module>fast-cloud-eureka-server</module>
+        <module>fast-cloud-eureka-client</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -26,6 +28,16 @@
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
                 <artifactId>fast-cloud-minio</artifactId>
+                <version>${fast-cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.stylesmile</groupId>
+                <artifactId>fast-cloud-eureka-server</artifactId>
+                <version>${fast-cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.stylesmile</groupId>
+                <artifactId>fast-cloud-eureka-client</artifactId>
                 <version>${fast-cloud.version}</version>
             </dependency>
 
