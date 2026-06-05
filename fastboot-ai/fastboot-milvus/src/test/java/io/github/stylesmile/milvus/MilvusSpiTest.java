@@ -7,7 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static io.github.stylesmile.test.util.AssertUtils.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Verify SPI registration for MilvusPlugin.

@@ -7,7 +7,8 @@ import org.junit.Test;
 
 import java.util.Properties;
 
-import static org.junit.Assert.*;
+import static io.github.stylesmile.test.util.AssertUtils.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Unit tests for MilvusConfig.
@@ -31,6 +32,7 @@ public class MilvusConfigTest {
     public void testDefaultConnectionConfig() {
         MilvusConfig config = MilvusConfig.load();
 
+        assertNotNull("MilvusConfig should not be null", config);
         assertEquals("localhost", config.getHost());
         assertEquals(19530, config.getPort());
         assertEquals("default", config.getDatabaseName());

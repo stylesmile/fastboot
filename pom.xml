@@ -27,6 +27,7 @@
         <module>fastboot-mqtt</module>
         <module>fastboot-maven-plugin</module>
         <module>fastboot-test</module>
+        <module>fastboot-ai</module>
         <!--        <module>fastboot-example</module>-->
     </modules>
     <dependencyManagement>
