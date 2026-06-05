@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-ai</artifactId>
-    <version>${fastboot.version}</version>
+    <version>2.12.1</version>
     <name>fastboot-ai</name>
     <packaging>pom</packaging>
     <description>ai integrations for fastboot</description>
