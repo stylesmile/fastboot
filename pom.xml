@@ -350,6 +350,16 @@
 
     </repositories>
     <pluginRepositories>
+        <!-- 腾讯仓库 -->
+        <pluginRepository>
+            <id>tencent-maven</id>
+            <url>https://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+        </pluginRepository>
+        <!-- maven 官方仓库-->
+        <pluginRepository>
+            <id>maven1</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </pluginRepository>
         <pluginRepository>
             <id>ali</id>
             <url>https://maven.aliyun.com/repository/public</url>
