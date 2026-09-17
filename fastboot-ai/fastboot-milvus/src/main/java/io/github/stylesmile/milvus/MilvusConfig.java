@@ -42,10 +42,7 @@ public class MilvusConfig {
                 .withHost(host)
                 .withPort(port);
         if (isNotBlank(username)) {
-            builder.withUsername(username);
-        }
-        if (isNotBlank(password)) {
-            builder.withPassword(password);
+            builder.withAuthorization(username, password);
         }
         if (isNotBlank(databaseName)) {
             builder.withDatabaseName(databaseName);
