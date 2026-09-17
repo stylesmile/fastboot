@@ -10,5 +10,6 @@
     <modules>
 <!--        <module>fastboot-aop-example</module>-->
         <module>fastboot-captcha</module>
+        <module>fastboot-flyway-example</module>
     </modules>
 </project>
