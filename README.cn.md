@@ -123,7 +123,7 @@ FastBoot 提供了一系列云原生模块，帮助企业快速构建微服务�
 <parent>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>2.12.1</version>
+    <version>2.12.2</version>
 </parent>
 ```
 

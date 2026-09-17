@@ -124,7 +124,7 @@ FastBoot provides a series of cloud-native modules to help enterprises quickly b
 <parent>
     <groupId>io.github.stylesmile</groupId>
     <artifactId>fastboot-parent</artifactId>
-    <version>2.12.1</version>
+    <version>2.12.2</version>
 </parent>
 ```
 

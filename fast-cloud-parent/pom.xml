@@ -10,7 +10,7 @@
     <properties>
         <java.version>1.8</java.version>
         <fast-cloud.version>0.5.1</fast-cloud.version>
-        <fast-boot.version>2.12.1</fast-boot.version>
+        <fast-boot.version>2.12.2</fast-boot.version>
     </properties>
     <modules>
         <module>fast-cloud-nacos</module>
@@ -57,7 +57,7 @@
             <dependency>
                 <groupId>io.github.stylesmile</groupId>
                 <artifactId>fastboot-parent</artifactId>
-                <version>2.12.1</version>
+                <version>2.12.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
